@@ -266,6 +266,7 @@ footer span{color:var(--text2)}
     <a href="#exa_live">Live EXA</a>
     <a href="#vna_cal">VNA Phase Cal</a>
     <a href="#rct_setup">RCT Setup</a>
+    <a href="#noisefigure">Noise Figure</a>
     <a href="#expertvideos">Videos</a>
     <a href="#rfchain">RF Chain</a>
     <a href="#rssi_david">RSSI/ADC</a>
@@ -5723,6 +5724,152 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
 </div>
 </div>
 </div><!-- end rct_setup section -->
+
+<!-- ═══════════════ NOISE FIGURE MODULE ═══════════════ -->
+<div class="div-line"></div>
+<div id="noisefigure" class="sec">
+  <div class="sec-hdr">
+    <div class="badge c">NF</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#a0c8ff">Understanding Noise Figure — Complete Guide</h2>
+      <p>From your PDF by Iulian Rosu YO3DAC/VA3IUL · Thermal noise · kTB · −174 dBm/Hz · Friis cascade · All 5 noise types · Applied to your LNA/RU/EXA · <a href="https://github.com/pardha-saradhi411/rf-lab-guide/blob/main/docs/Understanding%20Noise%20Figure%20-%20Understanding%20Noise%20Figure.pdf" target="_blank" style="color:#f5a623">📄 PDF in repo</a></p>
+    </div>
+  </div>
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NF1</span>
+  <span class="mod-title">Thermal noise — kTB, −174 dBm/Hz, Johnson-Nyquist noise, noise voltage formula</span>
+  <span class="mod-level beg">Beginner</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<div class="mod-section-title">What thermal noise is</div>
+<div class="mod-p">Thermal noise is a random fluctuation in voltage caused by random motion of charge carriers in any conductor above absolute zero. Every resistor, cable, filter, and component in your RF chain generates it — this is the irreducible noise floor of physics, set by temperature alone.</div>
+<div class="mod-section-title">RMS thermal noise voltage</div>
+<div class="mod-formula">Vn = √(4kTRB)
+k = 1.38×10⁻²³ J/K (Boltzmann constant)
+T = Temperature in Kelvin (room temp = 290 K = 17°C)
+R = Resistance in ohms
+B = Bandwidth in Hz
+
+Example: 100 kΩ resistor, 1 MHz bandwidth, room temp:
+Vn = √(4 × 1.38×10⁻²³ × 290 × 100×10³ × 1×10⁶) = 40.7 μV RMS
+
+Rules: Higher R → more noise. Higher T → more noise. Wider B → more noise.
+LOW impedance = desirable for low noise circuits.</div>
+<div class="mod-section-title">Thermal noise POWER — the −174 dBm/Hz reference</div>
+<div class="mod-formula">P = kTB
+At room temp (290 K), B = 1 Hz:
+P = 1.38×10⁻²³ × 290 = 4.0×10⁻²¹ W = −174 dBm/Hz
+
+This is THE physics limit. No receiver can ever have noise below −174 dBm/Hz.
+
+For any bandwidth:  Noise floor (dBm) = −174 + 10×log₁₀(BW_Hz)
+  10 MHz LTE:   −174 + 70 = −104 dBm
+  20 MHz LTE:   −174 + 73 = −101 dBm
+  100 MHz 5G NR: −174 + 80 = −94 dBm</div>
+<div class="tip">Key insight: powers from uncorrelated noise sources are ADDITIVE. You can only add noise, never subtract it. Every component in your Rx chain makes the noise floor worse, never better.</div>
+</div>
+</div>
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NF2</span>
+  <span class="mod-title">Noise Figure definition — SNR degradation, Noise Factor vs NF, receiver sensitivity</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<div class="mod-section-title">Noise Figure — what it measures</div>
+<div class="mod-p">Introduced by Harald T. Friis in 1944. NF measures how much a device degrades the Signal-to-Noise Ratio. An ideal noiseless amplifier would not change SNR — it amplifies signal and noise equally. Real amplifiers add their own internal noise, reducing SNR at the output vs the input. NF measures exactly how much worse.</div>
+<div class="mod-formula">Noise Factor (linear): F = SNR_input / SNR_output (always ≥ 1)
+Noise Figure (dB):    NF = 10×log₁₀(F) = SNR_in(dB) − SNR_out(dB)
+
+Perfect noiseless: F=1, NF=0 dB
+Real LNA: NF ≈ 1–3 dB
+Real mixer: NF ≈ 5–10 dB
+10 dB attenuator: NF = exactly 10 dB (equal to its loss)</div>
+<div class="mod-section-title">Receiver sensitivity formula</div>
+<div class="mod-formula">Sensitivity(dBm) = −174 + 10×log₁₀(BW_Hz) + NF + Required_SNR
+
+Your B1 10 MHz, system NF 3 dB, required SNR −1 dB (QPSK 1/3 FRC):
+Sensitivity = −174 + 70 + 3 + (−1) = −102 dBm
+3GPP REFSENS = −69 dBm → your RU beats it by 33 dB ✓</div>
+<div class="warn">CRITICAL: A 10 dB attenuator before the LNA increases total NF by exactly 10 dB — halving the effective sensitivity range. NEVER put pads before the LNA for Rx sensitivity tests. This is why EXA attenuation setting matters so much.</div>
+</div>
+</div>
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NF3</span>
+  <span class="mod-title">Friis cascade formula — why LNA dominates, worked examples for your RU chain</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<div class="mod-section-title">Friis formula</div>
+<div class="mod-formula">F_total = F₁ + (F₂−1)/G₁ + (F₃−1)/(G₁×G₂) + ...
+(All values LINEAR not dB. Convert: F=10^(NF/10), G=10^(Gain/10))
+
+Two amps, both 10 dB gain (G=10), both NF=3 dB (F=2):
+F_total = 2 + (2−1)/10 = 2.1 → NF_total = 3.22 dB
+(Second amp adds only 0.22 dB despite having 3 dB NF!)</div>
+<div class="mod-section-title">Your AAU Rx chain</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Stage</th><th>NF</th><th>Gain</th><th>System NF contribution</th></tr>
+<tr><td>Duplexer (before LNA)</td><td>0.5 dB</td><td>−0.5 dB</td><td style="color:#ff6b6b">+0.5 dB direct</td></tr>
+<tr><td>LNA (first amp)</td><td>2 dB</td><td>+20 dB</td><td style="color:#ff6b6b">~2.5 dB (dominates)</td></tr>
+<tr><td>BPF after LNA</td><td>1 dB</td><td>−1 dB</td><td style="color:#00d4a0">+0.01 dB (÷100 linear)</td></tr>
+<tr><td>Mixer</td><td>7 dB</td><td>−3 dB</td><td style="color:#00d4a0">+0.05 dB (÷100 linear)</td></tr>
+<tr><td><b>Total</b></td><td colspan="2"><b>~3 dB</b></td><td>LNA+duplexer dominate</td></tr>
+</table></div>
+<div class="tip">PDF rule: "The first amplifier has the most significant effect on total noise figure." And: "Lower NF amp should go first." Both rules point to the same truth — minimise NF of the first stage, everything after is divided by its gain.</div>
+</div>
+</div>
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NF4</span>
+  <span class="mod-title">NF of passive devices — attenuators = their loss, mixers, cables, your test setup</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<div class="mod-section-title">Golden rule for passive lossy devices</div>
+<div class="mod-p">The Noise Figure of any passive resistive device equals its loss in dB. A 10 dB attenuator has exactly 10 dB NF. Signal drops 10 dB, but the noise floor cannot go below −174 dBm/Hz — so SNR degrades by exactly the attenuation.</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Device</th><th>Loss</th><th>NF if BEFORE LNA</th><th>NF if AFTER LNA (20dB gain)</th></tr>
+<tr><td>SF141 cable 1m @ 2GHz</td><td>0.5 dB</td><td style="color:#ff6b6b">+0.5 dB to system</td><td style="color:#00d4a0">+0.005 dB (negligible)</td></tr>
+<tr><td>30 dB external pad</td><td>30 dB</td><td style="color:#ff6b6b">+30 dB — never do this!</td><td style="color:#00d4a0">+0.3 dB (acceptable for TX tests)</td></tr>
+<tr><td>Duplexer</td><td>0.5 dB</td><td style="color:#ff6b6b">+0.5 dB (unavoidable)</td><td>—</td></tr>
+<tr><td>EXA internal atten 20dB</td><td>20 dB</td><td>EXA NF ~39 dB total</td><td>OK for TX — signal 80dB above floor</td></tr>
+</table></div>
+<div class="mod-p">Antenna note (from PDF): "The radiation resistance of the antenna does not convert power to heat, and is not a source of thermal noise." The antenna is not a noise source — it receives noise from the environment (sky, ground, interference) but the antenna element itself does not add Johnson noise.</div>
+</div>
+</div>
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NF5</span>
+  <span class="mod-title">All 5 noise types — Thermal, Shot, Flicker/1f, White, Burst — with GaN/RF context</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Type</th><th>Source</th><th>Spectrum</th><th>RF context</th></tr>
+<tr><td><b>Thermal (Johnson-Nyquist)</b></td><td>Electron agitation in any conductor above 0K</td><td>White (flat). ∝ T and B.</td><td>Sets the −174 dBm/Hz floor. Dominates all wideband RF. Gaussian amplitude distribution.</td></tr>
+<tr><td><b>Shot noise</b></td><td>Discrete charge crossing a potential barrier (PN junction, transistor)</td><td>White. ∝ bias current.</td><td>In every active device: LNA transistors, mixer diodes. Proportional to bias current.</td></tr>
+<tr><td><b>Flicker / 1/f</b></td><td>Crystal surface defects in semiconductors</td><td>Rises at low freq (∝ 1/f). Not white.</td><td>GaAs/GaN corner freq = 100 MHz — inside your LTE band! Causes PA close-in phase noise. Metal film resistors better than carbon for low 1/f.</td></tr>
+<tr><td><b>White noise</b></td><td>Category name: any flat-spectrum noise</td><td>Flat across all freq</td><td>Thermal and shot noise are both "white." Your EXA noise floor is white noise.</td></tr>
+<tr><td><b>Burst / Popcorn</b></td><td>Heavy metal contamination in semiconductor junctions</td><td>Random discrete bursts. ∝ 1/f²</td><td>Rare in modern processes. Appears as intermittent ACLR degradation or random bias shifts.</td></tr>
+</table></div>
+<div class="mod-section-title">Noise reduction strategies (from the PDF)</div>
+<div class="mbullet">Keep source and input resistance LOW — high R = more Vn = √(4kTRB)</div>
+<div class="mbullet">Reduce BW to minimum — noise floor ∝ bandwidth</div>
+<div class="mbullet">LNA as the VERY FIRST stage — lowest NF, highest gain, before everything</div>
+<div class="mbullet">Metal film resistors over carbon — much lower 1/f noise</div>
+<div class="mbullet">Lowest DC bias that still meets spec — less current = less shot noise</div>
+<div class="mbullet">Proper shielding and grounding — prevents external interference adding to noise floor</div>
+</div>
+</div>
+</div><!-- end noisefigure -->
 
 <!-- ═══════════════ RF CAREER MAP ═══════════════ -->
 <div class="div-line"></div>
