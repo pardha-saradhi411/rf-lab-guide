@@ -8991,6 +8991,811 @@ Step 6: RuAuto uses DSA in test threshold
 </div>
 </div>
 
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- LEVELS 18-45 -->
+<!-- ══════════════════════════════════════════════════════ -->
+
+<!-- L18: RF System Architecture -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L18</span>
+  <span class="mod-title">RF System Architecture ⭐⭐⭐⭐⭐ — Complete signal chain: L2/L3→PHY→Baseband→IQ→DAC→Upconverter→PLL→PA→Duplexer→Antenna + reverse RX path</span>
+  <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="380" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Complete RF System Architecture — TX + RX + Every Block Purpose</text>
+
+  <!-- TX STACK (left column, top to bottom) -->
+  <text x="200" y="46" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📤 TX PATH (Downlink)</text>
+
+  <rect x="80" y="55" width="240" height="30" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="200" y="70" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L2/L3 — MAC/RLC/PDCP</text>
+  <text x="200" y="82" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scheduling, ARQ, packet header | Failure: no data, PDCP drops</text>
+
+  <line x1="200" y1="85" x2="200" y2="100" stroke="#ff6b6b" stroke-width="1.5"/>
+
+  <rect x="80" y="100" width="240" height="30" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="200" y="115" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PHY — Physical Layer</text>
+  <text x="200" y="127" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">OFDM modulation, coding, HARQ | Failure: high BLER, EVM</text>
+
+  <line x1="200" y1="130" x2="200" y2="145" stroke="#f5a623" stroke-width="1.5"/>
+
+  <rect x="80" y="145" width="240" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="200" y="160" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Baseband — CFR + DPD</text>
+  <text x="200" y="172" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">PAPR reduction, linearisation | Failure: ACLR, EVM</text>
+
+  <line x1="200" y1="175" x2="200" y2="190" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="80" y="190" width="240" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="200" y="205" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">IQ Samples → DAC</text>
+  <text x="200" y="217" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Digital→Analog, 12-16bit | Failure: quantisation noise, spur</text>
+
+  <line x1="200" y1="220" x2="200" y2="235" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="80" y="235" width="240" height="30" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="200" y="250" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Upconverter (Mixer + PLL)</text>
+  <text x="200" y="262" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Baseband→RF freq | Failure: LO leakage, image, phase noise</text>
+
+  <line x1="200" y1="265" x2="200" y2="280" stroke="#5bc4ef" stroke-width="1.5"/>
+
+  <rect x="60"  y="280" width="280" height="38" fill="#2a0000" stroke="#ff6b6b" stroke-width="2.5" rx="4"/>
+  <text x="200" y="297" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">PA — Power Amplifier</text>
+  <text x="200" y="309" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">GaN, +40dB gain, Doherty | Failure: ACLR, EVM, protection trip</text>
+  <text x="200" y="321" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Most important block — needs DPD, thermal mgmt, bias sequencing</text>
+
+  <line x1="200" y1="318" x2="200" y2="335" stroke="#9b8cf8" stroke-width="1.5"/>
+
+  <rect x="80" y="335" width="240" height="30" fill="#0d1a1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="200" y="350" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer → Antenna</text>
+  <text x="200" y="362" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">TX/RX isolation, 0.5dB NF | Failure: VSWR, cross-band interference</text>
+
+  <!-- RX STACK (right column, bottom to top) -->
+  <text x="600" y="46" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📥 RX PATH (Uplink)</text>
+
+  <rect x="480" y="55" width="240" height="30" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="600" y="70" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PHY → Baseband → L2/L3</text>
+  <text x="600" y="82" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Demod, decode, deliver to DU | Failure: BLER, RSSI wrong</text>
+
+  <line x1="600" y1="85" x2="600" y2="100" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="480" y="100" width="240" height="30" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="600" y="115" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ADC — 12-bit digitiser</text>
+  <text x="600" y="127" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Analog→Digital, SQNR 72dB | Failure: overrange, quantisation</text>
+
+  <line x1="600" y1="130" x2="600" y2="145" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="480" y="145" width="240" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="600" y="160" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VGA / AGC</text>
+  <text x="600" y="172" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Gain control → ADC range | Failure: saturation, weak signal</text>
+
+  <line x1="600" y1="175" x2="600" y2="190" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="480" y="190" width="240" height="30" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="600" y="205" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Mixer — Downconverter</text>
+  <text x="600" y="217" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RF→Baseband | Failure: image, IIP3, NF adds 7dB (÷LNA gain)</text>
+
+  <line x1="600" y1="220" x2="600" y2="235" stroke="#5bc4ef" stroke-width="1.5"/>
+
+  <rect x="480" y="235" width="240" height="30" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="600" y="250" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BPF — Bandpass Filter</text>
+  <text x="600" y="262" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Image/blocker rejection | Failure: blocker passes, out-of-band noise</text>
+
+  <line x1="600" y1="265" x2="600" y2="280" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="460" y="280" width="280" height="38" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="600" y="297" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">LNA — Low Noise Amplifier</text>
+  <text x="600" y="309" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">NF=2dB, G=+20dB | SETS ALL: everything after ÷100</text>
+  <text x="600" y="321" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Most important RX block — NF directly = sensitivity</text>
+
+  <line x1="600" y1="318" x2="600" y2="335" stroke="#9b8cf8" stroke-width="1.5"/>
+
+  <rect x="480" y="335" width="240" height="30" fill="#0d1a1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="600" y="350" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer → Antenna (shared)</text>
+  <text x="600" y="362" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Collects signal | NF=0.5dB (before LNA = full penalty)</text>
+
+  <!-- Connection at antenna level -->
+  <line x1="320" y1="350" x2="480" y2="350" stroke="#4a5470" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="400" y="345" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Shared antenna port</text>
+</svg>
+<div class="mod-p">Know every block's purpose, failure mode, and impact on the signal. For each block ask: What does it do? What happens to the signal? What can go wrong? How does a failure manifest at the measurement point (EXA/EXM)? The complete chain from L2 bits to radiated RF and back is your mental model for all debugging.</div>
+</div>
+</div>
+
+<!-- L19: RF Impairments -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L19</span>
+  <span class="mod-title">RF Impairments — IQ Imbalance, LO Leakage, DC Offset, Phase Noise, CFO, PA Nonlinearity, AM-AM/AM-PM Distortion</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="300" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Impairments — Source, Effect on Signal, How to Measure</text>
+
+  <!-- IQ Imbalance -->
+  <rect x="10"  y="35" width="185" height="80" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="102" y="52" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">IQ Imbalance</text>
+  <text x="20"  y="67" fill="#8892b0" font-size="8" font-family="monospace">Gain/phase mismatch between</text>
+  <text x="20"  y="79" fill="#8892b0" font-size="8" font-family="monospace">I and Q paths in mixer</text>
+  <text x="20"  y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: image signal appears</text>
+  <text x="20"  y="105" fill="#f5a623" font-size="8" font-family="monospace">at -f offset → IRR degrades</text>
+  <text x="20"  y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: EVM, constellation asymmetry</text>
+
+  <!-- LO Leakage -->
+  <rect x="205" y="35" width="185" height="80" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="297" y="52" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">LO Leakage / DC Offset</text>
+  <text x="215" y="67" fill="#8892b0" font-size="8" font-family="monospace">LO signal leaks to output</text>
+  <text x="215" y="79" fill="#8892b0" font-size="8" font-family="monospace">DC offset in baseband</text>
+  <text x="215" y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: carrier spike at f_carrier</text>
+  <text x="215" y="105" fill="#f5a623" font-size="8" font-family="monospace">→ IQ Offset metric fails</text>
+  <text x="215" y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: IQ Offset in EVM analysis</text>
+
+  <!-- Phase Noise -->
+  <rect x="400" y="35" width="185" height="80" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="492" y="52" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Phase Noise</text>
+  <text x="410" y="67" fill="#8892b0" font-size="8" font-family="monospace">Random phase fluctuation of LO</text>
+  <text x="410" y="79" fill="#8892b0" font-size="8" font-family="monospace">from VCO/PLL imperfections</text>
+  <text x="410" y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: "skirts" around carrier</text>
+  <text x="410" y="105" fill="#f5a623" font-size="8" font-family="monospace">→ EVM floor, ICI in OFDM</text>
+  <text x="410" y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: Phase Error, EVM vs subcarrier</text>
+
+  <!-- CFO -->
+  <rect x="595" y="35" width="195" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="692" y="52" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Carrier Freq Offset (CFO)</text>
+  <text x="605" y="67" fill="#8892b0" font-size="8" font-family="monospace">TX and RX reference clocks</text>
+  <text x="605" y="79" fill="#8892b0" font-size="8" font-family="monospace">slightly different frequencies</text>
+  <text x="605" y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: rotating constellation</text>
+  <text x="605" y="105" fill="#f5a623" font-size="8" font-family="monospace">ICI → EVM → BLER rises</text>
+  <text x="605" y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: Frequency Error (Hz/PPM)</text>
+
+  <!-- AM-AM / AM-PM -->
+  <rect x="10"  y="125" width="280" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="150" y="142" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">PA Nonlinearity: AM-AM + AM-PM</text>
+  <text x="20"  y="158" fill="#8892b0" font-size="8" font-family="monospace">AM-AM: Output amplitude ≠ linear fn of input (gain compression)</text>
+  <text x="20"  y="170" fill="#8892b0" font-size="8" font-family="monospace">AM-PM: Phase shift changes with input amplitude</text>
+  <text x="20"  y="184" fill="#f5a623" font-size="8" font-family="monospace">Effect: spectral regrowth (ACLR), EVM, signal distortion</text>
+  <text x="20"  y="196" fill="#4a5470" font-size="7" font-family="monospace">DPD corrects both: pre-distorts AM-AM and AM-PM inverse</text>
+
+  <!-- Gain Compression -->
+  <rect x="300" y="125" width="240" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="420" y="142" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Gain Compression (P1dB)</text>
+  <text x="310" y="158" fill="#8892b0" font-size="8" font-family="monospace">PA gain drops 1dB below linear at P1dB</text>
+  <text x="310" y="170" fill="#8892b0" font-size="8" font-family="monospace">Operating above P1dB → heavy distortion</text>
+  <text x="310" y="184" fill="#f5a623" font-size="8" font-family="monospace">P1dB_out ≈ Psat - 3 to 5 dB typically</text>
+  <text x="310" y="196" fill="#4a5470" font-size="7" font-family="monospace">Measure: power sweep → find where gain drops 1dB</text>
+
+  <!-- Group Delay / Timing -->
+  <rect x="550" y="125" width="240" height="80" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="670" y="142" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Group Delay + Timing Offset</text>
+  <text x="560" y="158" fill="#8892b0" font-size="8" font-family="monospace">Group delay: freq-dependent delay in filter</text>
+  <text x="560" y="170" fill="#8892b0" font-size="8" font-family="monospace">Timing offset: TX/RX not aligned in time</text>
+  <text x="560" y="184" fill="#f5a623" font-size="8" font-family="monospace">Effect: ISI, EVM, subcarrier phase error</text>
+  <text x="560" y="196" fill="#4a5470" font-size="7" font-family="monospace">Measure: VNA group delay, timing advance</text>
+
+  <!-- EVM impact summary -->
+  <rect x="10" y="215" width="780" height="75" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="232" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EVM Budget — All impairments contribute to total EVM</text>
+  <text x="20"  y="248" fill="#ff6b6b" font-size="9" font-family="monospace">EVM_total = √(EVM_IQ² + EVM_LO² + EVM_PhaseNoise² + EVM_PA² + EVM_CFO² + ...)</text>
+  <text x="20"  y="262" fill="#8892b0" font-size="9" font-family="monospace">Each impairment adds quadratically → must budget all sources to meet total EVM spec</text>
+  <text x="20"  y="276" fill="#f5a623" font-size="8" font-family="monospace">LTE EVM limits: QPSK=17.5%, 16QAM=12.5%, 64QAM=8%, 256QAM=3.5% (3GPP TS 36.104 Table 6.5.2.2-1)</text>
+  <text x="20"  y="288" fill="#4a5470" font-size="8" font-family="monospace">Debug: disable DPD → measure PA-only EVM · enable DPD → measure improvement · identify dominant impairment source</text>
+</svg>
+</div>
+</div>
+
+<!-- L20: Synchronisation -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L20</span>
+  <span class="mod-title">Synchronisation — GPS/GNSS, PTP IEEE 1588, SyncE, Holdover, Frequency/Phase/Time sync — critical in O-RAN TDD</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="260" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Synchronisation Hierarchy — GPS → Network → RU</text>
+
+  <!-- GPS/GNSS source -->
+  <rect x="320" y="35" width="160" height="35" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="400" y="53" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🛰 GPS/GNSS</text>
+  <text x="400" y="65" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">±100ns absolute time reference</text>
+
+  <line x1="400" y1="70" x2="400" y2="88" stroke="#c8b800" stroke-width="1.5"/>
+
+  <!-- Grandmaster clock -->
+  <rect x="280" y="88" width="240" height="30" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="400" y="107" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Grandmaster Clock (PTP)</text>
+
+  <line x1="400" y1="118" x2="400" y2="135" stroke="#5bc4ef" stroke-width="1.5"/>
+
+  <!-- PTP/SyncE path -->
+  <rect x="250" y="135" width="300" height="30" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="400" y="150" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Boundary/Transparent Clock</text>
+  <text x="400" y="162" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PTP IEEE 1588v2 + SyncE (frequency)</text>
+
+  <line x1="400" y1="165" x2="400" y2="183" stroke="#9b8cf8" stroke-width="1.5"/>
+
+  <!-- O-DU -->
+  <rect x="280" y="183" width="240" height="30" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="400" y="201" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">O-DU (FHGW)</text>
+
+  <line x1="400" y1="213" x2="400" y2="230" stroke="#00d4a0" stroke-width="2"/>
+
+  <!-- O-RU -->
+  <rect x="280" y="230" width="240" height="22" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="400" y="244" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">O-RU — ±1.5μs phase accuracy</text>
+
+  <!-- Sync types right side -->
+  <rect x="650" y="60" width="140" height="100" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="720" y="78"  fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">3 Sync Types:</text>
+  <text x="660" y="95"  fill="#5bc4ef" font-size="9" font-family="monospace">Freq: SyncE ±50ppb</text>
+  <text x="660" y="110" fill="#9b8cf8" font-size="9" font-family="monospace">Phase: PTP ±1.5μs</text>
+  <text x="660" y="125" fill="#c8b800" font-size="9" font-family="monospace">Time: GPS absolute</text>
+  <text x="660" y="145" fill="#ff6b6b" font-size="8" font-family="monospace">TDD needs phase sync!</text>
+  <text x="660" y="157" fill="#4a5470" font-size="7" font-family="monospace">FDD: freq sync enough</text>
+
+  <!-- Holdover box -->
+  <rect x="10" y="60" width="140" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="80" y="78"  fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ Holdover</text>
+  <text x="20" y="93"  fill="#8892b0" font-size="8" font-family="monospace">GPS/PTP source lost</text>
+  <text x="20" y="106" fill="#8892b0" font-size="8" font-family="monospace">RU uses internal OCXO</text>
+  <text x="20" y="119" fill="#f5a623" font-size="8" font-family="monospace">Drift: ±100ns/hr typ</text>
+  <text x="20" y="131" fill="#ff6b6b" font-size="8" font-family="monospace">TDD fails after hours</text>
+</svg>
+<div class="tip">TDD bands (B41) are critically dependent on phase synchronisation. If PTP sync is lost and RU enters holdover, clock drift will eventually cause TDD DL/UL switching misalignment → interference → throughput collapse. Alarm: GPS Loss or PTP Loss triggers holdover mode.</div>
+</div>
+</div>
+
+<!-- L21+L22: Timing Advance + Beamforming -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L22</span>
+  <span class="mod-title">Beamforming ⭐⭐⭐⭐⭐ — Analog/Digital/Hybrid beamforming, Beam Sweeping, Beam Management, Beam Failure Recovery</span>
+  <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Beamforming Types — Analog vs Digital vs Hybrid</text>
+
+  <!-- Analog BF -->
+  <rect x="10" y="35" width="240" height="175" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="6"/>
+  <text x="130" y="55" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Analog Beamforming</text>
+  <text x="130" y="70" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">One RF chain → phase shifters</text>
+  <!-- Simple diagram -->
+  <rect x="20" y="78" width="50" height="22" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1" rx="2"/>
+  <text x="45" y="93" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">1 PA</text>
+  <line x1="70" y1="89" x2="90" y2="89" stroke="#ff6b6b" stroke-width="1.5"/>
+  <!-- Phase shifters and elements -->
+  <rect x="90" y="75" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="85" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ1</text>
+  <rect x="90" y="92" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="102" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ2</text>
+  <rect x="90" y="109" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="119" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ3</text>
+  <rect x="90" y="126" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="136" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ4</text>
+  <!-- Antenna elements -->
+  <line x1="120" y1="82" x2="140" y2="82" stroke="#9b8cf8" stroke-width="1"/>
+  <line x1="120" y1="99" x2="140" y2="99" stroke="#9b8cf8" stroke-width="1"/>
+  <line x1="120" y1="116" x2="140" y2="116" stroke="#9b8cf8" stroke-width="1"/>
+  <line x1="120" y1="133" x2="140" y2="133" stroke="#9b8cf8" stroke-width="1"/>
+  <rect x="140" y="75" width="12" height="75" fill="#9b8cf8" rx="2"/>
+  <text x="130" y="170" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Single beam</text>
+  <text x="130" y="182" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Low cost, 1 user</text>
+  <text x="130" y="194" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Your AAU: PE44820DS</text>
+  <text x="130" y="206" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">phase shifter per element</text>
+
+  <!-- Digital BF -->
+  <rect x="280" y="35" width="240" height="175" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="6"/>
+  <text x="400" y="55" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Digital Beamforming</text>
+  <text x="400" y="70" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">One RF chain per element</text>
+  <!-- Multiple PA chains -->
+  <rect x="290" y="78" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="88" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <rect x="290" y="95" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="105" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <rect x="290" y="112" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="122" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <rect x="290" y="129" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="139" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <!-- Beamforming weights -->
+  <rect x="340" y="75" width="50" height="75" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="365" y="115" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace" transform="rotate(-90,365,115)">W×IQ digital</text>
+  <!-- Antenna elements -->
+  <rect x="400" y="75" width="12" height="75" fill="#9b8cf8" rx="2"/>
+  <text x="400" y="170" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Multiple beams</text>
+  <text x="400" y="182" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">MU-MIMO, flexible</text>
+  <text x="400" y="194" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Massive MIMO: 64T64R</text>
+  <text x="400" y="206" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">High cost, high perf</text>
+
+  <!-- Hybrid BF -->
+  <rect x="550" y="35" width="240" height="175" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="6"/>
+  <text x="670" y="55" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Hybrid Beamforming</text>
+  <text x="670" y="70" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Few chains + phase shifters</text>
+  <text x="670" y="100" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Digital precoder</text>
+  <text x="670" y="115" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">(NxM beams)</text>
+  <line x1="670" y1="120" x2="670" y2="133" stroke="#5bc4ef" stroke-width="1.5"/>
+  <text x="670" y="148" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Analog phase shifters</text>
+  <text x="670" y="163" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">(MxK elements)</text>
+  <text x="670" y="185" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Best of both worlds</text>
+  <text x="670" y="197" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">5G FR2 mmWave</text>
+  <text x="670" y="209" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Balance cost vs performance</text>
+
+  <!-- Beam management flow -->
+  <rect x="10" y="220" width="780" height="52" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="236" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Beam Management Lifecycle:</text>
+  <text x="400" y="252" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Beam Sweeping (SSB burst) → Beam Measurement (RSRP per beam) → Beam Selection → Beam Refinement (CSI-RS) → Beam Tracking → Beam Failure Detection → Beam Failure Recovery (new beam request)</text>
+  <text x="400" y="266" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Beam Failure Recovery: UE sends PRACH on candidate beam → gNB acknowledges → new beam established · Recovery time target: &lt;50ms</text>
+</svg>
+</div>
+</div>
+
+<!-- L24: Calibration -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L24</span>
+  <span class="mod-title">Calibration — TX/RX/IQ/Temperature/Gain/Phase/Factory/Field — the most overlooked area, critical for accurate measurements</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="240" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Calibration Types — What, When, Why</text>
+
+  <!-- Cal types grid -->
+  <rect x="10"  y="35" width="175" height="70" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="97"  y="53" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">TX Calibration</text>
+  <text x="20"  y="68" fill="#8892b0" font-size="8" font-family="monospace">Sets output power accuracy</text>
+  <text x="20"  y="80" fill="#8892b0" font-size="8" font-family="monospace">tx_calibration_eeprom.json</text>
+  <text x="20"  y="92" fill="#f5a623" font-size="8" font-family="monospace">Missing → fault 12 → -6dB deficit</text>
+  <text x="20"  y="104" fill="#4a5470" font-size="7" font-family="monospace">Run at factory + after HW change</text>
+
+  <rect x="195" y="35" width="175" height="70" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="282" y="53" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">RX Calibration</text>
+  <text x="205" y="68" fill="#8892b0" font-size="8" font-family="monospace">RSSI accuracy calibration</text>
+  <text x="205" y="80" fill="#8892b0" font-size="8" font-family="monospace">ADC_ADJUST in hardware.json</text>
+  <text x="205" y="92" fill="#f5a623" font-size="8" font-family="monospace">Wrong → RSSI ±5dB error</text>
+  <text x="205" y="104" fill="#4a5470" font-size="7" font-family="monospace">Inject known power → adjust offset</text>
+
+  <rect x="380" y="35" width="175" height="70" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="467" y="53" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">IQ Calibration</text>
+  <text x="390" y="68" fill="#8892b0" font-size="8" font-family="monospace">Corrects I/Q gain+phase mismatch</text>
+  <text x="390" y="80" fill="#8892b0" font-size="8" font-family="monospace">Per-element, per-band</text>
+  <text x="390" y="92" fill="#f5a623" font-size="8" font-family="monospace">Wrong → EVM floor, IRR degrades</text>
+  <text x="390" y="104" fill="#4a5470" font-size="7" font-family="monospace">OB_CAL: observation-based cal</text>
+
+  <rect x="565" y="35" width="225" height="70" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="677" y="53" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Temperature Calibration</text>
+  <text x="575" y="68" fill="#8892b0" font-size="8" font-family="monospace">TX power changes with temp</text>
+  <text x="575" y="80" fill="#8892b0" font-size="8" font-family="monospace">Thermal comp table in config</text>
+  <text x="575" y="92" fill="#f5a623" font-size="8" font-family="monospace">Not run → power drifts ±2dB</text>
+  <text x="575" y="104" fill="#4a5470" font-size="7" font-family="monospace">Run at -40°C, 25°C, +55°C, +70°C</text>
+
+  <!-- Second row -->
+  <rect x="10"  y="115" width="175" height="65" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="97"  y="133" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Phase Calibration</text>
+  <text x="20"  y="148" fill="#8892b0" font-size="8" font-family="monospace">Element-to-element phase</text>
+  <text x="20"  y="160" fill="#8892b0" font-size="8" font-family="monospace">alignment for beamforming</text>
+  <text x="20"  y="172" fill="#f5a623" font-size="8" font-family="monospace">VNA E5071C: per-element</text>
+
+  <rect x="195" y="115" width="175" height="65" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="282" y="133" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Gain Calibration</text>
+  <text x="205" y="148" fill="#8892b0" font-size="8" font-family="monospace">Sets absolute gain per chain</text>
+  <text x="205" y="160" fill="#8892b0" font-size="8" font-family="monospace">per band, per column</text>
+  <text x="205" y="172" fill="#f5a623" font-size="8" font-family="monospace">gain_cal_eeprom.json</text>
+
+  <rect x="380" y="115" width="175" height="65" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="467" y="133" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Factory Calibration</text>
+  <text x="390" y="148" fill="#8892b0" font-size="8" font-family="monospace">Done once at production</text>
+  <text x="390" y="160" fill="#8892b0" font-size="8" font-family="monospace">All cals → stored in EEPROM</text>
+  <text x="390" y="172" fill="#f5a623" font-size="8" font-family="monospace">Corrupted EEPROM = many faults</text>
+
+  <rect x="565" y="115" width="225" height="65" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="677" y="133" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Field Calibration</text>
+  <text x="575" y="148" fill="#8892b0" font-size="8" font-family="monospace">After RU replacement</text>
+  <text x="575" y="160" fill="#8892b0" font-size="8" font-family="monospace">Or after antenna change</text>
+  <text x="575" y="172" fill="#f5a623" font-size="8" font-family="monospace">Partial re-cal: TX+RX+temp</text>
+
+  <!-- Key principle -->
+  <rect x="10" y="190" width="780" height="42" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="4"/>
+  <text x="400" y="207" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Golden Rule: Every calibration file has a dependency. If tx_calibration_eeprom.json is missing → fault 12 → TX power -6dB below expected.</text>
+  <text x="400" y="224" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Check calibration files FIRST when power or RSSI anomalies appear. Location: /etc/rru/ or /opt/pw/config/ on RU filesystem via SSH.</text>
+</svg>
+</div>
+</div>
+
+<!-- L28: Fault Management -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L28</span>
+  <span class="mod-title">Fault Management — PA Over-Temperature, VSWR Alarm, Fan Failure, GPS Loss, PTP Loss, Low Output Power, Carrier Failure</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="260" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Fault Management — Alarm → Root Cause → Action</text>
+
+  <rect x="10"  y="35" width="225" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="122" y="53" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🌡 PA Over-Temperature</text>
+  <text x="20"  y="68" fill="#8892b0" font-size="8" font-family="monospace">Threshold: Tjunction &gt;85°C</text>
+  <text x="20"  y="80" fill="#8892b0" font-size="8" font-family="monospace">Cause: cooling blocked, high load</text>
+  <text x="20"  y="92" fill="#f5a623" font-size="8" font-family="monospace">Action: PA backs off → shutdown</text>
+  <text x="20"  y="104" fill="#4a5470" font-size="7" font-family="monospace">Debug: get_temp · check airflow</text>
+  <text x="20"  y="112" fill="#4a5470" font-size="7" font-family="monospace">Recovery: cool down + restart</text>
+
+  <rect x="245" y="35" width="225" height="80" fill="#2a1a0d" stroke="#f5a623" stroke-width="2" rx="4"/>
+  <text x="357" y="53" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">📡 VSWR Alarm</text>
+  <text x="255" y="68" fill="#8892b0" font-size="8" font-family="monospace">Threshold: reflected &gt;10% fwd</text>
+  <text x="255" y="80" fill="#8892b0" font-size="8" font-family="monospace">Cause: antenna disconnected</text>
+  <text x="255" y="92" fill="#8892b0" font-size="8" font-family="monospace">damaged cable, ice on antenna</text>
+  <text x="255" y="104" fill="#f5a623" font-size="8" font-family="monospace">Action: PA gates off immediately</text>
+  <text x="255" y="112" fill="#4a5470" font-size="7" font-family="monospace">Debug: VNA S11 · check cable torque</text>
+
+  <rect x="480" y="35" width="160" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="560" y="53" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🛰 GPS/PTP Loss</text>
+  <text x="490" y="68" fill="#8892b0" font-size="8" font-family="monospace">GPS antenna fault</text>
+  <text x="490" y="80" fill="#8892b0" font-size="8" font-family="monospace">Network timing lost</text>
+  <text x="490" y="92" fill="#f5a623" font-size="8" font-family="monospace">→ Holdover mode</text>
+  <text x="490" y="104" fill="#ff6b6b" font-size="8" font-family="monospace">TDD fails after hours</text>
+  <text x="490" y="112" fill="#4a5470" font-size="7" font-family="monospace">Debug: tcpdump PTP packets</text>
+
+  <rect x="650" y="35" width="140" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="720" y="53" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🔥 Carrier Fail</text>
+  <text x="660" y="68" fill="#8892b0" font-size="8" font-family="monospace">Carrier activation</text>
+  <text x="660" y="80" fill="#8892b0" font-size="8" font-family="monospace">failed or dropped</text>
+  <text x="660" y="92" fill="#f5a623" font-size="8" font-family="monospace">Check: eCPRI link</text>
+  <text x="660" y="104" fill="#4a5470" font-size="7" font-family="monospace">NETCONF error log</text>
+  <text x="660" y="112" fill="#4a5470" font-size="7" font-family="monospace">get_faults CLI</text>
+
+  <!-- Fault Debug Flow -->
+  <rect x="10" y="125" width="780" height="125" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="142" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Fault Debug Procedure — Always Follow This Order:</text>
+  <text x="20" y="158" fill="#00d4a0" font-size="9" font-family="monospace">Step 1: SSH to RU → get_faults  → list all fault codes + descriptions</text>
+  <text x="20" y="171" fill="#5bc4ef" font-size="9" font-family="monospace">Step 2: journalctl -u rru --since "1 hour ago" → find first error occurrence and timestamp</text>
+  <text x="20" y="184" fill="#f5a623" font-size="9" font-family="monospace">Step 3: Correlate with instrument: EXA power drop? ACLR change? RX sensitivity change?</text>
+  <text x="20" y="197" fill="#9b8cf8" font-size="9" font-family="monospace">Step 4: Check environment: temperature reading · VSWR reading · PTP lock status · GPS signal</text>
+  <text x="20" y="210" fill="#8892b0" font-size="9" font-family="monospace">Step 5: Clear fault if condition resolved → test_recovery → measure ACLR/EVM → confirm clean</text>
+  <text x="20" y="223" fill="#ff6b6b" font-size="9" font-family="monospace">Step 6: If recurring: capture full PreChecks log → screenshot instrument → escalate to David/Korea</text>
+  <text x="20" y="240" fill="#4a5470" font-size="8" font-family="monospace">Fault codes: 12=missing tx_cal · 15=RFFE comm error · 22=PA protection · 31=PTP loss · 45=VSWR alarm</text>
+</svg>
+</div>
+</div>
+
+<!-- L38: KPI Correlation -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L38</span>
+  <span class="mod-title">KPI Correlation — Bad ACLR → Interference → Low SINR → Low CQI → Lower MCS → Lower Throughput</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="240" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">KPI Correlation — How RF Failures Become Customer Complaints</text>
+
+  <!-- Chain: ACLR → Throughput -->
+  <rect x="10"  y="40" width="100" height="50" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="60"  y="60" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Bad ACLR</text>
+  <text x="60"  y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">&lt;45 dBc</text>
+  <text x="60"  y="84" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">spectral leak</text>
+
+  <line x1="110" y1="65" x2="125" y2="65" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="123,61 133,65 123,69" fill="#ff6b6b"/>
+
+  <rect x="133" y="40" width="100" height="50" fill="#2a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="183" y="60" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Interference</text>
+  <text x="183" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">adjacent cell</text>
+  <text x="183" y="84" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">raised noise floor</text>
+
+  <line x1="233" y1="65" x2="248" y2="65" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="246,61 256,65 246,69" fill="#f5a623"/>
+
+  <rect x="256" y="40" width="100" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="306" y="60" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Low SINR</text>
+  <text x="306" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">signal+noise</text>
+  <text x="306" y="84" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ratio drops</text>
+
+  <line x1="356" y1="65" x2="371" y2="65" stroke="#c8b800" stroke-width="2"/>
+  <polygon points="369,61 379,65 369,69" fill="#c8b800"/>
+
+  <rect x="379" y="40" width="100" height="50" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="429" y="60" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Low CQI</text>
+  <text x="429" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">UE reports</text>
+  <text x="429" y="84" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">bad channel</text>
+
+  <line x1="479" y1="65" x2="494" y2="65" stroke="#00d4a0" stroke-width="2"/>
+  <polygon points="492,61 502,65 492,69" fill="#00d4a0"/>
+
+  <rect x="502" y="40" width="100" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="552" y="57" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Lower MCS</text>
+  <text x="552" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">DL: 64QAM→</text>
+  <text x="552" y="82" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">QPSK forced</text>
+
+  <line x1="602" y1="65" x2="617" y2="65" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="615,61 625,65 615,69" fill="#5bc4ef"/>
+
+  <rect x="625" y="40" width="165" height="50" fill="#2a0000" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="707" y="57" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">↓ Throughput</text>
+  <text x="707" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">100 Mbps → 10 Mbps</text>
+  <text x="707" y="82" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">Customer complains!</text>
+
+  <!-- EVM chain -->
+  <text x="400" y="115" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">High EVM → Same cascade:</text>
+  <text x="400" y="130" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">High EVM → UE sees noisy signal → low SINR → eNB forced to use lower MCS → throughput drops</text>
+  <text x="400" y="145" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">High EVM also → BLER rises → more HARQ retransmissions → latency increases → user experience suffers</text>
+
+  <!-- Why operator cares -->
+  <rect x="10" y="160" width="780" height="72" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="178" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Why Operators Care (Telecom Business Context):</text>
+  <text x="20"  y="194" fill="#8892b0" font-size="9" font-family="monospace">ACLR: Regulator (FCC/CE) mandates &gt;45dBc → violation = fine + shutdown. Operator needs compliance certificate.</text>
+  <text x="20"  y="207" fill="#8892b0" font-size="9" font-family="monospace">EVM: Directly limits maximum throughput. Can't use 256QAM if EVM&gt;3.5%. Peak data rate capability = competitive advantage.</text>
+  <text x="20"  y="220" fill="#8892b0" font-size="9" font-family="monospace">Power savings: uSleep/Dynamic Vdd → 30-40% power reduction → saves OPEX (electricity). Ericsson quotes €millions saved per year per RAN.</text>
+  <text x="20"  y="232" fill="#4a5470" font-size="8" font-family="monospace">Sensitivity: Better sensitivity = larger cell radius = fewer sites needed = lower CAPEX. -3dB better sens = cell area doubles (line of sight).</text>
+</svg>
+</div>
+</div>
+
+<!-- L39: End-to-End Troubleshooting -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L39</span>
+  <span class="mod-title">End-to-End Troubleshooting ⭐⭐⭐⭐⭐ — Alarm→Logs→Protocol→RF→Hardware→Software→Root Cause</span>
+  <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="300" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">End-to-End Troubleshooting Framework</text>
+
+  <!-- Vertical flow -->
+  <rect x="300" y="35" width="200" height="30" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="400" y="54" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ Alarm / Symptom</text>
+
+  <line x1="400" y1="65" x2="400" y2="80" stroke="#ff6b6b" stroke-width="2"/>
+
+  <rect x="280" y="80" width="240" height="30" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="400" y="99" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Logs (journalctl, dmesg, syslog)</text>
+
+  <line x1="400" y1="110" x2="400" y2="125" stroke="#f5a623" stroke-width="1.5"/>
+
+  <rect x="280" y="125" width="240" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="400" y="144" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Protocol (NETCONF, eCPRI, Wireshark)</text>
+
+  <line x1="400" y1="155" x2="400" y2="170" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="280" y="170" width="240" height="30" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="400" y="189" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">RF (EXA/EXM measurements)</text>
+
+  <line x1="400" y1="200" x2="400" y2="215" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="280" y="215" width="240" height="30" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="400" y="234" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Hardware (VNA, visual inspection)</text>
+
+  <line x1="400" y1="245" x2="400" y2="260" stroke="#5bc4ef" stroke-width="1.5"/>
+
+  <rect x="280" y="260" width="240" height="30" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="400" y="279" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ROOT CAUSE IDENTIFIED ✓</text>
+
+  <!-- Right side: interview scenarios -->
+  <rect x="550" y="35" width="240" height="255" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="670" y="53" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Interview Scenarios (L43):</text>
+  <text x="560" y="70"  fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q1: ACLR degrades after SW update</text>
+  <text x="560" y="82"  fill="#4a5470" font-size="7" font-family="monospace">→ Check: CFR params changed? DPD model reset?</text>
+  <text x="560" y="93"  fill="#4a5470" font-size="7" font-family="monospace">   Power scaling register changed? Wait 60s DPD</text>
+
+  <text x="560" y="110" fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q2: RSSI fails only at high temp</text>
+  <text x="560" y="122" fill="#4a5470" font-size="7" font-family="monospace">→ Temperature comp table missing/wrong</text>
+  <text x="560" y="133" fill="#4a5470" font-size="7" font-family="monospace">   ADC gain drifts with temp, needs re-cal</text>
+
+  <text x="560" y="150" fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q3: PA protection after 20 min</text>
+  <text x="560" y="162" fill="#4a5470" font-size="7" font-family="monospace">→ Thermal: PA heats up over 20min</text>
+  <text x="560" y="173" fill="#4a5470" font-size="7" font-family="monospace">   Check: airflow, heatsink, ambient temp</text>
+  <text x="560" y="184" fill="#4a5470" font-size="7" font-family="monospace">   Also: DPD diverging → more distortion → more heat</text>
+
+  <text x="560" y="201" fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q4: Dyn Range fails B3 not B1</text>
+  <text x="560" y="213" fill="#4a5470" font-size="7" font-family="monospace">→ B3 LNA NF slightly higher (freq-dependent)</text>
+  <text x="560" y="224" fill="#4a5470" font-size="7" font-family="monospace">   B3 ADC_ADJUST calibration wrong</text>
+  <text x="560" y="235" fill="#4a5470" font-size="7" font-family="monospace">   B3 duplexer insertion loss higher than B1</text>
+
+  <text x="560" y="252" fill="#00d4a0" font-size="8" font-weight="bold" font-family="monospace">Key skill: systematic isolation</text>
+  <text x="560" y="265" fill="#4a5470" font-size="7" font-family="monospace">→ Change one variable at a time</text>
+  <text x="560" y="276" fill="#4a5470" font-size="7" font-family="monospace">→ Document before and after</text>
+  <text x="560" y="287" fill="#4a5470" font-size="7" font-family="monospace">→ Root cause = smallest change that explains all symptoms</text>
+
+  <!-- Left side: Linux commands -->
+  <rect x="10" y="35" width="240" height="255" fill="#0a0a0a" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="130" y="53" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Linux Debug Commands (L31):</text>
+  <text x="20"  y="70"  fill="#f5a623" font-size="9" font-family="monospace">journalctl -u rru -f</text>
+  <text x="20"  y="81"  fill="#4a5470" font-size="7" font-family="monospace">  Live RU service log</text>
+  <text x="20"  y="96"  fill="#f5a623" font-size="9" font-family="monospace">dmesg | grep -i error</text>
+  <text x="20"  y="107" fill="#4a5470" font-size="7" font-family="monospace">  Kernel errors (hw faults)</text>
+  <text x="20"  y="122" fill="#f5a623" font-size="9" font-family="monospace">tcpdump -i eth0 port 319</text>
+  <text x="20"  y="133" fill="#4a5470" font-size="7" font-family="monospace">  PTP timing packets</text>
+  <text x="20"  y="148" fill="#f5a623" font-size="9" font-family="monospace">top / htop</text>
+  <text x="20"  y="159" fill="#4a5470" font-size="7" font-family="monospace">  CPU/memory load on RU</text>
+  <text x="20"  y="174" fill="#f5a623" font-size="9" font-family="monospace">grep "fault" /var/log/rru.log</text>
+  <text x="20"  y="185" fill="#4a5470" font-size="7" font-family="monospace">  Find fault entries in log</text>
+  <text x="20"  y="200" fill="#f5a623" font-size="9" font-family="monospace">ssh root@192.168.1.10</text>
+  <text x="20"  y="211" fill="#4a5470" font-size="7" font-family="monospace">  Access RU CLI</text>
+  <text x="20"  y="226" fill="#f5a623" font-size="9" font-family="monospace">get_faults</text>
+  <text x="20"  y="237" fill="#4a5470" font-size="7" font-family="monospace">  RU fault register list</text>
+  <text x="20"  y="252" fill="#f5a623" font-size="9" font-family="monospace">get_temp / get_rssi</text>
+  <text x="20"  y="263" fill="#4a5470" font-size="7" font-family="monospace">  Real-time RU readings</text>
+  <text x="20"  y="278" fill="#f5a623" font-size="9" font-family="monospace">power-monitor 00 dl</text>
+  <text x="20"  y="289" fill="#4a5470" font-size="7" font-family="monospace">  Per-chain DL power</text>
+</svg>
+</div>
+</div>
+
+<!-- L42: AI for RF -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L42</span>
+  <span class="mod-title">AI for RF ⭐⭐⭐⭐ — AI-based DPD, Fault Prediction, Power Optimization, Beam Optimization, Anomaly Detection, RCA</span>
+  <span class="mod-level adv">Future ⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">AI for RF — Current and Near-Future Applications</text>
+
+  <rect x="10"  y="35" width="175" height="100" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="97"  y="53" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">AI-DPD</text>
+  <text x="20"  y="68" fill="#8892b0" font-size="8" font-family="monospace">Neural network replaces</text>
+  <text x="20"  y="80" fill="#8892b0" font-size="8" font-family="monospace">traditional LUT-based DPD</text>
+  <text x="20"  y="93" fill="#f5a623" font-size="8" font-family="monospace">Better adaptation speed</text>
+  <text x="20"  y="105" fill="#f5a623" font-size="8" font-family="monospace">Handles memory effects</text>
+  <text x="20"  y="118" fill="#4a5470" font-size="7" font-family="monospace">Research: Samsung, Ericsson</text>
+  <text x="20"  y="128" fill="#4a5470" font-size="7" font-family="monospace">Key: 3-5dB ACLR improvement</text>
+
+  <rect x="195" y="35" width="175" height="100" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="282" y="53" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">AI Fault Prediction</text>
+  <text x="205" y="68" fill="#8892b0" font-size="8" font-family="monospace">Train on historical fault logs</text>
+  <text x="205" y="80" fill="#8892b0" font-size="8" font-family="monospace">Predict failures before they</text>
+  <text x="205" y="92" fill="#8892b0" font-size="8" font-family="monospace">occur → proactive maintenance</text>
+  <text x="205" y="105" fill="#f5a623" font-size="8" font-family="monospace">Input: temp, power, VSWR trends</text>
+  <text x="205" y="118" fill="#4a5470" font-size="7" font-family="monospace">Output: "PA likely to fail in 48h"</text>
+
+  <rect x="380" y="35" width="175" height="100" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="467" y="53" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">AI Beam Optimization</text>
+  <text x="390" y="68" fill="#8892b0" font-size="8" font-family="monospace">Learn user mobility patterns</text>
+  <text x="390" y="80" fill="#8892b0" font-size="8" font-family="monospace">Predict optimal beam before</text>
+  <text x="390" y="92" fill="#8892b0" font-size="8" font-family="monospace">UE even moves</text>
+  <text x="390" y="105" fill="#f5a623" font-size="8" font-family="monospace">Reduces beam failure events</text>
+  <text x="390" y="118" fill="#4a5470" font-size="7" font-family="monospace">O-RAN rApp/xApp framework</text>
+
+  <rect x="565" y="35" width="225" height="100" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="677" y="53" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">AI Power Optimization</text>
+  <text x="575" y="68" fill="#8892b0" font-size="8" font-family="monospace">Dynamic traffic prediction →</text>
+  <text x="575" y="80" fill="#8892b0" font-size="8" font-family="monospace">pre-scale uSleep/Vdd levels</text>
+  <text x="575" y="92" fill="#8892b0" font-size="8" font-family="monospace">before traffic arrives</text>
+  <text x="575" y="105" fill="#f5a623" font-size="8" font-family="monospace">5-15% additional power saving</text>
+  <text x="575" y="118" fill="#4a5470" font-size="7" font-family="monospace">Ericsson Energy Saver feature</text>
+
+  <rect x="10" y="145" width="780" height="65" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="163" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Why this matters for your career:</text>
+  <text x="20"  y="179" fill="#8892b0" font-size="9" font-family="monospace">AI for RF is the fastest-growing area in 5G/6G. Ericsson, Nokia, Qualcomm all have AI teams working on RF problems.</text>
+  <text x="20"  y="193" fill="#8892b0" font-size="9" font-family="monospace">An RF engineer who also understands ML (feature extraction from RF data, anomaly detection, regression models) is extremely rare and valuable.</text>
+  <text x="20"  y="207" fill="#4a5470" font-size="8" font-family="monospace">Start with: Python sklearn · logistic regression on fault log data · LSTM for time-series RSSI prediction · These skills set you apart at interviews.</text>
+</svg>
+</div>
+</div>
+
+<!-- The "Why?" Framework -->
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">WHY</span>
+  <span class="mod-title">The "Why?" Framework — For every topic: Why does it exist? What problem? Which hardware? Which spec? How measured? Pass/fail? Debug? Interview? Customer impact?</span>
+  <span class="mod-level adv">Master Framework</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#f5a623" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">The "Why?" Framework — Applied to Every Topic</text>
+  <text x="400" y="38" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Transforms definitions into engineering understanding. Use this for every module in this guide.</text>
+
+  <!-- 10 question boxes in 2 rows of 5 -->
+  <rect x="10"  y="50" width="148" height="90" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="67" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① Why does it exist?</text>
+  <text x="20"  y="82" fill="#8892b0" font-size="8" font-family="monospace">What problem does this</text>
+  <text x="20"  y="94" fill="#8892b0" font-size="8" font-family="monospace">feature/measurement solve?</text>
+  <text x="20"  y="106" fill="#f5a623" font-size="8" font-family="monospace">e.g. DPD exists because PA</text>
+  <text x="20"  y="118" fill="#f5a623" font-size="8" font-family="monospace">is nonlinear → ACLR fails</text>
+  <text x="20"  y="133" fill="#4a5470" font-size="7" font-family="monospace">Without this: what would fail?</text>
+
+  <rect x="167" y="50" width="148" height="90" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="241" y="67" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② 3GPP Spec</text>
+  <text x="177" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which TS defines it?</text>
+  <text x="177" y="94" fill="#8892b0" font-size="8" font-family="monospace">Which section? Limit?</text>
+  <text x="177" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: 36.104 §6.6.2</text>
+  <text x="177" y="118" fill="#f5a623" font-size="8" font-family="monospace">EVM: 36.104 §6.5.2.2</text>
+  <text x="177" y="133" fill="#4a5470" font-size="7" font-family="monospace">Always cite the spec</text>
+
+  <rect x="324" y="50" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="398" y="67" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Hardware blocks</text>
+  <text x="334" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which blocks involved?</text>
+  <text x="334" y="94" fill="#8892b0" font-size="8" font-family="monospace">Signal path through each?</text>
+  <text x="334" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: PA → DPD → CFR</text>
+  <text x="334" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: LNA → ADC → FW</text>
+  <text x="334" y="133" fill="#4a5470" font-size="7" font-family="monospace">Draw the signal path</text>
+
+  <rect x="481" y="50" width="148" height="90" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="555" y="67" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Measurement</text>
+  <text x="491" y="82" fill="#8892b0" font-size="8" font-family="monospace">Equipment + setup?</text>
+  <text x="491" y="94" fill="#8892b0" font-size="8" font-family="monospace">SCPI commands?</text>
+  <text x="491" y="106" fill="#f5a623" font-size="8" font-family="monospace">EXA: CALC:MARK:ACLR</text>
+  <text x="491" y="118" fill="#f5a623" font-size="8" font-family="monospace">EXM: ul-rct-test run</text>
+  <text x="491" y="133" fill="#4a5470" font-size="7" font-family="monospace">Cable loss correction</text>
+
+  <rect x="638" y="50" width="152" height="90" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="714" y="67" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑤ Pass/Fail</text>
+  <text x="648" y="82" fill="#8892b0" font-size="8" font-family="monospace">Acceptance limits?</text>
+  <text x="648" y="94" fill="#8892b0" font-size="8" font-family="monospace">Typical good values?</text>
+  <text x="648" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: &gt;45dBc (3GPP)</text>
+  <text x="648" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: ±2dB (PW spec)</text>
+  <text x="648" y="133" fill="#4a5470" font-size="7" font-family="monospace">Also: PW internal gates</text>
+
+  <!-- Row 2 -->
+  <rect x="10"  y="152" width="148" height="90" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="169" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑥ Troubleshoot</text>
+  <text x="20"  y="184" fill="#8892b0" font-size="8" font-family="monospace">Failure symptoms?</text>
+  <text x="20"  y="196" fill="#8892b0" font-size="8" font-family="monospace">First 3 checks?</text>
+  <text x="20"  y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail: wait 60s</text>
+  <text x="20"  y="220" fill="#f5a623" font-size="8" font-family="monospace">check DPD, CFR, PA temp</text>
+  <text x="20"  y="235" fill="#4a5470" font-size="7" font-family="monospace">Systematic isolation</text>
+
+  <rect x="167" y="152" width="148" height="90" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="241" y="169" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑦ Interview Qs</text>
+  <text x="177" y="184" fill="#8892b0" font-size="8" font-family="monospace">Conceptual questions?</text>
+  <text x="177" y="196" fill="#8892b0" font-size="8" font-family="monospace">Scenario questions?</text>
+  <text x="177" y="208" fill="#f5a623" font-size="8" font-family="monospace">"Walk me through how</text>
+  <text x="177" y="220" fill="#f5a623" font-size="8" font-family="monospace">you debug bad ACLR"</text>
+  <text x="177" y="235" fill="#4a5470" font-size="7" font-family="monospace">Practice out loud</text>
+
+  <rect x="324" y="152" width="148" height="90" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="398" y="169" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑧ Lab Notes</text>
+  <text x="334" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your real measurements?</text>
+  <text x="334" y="196" fill="#8892b0" font-size="8" font-family="monospace">Screenshots from EXA?</text>
+  <text x="334" y="208" fill="#f5a623" font-size="8" font-family="monospace">B28 ACLR: 49.14dBm</text>
+  <text x="334" y="220" fill="#f5a623" font-size="8" font-family="monospace">RSSI B1: -95.5dBm</text>
+  <text x="334" y="235" fill="#4a5470" font-size="7" font-family="monospace">Real data = credibility</text>
+
+  <rect x="481" y="152" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="555" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑨ Customer Impact</text>
+  <text x="491" y="184" fill="#8892b0" font-size="8" font-family="monospace">What fails for customer</text>
+  <text x="491" y="196" fill="#8892b0" font-size="8" font-family="monospace">if this test fails?</text>
+  <text x="491" y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail → regulator</text>
+  <text x="491" y="220" fill="#f5a623" font-size="8" font-family="monospace">fine + network shutdown</text>
+  <text x="491" y="235" fill="#4a5470" font-size="7" font-family="monospace">Always tie to business</text>
+
+  <rect x="638" y="152" width="152" height="90" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="714" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑩ Apply to your lab</text>
+  <text x="648" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your unit: 26050509</text>
+  <text x="648" y="196" fill="#8892b0" font-size="8" font-family="monospace">Your bands: B1-B41</text>
+  <text x="648" y="208" fill="#f5a623" font-size="8" font-family="monospace">Your instruments: EXA</text>
+  <text x="648" y="220" fill="#f5a623" font-size="8" font-family="monospace">EXM, VNA E5071C</text>
+  <text x="648" y="235" fill="#4a5470" font-size="7" font-family="monospace">Personalise every topic</text>
+</svg>
+<div class="tip">This "Why?" framework is what separates senior RF engineers from those who only memorised concepts. A senior engineer can answer all 10 questions for any topic without notes. Practice answering them out loud for every module in this guide — that is your interview preparation.</div>
+</div>
+</div>
+
 </div><!-- end careermap section -->
 
 
