@@ -1,4 +1,4 @@
-# 📡 Pardha RF Lab Guide — Parallel Wireless Metro AAU
+# 📡 Pardha RF Lab Guide
 
 > **A complete RF engineering reference for B1/B3/B8/B28/B41 Metro AAU validation and testing.**  
 > Built from real lab sessions, Parallel Wireless study materials, instrument data, and expert RF knowledge.
