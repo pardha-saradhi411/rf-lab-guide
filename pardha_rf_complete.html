@@ -262,6 +262,7 @@ footer span{color:var(--text2)}
     <a href="#vna_cal">VNA Phase Cal</a>
     <a href="#rct_setup">RCT Setup</a>
     <a href="#noisefigure">Noise Figure</a>
+    <a href="#rf_fundamentals">RF Fundamentals</a>
     <a href="#sensitivity_dsa">Sensitivity &amp; DSA</a>
     <a href="#expertvideos">Videos &amp; Channels</a>
     <a href="#careermap">Career Roadmap</a>
@@ -7659,6 +7660,516 @@ Step 6: RuAuto uses DSA in test threshold
 
 
 </div><!-- end sensitivity_dsa section -->
+
+<!-- ═══════════════ RF FUNDAMENTALS Q&A ═══════════════ -->
+<div class="div-line"></div>
+<div id="rf_fundamentals" class="sec">
+  <div class="sec-hdr">
+    <div class="badge b">RF</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#5bc4ef">RF Fundamentals — Visual Q&A Reference (16 Topics)</h2>
+      <p>Complete visual reference cards for every RF fundamental concept · Each card: definition + diagram + formula + key points · Based on RF Protocol Q&amp;A reference</p>
+    </div>
+  </div>
+
+<!-- Grid of Q&A cards -->
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;margin-bottom:20px">
+
+<!-- ══ Q1: What is RF? ══ -->
+<div style="background:#0d1a2a;border:2px solid #5bc4ef;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#5bc4ef;margin-bottom:10px">① What is RF (Radio Frequency)?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Tower -->
+    <rect x="30" y="30" width="6" height="60" fill="#4a5470"/>
+    <polygon points="33,20 20,35 46,35" fill="#5bc4ef"/>
+    <!-- Radio waves -->
+    <path d="M 50,55 Q 80,30 110,55" fill="none" stroke="#5bc4ef" stroke-width="2" opacity="0.9"/>
+    <path d="M 50,55 Q 90,20 130,55" fill="none" stroke="#5bc4ef" stroke-width="1.5" opacity="0.6"/>
+    <path d="M 50,55 Q 100,10 150,55" fill="none" stroke="#5bc4ef" stroke-width="1" opacity="0.3"/>
+    <!-- Device -->
+    <rect x="155" y="38" width="28" height="42" fill="#1a2a1a" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+    <rect x="159" y="42" width="20" height="26" fill="#0d1a0d" rx="1"/>
+    <circle cx="169" cy="76" r="2" fill="#00d4a0"/>
+    <!-- Labels -->
+    <text x="33" y="102" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">Tower</text>
+    <text x="169" y="102" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">Device</text>
+    <text x="100" y="18" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">RF Waves (3kHz–300GHz)</text>
+    <!-- Key points -->
+    <text x="210" y="35" fill="#c8c8d8" font-size="8" font-family="monospace">● Electromagnetic waves</text>
+    <text x="210" y="50" fill="#c8c8d8" font-size="8" font-family="monospace">● 3 kHz to 300 GHz range</text>
+    <text x="210" y="65" fill="#c8c8d8" font-size="8" font-family="monospace">● Travels at speed of light</text>
+    <text x="210" y="80" fill="#c8c8d8" font-size="8" font-family="monospace">● No physical medium needed</text>
+    <text x="210" y="95" fill="#c8c8d8" font-size="8" font-family="monospace">● Basis of all wireless comms</text>
+    <text x="210" y="115" fill="#f5a623" font-size="8" font-family="monospace">Your bands: B1=2140MHz, B41=2545MHz</text>
+  </svg>
+</div>
+
+<!-- ══ Q2: Electromagnetic Spectrum ══ -->
+<div style="background:#0d1a2a;border:2px solid #9b8cf8;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#9b8cf8;margin-bottom:10px">② What is the Electromagnetic Spectrum?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Spectrum bar -->
+    <defs>
+      <linearGradient id="specGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#ff0000"/>
+        <stop offset="15%"  stop-color="#ff6600"/>
+        <stop offset="25%"  stop-color="#f5a623"/>
+        <stop offset="40%"  stop-color="#00d4a0"/>
+        <stop offset="55%"  stop-color="#5bc4ef"/>
+        <stop offset="70%"  stop-color="#9b8cf8"/>
+        <stop offset="85%"  stop-color="#cc00cc"/>
+        <stop offset="100%" stop-color="#ff00ff"/>
+      </linearGradient>
+    </defs>
+    <rect x="10" y="30" width="320" height="20" fill="url(#specGrad)" rx="3"/>
+    <!-- Labels below spectrum -->
+    <text x="20"  y="62" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Radio</text>
+    <text x="65"  y="62" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Micro</text>
+    <text x="110" y="62" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">Infrared</text>
+    <text x="165" y="62" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">Visible</text>
+    <text x="215" y="62" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">UV</text>
+    <text x="260" y="62" fill="#9b8cf8" font-size="7" text-anchor="middle" font-family="monospace">X-Ray</text>
+    <text x="310" y="62" fill="#ff00ff" font-size="7" text-anchor="middle" font-family="monospace">Gamma</text>
+    <!-- Frequency axis -->
+    <text x="10"  y="80" fill="#4a5470" font-size="7" font-family="monospace">3kHz</text>
+    <text x="60"  y="80" fill="#4a5470" font-size="7" font-family="monospace">300MHz</text>
+    <text x="140" y="80" fill="#4a5470" font-size="7" font-family="monospace">430THz</text>
+    <text x="270" y="80" fill="#4a5470" font-size="7" font-family="monospace">30EHz</text>
+    <!-- RF highlight box -->
+    <rect x="10" y="30" width="50" height="20" fill="none" stroke="#f5a623" stroke-width="2"/>
+    <text x="35" y="25" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">← RF (3kHz–300GHz)</text>
+    <!-- Key points -->
+    <text x="10" y="98"  fill="#c8c8d8" font-size="8" font-family="monospace">● RF occupies lowest frequencies in EM spectrum</text>
+    <text x="10" y="111" fill="#c8c8d8" font-size="8" font-family="monospace">● Higher freq = shorter wavelength = more data capacity</text>
+    <text x="10" y="124" fill="#f5a623" font-size="8" font-family="monospace">● Lower freq = better penetration (walls, buildings)</text>
+  </svg>
+</div>
+
+<!-- ══ Q3: Wireless Communication ══ -->
+<div style="background:#0d1a0d;border:2px solid #00d4a0;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#00d4a0;margin-bottom:10px">③ What is Wireless Communication?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- TX box -->
+    <rect x="10" y="35" width="70" height="55" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+    <text x="45" y="55" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">TX</text>
+    <text x="45" y="68" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Transmitter</text>
+    <text x="45" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">eNB/RU</text>
+    <!-- Medium box -->
+    <rect x="110" y="35" width="120" height="55" fill="#0d0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+    <text x="170" y="55" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">AIR MEDIUM</text>
+    <text x="170" y="70" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">RF waves propagate</text>
+    <text x="170" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">No wire needed!</text>
+    <!-- RX box -->
+    <rect x="260" y="35" width="70" height="55" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+    <text x="295" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">RX</text>
+    <text x="295" y="68" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Receiver</text>
+    <text x="295" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">UE/phone</text>
+    <!-- Arrows -->
+    <line x1="80" y1="62" x2="110" y2="62" stroke="#5bc4ef" stroke-width="2"/>
+    <polygon points="108,58 118,62 108,66" fill="#5bc4ef"/>
+    <line x1="230" y1="62" x2="260" y2="62" stroke="#5bc4ef" stroke-width="2"/>
+    <polygon points="258,58 268,62 258,66" fill="#5bc4ef"/>
+    <!-- Key points -->
+    <text x="10" y="103" fill="#c8c8d8" font-size="8" font-family="monospace">● Data: voice, video, text transferred wirelessly</text>
+    <text x="10" y="115" fill="#c8c8d8" font-size="8" font-family="monospace">● Medium: air (electromagnetic wave propagation)</text>
+    <text x="10" y="127" fill="#f5a623" font-size="8" font-family="monospace">● Your RU = TX (DL) + RX (UL) simultaneously (FDD)</text>
+  </svg>
+</div>
+
+<!-- ══ Q4: Frequency ══ -->
+<div style="background:#1a1a0d;border:2px solid #c8b800;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#c8b800;margin-bottom:10px">④ What is Frequency?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Low frequency wave -->
+    <text x="10" y="22" fill="#5bc4ef" font-size="8" font-family="monospace">Low freq (slow cycles):</text>
+    <path d="M 10,40 Q 45,15 80,40 Q 115,65 150,40 Q 185,15 220,40" fill="none" stroke="#5bc4ef" stroke-width="2"/>
+    <line x1="10" y1="40" x2="220" y2="40" stroke="#4a5470" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <!-- High frequency wave -->
+    <text x="10" y="75" fill="#ff6b6b" font-size="8" font-family="monospace">High freq (fast cycles):</text>
+    <path d="M 10,90 Q 25,75 40,90 Q 55,105 70,90 Q 85,75 100,90 Q 115,105 130,90 Q 145,75 160,90 Q 175,105 190,90 Q 205,75 220,90" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+    <line x1="10" y1="90" x2="220" y2="90" stroke="#4a5470" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <!-- 1 second bracket -->
+    <line x1="10" y1="108" x2="220" y2="108" stroke="#f5a623" stroke-width="1"/>
+    <text x="115" y="120" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">1 second</text>
+    <!-- Formula and key points -->
+    <text x="240" y="25" fill="#c8b800" font-size="10" font-weight="bold" font-family="monospace">f = cycles/sec</text>
+    <text x="240" y="40" fill="#c8b800" font-size="9" font-family="monospace">Unit: Hertz (Hz)</text>
+    <text x="240" y="58" fill="#8892b0" font-size="8" font-family="monospace">1 Hz = 1 cycle/s</text>
+    <text x="240" y="70" fill="#8892b0" font-size="8" font-family="monospace">1 kHz = 1,000/s</text>
+    <text x="240" y="82" fill="#8892b0" font-size="8" font-family="monospace">1 MHz = 1M/s</text>
+    <text x="240" y="94" fill="#8892b0" font-size="8" font-family="monospace">1 GHz = 1B/s</text>
+    <text x="240" y="110" fill="#f5a623" font-size="8" font-family="monospace">B1: f=2140 MHz</text>
+    <text x="240" y="122" fill="#f5a623" font-size="8" font-family="monospace">B8: f=942.5 MHz</text>
+  </svg>
+</div>
+
+<!-- ══ Q5: Wavelength ══ -->
+<div style="background:#0d1a2a;border:2px solid #5bc4ef;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#5bc4ef;margin-bottom:10px">⑤ What is Wavelength?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Wave showing wavelength -->
+    <path d="M 20,65 Q 55,25 90,65 Q 125,105 160,65 Q 195,25 230,65" fill="none" stroke="#5bc4ef" stroke-width="2.5"/>
+    <!-- Wavelength bracket -->
+    <line x1="20" y1="110" x2="160" y2="110" stroke="#f5a623" stroke-width="1.5"/>
+    <line x1="20" y1="105" x2="20" y2="115" stroke="#f5a623" stroke-width="1.5"/>
+    <line x1="160" y1="105" x2="160" y2="115" stroke="#f5a623" stroke-width="1.5"/>
+    <text x="90" y="125" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">λ (wavelength)</text>
+    <!-- Amplitude arrow -->
+    <line x1="90" y1="25" x2="90" y2="65" stroke="#ff6b6b" stroke-width="1.5"/>
+    <text x="94" y="45" fill="#ff6b6b" font-size="8" font-family="monospace">A</text>
+    <!-- Formula box -->
+    <rect x="245" y="20" width="85" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="3"/>
+    <text x="287" y="36" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">λ = c / f</text>
+    <text x="287" y="50" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">c=3×10⁸ m/s</text>
+    <!-- Key points -->
+    <text x="240" y="75"  fill="#c8c8d8" font-size="8" font-family="monospace">● Distance for 1 cycle</text>
+    <text x="240" y="88"  fill="#c8c8d8" font-size="8" font-family="monospace">● Higher f = shorter λ</text>
+    <text x="240" y="101" fill="#f5a623" font-size="8" font-family="monospace">B1: λ=14cm @ 2140MHz</text>
+    <text x="240" y="114" fill="#f5a623" font-size="8" font-family="monospace">B8: λ=32cm @ 942MHz</text>
+    <text x="240" y="127" fill="#4a5470" font-size="7" font-family="monospace">λ/2 = antenna spacing</text>
+  </svg>
+</div>
+
+<!-- ══ Q6: Amplitude ══ -->
+<div style="background:#1a0d0d;border:2px solid #ff6b6b;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#ff6b6b;margin-bottom:10px">⑥ What is Amplitude?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Centreline -->
+    <line x1="10" y1="65" x2="230" y2="65" stroke="#4a5470" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="5" y="68" fill="#4a5470" font-size="7" font-family="monospace">0</text>
+    <!-- High amplitude wave (red) -->
+    <path d="M 20,65 Q 50,10 80,65 Q 110,120 140,65 Q 170,10 200,65" fill="none" stroke="#ff6b6b" stroke-width="2.5"/>
+    <!-- Low amplitude wave (blue) -->
+    <path d="M 20,65 Q 50,40 80,65 Q 110,90 140,65 Q 170,40 200,65" fill="none" stroke="#5bc4ef" stroke-width="2"/>
+    <!-- Amplitude arrows -->
+    <line x1="80" y1="10" x2="80" y2="65" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="84" y="35" fill="#ff6b6b" font-size="8" font-family="monospace">High A</text>
+    <text x="84" y="48" fill="#ff6b6b" font-size="8" font-family="monospace">(strong)</text>
+    <line x1="140" y1="40" x2="140" y2="65" stroke="#5bc4ef" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="144" y="52" fill="#5bc4ef" font-size="8" font-family="monospace">Low A</text>
+    <text x="144" y="62" fill="#5bc4ef" font-size="8" font-family="monospace">(weak)</text>
+    <!-- Key points -->
+    <text x="240" y="25"  fill="#c8c8d8" font-size="8" font-family="monospace">● Max height from centre</text>
+    <text x="240" y="40"  fill="#c8c8d8" font-size="8" font-family="monospace">● Represents signal power</text>
+    <text x="240" y="55"  fill="#c8c8d8" font-size="8" font-family="monospace">● Measured in Volts or dBm</text>
+    <text x="240" y="75"  fill="#ff6b6b" font-size="8" font-family="monospace">Higher A = more power</text>
+    <text x="240" y="88"  fill="#5bc4ef" font-size="8" font-family="monospace">Lower A = weaker signal</text>
+    <text x="240" y="105" fill="#f5a623" font-size="8" font-family="monospace">P ∝ A² (power ∝ A²)</text>
+    <text x="240" y="118" fill="#4a5470" font-size="8" font-family="monospace">AM modulation varies A</text>
+    <text x="240" y="128" fill="#4a5470" font-size="7" font-family="monospace">Your RU: P_rated=-16.7dBm</text>
+  </svg>
+</div>
+
+<!-- ══ Q7: RF Signal ══ -->
+<div style="background:#0d1a0d;border:2px solid #00d4a0;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#00d4a0;margin-bottom:10px">⑦ What is an RF Signal?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Baseband signal -->
+    <text x="10" y="18" fill="#c8b800" font-size="8" font-family="monospace">Baseband (data):</text>
+    <rect x="10"  y="22" width="15" height="20" fill="#c8b800"/>
+    <rect x="30"  y="32" width="15" height="10" fill="#c8b800"/>
+    <rect x="50"  y="22" width="15" height="20" fill="#c8b800"/>
+    <rect x="70"  y="35" width="15" height="7"  fill="#c8b800"/>
+    <rect x="90"  y="22" width="15" height="20" fill="#c8b800"/>
+    <!-- Arrow -->
+    <text x="120" y="35" fill="#f5a623" font-size="12" font-family="monospace">×</text>
+    <!-- Carrier -->
+    <text x="135" y="18" fill="#9b8cf8" font-size="8" font-family="monospace">Carrier (2140MHz):</text>
+    <path d="M 135,35 Q 142,25 149,35 Q 156,45 163,35 Q 170,25 177,35" fill="none" stroke="#9b8cf8" stroke-width="1.5"/>
+    <!-- Result RF signal -->
+    <text x="10" y="70" fill="#00d4a0" font-size="8" font-family="monospace">RF Signal (modulated carrier):</text>
+    <path d="M 10,95 Q 20,80 30,95 Q 40,110 50,95 Q 60,78 70,95 Q 82,112 92,88 Q 102,72 112,90 Q 125,108 135,85 Q 145,70 155,88 Q 168,105 175,88" fill="none" stroke="#00d4a0" stroke-width="2"/>
+    <!-- Key points -->
+    <text x="200" y="25"  fill="#c8c8d8" font-size="8" font-family="monospace">● Data on RF carrier</text>
+    <text x="200" y="40"  fill="#c8c8d8" font-size="8" font-family="monospace">● Travels through air</text>
+    <text x="200" y="55"  fill="#c8c8d8" font-size="8" font-family="monospace">● WiFi/BT/LTE/5G</text>
+    <text x="200" y="70"  fill="#f5a623" font-size="8" font-family="monospace">Modulation = data</text>
+    <text x="200" y="83"  fill="#f5a623" font-size="8" font-family="monospace">on carrier wave</text>
+    <text x="200" y="100" fill="#4a5470" font-size="8" font-family="monospace">QPSK, 16QAM, 64QAM</text>
+    <text x="200" y="115" fill="#4a5470" font-size="8" font-family="monospace">vary phase/amplitude</text>
+  </svg>
+</div>
+
+<!-- ══ Q8: Bandwidth ══ -->
+<div style="background:#1a1a0d;border:2px solid #c8b800;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#c8b800;margin-bottom:10px">⑧ What is Bandwidth?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Spectrum with BW marked -->
+    <path d="M 20,90 L 40,90 Q 80,20 120,20 Q 160,20 200,90 L 220,90" fill="#5bc4ef20" stroke="#5bc4ef" stroke-width="2"/>
+    <!-- BW bracket -->
+    <line x1="40"  y1="100" x2="200" y2="100" stroke="#f5a623" stroke-width="2"/>
+    <line x1="40"  y1="95"  x2="40"  y2="105" stroke="#f5a623" stroke-width="2"/>
+    <line x1="200" y1="95"  x2="200" y2="105" stroke="#f5a623" stroke-width="2"/>
+    <text x="120" y="118" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">BW = fH - fL</text>
+    <!-- -3dB points -->
+    <line x1="40"  y1="20" x2="40"  y2="90" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="200" y1="20" x2="200" y2="90" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="38"  y="18" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">-3dB</text>
+    <text x="202" y="18" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">-3dB</text>
+    <!-- Key points -->
+    <text x="240" y="30"  fill="#c8c8d8" font-size="8" font-family="monospace">● Range of frequencies</text>
+    <text x="240" y="43"  fill="#c8c8d8" font-size="8" font-family="monospace">● More BW = more data</text>
+    <text x="240" y="56"  fill="#c8c8d8" font-size="8" font-family="monospace">● Unit: Hz, MHz</text>
+    <text x="240" y="72"  fill="#f5a623" font-size="8" font-family="monospace">LTE: 5/10/15/20 MHz</text>
+    <text x="240" y="85"  fill="#f5a623" font-size="8" font-family="monospace">Noise ∝ BW: wider=noisier</text>
+    <text x="240" y="100" fill="#4a5470" font-size="8" font-family="monospace">10MHz: noise=-104dBm</text>
+    <text x="240" y="113" fill="#4a5470" font-size="8" font-family="monospace">20MHz: noise=-101dBm</text>
+    <text x="240" y="126" fill="#4a5470" font-size="8" font-family="monospace">Capacity ∝ log₂(1+SNR)·BW</text>
+  </svg>
+</div>
+
+<!-- ══ Q9: Modulation ══ -->
+<div style="background:#0d1a2a;border:2px solid #9b8cf8;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#9b8cf8;margin-bottom:10px">⑨ What is Modulation?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- AM illustration -->
+    <text x="10" y="18" fill="#ff6b6b" font-size="8" font-family="monospace">AM (vary Amplitude):</text>
+    <path d="M 10,35 Q 22,22 32,35 Q 42,48 52,35 Q 64,18 76,35 Q 88,52 98,35 Q 108,22 118,35" fill="none" stroke="#ff6b6b" stroke-width="2"/>
+    <!-- FM illustration -->
+    <text x="10" y="58" fill="#00d4a0" font-size="8" font-family="monospace">FM (vary Frequency):</text>
+    <path d="M 10,75 Q 18,65 26,75 Q 34,85 42,75 Q 50,65 58,75 Q 66,85 74,75 Q 80,68 86,75 Q 92,82 98,75 Q 104,68 108,75 Q 112,82 118,75" fill="none" stroke="#00d4a0" stroke-width="2"/>
+    <!-- PM illustration -->
+    <text x="10" y="98" fill="#9b8cf8" font-size="8" font-family="monospace">PM/QPSK (vary Phase):</text>
+    <path d="M 10,115 Q 20,105 30,115 Q 40,125 50,115 Q 68,100 78,115 Q 88,125 98,115 Q 110,105 118,115" fill="none" stroke="#9b8cf8" stroke-width="2"/>
+    <!-- Key points right side -->
+    <text x="140" y="20" fill="#c8c8d8" font-size="8" font-family="monospace">Process of varying carrier</text>
+    <text x="140" y="33" fill="#c8c8d8" font-size="8" font-family="monospace">wave to carry data</text>
+    <text x="140" y="50" fill="#ff6b6b" font-size="8" font-family="monospace">AM: amplitude changes</text>
+    <text x="140" y="63" fill="#00d4a0" font-size="8" font-family="monospace">FM: frequency changes</text>
+    <text x="140" y="76" fill="#9b8cf8" font-size="8" font-family="monospace">PM: phase changes</text>
+    <text x="140" y="95" fill="#f5a623" font-size="8" font-family="monospace">LTE uses: QPSK, 16QAM</text>
+    <text x="140" y="108" fill="#f5a623" font-size="8" font-family="monospace">64QAM, 256QAM</text>
+    <text x="140" y="121" fill="#4a5470" font-size="8" font-family="monospace">Higher QAM = more bits</text>
+    <text x="140" y="128" fill="#4a5470" font-size="7" font-family="monospace">= needs better SNR</text>
+  </svg>
+</div>
+
+<!-- ══ Q10: Demodulation ══ -->
+<div style="background:#1a0d0d;border:2px solid #ff6b6b;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#ff6b6b;margin-bottom:10px">⑩ What is Demodulation?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Modulated signal input -->
+    <text x="10" y="18" fill="#9b8cf8" font-size="8" font-family="monospace">Received RF signal:</text>
+    <path d="M 10,35 Q 20,22 30,35 Q 40,48 50,35 Q 62,18 74,35 Q 86,52 96,35 Q 106,22 116,35" fill="none" stroke="#9b8cf8" stroke-width="2"/>
+    <!-- Demodulator box -->
+    <rect x="130" y="22" width="80" height="30" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+    <text x="170" y="37" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DEMOD</text>
+    <text x="170" y="48" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ADC + FFT + decoder</text>
+    <!-- Arrows -->
+    <line x1="116" y1="35" x2="130" y2="35" stroke="#9b8cf8" stroke-width="1.5"/>
+    <polygon points="128,31 138,35 128,39" fill="#9b8cf8"/>
+    <line x1="210" y1="35" x2="224" y2="35" stroke="#00d4a0" stroke-width="1.5"/>
+    <polygon points="222,31 232,35 222,39" fill="#00d4a0"/>
+    <!-- Baseband output -->
+    <text x="235" y="18" fill="#00d4a0" font-size="8" font-family="monospace">Original data:</text>
+    <rect x="235" y="22" width="12" height="18" fill="#00d4a0"/>
+    <rect x="252" y="30" width="12" height="10" fill="#00d4a0"/>
+    <rect x="269" y="22" width="12" height="18" fill="#00d4a0"/>
+    <rect x="286" y="32" width="12" height="8"  fill="#00d4a0"/>
+    <!-- Key points -->
+    <text x="10"  y="70" fill="#c8c8d8" font-size="8" font-family="monospace">● Reverse of modulation</text>
+    <text x="10"  y="83" fill="#c8c8d8" font-size="8" font-family="monospace">● Extracts original baseband signal</text>
+    <text x="10"  y="96" fill="#c8c8d8" font-size="8" font-family="monospace">● Performed at receiver (UE / DU)</text>
+    <text x="10" y="112" fill="#f5a623" font-size="8" font-family="monospace">Your chain: Antenna→LNA→Mixer→ADC→FFT→DU</text>
+    <text x="10" y="125" fill="#4a5470" font-size="8" font-family="monospace">EVM measures demodulation quality (target &lt;8%)</text>
+  </svg>
+</div>
+
+<!-- ══ Q11: Antenna ══ -->
+<div style="background:#0d1a0d;border:2px solid #00d4a0;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#00d4a0;margin-bottom:10px">⑪ What is an Antenna?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- TX antenna -->
+    <text x="55" y="16" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">TX Antenna</text>
+    <line x1="55" y1="90" x2="55" y2="20" stroke="#ff6b6b" stroke-width="3"/>
+    <line x1="40" y1="90" x2="70" y2="90" stroke="#ff6b6b" stroke-width="2"/>
+    <!-- TX waves -->
+    <path d="M 65,55 Q 80,40 95,55" fill="none" stroke="#ff6b6b" stroke-width="1.5" opacity="0.9"/>
+    <path d="M 65,55 Q 85,30 105,55" fill="none" stroke="#ff6b6b" stroke-width="1" opacity="0.6"/>
+    <path d="M 65,55 Q 90,20 115,55" fill="none" stroke="#ff6b6b" stroke-width="0.8" opacity="0.3"/>
+    <!-- Convert label -->
+    <rect x="118" y="42" width="104" height="26" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="3"/>
+    <text x="170" y="57" fill="#c8b800" font-size="9" text-anchor="middle" font-family="monospace">Electrical ↔ RF</text>
+    <text x="170" y="66" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">energy converter</text>
+    <!-- RX antenna -->
+    <text x="285" y="16" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">RX Antenna</text>
+    <line x1="285" y1="90" x2="285" y2="20" stroke="#00d4a0" stroke-width="3"/>
+    <line x1="270" y1="90" x2="300" y2="90" stroke="#00d4a0" stroke-width="2"/>
+    <!-- RX waves -->
+    <path d="M 225,55 Q 240,40 255,55" fill="none" stroke="#00d4a0" stroke-width="1.5" opacity="0.9"/>
+    <path d="M 215,55 Q 235,30 255,55" fill="none" stroke="#00d4a0" stroke-width="1" opacity="0.6"/>
+    <!-- Key points -->
+    <text x="10"  y="105" fill="#c8c8d8" font-size="8" font-family="monospace">● Converts electrical↔electromagnetic energy</text>
+    <text x="10"  y="117" fill="#c8c8d8" font-size="8" font-family="monospace">● Radiates (TX) or collects (RX) RF waves</text>
+    <text x="10"  y="129" fill="#f5a623" font-size="8" font-family="monospace">Your AAU: 4T4R = 4TX + 4RX antenna ports per band</text>
+  </svg>
+</div>
+
+<!-- ══ Q12: Antenna Gain ══ -->
+<div style="background:#0d1a2a;border:2px solid #5bc4ef;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#5bc4ef;margin-bottom:10px">⑫ What is Antenna Gain?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Isotropic (sphere) -->
+    <text x="65" y="16" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Isotropic (0 dBi)</text>
+    <ellipse cx="65" cy="65" rx="45" ry="45" fill="#5bc4ef10" stroke="#4a5470" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="65" y="68" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Equal all</text>
+    <text x="65" y="79" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">directions</text>
+    <!-- Directional antenna pattern -->
+    <text x="220" y="16" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Directional (15 dBi)</text>
+    <path d="M 180,65 Q 200,30 230,65 Q 200,100 180,65 Z" fill="#5bc4ef30" stroke="#5bc4ef" stroke-width="2"/>
+    <!-- Small back lobe -->
+    <path d="M 180,65 Q 170,55 165,65 Q 170,75 180,65 Z" fill="#5bc4ef10" stroke="#5bc4ef" stroke-width="1"/>
+    <text x="220" y="68" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">Focused</text>
+    <text x="220" y="79" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">beam</text>
+    <!-- Formula -->
+    <text x="270" y="40"  fill="#c8b800" font-size="9" font-weight="bold" font-family="monospace">G = dBi</text>
+    <text x="270" y="55"  fill="#c8c8d8" font-size="8" font-family="monospace">vs isotropic</text>
+    <text x="270" y="75"  fill="#c8c8d8" font-size="8" font-family="monospace">+3dBi = ×2</text>
+    <text x="270" y="88"  fill="#c8c8d8" font-size="8" font-family="monospace">+10dBi= ×10</text>
+    <text x="270" y="105" fill="#f5a623" font-size="8" font-family="monospace">BF gain: +12dB</text>
+    <text x="270" y="118" fill="#f5a623" font-size="8" font-family="monospace">4×4 array</text>
+    <!-- Key points -->
+    <text x="10"  y="118" fill="#c8c8d8" font-size="8" font-family="monospace">● Measures ability to focus power in a direction</text>
+    <text x="10"  y="129" fill="#4a5470" font-size="8" font-family="monospace">● No power added — just redirected from other angles</text>
+  </svg>
+</div>
+
+<!-- ══ Q13: Polarization ══ -->
+<div style="background:#1a0d1a;border:2px solid #9b8cf8;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#9b8cf8;margin-bottom:10px">⑬ What is Polarization?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Vertical polarization -->
+    <text x="45" y="16" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Vertical</text>
+    <line x1="45" y1="25" x2="45" y2="95" stroke="#5bc4ef" stroke-width="2.5"/>
+    <polygon points="41,28 49,28 45,20" fill="#5bc4ef"/>
+    <polygon points="41,92 49,92 45,100" fill="#5bc4ef"/>
+    <!-- Horizontal polarization -->
+    <text x="140" y="16" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">Horizontal</text>
+    <line x1="105" y1="60" x2="175" y2="60" stroke="#ff6b6b" stroke-width="2.5"/>
+    <polygon points="108,56 108,64 100,60" fill="#ff6b6b"/>
+    <polygon points="172,56 172,64 180,60" fill="#ff6b6b"/>
+    <!-- Cross polarization ±45° -->
+    <text x="235" y="16" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Cross ±45°</text>
+    <line x1="205" y1="85" x2="265" y2="25" stroke="#00d4a0" stroke-width="2"/>
+    <line x1="205" y1="25" x2="265" y2="85" stroke="#f5a623" stroke-width="2"/>
+    <text x="235" y="108" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Your AAU uses ±45°</text>
+    <!-- Key points -->
+    <text x="10"  y="118" fill="#c8c8d8" font-size="8" font-family="monospace">● Orientation of E-field oscillation of EM wave</text>
+    <text x="10"  y="129" fill="#4a5470" font-size="8" font-family="monospace">● ±45° cross-pol: both diversity and isolation in one aperture</text>
+  </svg>
+</div>
+
+<!-- ══ Q14: EIRP ══ -->
+<div style="background:#1a1a0d;border:2px solid #c8b800;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#c8b800;margin-bottom:10px">⑭ What is EIRP?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- EIRP chain -->
+    <rect x="10"  y="30" width="70" height="35" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+    <text x="45"  y="47" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">TX Power</text>
+    <text x="45"  y="58" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Pt (dBm)</text>
+
+    <line x1="80" y1="47" x2="95" y2="47" stroke="#4a5470" stroke-width="1.5"/>
+    <text x="103" y="40" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">−</text>
+
+    <rect x="115" y="30" width="70" height="35" fill="#2a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+    <text x="150" y="47" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Cable Loss</text>
+    <text x="150" y="58" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Lc (dB)</text>
+
+    <line x1="185" y1="47" x2="200" y2="47" stroke="#4a5470" stroke-width="1.5"/>
+    <text x="208" y="40" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">+</text>
+
+    <rect x="220" y="30" width="70" height="35" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+    <text x="255" y="47" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Ant Gain</text>
+    <text x="255" y="58" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Gt (dBi)</text>
+
+    <!-- EIRP formula -->
+    <rect x="10" y="78" width="310" height="28" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+    <text x="165" y="90" fill="#c8b800" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">EIRP = Pt − Lc + Gt (dBm)</text>
+    <text x="165" y="102" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Equivalent Isotropically Radiated Power</text>
+
+    <text x="10"  y="118" fill="#f5a623" font-size="8" font-family="monospace">Your B1: Pt=-16.7dBm, Lc≈0, Gt(BF)≈+15dBi → EIRP≈-1.7dBm per element</text>
+    <text x="10"  y="128" fill="#4a5470" font-size="7" font-family="monospace">3GPP limit: EIRP depends on BS class · used for regulatory compliance</text>
+  </svg>
+</div>
+
+<!-- ══ Q15: Path Loss ══ -->
+<div style="background:#0d1a2a;border:2px solid #5bc4ef;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#5bc4ef;margin-bottom:10px">⑮ What is Path Loss?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Tower TX -->
+    <rect x="15" y="25" width="6" height="70" fill="#4a5470" rx="1"/>
+    <polygon points="18,18 10,28 26,28" fill="#5bc4ef"/>
+    <text x="18" y="108" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">eNB/RU</text>
+    <text x="18" y="118" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">+43dBm</text>
+    <!-- Signal decay arrows -->
+    <text x="60"  y="55" fill="#00d4a0" font-size="14" text-anchor="middle" font-family="monospace">📶</text>
+    <text x="110" y="65" fill="#c8b800" font-size="13" text-anchor="middle" font-family="monospace">📶</text>
+    <text x="165" y="73" fill="#f5a623" font-size="12" text-anchor="middle" font-family="monospace">📶</text>
+    <text x="220" y="80" fill="#ff8844" font-size="10" text-anchor="middle" font-family="monospace">📶</text>
+    <text x="280" y="86" fill="#ff6b6b" font-size="8"  text-anchor="middle" font-family="monospace">📶</text>
+    <!-- Distance labels -->
+    <text x="60"  y="95" fill="#8892b0" font-size="7" text-anchor="middle" font-family="monospace">100m</text>
+    <text x="110" y="95" fill="#8892b0" font-size="7" text-anchor="middle" font-family="monospace">300m</text>
+    <text x="165" y="95" fill="#8892b0" font-size="7" text-anchor="middle" font-family="monospace">500m</text>
+    <text x="220" y="95" fill="#8892b0" font-size="7" text-anchor="middle" font-family="monospace">1km</text>
+    <text x="280" y="95" fill="#8892b0" font-size="7" text-anchor="middle" font-family="monospace">3km</text>
+    <!-- dBm values -->
+    <text x="60"  y="107" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">-50dBm</text>
+    <text x="110" y="107" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">-60dBm</text>
+    <text x="165" y="107" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">-70dBm</text>
+    <text x="220" y="107" fill="#ff8844" font-size="7" text-anchor="middle" font-family="monospace">-80dBm</text>
+    <text x="280" y="107" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">-95dBm</text>
+    <!-- Key points -->
+    <text x="10"  y="122" fill="#c8c8d8" font-size="8" font-family="monospace">● Signal power reduces with distance (and frequency)</text>
+    <text x="10"  y="129" fill="#4a5470" font-size="7" font-family="monospace">Causes: distance, obstacles, reflection, diffraction, absorption</text>
+  </svg>
+</div>
+
+<!-- ══ Q16: FSPL ══ -->
+<div style="background:#1a0d0d;border:2px solid #ff6b6b;border-radius:10px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:#ff6b6b;margin-bottom:10px">⑯ What is Free Space Path Loss (FSPL)?</div>
+  <svg width="100%" viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="130" fill="#0a0f14" rx="6"/>
+    <!-- Formula box -->
+    <rect x="10" y="15" width="200" height="45" fill="#1a0000" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+    <text x="110" y="32" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">FSPL (dB) =</text>
+    <text x="110" y="48" fill="#c8c8d8" font-size="9" text-anchor="middle" font-family="monospace">20log(d) + 20log(f) + 20log(4π/c)</text>
+    <!-- Simplified -->
+    <text x="110" y="72" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">≈ 20log(d_km) + 20log(f_MHz) + 32.4</text>
+    <!-- Your values -->
+    <rect x="10" y="83" width="200" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="4"/>
+    <text x="110" y="98" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">B1 (2140MHz) at 1km:</text>
+    <text x="110" y="112" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">FSPL = 20(0)+20(2140)+32.4 = 99.6 dB</text>
+    <text x="110" y="125" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">d=1km, f=2140MHz</text>
+    <!-- Key points -->
+    <text x="220" y="25" fill="#c8c8d8" font-size="8" font-family="monospace">● Loss in open air</text>
+    <text x="220" y="38" fill="#c8c8d8" font-size="8" font-family="monospace">● No obstacles</text>
+    <text x="220" y="55" fill="#ff6b6b" font-size="8" font-family="monospace">2× distance: +6dB</text>
+    <text x="220" y="68" fill="#ff6b6b" font-size="8" font-family="monospace">2× frequency: +6dB</text>
+    <text x="220" y="85" fill="#4a5470" font-size="8" font-family="monospace">Real loss &gt; FSPL due</text>
+    <text x="220" y="97" fill="#4a5470" font-size="8" font-family="monospace">to buildings, trees</text>
+    <text x="220" y="112" fill="#f5a623" font-size="8" font-family="monospace">B8: 99.6-8.1=91.5dB</text>
+    <text x="220" y="125" fill="#f5a623" font-size="8" font-family="monospace">B8 better coverage!</text>
+  </svg>
+</div>
+
+</div><!-- end grid -->
+</div><!-- end rf_fundamentals section -->
 
 <!-- ═══════════════ RF CAREER MAP ═══════════════ -->
 <div class="div-line"></div>
