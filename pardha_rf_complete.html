@@ -2818,6 +2818,71 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">DL TX Chain — CFR (Crest Factor Reduction) + DPD (Digital Pre-Distortion)</text>
+  <!-- PAPR problem visual -->
+  <text x="200" y="42" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Before CFR — High PAPR signal</text>
+  <line x1="20" y1="130" x2="390" y2="130" stroke="#4a5470" stroke-width="1"/>
+  <!-- High PAPR waveform (spiky) -->
+  <polyline points="25,130 45,128 55,110 65,130 85,129 95,85 105,130 125,128 145,130 165,95 175,130 195,128 215,75 225,130 245,129 265,130 275,105 285,130 305,128 325,130 345,92 355,130 375,128 385,130"
+    fill="none" stroke="#ff6b6b" stroke-width="2"/>
+  <!-- Clip line -->
+  <line x1="20" y1="95" x2="390" y2="95" stroke="#f5a623" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="395" y="98" fill="#f5a623" font-size="8" font-family="monospace">CFR clip level</text>
+  <!-- PAPR annotation -->
+  <line x1="215" y1="75" x2="215" y2="130" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="210" y1="75"  x2="220" y2="75"  stroke="#ff6b6b" stroke-width="1"/>
+  <line x1="210" y1="130" x2="220" y2="130" stroke="#ff6b6b" stroke-width="1"/>
+  <text x="235" y="100" fill="#ff6b6b" font-size="8" font-family="monospace">PAPR≈12dB</text>
+  <text x="235" y="112" fill="#ff6b6b" font-size="8" font-family="monospace">peak too high</text>
+  <text x="235" y="124" fill="#ff6b6b" font-size="8" font-family="monospace">→ PA saturates!</text>
+  <!-- After CFR visual -->
+  <text x="600" y="42" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">After CFR — Reduced PAPR signal</text>
+  <line x1="410" y1="130" x2="780" y2="130" stroke="#4a5470" stroke-width="1"/>
+  <polyline points="415,130 435,128 445,100 455,130 475,129 485,98 495,130 515,128 535,130 555,99 565,130 585,128 605,98 615,130 635,129 655,130 665,100 675,130 695,128 715,130 735,99 745,130 765,128 775,130"
+    fill="none" stroke="#00d4a0" stroke-width="2"/>
+  <!-- Same clip line -->
+  <line x1="410" y1="95" x2="780" y2="95" stroke="#f5a623" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="600" y="88" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Peaks clipped → PAPR reduced to ~8dB</text>
+  <text x="600" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA no longer saturates → ACLR improves · Cost: slight EVM degradation (acceptable trade-off)</text>
+  <!-- DPD flow -->
+  <text x="400" y="175" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">DPD Linearisation Flow:</text>
+  <rect x="20"  y="188" width="100" height="35" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="70"  y="208" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">CFR output</text>
+  <text x="70"  y="219" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">PAPR reduced</text>
+  <line x1="120" y1="205" x2="140" y2="205" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="140" y="188" width="100" height="35" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="190" y="208" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DPD</text>
+  <text x="190" y="219" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">pre-distort inverse</text>
+  <line x1="240" y1="205" x2="260" y2="205" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="260" y="188" width="80" height="35" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="3"/>
+  <text x="300" y="208" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DAC</text>
+  <text x="300" y="219" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">D→A</text>
+  <line x1="340" y1="205" x2="360" y2="205" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="360" y="180" width="90" height="50" fill="#2a0000" stroke="#ff6b6b" stroke-width="2" rx="3"/>
+  <text x="405" y="202" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">PA</text>
+  <text x="405" y="215" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">nonlinear</text>
+  <text x="405" y="224" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">GaN +40dB</text>
+  <line x1="450" y1="205" x2="470" y2="205" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="470" y="188" width="100" height="35" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="520" y="205" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Linear output</text>
+  <text x="520" y="218" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DPD+PA=linear</text>
+  <!-- Feedback loop -->
+  <line x1="405" y1="230" x2="405" y2="250" stroke="#9b8cf8" stroke-width="1.5"/>
+  <line x1="405" y1="250" x2="190" y2="250" stroke="#9b8cf8" stroke-width="1.5"/>
+  <line x1="190" y1="250" x2="190" y2="230" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="186,232 194,232 190,226" fill="#9b8cf8"/>
+  <text x="300" y="265" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">Feedback: observation Rx → update DPD model (adapts every ~100ms)</text>
+  <!-- CFR params -->
+  <text x="700" y="195" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Your CFR params:</text>
+  <text x="700" y="208" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">filter_length=511</text>
+  <text x="700" y="221" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">threshold=8.3</text>
+  <text x="700" y="234" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">wcfr=8.5</text>
+  <text x="700" y="247" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">In: tx_config.json</text>
+</svg>
+
 <div class="mod-section-title">The real FHGW DL chain order</div>
 <div class="mod-formula">Digital 2CC → DL Power Scaling → Gain → CFR → Gain → DPD → Per-channel Gain → DAC</div>
 <div class="mod-p">The power_monitor reads dBFS at taps along the way. DPD is ONE link in this chain — not a standalone box.</div>
@@ -3008,6 +3073,108 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="300" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Metro AAU Architecture — midBRD + RFFE + Antenna Array</text>
+
+  <!-- DU/BBU -->
+  <rect x="10" y="40" width="80" height="220" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="50" y="65" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DU/BBU</text>
+  <text x="50" y="80" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">L2/L3</text>
+  <text x="50" y="93" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scheduler</text>
+  <text x="50" y="106" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">PDCP/RLC</text>
+  <text x="50" y="135" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">eCPRI</text>
+  <text x="50" y="148" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">10GbE</text>
+  <text x="50" y="161" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">SFP+</text>
+
+  <!-- eCPRI link -->
+  <line x1="90" y1="150" x2="115" y2="150" stroke="#9b8cf8" stroke-width="2"/>
+  <polygon points="113,146 123,150 113,154" fill="#9b8cf8"/>
+
+  <!-- midBRD (FHGW) -->
+  <rect x="115" y="35" width="200" height="230" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="4"/>
+  <text x="215" y="55" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">midBRD (FHGW)</text>
+  <text x="215" y="68" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Digital processing board</text>
+  <!-- Sub-blocks inside midBRD -->
+  <rect x="125" y="75" width="180" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="215" y="93" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">LowPHY (OFDM modulation)</text>
+  <rect x="125" y="108" width="180" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="215" y="126" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">DFE — CFR + DPD</text>
+  <rect x="125" y="141" width="180" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="215" y="159" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">DAC (×4 chains)</text>
+  <rect x="125" y="174" width="180" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="215" y="192" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">Upconverter + PLL/LO</text>
+  <rect x="125" y="207" width="180" height="28" fill="#1a0d0d" stroke="#9b8cf8" stroke-width="1" rx="3"/>
+  <text x="215" y="225" fill="#9b8cf8" font-size="9" text-anchor="middle" font-family="monospace">Obs. Rx (DPD feedback)</text>
+  <text x="215" y="255" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Units: 26050509 MID</text>
+  <text x="215" y="267" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">       26050508 BOT</text>
+
+  <!-- FPCB connection -->
+  <line x1="315" y1="150" x2="340" y2="150" stroke="#c8b800" stroke-width="2.5"/>
+  <text x="327" y="143" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">FPCB</text>
+
+  <!-- RFFE board -->
+  <rect x="340" y="35" width="240" height="230" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="460" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">RFFE (Analog RF)</text>
+  <text x="460" y="68" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">4 columns: A, B, C, D</text>
+  <!-- One column detail -->
+  <rect x="350" y="78" width="52" height="170" fill="#141720" stroke="#5bc4ef" stroke-width="1" rx="3"/>
+  <text x="376" y="93"  fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">Col A</text>
+  <rect x="353" y="97" width="46" height="16" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="2"/>
+  <text x="376" y="108" fill="#c8b800" font-size="6" text-anchor="middle" font-family="monospace">Phase shift</text>
+  <rect x="353" y="116" width="46" height="16" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1" rx="2"/>
+  <text x="376" y="127" fill="#ff6b6b" font-size="6" text-anchor="middle" font-family="monospace">BPF+VATТ</text>
+  <rect x="353" y="135" width="46" height="16" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1" rx="2"/>
+  <text x="376" y="146" fill="#ff6b6b" font-size="6" text-anchor="middle" font-family="monospace">Pre-driver</text>
+  <rect x="350" y="154" width="52" height="22" fill="#2a0000" stroke="#ff6b6b" stroke-width="2" rx="2"/>
+  <text x="376" y="168" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">PA</text>
+  <rect x="353" y="179" width="46" height="14" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1" rx="2"/>
+  <text x="376" y="189" fill="#5bc4ef" font-size="6" text-anchor="middle" font-family="monospace">Coupler</text>
+  <rect x="353" y="196" width="46" height="14" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1" rx="2"/>
+  <text x="376" y="206" fill="#5bc4ef" font-size="6" text-anchor="middle" font-family="monospace">Circulator</text>
+  <rect x="353" y="213" width="46" height="14" fill="#0d1a1a" stroke="#9b8cf8" stroke-width="1" rx="2"/>
+  <text x="376" y="223" fill="#9b8cf8" font-size="6" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <!-- Same for B,C,D abbreviated -->
+  <text x="430" y="100" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Col B</text>
+  <line x1="413" y1="105" x2="450" y2="105" stroke="#5bc4ef" stroke-width="0.5"/>
+  <text x="430" y="120" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">(same as A)</text>
+  <text x="480" y="100" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Col C</text>
+  <text x="530" y="100" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Col D</text>
+  <!-- B28/B8 note -->
+  <rect x="410" y="115" width="155" height="120" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="487" y="132" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Band config:</text>
+  <text x="420" y="147" fill="#8892b0" font-size="7" font-family="monospace">B1/B3/B41: 4T4R</text>
+  <text x="420" y="159" fill="#8892b0" font-size="7" font-family="monospace">4 cols × full stack</text>
+  <text x="420" y="174" fill="#8892b0" font-size="7" font-family="monospace">B8/B28: 2T2R</text>
+  <text x="420" y="186" fill="#8892b0" font-size="7" font-family="monospace">2 cols only</text>
+  <text x="420" y="201" fill="#4a5470" font-size="6" font-family="monospace">B3 RFFE: RFFE-C faults</text>
+  <text x="420" y="212" fill="#4a5470" font-size="6" font-family="monospace">seen on unit 26050509</text>
+  <text x="420" y="224" fill="#4a5470" font-size="6" font-family="monospace">B41: TDD T/R switch</text>
+  <!-- Antenna array -->
+  <rect x="592" y="35" width="80" height="230" fill="#0d0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="632" y="55" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Array</text>
+  <text x="632" y="67" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4×4=16 el.</text>
+  <!-- Element dots -->
+  <circle cx="610" cy="90"  r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="640" cy="90"  r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="610" cy="115" r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="640" cy="115" r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="610" cy="140" r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="640" cy="140" r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="610" cy="165" r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <circle cx="640" cy="165" r="6" fill="#9b8cf820" stroke="#9b8cf8" stroke-width="1.5"/>
+  <!-- DPD observation loop -->
+  <line x1="460" y1="225" x2="460" y2="255" stroke="#9b8cf8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="460" y1="255" x2="215" y2="255" stroke="#9b8cf8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="215" y1="255" x2="215" y2="235" stroke="#9b8cf8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="211,237 219,237 215,231" fill="#9b8cf8"/>
+  <text x="337" y="270" fill="#9b8cf8" font-size="7" text-anchor="middle" font-family="monospace">DPD observation loop (coupler → obs.Rx → FHGW update)</text>
+  <!-- Radiated beam -->
+  <path d="M 672,90 Q 730,130 672,165" fill="#9b8cf850" stroke="#9b8cf8" stroke-width="1.5"/>
+  <text x="750" y="135" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">RF beam</text>
+</svg>
+
 <div class="mod-section-title">The board split</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Board</th><th>Role</th></tr>
@@ -3604,6 +3771,57 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Lab Setup — Instrument Connections for RCT Testing</text>
+
+  <!-- AAU -->
+  <rect x="300" y="50" width="200" height="120" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="6"/>
+  <text x="400" y="75" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Metro AAU</text>
+  <text x="400" y="90" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">26050509 / 26050508</text>
+  <text x="400" y="105" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">B1/B3/B8/B28/B41</text>
+  <!-- BOB SMA ports -->
+  <text x="400" y="125" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">BOB SMA ports:</text>
+  <text x="400" y="138" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">TX: TRX0A/B/C/D · RX: TRX0A/B/C/D</text>
+  <text x="400" y="150" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">eCPRI SFP+ → FHGW</text>
+  <text x="400" y="162" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SSH: root@192.168.1.x</text>
+
+  <!-- EXA left -->
+  <rect x="50" y="60" width="140" height="100" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="120" y="82" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXA N9010B</text>
+  <text x="120" y="96" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">10.62.2.135</text>
+  <text x="120" y="110" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR · EVM · Power</text>
+  <text x="120" y="123" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SEM · Spectrum</text>
+  <text x="120" y="140" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Port 5025 SCPI</text>
+  <!-- EXA → AAU cable (TX test) -->
+  <line x1="190" y1="110" x2="300" y2="110" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="245" y="102" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">30dB pad + cable</text>
+  <text x="245" y="122" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">TX measurement</text>
+
+  <!-- EXM right -->
+  <rect x="610" y="60" width="140" height="100" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="680" y="82" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXM E6640A</text>
+  <text x="680" y="96" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">VSG + VSA</text>
+  <text x="680" y="110" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RSSI · Sensitivity</text>
+  <text x="680" y="123" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Inject signal for RX</text>
+  <text x="680" y="140" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">ul-rct-test</text>
+  <!-- EXM → AAU cable (RX test) -->
+  <line x1="500" y1="110" x2="610" y2="110" stroke="#00d4a0" stroke-width="2"/>
+  <text x="555" y="102" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">cable (measured loss)</text>
+  <text x="555" y="122" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RX/sensitivity test</text>
+
+  <!-- VNA below -->
+  <rect x="300" y="190" width="200" height="25" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="400" y="207" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VNA E5071C — Phase/S11/S21 measurements</text>
+  <line x1="400" y1="170" x2="400" y2="190" stroke="#c8b800" stroke-width="1.5"/>
+
+  <!-- FHGW -->
+  <rect x="50" y="185" width="140" height="25" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="120" y="202" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">FHGW (SSH+NETCONF)</text>
+  <line x1="120" y1="160" x2="120" y2="185" stroke="#4a5470" stroke-width="1" stroke-dasharray="3,3"/>
+</svg>
+
 <div class="mod-section-title">Instrument roles</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Instrument</th><th>Role</th></tr>
@@ -3731,6 +3949,75 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RuAuto / tc_cadence Test Framework Flow</text>
+
+  <!-- Flow: tc_cadence.json → RuAuto → Test steps -->
+  <rect x="10"  y="40" width="130" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="75"  y="62" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">tc_cadence.json</text>
+  <text x="75"  y="75" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Test config file</text>
+  <text x="75"  y="85" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DSA, power, BW, FRC</text>
+
+  <line x1="140" y1="65" x2="160" y2="65" stroke="#c8b800" stroke-width="1.5"/>
+  <polygon points="158,61 168,65 158,69" fill="#c8b800"/>
+
+  <rect x="168" y="40" width="120" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="228" y="62" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">RuAuto</text>
+  <text x="228" y="75" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Test orchestrator</text>
+  <text x="228" y="85" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SSH + NETCONF + SCPI</text>
+
+  <line x1="288" y1="65" x2="308" y2="65" stroke="#5bc4ef" stroke-width="1.5"/>
+  <polygon points="306,61 316,65 306,69" fill="#5bc4ef"/>
+
+  <!-- Test steps -->
+  <rect x="316" y="30" width="470" height="155" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="550" y="48" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Test Execution Sequence</text>
+  <!-- Steps -->
+  <rect x="326" y="55" width="135" height="25" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1" rx="3"/>
+  <text x="393" y="71" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">1. PreChecks</text>
+  <text x="393" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Verify RU state, power</text>
+
+  <line x1="461" y1="67" x2="475" y2="67" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="475" y="55" width="135" height="25" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="542" y="71" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">2. Configure</text>
+  <text x="542" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Set band, BW, FRC</text>
+
+  <line x1="610" y1="67" x2="625" y2="67" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="625" y="55" width="150" height="25" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="3"/>
+  <text x="700" y="71" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">3. Activate Carrier</text>
+  <text x="700" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">NETCONF carrier-on</text>
+
+  <!-- Row 2 -->
+  <rect x="326" y="100" width="135" height="25" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1" rx="3"/>
+  <text x="393" y="116" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">4. Measure TX</text>
+  <text x="393" y="128" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EXA: power, ACLR, EVM</text>
+
+  <line x1="461" y1="112" x2="475" y2="112" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="475" y="100" width="135" height="25" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="3"/>
+  <text x="542" y="116" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">5. Measure RX</text>
+  <text x="542" y="128" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EXM: RSSI, sensitivity</text>
+
+  <line x1="610" y1="112" x2="625" y2="112" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="625" y="100" width="150" height="25" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="700" y="116" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">6. Pass/Fail</text>
+  <text x="700" y="128" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Compare vs limits</text>
+
+  <!-- Row 3 -->
+  <rect x="400" y="145" width="200" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="500" y="163" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">7. Generate Report</text>
+  <text x="500" y="173" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">PDF + JSON results saved</text>
+
+  <!-- Key files -->
+  <text x="400" y="196" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Key files: tc_cadence.json (config) · PreChecks.log (pre-test state) · rct_results.json (measurements) · rct_report.pdf</text>
+  <text x="400" y="210" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Test IDs: TX_POWER · ACLR · EVM · SENS_B1 · SENS_B3 · RSSI_ACCURACY · PA_PROT · USLEEP</text>
+</svg>
+
 <div class="mod-section-title">Tests are DATA, not code</div>
 <div class="mod-p">In RuAuto you almost never write a new test in Python. A test is a generic method driven by JSON. To "write" or change a test you edit the config. Reading the config IS reading the test.</div>
 
@@ -4546,6 +4833,61 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="260" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">ADC &amp; dBFS — Analog to Digital Conversion, Quantisation, Full Scale</text>
+
+  <!-- ADC staircase left -->
+  <text x="160" y="42" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ADC Quantisation (3-bit shown)</text>
+  <line x1="20"  y1="200" x2="300" y2="200" stroke="#4a5470" stroke-width="1.5"/>
+  <line x1="20"  y1="40"  x2="20"  y2="200" stroke="#4a5470" stroke-width="1.5"/>
+  <!-- Staircase output -->
+  <polyline points="20,195 55,195 55,175 90,175 90,155 125,155 125,130 160,130 160,110 195,110 195,90 230,90 230,70 265,70 265,50 300,50"
+    fill="none" stroke="#00d4a0" stroke-width="2.5"/>
+  <!-- Actual signal (smooth) -->
+  <path d="M 20,195 Q 80,160 160,125 Q 240,90 300,50" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <!-- Quantisation error shading -->
+  <text x="160" y="220" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">ADC output (staircase)</text>
+  <text x="160" y="233" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">Ideal signal (smooth)</text>
+  <text x="160" y="246" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Gap = quantisation noise</text>
+  <!-- Y labels (bits) -->
+  <text x="16" y="197" fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">000</text>
+  <text x="16" y="177" fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">001</text>
+  <text x="16" y="157" fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">010</text>
+  <text x="16" y="132" fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">011</text>
+  <text x="16" y="112" fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">100</text>
+  <text x="16" y="92"  fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">101</text>
+  <text x="16" y="72"  fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">110</text>
+  <text x="16" y="52"  fill="#8892b0" font-size="7" text-anchor="end" font-family="monospace">111</text>
+
+  <!-- dBFS ruler middle -->
+  <text x="470" y="42" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">dBFS Scale — Full Scale Reference</text>
+  <rect x="420" y="50" width="50" height="185" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <!-- Color zones -->
+  <rect x="420" y="50"  width="50" height="37"  fill="#2a0d0d" rx="2"/>
+  <rect x="420" y="87"  width="50" height="74"  fill="#1a1a0d" rx="2"/>
+  <rect x="420" y="161" width="50" height="74"  fill="#0d1a0d" rx="2"/>
+  <!-- Reference lines -->
+  <line x1="470" y1="50"  x2="780" y2="50"  stroke="#ff6b6b" stroke-width="2"/>
+  <text x="475" y="64"  fill="#ff6b6b" font-size="9" font-weight="bold" font-family="monospace">0 dBFS = Full Scale (ADC clips above this)</text>
+  <line x1="470" y1="87"  x2="780" y2="87"  stroke="#f5a623" stroke-width="1"/>
+  <text x="475" y="101" fill="#f5a623" font-size="9" font-family="monospace">-6 dBFS = 6dB headroom (common operating point)</text>
+  <line x1="470" y1="124" x2="780" y2="124" stroke="#c8b800" stroke-width="1"/>
+  <text x="475" y="138" fill="#c8b800" font-size="9" font-family="monospace">-12 dBFS = typical signal level</text>
+  <line x1="470" y1="161" x2="780" y2="161" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="475" y="175" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">-72 dBFS = 12-bit SQNR floor (noise)</text>
+  <text x="475" y="188" fill="#4a5470" font-size="8" font-family="monospace">SQNR ≈ 6.02×N + 1.76 = 6.02×12 + 1.76 = 74 dB</text>
+  <line x1="470" y1="198" x2="780" y2="198" stroke="#4a5470" stroke-width="1"/>
+  <text x="475" y="212" fill="#4a5470" font-size="9" font-family="monospace">-∞ dBFS = 0 (no signal)</text>
+  <!-- dBFS to dBm conversion -->
+  <rect x="475" y="222" width="300" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="625" y="237" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">dBm = dBFS + ADC_FULLSCALE_dBm</text>
+  <text x="625" y="249" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">ADC_FULLSCALE set by calibration (ADC_ADJUST offset)</text>
+  <!-- dBFS axis label -->
+  <text x="406" y="145" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace" transform="rotate(-90,406,145)">dBFS</text>
+</svg>
+
 <div class="mod-section-title">The real RSSI calibration method</div>
 <div class="mod-p">Inject a CW tone at band centre at 3 known power levels (e.g. −40.5, −60.5, −70.5 dBm). Read RSSI at each. Fit an approximate straight line. Compute the average offset. Write that offset per-ADC into /etc/configs/hardware.json (the ADC_ADJUST vector — one entry per ADC 0–7). Then automation sweeps the input over [−40 dBm : 1 dB : −120 dBm] and records corrected RSSI.</div>
 
@@ -4579,6 +4921,61 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">UL RCT / ul-rct-test — Sensitivity Test Pipeline</text>
+
+  <!-- 4-stage pipeline -->
+  <rect x="20"  y="45" width="155" height="110" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="97"  y="65" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① EXM Setup</text>
+  <text x="97"  y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Configure waveform:</text>
+  <text x="97"  y="93" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">FRC A1 (QPSK 1/3)</text>
+  <text x="97"  y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">BW = 10MHz B1 UL</text>
+  <text x="97"  y="119" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">freq = 1950 MHz</text>
+  <text x="97"  y="132" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Set power: -60 → -110 dBm</text>
+  <text x="97"  y="143" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">(sweep downward)</text>
+
+  <line x1="175" y1="100" x2="195" y2="100" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="193,96 203,100 193,104" fill="#5bc4ef"/>
+
+  <rect x="203" y="45" width="155" height="110" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="280" y="65" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② Inject Signal</text>
+  <text x="280" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">EXM → cable → RU</text>
+  <text x="280" y="93" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">antenna port</text>
+  <text x="280" y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Cable loss measured</text>
+  <text x="280" y="119" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">separately (VNA)</text>
+  <text x="280" y="132" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">True RU power:</text>
+  <text x="280" y="143" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">EXM - cable_loss</text>
+
+  <line x1="358" y1="100" x2="378" y2="100" stroke="#00d4a0" stroke-width="2"/>
+  <polygon points="376,96 386,100 376,104" fill="#00d4a0"/>
+
+  <rect x="386" y="45" width="155" height="110" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="4"/>
+  <text x="463" y="65" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Measure BLER</text>
+  <text x="463" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">DU/testmac reads</text>
+  <text x="463" y="93" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Block Error Rate</text>
+  <text x="463" y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">at each power level</text>
+  <text x="463" y="119" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Pass: BLER ≤ 5%</text>
+  <text x="463" y="132" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: BLER &gt; 5%</text>
+  <text x="463" y="143" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">→ find threshold power</text>
+
+  <line x1="541" y1="100" x2="561" y2="100" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="559,96 569,100 559,104" fill="#f5a623"/>
+
+  <rect x="569" y="45" width="215" height="110" fill="#2a0000" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="676" y="65" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Report Sensitivity</text>
+  <text x="676" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Sensitivity =</text>
+  <text x="676" y="93" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">threshold - cable_loss</text>
+  <text x="676" y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Compare vs 3GPP:</text>
+  <text x="676" y="119" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Limit: -69 dBm (REFSENS)</text>
+  <text x="676" y="132" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Typical: -95 to -102 dBm</text>
+  <text x="676" y="143" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">→ 30dB better than limit ✓</text>
+
+  <text x="400" y="172" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FRC scenarios: A1 (QPSK 1/3, best sens) · A2 (QPSK 1/2) · A3 (16QAM 1/2) · A4 · A5 (64QAM, worst sens)</text>
+  <text x="400" y="186" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Each FRC tested per band: B1/B3/B8/B28/B41 × A1-A5 = 25 test cases total per unit</text>
+</svg>
+
 <div class="mod-section-title">What UL RCT embedded is</div>
 <div class="mod-p">Validates the entire uplink receive path — antenna to BLER — against 3GPP FRCs. "Embedded" means it runs entirely on the FHGW: no DU, no external test PC, one CLI command. A signal generator still injects the FRC waveform; everything else is on-RU. Catches receive-chain regressions at box level, fast, before DU integration.</div>
 
@@ -5073,6 +5470,46 @@ Flow:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Spectrum Analyser — RBW, VBW, DANL, Dynamic Range, Sweep</text>
+
+  <!-- Spectrum display with annotations -->
+  <rect x="20" y="35" width="420" height="155" fill="#001400" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <!-- Signal -->
+  <path d="M 30,175 L 30,170 Q 120,80 160,75 Q 200,80 290,170 L 430,175 Z" fill="#5bc4ef20"/>
+  <path d="M 30,175 Q 80,170 120,130 Q 145,80 160,75 Q 175,80 200,130 Q 240,170 290,175" fill="none" stroke="#5bc4ef" stroke-width="2"/>
+  <!-- Noise floor -->
+  <path d="M 30,162 Q 100,160 160,161 Q 220,162 290,160 Q 360,162 430,161" fill="none" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- RBW annotation -->
+  <line x1="120" y1="100" x2="200" y2="100" stroke="#f5a623" stroke-width="1.5"/>
+  <line x1="120" y1="95"  x2="120" y2="105" stroke="#f5a623" stroke-width="1.5"/>
+  <line x1="200" y1="95"  x2="200" y2="105" stroke="#f5a623" stroke-width="1.5"/>
+  <text x="160" y="93"  fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">RBW</text>
+  <!-- Labels -->
+  <text x="160" y="55"  fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Signal peak</text>
+  <text x="380" y="158" fill="#ff6b6b" font-size="7" font-family="monospace">DANL (noise floor)</text>
+  <text x="30"  y="47"  fill="#4a5470" font-size="7" font-family="monospace">dBm</text>
+  <text x="380" y="188" fill="#4a5470" font-size="7" font-family="monospace">Freq →</text>
+
+  <!-- Settings table -->
+  <rect x="455" y="35" width="335" height="155" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="622" y="53" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Key Settings</text>
+  <text x="465" y="70"  fill="#5bc4ef" font-size="9" font-weight="bold" font-family="monospace">RBW (Resolution BW):</text>
+  <text x="465" y="82"  fill="#8892b0" font-size="8" font-family="monospace">Width of measurement filter</text>
+  <text x="465" y="93"  fill="#8892b0" font-size="8" font-family="monospace">Narrower = lower DANL, slower sweep</text>
+  <text x="465" y="104" fill="#f5a623" font-size="8" font-family="monospace">ACLR: use RBW=100kHz (3GPP)</text>
+  <text x="465" y="118" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">DANL (Displayed Avg Noise Level):</text>
+  <text x="465" y="130" fill="#8892b0" font-size="8" font-family="monospace">EXA sensitivity floor (instrument NF)</text>
+  <text x="465" y="141" fill="#8892b0" font-size="8" font-family="monospace">DANL ∝ RBW: DANL_2 = DANL_1 + 10log(RBW_2/RBW_1)</text>
+  <text x="465" y="155" fill="#9b8cf8" font-size="9" font-weight="bold" font-family="monospace">VBW (Video BW):</text>
+  <text x="465" y="167" fill="#8892b0" font-size="8" font-family="monospace">Smoothing filter — lower VBW = smoother trace</text>
+  <text x="465" y="178" fill="#f5a623" font-size="8" font-family="monospace">Rule: VBW ≥ RBW for ACLR accuracy</text>
+
+  <text x="400" y="205" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Dynamic range = DANL to max safe input · Increase atten to protect input · Decrease atten for better DANL · Use preamp for weak signal measurements</text>
+</svg>
+
 <div class="mod-section-title">PLL (Phase-Locked Loop) — the LO source</div>
 <div class="mod-p">Every mixer in your RU needs a Local Oscillator (LO) at exactly the carrier frequency. The LO is generated by a PLL: a feedback system that locks a Voltage-Controlled Oscillator (VCO) to a precise reference frequency (usually a 10 MHz TCXO or OCXO).</div>
 <div class="mod-formula">PLL structure:
@@ -6838,6 +7275,43 @@ Procedure:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Cable Electrical Length — Phase Delay Calculation</text>
+
+  <!-- Cable diagram -->
+  <rect x="20"  y="50" width="80" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="60"  y="74" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VNA P1</text>
+  <line x1="100" y1="70" x2="550" y2="70" stroke="#c8b800" stroke-width="3"/>
+  <rect x="550" y="50" width="80" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="590" y="74" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VNA P2</text>
+  <!-- Length label -->
+  <line x1="100" y1="100" x2="550" y2="100" stroke="#4a5470" stroke-width="1"/>
+  <line x1="100" y1="95"  x2="100" y2="105" stroke="#4a5470" stroke-width="1"/>
+  <line x1="550" y1="95"  x2="550" y2="105" stroke="#4a5470" stroke-width="1"/>
+  <text x="325" y="115" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">Physical length L (meters)</text>
+  <!-- Cable properties -->
+  <text x="325" y="50" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">SF141: VF=0.696 (velocity factor)</text>
+
+  <!-- Formulas right -->
+  <rect x="640" y="35" width="150" height="130" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="715" y="53"  fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Phase Delay:</text>
+  <text x="650" y="70"  fill="#00d4a0" font-size="8" font-family="monospace">φ = 360 × L × f / (VF × c)</text>
+  <text x="650" y="84"  fill="#4a5470" font-size="7" font-family="monospace">L=length(m), f=freq(Hz)</text>
+  <text x="650" y="96"  fill="#4a5470" font-size="7" font-family="monospace">VF=0.696(SF141)</text>
+  <text x="650" y="108" fill="#4a5470" font-size="7" font-family="monospace">c=3×10⁸ m/s</text>
+  <text x="715" y="124" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Example:</text>
+  <text x="650" y="138" fill="#8892b0" font-size="7" font-family="monospace">1mm SF141 @ 2140MHz</text>
+  <text x="650" y="150" fill="#f5a623" font-size="8" font-family="monospace">φ = 3.72° per mm</text>
+  <text x="650" y="162" fill="#4a5470" font-size="7" font-family="monospace">Match to ±0.5mm for</text>
+  <text x="650" y="173" fill="#4a5470" font-size="7" font-family="monospace">±2° phase accuracy</text>
+
+  <text x="325" y="145" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Purpose: ensure all 4 antenna columns have equal cable length → equal phase at each element</text>
+  <text x="325" y="158" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">After SOLT cal: S21 shows phase difference between ports → cable length difference → trim or add length</text>
+  <text x="325" y="171" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Your beamforming: each column phase must be set independently after accounting for cable electrical length</text>
+</svg>
+
 <div class="mod-section-title">Why cable phase matching matters</div>
 <div class="mod-p">In your test setup, multiple cables connect the FHGW BOB SMA ports to the EXA/EXM. For multi-port measurements (e.g. comparing TX power across 4 antenna elements simultaneously using a switch matrix), each cable must have the same electrical length — otherwise you are adding cable-to-cable phase differences to your measurement. For beamforming calibration, cable phase differences directly appear as beam pointing errors.</div>
 
@@ -7317,6 +7791,47 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Thermal Noise — kTB, Johnson-Nyquist, Noise Voltage Formula</text>
+
+  <!-- Resistor model -->
+  <text x="160" y="42" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Every resistor = noise source</text>
+  <!-- Resistor symbol -->
+  <line x1="20"  y1="100" x2="60"  y2="100" stroke="#4a5470" stroke-width="2"/>
+  <rect x="60"   y="88"  width="80" height="24" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="2"/>
+  <text x="100"  y="104" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">R (ohms)</text>
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#4a5470" stroke-width="2"/>
+  <!-- Noise source -->
+  <circle cx="220" cy="100" r="20" fill="#1a0d1a" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="220"  y="104" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Vn</text>
+  <line x1="180" y1="100" x2="200" y2="100" stroke="#ff6b6b" stroke-width="2"/>
+  <!-- Formula -->
+  <rect x="250" y="68" width="220" height="60" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="360" y="90" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Vn = √(4kTRB)</text>
+  <text x="360" y="108" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">k=1.38×10⁻²³ J/K · T=290K · R=ohms · B=Hz</text>
+  <text x="360" y="121" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">100kΩ · 1MHz · 290K → Vn = 40.7 μV RMS</text>
+
+  <!-- kTB derivation -->
+  <rect x="490" y="45" width="300" height="140" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="640" y="63" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">kTB = noise power formula</text>
+  <text x="500" y="82"  fill="#9b8cf8" font-size="9" font-family="monospace">k = 1.38 × 10⁻²³ J/K</text>
+  <text x="500" y="96"  fill="#4a5470" font-size="8" font-family="monospace">   Boltzmann constant (fixed by physics)</text>
+  <text x="500" y="113" fill="#5bc4ef" font-size="9" font-family="monospace">T = 290 K (17°C room temp)</text>
+  <text x="500" y="127" fill="#4a5470" font-size="8" font-family="monospace">   IEEE standard reference temperature</text>
+  <text x="500" y="144" fill="#00d4a0" font-size="9" font-family="monospace">B = 1 Hz bandwidth</text>
+  <text x="500" y="158" fill="#4a5470" font-size="8" font-family="monospace">   1.38×10⁻²³ × 290 × 1 = 4×10⁻²¹ W</text>
+  <text x="640" y="178" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">= -174 dBm/Hz</text>
+
+  <!-- Bottom: temperature vs noise -->
+  <text x="160" y="155" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Temperature → Noise floor:</text>
+  <text x="160" y="170" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">4K (cryogenic LNA): -198 dBm/Hz</text>
+  <text x="160" y="184" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">290K (room temp): -174 dBm/Hz ← YOU</text>
+  <text x="160" y="198" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">600K (hot PA): -171 dBm/Hz (3dB worse)</text>
+  <text x="160" y="211" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Hotter = more noise = worse sensitivity (why PA cooling matters)</text>
+</svg>
+
 <div class="mod-section-title">What thermal noise is</div>
 <div class="mod-p">Thermal noise is a random fluctuation in voltage caused by the random motion of charge carriers in any conducting medium at a temperature above absolute zero. It cannot exist at absolute zero because charge carriers cannot move at absolute zero. Every resistor, every conductor, every component in your RF chain generates it — this is the irreducible noise floor of physics.</div>
 
@@ -7372,6 +7887,53 @@ For any bandwidth:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Noise Figure — SNR Degradation Through a Device</text>
+
+  <!-- Ideal (noiseless) amp -->
+  <text x="200" y="42" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Ideal noiseless amp (NF=0dB)</text>
+  <rect x="10"  y="55" width="80" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="50"  y="79" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">S=10, N=1</text>
+  <text x="50"  y="90" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SNR=10dB in</text>
+  <line x1="90"  y1="75" x2="110" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="110" y="55" width="80" height="40" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="150" y="75" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">IDEAL</text>
+  <text x="150" y="87" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">G=×10, no noise</text>
+  <line x1="190" y1="75" x2="210" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="210" y="55" width="90" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="255" y="72" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">S=100, N=10</text>
+  <text x="255" y="83" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">SNR=10dB ✓</text>
+  <text x="255" y="93" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">NF = 0 dB</text>
+
+  <!-- Real amp -->
+  <text x="580" y="42" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Real amp (NF=3dB)</text>
+  <rect x="370" y="55" width="80" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="410" y="79" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">S=10, N=1</text>
+  <text x="410" y="90" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SNR=10dB in</text>
+  <line x1="450" y1="75" x2="470" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="470" y="48" width="80" height="54" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="3"/>
+  <text x="510" y="70" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">REAL AMP</text>
+  <text x="510" y="82" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">+ internal noise</text>
+  <text x="510" y="93" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">G=×10, NF=3dB</text>
+  <line x1="550" y1="75" x2="570" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="570" y="55" width="100" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="620" y="72" fill="#ff6b6b" font-size="9" text-anchor="middle" font-family="monospace">S=100, N=20</text>
+  <text x="620" y="83" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">SNR=7dB ✗</text>
+  <text x="620" y="93" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">NF=10-7=3dB</text>
+
+  <!-- Formula box -->
+  <rect x="10" y="108" width="780" height="80" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="126" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Noise Figure Formulas:</text>
+  <text x="50"  y="145" fill="#c8b800" font-size="10" font-family="monospace">NF (dB) = SNR_in(dB) − SNR_out(dB) = 10·log(F)</text>
+  <text x="50"  y="160" fill="#c8b800" font-size="10" font-family="monospace">F (linear) = SNR_in / SNR_out  (always ≥ 1)</text>
+  <text x="450" y="145" fill="#8892b0" font-size="9" font-family="monospace">Perfect: F=1, NF=0dB</text>
+  <text x="450" y="158" fill="#8892b0" font-size="9" font-family="monospace">Good LNA: NF=1.5-2dB</text>
+  <text x="450" y="171" fill="#8892b0" font-size="9" font-family="monospace">Attenuator: NF=its loss (dB)</text>
+  <text x="50"  y="180" fill="#4a5470" font-size="8" font-family="monospace">Sensitivity = -174 + 10log(BW) + NF + Required_SNR → B1 10MHz: -174+70+5.75+(-1) = -99.25 dBm</text>
+</svg>
+
 <div class="mod-section-title">What Noise Figure measures</div>
 <div class="mod-p">Introduced by Harald T. Friis in 1944, Noise Figure characterises the degradation in Signal-to-Noise Ratio (SNR) caused by a device. An ideal noiseless amplifier would amplify signal AND noise equally — it would not change the SNR. A real amplifier adds its own internal noise, reducing the SNR at the output vs the input. NF measures exactly how much worse the SNR got.</div>
 
