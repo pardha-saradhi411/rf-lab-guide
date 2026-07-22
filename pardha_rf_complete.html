@@ -6513,6 +6513,16 @@ PRODUCT LAYER source/products/ VRU, CWS, NR, HNG, RRH    ← SSH/CLI/XML to devi
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>RSSI ADC calibration results — actual data from your units</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">What this document contains:</b><br>
+Per-unit, per-band, per-column ADC_ADJUST values measured during factory calibration. Shows pre- and post-calibration RSSI error for units 26050508 and 26050509. Reference for expected ADC_ADJUST ranges per band — if a field-measured value deviates > 3 dB from factory, the RU has drifted and needs recalibration.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How to use this data:</b><br>
+Compare your get_rssi readings against the factory ADC_ADJUST baseline. Systematic offset = ADC_ADJUST wrong. Per-column variation > 3 dB from others = that column has hardware issue. Temperature-correlated drift = TEMP_COMP table needs updating.
+</div>
+
 <div class="mod-section-title">Firmware version tested</div>
 <div class="mod-formula">Build Label: gc1e2cb17-b0103
 Git Branch: develop
@@ -6557,6 +6567,16 @@ XSA: vvdn_dbru_4cc_top.bit</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>PA efficiency test plan — 5-band AAU, Dynamic Vdd</h4>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">PA efficiency test method:</b><br>
+Measure DC input power (V × I) and RF output power simultaneously. Efficiency = P_RF_out / P_DC_in × 100%. Test at: rated power, 3 dB backoff, 6 dB backoff. Repeat with Dynamic Vdd enabled and disabled. Expected: Dynamic Vdd improves average efficiency by 10–15 percentage points at 6 dB backoff.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Dynamic Vdd step configuration:</b><br>
+Vdd steps are configured in the PA_VDD_TABLE register. Each step corresponds to an output power range. Number of steps and threshold power levels are configurable. More steps = smoother efficiency curve but more switching transients. Typical: 4–8 steps from minimum Vdd (low power) to maximum Vdd (rated power).
+</div>
+
 <div class="mod-section-title">RF signal data per band (real power targets)</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Band</th><th>CC BW (MHz)</th><th>DL Freq (MHz)</th><th>Ant Tx Power per PA (dBm)</th><th>TRP (dBm)</th><th>Tx with BF Gain (dBm)</th></tr>
@@ -6605,6 +6625,16 @@ Pre-CFR Gain register 0xb0290000:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>FHGW embedded RCT — standalone UL test, CLI commands</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">FHGW standalone mode:</b><br>
+FHGW can run a subset of RCT without full DU connection. In this mode: FHGW generates its own timing, enables RU RF, configures EXM via SCPI, reads get_rssi, and compares against embedded limits. Useful for: initial hardware bring-up, field deployment without full lab setup, quick smoke test.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Key CLI commands in FHGW mode:</b><br>
+<code>fhgw_rct start --band B1 --bw 10M</code>: starts embedded RCT for B1.<br><code>fhgw_rct status</code>: shows current test progress.<br><code>fhgw_rct results</code>: prints PASS/FAIL per test case.<br><code>fhgw_rf_enable B1</code>: enables B1 RF path.<br><code>fhgw_exm_set --freq 1950e6 --power -95</code>: configures EXM.
+</div>
+
 <div class="mod-section-title">Why it exists</div>
 <div class="mod-p">Traditional UL RCT needs: DU + PHY Docker + FHSRV Docker + RU + signal generator + grandmaster + networking. The embedded RCT removes everything except the RU and signal generator. One CLI command. Catches RX-chain regressions at the box level, fast, before DU integration.</div>
 
@@ -6656,6 +6686,16 @@ Debug: per-stage timing + full PHY logs + constellation output</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>4G test plan — band mapping, rated power, antenna ports</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Band to BOB SMA port mapping:</b><br>
+ B1 DL (2140 MHz): BOB SMA J1 (Column A), J2 (B), J3 (C), J4 (D). B3 DL (1843 MHz): same ports, band-selected by RFFE. B8 DL (942 MHz): BOB SMA J5 (A), J6 (B) — only 2 columns for LB. B28 DL (758 MHz): J5, J6. B41 DL (2545 MHz): J1–J4 (shares HB RFFE with B1/B3). Check unit-specific drawing — port labels vary by AAU revision.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Rated power targets (coupler output at BOB SMA):</b><br>
+B1: −16.7 dBm · B3: −15.7 dBm · B8: −18.0 dBm · B28: −27.3 dBm · B41: −23.0 dBm. These already account for the −30 dB coupler ratio. Add 30 dB to get antenna port power: B1 antenna = +13.3 dBm per column = 21 mW. Full system with 4 columns coherent BF: +13.3 + 6 = +19.3 dBm EIRP (before antenna element gain).
+</div>
+
 <div class="mod-section-title">FHGW + BOB antenna mapping (real port assignments)</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Band group</th><th>Band</th><th>Active TX ports</th><th>Active RX ports</th></tr>
@@ -6730,6 +6770,16 @@ tail -f /var/log/synctimingptp2.log  # should show synchronized + errors &lt;10 
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>Validation team handbook — Agile, CI/CD, PreChecks</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Pre-check before any test session:</b><br>
+PreCheck = automated script that verifies instrument connectivity, RU boot status, GPS lock, DPD convergence, cable connections. Run before every RCT session. PreCheck failure stops the test and reports which item failed — saves hours of debugging measurements taken with wrong setup.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">CI/CD for firmware testing:</b><br>
+Every firmware commit triggers automated RCT smoke test on the bench unit. Jenkins pipeline: build firmware → flash to RU → run PreCheck → run abbreviated RCT (key tests only, 15 min) → pass/fail report posted to Slack. Full RCT (2–3 hours) run on release candidates. If CI fails: firmware commit reverted automatically.
+</div>
+
 <div class="mod-section-title">Development process</div>
 <div class="mod-formula">Branch: private/&lt;user&gt;/&lt;JIRA-TICKET&gt;-&lt;description&gt;
 Flow:
@@ -7093,6 +7143,16 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<h4>Week-by-week learning plan</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How to use this plan:</b><br>
+Each week focuses on one layer of the RF stack. Week 1: dB/dBm, impedance, basic chain. Week 2: modulation, OFDM, IQ. Week 3: TX chain, PA, DPD, ACLR. Week 4: RX chain, LNA, NF, sensitivity. Week 5: VNA, S-parameters, phase cal. Week 6: automation, SCPI, RuAuto. Lab alongside each week — theory and lab always together.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Priority cards for your current work:</b><br>
+DSA (sensitivity and test thresholds), A05 (TX chain), A06 (RX chain), NCH (noise chain), NF_CAL, GAIN_CAL, VNA4-7 (phase cal), M07 (ACLR), M12 (RCT config), SET1 (bench setup). These 11 cards cover 80% of what you do daily. Master these first, then expand to the rest.
+</div>
+
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Week</th><th>Topics</th><th>Best resource</th><th>Why</th></tr>
 <tr><td>1</td><td>RF Basics, dBm, Gain, Loss, Noise Figure</td><td>Keysight RF Back to Basics</td><td>Closest to your bench work — EXA/EXM context</td></tr>
@@ -7119,6 +7179,16 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<h4>Top channels and videos — RF learning resources</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Best YouTube channels for RF:</b><br>
+<b>Keysight</b>: official EXA/EXM/VNA tutorials, measurement techniques. <b>National Instruments</b>: RF fundamentals, spectrum analysis. <b>w2aew</b>: practical RF, antenna measurements, component testing. <b>Rohde & Schwarz</b>: 5G NR measurements, O-RAN testing. <b>MATLAB</b>: signal processing, OFDM simulation, beamforming animations.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Key video topics to watch:</b><br>
+How DPD works (Keysight application notes). VNA calibration procedure (Keysight ENA series videos). OFDM explained visually (MATLAB channel). 5G NR UL/DL structure (R&S 5G videos). Noise figure measurement (Keysight NF analyser tutorial). PA load pull for efficiency (Maury Microwave).
+</div>
+
 
 <div class="mod-section-title">⭐⭐⭐⭐⭐ Must-watch channels</div>
 <div class="mod-table-wrap"><table class="test-table">
@@ -7186,6 +7256,16 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>RSSI ADC calibration results — actual data from your units</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">What this document contains:</b><br>
+Per-unit, per-band, per-column ADC_ADJUST values measured during factory calibration. Shows pre- and post-calibration RSSI error for units 26050508 and 26050509. Reference for expected ADC_ADJUST ranges per band — if a field-measured value deviates > 3 dB from factory, the RU has drifted and needs recalibration.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How to use this data:</b><br>
+Compare your get_rssi readings against the factory ADC_ADJUST baseline. Systematic offset = ADC_ADJUST wrong. Per-column variation > 3 dB from others = that column has hardware issue. Temperature-correlated drift = TEMP_COMP table needs updating.
+</div>
+
 <div class="mod-section-title">Firmware version tested</div>
 <div class="mod-formula">Build Label: gc1e2cb17-b0103
 Git Branch: develop
@@ -7230,6 +7310,16 @@ XSA: vvdn_dbru_4cc_top.bit</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>PA efficiency test plan — 5-band AAU, Dynamic Vdd</h4>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">PA efficiency test method:</b><br>
+Measure DC input power (V × I) and RF output power simultaneously. Efficiency = P_RF_out / P_DC_in × 100%. Test at: rated power, 3 dB backoff, 6 dB backoff. Repeat with Dynamic Vdd enabled and disabled. Expected: Dynamic Vdd improves average efficiency by 10–15 percentage points at 6 dB backoff.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Dynamic Vdd step configuration:</b><br>
+Vdd steps are configured in the PA_VDD_TABLE register. Each step corresponds to an output power range. Number of steps and threshold power levels are configurable. More steps = smoother efficiency curve but more switching transients. Typical: 4–8 steps from minimum Vdd (low power) to maximum Vdd (rated power).
+</div>
+
 <div class="mod-section-title">RF signal data per band (real power targets)</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Band</th><th>CC BW (MHz)</th><th>DL Freq (MHz)</th><th>Ant Tx Power per PA (dBm)</th><th>TRP (dBm)</th><th>Tx with BF Gain (dBm)</th></tr>
@@ -7278,6 +7368,16 @@ Pre-CFR Gain register 0xb0290000:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>FHGW embedded RCT — standalone UL test, CLI commands</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">FHGW standalone mode:</b><br>
+FHGW can run a subset of RCT without full DU connection. In this mode: FHGW generates its own timing, enables RU RF, configures EXM via SCPI, reads get_rssi, and compares against embedded limits. Useful for: initial hardware bring-up, field deployment without full lab setup, quick smoke test.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Key CLI commands in FHGW mode:</b><br>
+<code>fhgw_rct start --band B1 --bw 10M</code>: starts embedded RCT for B1.<br><code>fhgw_rct status</code>: shows current test progress.<br><code>fhgw_rct results</code>: prints PASS/FAIL per test case.<br><code>fhgw_rf_enable B1</code>: enables B1 RF path.<br><code>fhgw_exm_set --freq 1950e6 --power -95</code>: configures EXM.
+</div>
+
 <div class="mod-section-title">Why it exists</div>
 <div class="mod-p">Traditional UL RCT needs: DU + PHY Docker + FHSRV Docker + RU + signal generator + grandmaster + networking. The embedded RCT removes everything except the RU and signal generator. One CLI command. Catches RX-chain regressions at the box level, fast, before DU integration.</div>
 
@@ -7329,6 +7429,16 @@ Debug: per-stage timing + full PHY logs + constellation output</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>4G test plan — band mapping, rated power, antenna ports</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Band to BOB SMA port mapping:</b><br>
+ B1 DL (2140 MHz): BOB SMA J1 (Column A), J2 (B), J3 (C), J4 (D). B3 DL (1843 MHz): same ports, band-selected by RFFE. B8 DL (942 MHz): BOB SMA J5 (A), J6 (B) — only 2 columns for LB. B28 DL (758 MHz): J5, J6. B41 DL (2545 MHz): J1–J4 (shares HB RFFE with B1/B3). Check unit-specific drawing — port labels vary by AAU revision.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Rated power targets (coupler output at BOB SMA):</b><br>
+B1: −16.7 dBm · B3: −15.7 dBm · B8: −18.0 dBm · B28: −27.3 dBm · B41: −23.0 dBm. These already account for the −30 dB coupler ratio. Add 30 dB to get antenna port power: B1 antenna = +13.3 dBm per column = 21 mW. Full system with 4 columns coherent BF: +13.3 + 6 = +19.3 dBm EIRP (before antenna element gain).
+</div>
+
 <div class="mod-section-title">FHGW + BOB antenna mapping (real port assignments)</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Band group</th><th>Band</th><th>Active TX ports</th><th>Active RX ports</th></tr>
@@ -7403,6 +7513,16 @@ tail -f /var/log/synctimingptp2.log  # should show synchronized + errors &lt;10 
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>Validation team handbook — Agile, CI/CD, PreChecks</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Pre-check before any test session:</b><br>
+PreCheck = automated script that verifies instrument connectivity, RU boot status, GPS lock, DPD convergence, cable connections. Run before every RCT session. PreCheck failure stops the test and reports which item failed — saves hours of debugging measurements taken with wrong setup.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">CI/CD for firmware testing:</b><br>
+Every firmware commit triggers automated RCT smoke test on the bench unit. Jenkins pipeline: build firmware → flash to RU → run PreCheck → run abbreviated RCT (key tests only, 15 min) → pass/fail report posted to Slack. Full RCT (2–3 hours) run on release candidates. If CI fails: firmware commit reverted automatically.
+</div>
+
 <div class="mod-section-title">Development process</div>
 <div class="mod-formula">Branch: private/&lt;user&gt;/&lt;JIRA-TICKET&gt;-&lt;description&gt;
 Flow:
@@ -7609,6 +7729,16 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<h4>Week-by-week learning plan</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How to use this plan:</b><br>
+Each week focuses on one layer of the RF stack. Week 1: dB/dBm, impedance, basic chain. Week 2: modulation, OFDM, IQ. Week 3: TX chain, PA, DPD, ACLR. Week 4: RX chain, LNA, NF, sensitivity. Week 5: VNA, S-parameters, phase cal. Week 6: automation, SCPI, RuAuto. Lab alongside each week — theory and lab always together.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Priority cards for your current work:</b><br>
+DSA (sensitivity and test thresholds), A05 (TX chain), A06 (RX chain), NCH (noise chain), NF_CAL, GAIN_CAL, VNA4-7 (phase cal), M07 (ACLR), M12 (RCT config), SET1 (bench setup). These 11 cards cover 80% of what you do daily. Master these first, then expand to the rest.
+</div>
+
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Week</th><th>Topics</th><th>Best resource</th><th>Why</th></tr>
 <tr><td>1</td><td>RF Basics, dBm, Gain, Loss, Noise Figure</td><td>Keysight RF Back to Basics</td><td>Closest to your bench work — EXA/EXM context</td></tr>
@@ -7635,6 +7765,16 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<h4>Top channels and videos — RF learning resources</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Best YouTube channels for RF:</b><br>
+<b>Keysight</b>: official EXA/EXM/VNA tutorials, measurement techniques. <b>National Instruments</b>: RF fundamentals, spectrum analysis. <b>w2aew</b>: practical RF, antenna measurements, component testing. <b>Rohde & Schwarz</b>: 5G NR measurements, O-RAN testing. <b>MATLAB</b>: signal processing, OFDM simulation, beamforming animations.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Key video topics to watch:</b><br>
+How DPD works (Keysight application notes). VNA calibration procedure (Keysight ENA series videos). OFDM explained visually (MATLAB channel). 5G NR UL/DL structure (R&S 5G videos). Noise figure measurement (Keysight NF analyser tutorial). PA load pull for efficiency (Maury Microwave).
+</div>
+
 
 <div class="mod-section-title">⭐⭐⭐⭐⭐ Must-watch channels</div>
 <div class="mod-table-wrap"><table class="test-table">
@@ -7702,6 +7842,16 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>Constellation diagram diagnosis — reading IQ impairments</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Constellation shape → root cause:</b><br>
+<b>Tight clusters at ideal points</b>: excellent EVM, all good. <b>Spread/fuzzy clusters</b>: phase noise (LO quality) or thermal noise (SNR too low). <b>Offset from grid</b>: DC offset / LO leakage. <b>One axis compressed</b>: IQ amplitude imbalance. <b>Grid rotated</b>: IQ phase imbalance. <b>All points compressed inward</b>: PA compression (DPD failure or over-driven). <b>Asymmetric spread</b>: phase noise on one sideband (LO filtering issue).
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">EVM floor — what sets it:</b><br>
+Phase noise: LO quality sets the irreducible EVM floor regardless of SNR. Better SNR will not improve EVM once phase-noise-limited. Quantisation: 12-bit ADC SQNR = 74 dB → EVM floor from ADC ≈ 0.02% (negligible). Nonlinearity: P1dB compression → EVM increases sharply. At rated power with DPD: EVM < 3% typically. Without DPD: EVM > 10%.
+</div>
+
 <div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=aQd_zBytid8" target="_blank" style="color:#f5a623">Watch: Interpreting Constellation Diagrams (YouTube)</a> — covers how to diagnose signal impairments from the IQ scatter plot. Here is everything the video teaches, applied to your EXM and RU work.</div>
 
 <div class="mod-section-title">What a constellation diagram is</div>
@@ -7752,6 +7902,16 @@ If you see EVM > 1% with everything calibrated → DPD or PA issue.</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>Spectrum analyser ACLR measurement — step by step setup</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">EXA ACLR setup procedure:</b><br>
+1. Connect BOB SMA + 30 dB attenuator pad to EXA input. 2. Press Mode → LTE. 3. Set centre freq = DL band centre (e.g. 2140 MHz for B1). 4. Press Meas → ACLR. 5. Set channel BW = 10 MHz. 6. Set atten = 10 dB (total input atten = 10 + 30 = 40 dB). 7. Preamp: OFF. 8. Set averaging = 10 sweeps. 9. Wait 60s for DPD convergence. 10. Read ACLR result. Pass: ACLR_adj < −45 dBc.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Common ACLR measurement errors:</b><br>
+Preamp ON with TX signal → input compresses → ACLR appears 10 dB better than reality (false pass). Insufficient attenuation → same error. Not waiting for DPD → ACLR is 10–15 dB worse than final (false fail or premature debugging). Wrong channel BW setting → integration bands wrong → wrong result. Always double-check: atten total, preamp OFF, DPD converged, correct channel BW.
+</div>
+
 <div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=1xGncBvWv6U" target="_blank" style="color:#f5a623">Watch: Understanding Spectrum Analyzers — ACLR (YouTube)</a> — how ACLR is set up on a real analyzer. Everything from that video applied to your EXA/EXM.</div>
 
 <div class="mod-section-title">What ACLR actually measures (the physics)</div>
@@ -7809,6 +7969,20 @@ verdict = 'PASS' if min(abs(result[1]), abs(result[2])) >= aclr_kpi else 'FAIL'<
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>Spectrum analyser deep dive — FFT, RBW, VBW, dynamic range</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">RBW — Resolution Bandwidth:</b><br>
+RBW sets the width of the IF filter. Narrow RBW = fine frequency resolution, slow sweep, lower noise floor. Wide RBW = coarse resolution, fast sweep, higher noise floor. Rule: RBW ≤ signal bandwidth / 100 for spectrum mask tests. For ACLR: 100 kHz RBW (standard LTE measurement). For power: 1 MHz RBW OK. Never use RBW wider than the signal you are measuring.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">VBW — Video Bandwidth and trace averaging:</b><br>
+VBW averages the detected power over time — reduces trace noise but does not affect measurement accuracy. VBW < RBW: smooth trace but slower. VBW = 3×RBW: typical for signals. VBW >> RBW: use for CW carriers. For noise floor measurements: reduce VBW to average out noise and see the true noise floor level clearly.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">DANL — how to find the true noise floor:</b><br>
+DANL (Displayed Average Noise Level) is the EXA noise floor in dBm in the current RBW. DANL_total = DANL_per_Hz + 10·log(RBW). With preamp ON, 1 Hz RBW: DANL ≈ −130 dBm/Hz. At 100 kHz RBW: DANL = −130 + 50 = −80 dBm. If your signal is near this level, EXA is measuring its own noise — turn on preamp or narrow RBW. Your RX chain noise floor at 10 MHz BW: −98.25 dBm — well above EXA DANL.
+</div>
+
 <div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=rMVAQsUudSs" target="_blank" style="color:#f5a623">Watch: Understanding Spectrum Analyzers (YouTube)</a> — FFT, RBW, dynamic range. Here is the complete teaching from that video.</div>
 
 <div class="mod-section-title">How a spectrum analyzer works internally</div>
@@ -7876,6 +8050,16 @@ For REFSENS test (−69 dBm in 10 MHz):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>RF engineering topics — signal chain, IQ, mixers</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Signal chain mental model:</b><br>
+Every RF system is a chain of blocks: source → TX chain (gain up) → channel (loss) → RX chain (amplify) → ADC. dB rule: track power level through chain by adding gains (+) and losses (−) in dB. Noise figure accumulates — dominated by first lossy/noisy element. Dynamic range: difference between maximum signal and noise floor. Design goal: maintain signal > noise floor through entire chain from source to ADC.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">IQ representation — why everything is I+Q:</b><br>
+Any narrowband RF signal can be written as: s(t) = I(t)cos(2πft) − Q(t)sin(2πft) where f is carrier frequency. I and Q capture full amplitude and phase information. Demodulation: multiply received signal by cos(2πft) and sin(2πft), low-pass filter → get I and Q separately. All modern radio systems — LTE, 5G, WiFi — use IQ representation internally. EXM generates IQ waveforms. EXA demodulates to IQ for constellation display.
+</div>
+
 <div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=swjgr4YBhRM" target="_blank" style="color:#f5a623">Watch: RF Topics — signal chain overview (YouTube)</a> — complete RF signal chain from antenna to ADC, covering all major components. Key concepts from this video:</div>
 
 <div class="mod-section-title">The complete receiver signal chain — component by component</div>
@@ -8477,6 +8661,16 @@ If hardware.json is wrong (offset not calibrated for your unit):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>Complete RF mastery path — all channels, videos, reading order</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Recommended study order for your role:</b><br>
+1. DSA card (sensitivity, kTB, NF, formula) — the mathematical foundation of all your tests. 2. A05 (TX chain) + A06 (RX chain) — understand what you are measuring. 3. NCH (noise chain) — Friis formula, why LNA matters. 4. NF_CAL + GAIN_CAL — how calibration works. 5. VNA2-7 (phase cal) — beamforming validation. 6. M07 (ACLR) + M12 (RCT config) — your daily workflow. 7. A09 (automation) — RuAuto deep dive. 8. Everything else — depth on specific topics as needed.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">External resources:</b><br>
+Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwarz Knowledge Center: 5G NR, O-RAN. 3GPP TS 36.104 (LTE): base station conformance requirements. O-RAN Alliance: fronthaul specs, WG4 documents. YouTube: w2aew for practical RF, MATLAB for simulations. Your own lab: always the best learning — run the measurement, change one variable, observe the effect.
+</div>
+
 <div class="mod-section-title">4 YouTube videos you shared — what each teaches</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Video</th><th>Title</th><th>Core lesson</th><th>Module connection</th></tr>
@@ -9545,6 +9739,16 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<h4>RCT bench setup — connections, instruments, pre-test checklist</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Complete connection map:</b><br>
+<b>RX test path</b>: EXM output → calibrated SMA cable → RU BOB SMA (UL port for target column). Set EXM: freq = band UL centre, power = sensitivity threshold + cable_loss, waveform = FRC_A1_10M.<br><b>TX test path</b>: RU BOB SMA (DL port) → 30 dB pad → SMA cable → EXA input. Set EXA: freq = band DL centre, atten = 10 dB (total = 40 dB), preamp OFF, mode = ACLR LTE.<br><b>Phase cal path</b>: VNA Port 1 → calibrated cable → RU BOB SMA (one column). VNA Port 2 → reference. After SOLT cal.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Pre-test checklist — do every session:</b><br>
+□ VNA cable loss measurement done? Note: _____ dB per cable<br>□ EXM output verified with EXA? (±0.5 dB of commanded power)<br>□ RU fully booted, all bands show ENABLED in CLI?<br>□ DPD converged? (wait 60s after TX enable, check ACLR not fluctuating)<br>□ GPS/PTP locked? (mandatory for B41 TDD)<br>□ EXA preamp state correct? (OFF for TX, ON for noise floor checks)<br>□ Connector torque verified? (SMA: 0.9 N·m with torque wrench)<br>□ tc_cadence.json has correct DSA values for current unit?
+</div>
+
 
 <!-- Original hand-drawn diagram -->
 <div style="margin-bottom:18px">
@@ -12224,6 +12428,16 @@ Antenna → duplexer/T-R switch → pre-BPF → LNA → post-BPF → mixer → V
   <text x="692" y="276" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Sync: PTP/SyncE timing</text>
   <text x="692" y="287" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">±1.5μs timing accuracy</text>
 </svg>
+<h4>O-RAN RF — O-RU architecture, M/C/U/S planes, fronthaul timing</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">O-RAN planes — M/C/U/S:</b><br>
+<b>M-plane</b> (Management): configuration, SW upgrade, fault management via NETCONF/YANG. How you configure bands, power, calibration. <b>C-plane</b> (Control): scheduling information — which RBs active, beam index, timing. Latency sensitive (<100μs). <b>U-plane</b> (User): IQ data — the actual signal samples. Very high bandwidth. <b>S-plane</b> (Sync): timing distribution — PTP IEEE 1588 from DU to RU. Required for TDD timing.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Fronthaul timing — why ±1.5μs matters for TDD:</b><br>
+TDD requires all gNBs in a network to switch from DL to UL at exactly the same time. If one RU switches 5μs late, its DL transmission overlaps with another cell's UL reception → interference. PTP (Precision Time Protocol) distributes timing from GPS-locked grandmaster clock to each RU via Ethernet. Required accuracy: ±1.5μs end-to-end. GPS holdover (when GPS signal lost): clock must maintain ±1.5μs for several hours.
+</div>
+
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>O-RAN Feature</th><th>What it does</th><th>How you test it</th><th>Pass criterion</th></tr>
 <tr><td>RU Capabilities</td><td>Reports supported bands, power, BW, features</td><td>NETCONF get-capabilities</td><td>All capabilities declared match hardware</td></tr>
@@ -12390,6 +12604,16 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
   <text x="20" y="274" fill="#8892b0" font-size="8" font-family="monospace">4. Check temperature:    get_temp → compare to thermal compensation table · check if temp-comp ran</text>
   <text x="20" y="287" fill="#8892b0" font-size="8" font-family="monospace">5. Escalate if needed:   capture PreChecks log · save ACLR screenshot · email David/Korea team with full context</text>
 </svg>
+<h4>RF debugging — TX power failure tree, RX sensitivity fault isolation</h4>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">TX power low — fault tree:</b><br>
+1. Measure at BOB SMA with EXA (atten 20dB, preamp OFF). 2. Power within ±1 dB of target? PASS. 3. Power low by fixed offset → TX_GAIN register wrong or tx_calibration_eeprom.json missing (fault 12). 4. Power varies → DPD not converged (wait 60s) or PA unstable. 5. Power zero → PA disabled, check RFFE_ENABLE register, PA bias voltage. 6. Power intermittent → loose BOB SMA connector.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">RX sensitivity bad — fault tree:</b><br>
+1. Check cable loss with VNA. Subtract from EXM output → is injected power at RU port correct? 2. Run RSSI cal check: inject −95 dBm, read get_rssi → within ±2 dB of expected? 3. If RSSI cal off: re-run cal, update ADC_ADJUST. 4. If RSSI cal correct but PRACH detection rate low: LNA NF degraded (measure NF with EXA). 5. One column fails: physical inspection of that column cable and connector. 6. All columns fail equally: DSA value wrong in tc_cadence.json.
+</div>
+
 </div>
 </div>
 
@@ -12700,6 +12924,20 @@ As input power approaches P1dB, PA gain drops. In the constellation: all points 
   <text x="20" y="119" fill="#f5a623" font-size="8" font-family="monospace">Drift: ±100ns/hr typ</text>
   <text x="20" y="131" fill="#ff6b6b" font-size="8" font-family="monospace">TDD fails after hours</text>
 </svg>
+<h4>Synchronisation — GPS, PTP IEEE 1588, sync chain for TDD</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">GPS to RU sync chain:</b><br>
+GPS satellite → GPS receiver at site → 10 MHz + 1PPS reference output → PTP Grandmaster Clock (IEEE 1588) → Ethernet switch (transparent or boundary clock) → DU (PTP slave, also boundary clock) → FHGW (PTP slave) → RU (PTP slave). Each hop adds timing error. Budget: GPS accuracy ±50 ns, each switch hop ±100 ns, end-to-end must stay within ±1.5 μs. Your DU shows PTP status: locked/holdover/freerun.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">PTP profiles for telecom — G.8275.1 vs G.8275.2:</b><br>
+G.8275.1: full on-path support (all switches must be PTP-aware). Achieves ±100 ns. Required for Phase 2 TDD. G.8275.2: partial support (some switches can be non-PTP-aware). Achieves ±1 μs. Adequate for Phase 1. Your deployment uses whichever the DU and network switches support. Check DU config: ptp_profile = G.8275.1 or G.8275.2.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">B41 TDD testing — what sync failure looks like:</b><br>
+No PTP lock → DU operates in freerun → TDD frame timing is arbitrary → DL/UL collision in your own cell → EXM injection during UL window hits the RU while PA is transmitting → LNA overloaded → sensitivity measurement completely wrong → all B41 RX tests fail with no apparent hardware fault. Always verify PTP lock (DU status: ptp_state = LOCKED) before any B41 test.
+</div>
+
 <div class="tip">TDD bands (B41) are critically dependent on phase synchronisation. If PTP sync is lost and RU enters holdover, clock drift will eventually cause TDD DL/UL switching misalignment → interference → throughput collapse. Alarm: GPS Loss or PTP Loss triggers holdover mode.</div>
 </div>
 </div>
@@ -12876,6 +13114,16 @@ Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 
   <text x="400" y="207" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Golden Rule: Every calibration file has a dependency. If tx_calibration_eeprom.json is missing → fault 12 → TX power -6dB below expected.</text>
   <text x="400" y="224" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Check calibration files FIRST when power or RSSI anomalies appear. Location: /etc/rru/ or /opt/pw/config/ on RU filesystem via SSH.</text>
 </svg>
+<h4>Calibration — TX/RX/IQ/temperature/gain/phase all in one place</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">All calibration types and when to run:</b><br>
+<b>TX gain cal</b>: at factory, after PA replacement, after firmware with new DAC_SCALE. Output: tx_calibration_eeprom.json.<br><b>RX gain cal (= RSSI cal)</b>: at factory, when cable changed, when temp drift > 3 dB. Output: ADC_ADJUST in hardware.json.<br><b>IQ cal</b>: at factory, if EVM degrades without other explanation. Corrects I/Q amplitude and phase imbalance in analog frontend.<br><b>Temp compensation cal</b>: at factory, at multiple temperatures. Output: TEMP_COMP table in hardware.json.<br><b>Phase cal</b>: at factory, if beamforming direction is wrong. Output: PE44820DS register values.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Which cal to run when things go wrong:</b><br>
+TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong → phase cal. EVM degraded → IQ cal. Measurements drift with temperature → temp comp cal. All cals drifted after drop/shock → full factory recal. After firmware update changes DAC or ADC settings → TX gain cal + RSSI cal.
+</div>
+
 </div>
 </div>
 
