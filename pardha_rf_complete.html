@@ -13570,6 +13570,11 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <text x="20"  y="220" fill="#8892b0" font-size="9" font-family="monospace">Power savings: uSleep/Dynamic Vdd → 30-40% power reduction → saves OPEX (electricity). Ericsson quotes €millions saved per year per RAN.</text>
   <text x="20"  y="232" fill="#4a5470" font-size="8" font-family="monospace">Sensitivity: Better sensitivity = larger cell radius = fewer sites needed = lower CAPEX. -3dB better sens = cell area doubles (line of sight).</text>
 </svg>
+<h4>KPI Correlation — how RF quality maps to network performance</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">The ACLR → throughput cascade:</b><br>Bad ACLR (−42 dBc, fails −45 dBc limit) → TX signal leaks into adjacent channel → neighbour cell UEs experience interference → SINR degrades from 20 dB to 10 dB → scheduler forced from 64QAM to QPSK → throughput drops from 75 Mbps to 20 Mbps → UE experiences slow connection → operator KPI "average throughput" degrades. Every RF spec failure has a direct path to a user-visible KPI.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">EVM → MCS → throughput:</b><br>High EVM (e.g. 6% for 64QAM limit 8%) → CQI reported by UE is lower → scheduler uses lower MCS → 25% throughput reduction. EVM is the TX quality metric that most directly affects user throughput. This is why operators set tight EVM specs and treat EVM failure as a revenue impact, not just a technical inconvenience.</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#ff6b6b">Sensitivity → coverage → PRACH success rate:</b><br>Sensitivity 3 dB worse than spec → cell coverage radius shrinks 30% → cell edge UEs cannot attach → PRACH failure rate increases → Random Access success rate KPI degrades → operator "network availability" KPI fails. Your DSA sensitivity test directly predicts this coverage outcome.</div>
+
 </div>
 </div>
 
@@ -13663,6 +13668,11 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <text x="20"  y="278" fill="#f5a623" font-size="9" font-family="monospace">power-monitor 00 dl</text>
   <text x="20"  y="289" fill="#4a5470" font-size="7" font-family="monospace">  Per-chain DL power</text>
 </svg>
+<h4>End-to-end troubleshooting — alarm → log → protocol → RF → hardware → root cause</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">The complete E2E chain:</b><br>Alarm (Carrier B3 Output Power Low) → logs (journalctl: DPD_STATUS=not_converged) → protocol (eCPRI link up? B3 carrier enabled?) → RF (EXA: TX power −20 dBm vs −15.7 target) → hardware (tx_calibration_eeprom.json missing for B3) → root cause: factory cal file not flashed → fix: reflash cal file → verify: power now −15.5 dBm ✓.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Tools at each layer:</b><br>Alarm: NMS dashboard, NETCONF notification. Log: journalctl, dmesg, rct_results.json. Protocol: Wireshark (eCPRI), tcpdump (NETCONF), ping (connectivity). RF: EXA (spectrum/power/ACLR), EXM (inject known signal), VNA (cable/VSWR/phase). Hardware: multimeter (bias voltages), thermal camera, oscilloscope (power rails). Root cause: 5-Why — change ONE variable at a time.</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#ff6b6b">Most common E2E mistake:</b><br>Jumping to hardware replacement before exhausting software and configuration checks. Typical field failure split: 40% configuration/firmware, 30% installation (cable/connector), 20% transport/network, 10% actual hardware. Always follow the chain top-down before opening the enclosure.</div>
+
 </div>
 </div>
 
@@ -13718,6 +13728,11 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <text x="20"  y="193" fill="#8892b0" font-size="9" font-family="monospace">An RF engineer who also understands ML (feature extraction from RF data, anomaly detection, regression models) is extremely rare and valuable.</text>
   <text x="20"  y="207" fill="#4a5470" font-size="8" font-family="monospace">Start with: Python sklearn · logistic regression on fault log data · LSTM for time-series RSSI prediction · These skills set you apart at interviews.</text>
 </svg>
+<h4>AI for RF — DPD, fault prediction, beam optimisation, anomaly detection</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">AI-based DPD — the most mature application:</b><br>Traditional DPD uses polynomial model. AI/ML DPD uses LSTM neural network to model PA nonlinearity including memory effects — more accurate, especially at high power and high PAPR. Result: 1-3 dB better ACLR. Already deployed by Ericsson and Huawei. Downside: neural network inference requires more compute → higher FPGA/DSP load.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">AI fault prediction — proactive vs reactive maintenance:</b><br>Train model on historical temperature trends, RSSI variation, ACLR history. Model predicts: "this PA likely to fail within 2 weeks." Operator dispatches maintenance before failure → no outage. Your RCT measurement data (RSSI, ACLR, temperature over time) is the training data for these models. Collecting and archiving your test data properly has value beyond just pass/fail.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">AI beam optimisation — replacing manual tuning:</b><br>Traditional: operators manually tune antenna tilt/power/weights site by site. AI: train on KPI data across thousands of sites, automatically optimise per site. Estimated improvement: 5-15% throughput with no hardware change. Nokia AVA and Ericsson AI-based SON already commercially deployed. Understanding how your RF measurements feed AI models makes you a more forward-looking engineer.</div>
+
 </div>
 </div>
 
@@ -13817,7 +13832,854 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <text x="648" y="220" fill="#f5a623" font-size="8" font-family="monospace">EXM, VNA E5071C</text>
   <text x="648" y="235" fill="#4a5470" font-size="7" font-family="monospace">Personalise every topic</text>
 </svg>
+<h4>The WHY framework — 11 questions to master any RF topic</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">How to use the WHY framework:</b><br>For every feature, measurement, or standard you study, answer these 11 questions. This transforms memorised definitions into real understanding. A person who only answers "what is ACLR?" (definition) loses to someone who answers all 11. Use for interview preparation — structure your answers using these questions for complete, impressive responses.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">The 11 questions — apply to every topic:</b><br>1. Why does it exist? 2. What problem does it solve? 3. Where is it used? 4. Which hardware blocks? 5. Which spec/clause? 6. How measured (instrument + setup)? 7. Pass/fail criteria (exact numbers)? 8. Common failures? 9. Debug approach? 10. Interview Q that tests it? 11. Customer/business impact if it fails?</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Example — ACLR through all 11:</b><br>1. Prevent adjacent channel interference. 2. PA nonlinearity causing spectral regrowth. 3. Every base station TX measurement. 4. PA, DPD engine, CFR. 5. 3GPP TS 36.141 clause 6.6.1. 6. EXA ACLR LTE mode, BOB SMA + 30 dB pad, after 60s DPD convergence. 7. < −45 dBc adj, < −50 dBc alt. 8. DPD not converged, over P1dB, CFR too aggressive. 9. ACLR suddenly fails after SW update — debug approach? 10. Interference → SINR down → throughput down. 11. Regulator fine, operator SLA penalty.</div>
+
 <div class="tip">This "Why?" framework is what separates senior RF engineers from those who only memorised concepts. A senior engineer can answer all 10 questions for any topic without notes. Practice answering them out loud for every module in this guide — that is your interview preparation.</div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L21</span>
+  <span class="mod-title">Timing Advance — LTE TA, NR TA, cell radius, propagation delay</span>
+  <span class="mod-level adv">L21</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="130" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Timing Advance — Propagation Delay Compensation</text>
+  <rect x="10" y="35" width="80" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="50" y="59" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">UE (far)</text>
+  <line x1="90" y1="55" x2="700" y2="55" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="698,51 710,55 698,59" fill="#f5a623"/>
+  <text x="400" y="47" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">UL signal · τ = d/c · 1km = 3.33 μs delay</text>
+  <rect x="710" y="35" width="80" height="40" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="750" y="59" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">gNB/RU</text>
+  <rect x="8" y="85" width="784" height="38" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="101" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Without TA: UE transmits at subframe boundary → arrives LATE → collides with next UE</text>
+  <text x="400" y="116" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">With TA: UE transmits TA/2 EARLY → arrives exactly on time → clean reception</text>
+</svg>
+<h4>Timing Advance — why every UE must transmit early</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Why TA exists:</b><br>All UEs must arrive at the gNB at exactly the same time within the subframe window. A UE 10 km away has 33 μs propagation delay — if it transmitted at the subframe boundary, its signal arrives late and collides with the next UE. TA tells the UE to advance its transmission by 2× the propagation delay (round trip). In your lab: EXM cable ≈ 0 propagation → TA = 0. PRACH sensitivity tests still work because there is no real propagation to compensate.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">How TA is measured:</b><br>When UE sends a PRACH preamble, gNB measures arrival time of correlation peak vs expected time. Offset = propagation delay. gNB sends RAR (Random Access Response) with TA value. UE advances UL timing by that amount. LTE TA granularity: 0.52 μs per step. Max TA: 0.67 ms → 100 km theoretical cell radius. TA continuously updated during call as UE moves.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">NR TA vs LTE TA:</b><br>NR TA granularity is finer (0.5 μs) and includes a TA offset per carrier for multi-carrier operation. NR also introduces a TA timer — if the UE does not receive a TA update within the timer, it falls back to PRACH to re-establish timing. This is more robust but means PRACH sensitivity matters more in NR than LTE.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">UL timing alignment between UEs</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">UL collision between UEs at gNB</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">PRACH detector, MAC scheduler</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.213, 38.213</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">PRACH arrival time offset measurement</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Within guard period window</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">TA drift post-HO, cell edge timing</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check PRACH timing stats in logs</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Explain how TA is measured and applied</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">UEs at cell edge cannot connect if TA fails</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L23</span>
+  <span class="mod-title">MIMO — SISO to Massive MIMO, SU-MIMO, MU-MIMO, spatial multiplexing</span>
+  <span class="mod-level adv">L23 ⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="150" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">MIMO Evolution — SISO → 2x2 → 4T4R → 64T64R → MU-MIMO</text>
+  <rect x="8"   y="28" width="130" height="110" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="73"  y="50" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SISO</text>
+  <text x="73"  y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">1 TX · 1 RX</text>
+  <text x="73"  y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">1 stream</text>
+  <text x="73"  y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Baseline 1×</text>
+  <text x="73"  y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">2G/3G era</text>
+  <rect x="148" y="28" width="130" height="110" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="213" y="50" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">2×2 MIMO</text>
+  <text x="213" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">2 TX · 2 RX</text>
+  <text x="213" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">2 streams</text>
+  <text x="213" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Capacity 2×</text>
+  <text x="213" y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LTE baseline</text>
+  <rect x="288" y="28" width="130" height="110" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="353" y="50" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">4T4R</text>
+  <text x="353" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">4 TX · 4 RX</text>
+  <text x="353" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">4 streams max</text>
+  <text x="353" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Capacity 4×</text>
+  <text x="353" y="108" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Your Metro AAU</text>
+  <rect x="428" y="28" width="130" height="110" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="493" y="50" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">64T64R</text>
+  <text x="493" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">64 TX · 64 RX</text>
+  <text x="493" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Massive MIMO</text>
+  <text x="493" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Capacity 20×+</text>
+  <text x="493" y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">5G NR flagship</text>
+  <rect x="568" y="28" width="224" height="110" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="680" y="50" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">MU-MIMO</text>
+  <text x="680" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Multiple UEs · same RB · same time</text>
+  <text x="680" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Spatial reuse → cell capacity ×</text>
+  <text x="680" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Needs accurate SRS measurements</text>
+  <text x="680" y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RX MRC: 4 cols → +6 dB gain</text>
+</svg>
+<h4>MIMO — how multiple antennas multiply capacity</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Spatial multiplexing — the core idea:</b><br>MIMO creates multiple independent spatial channels between gNB and UE using multipath scattering. Each channel carries a separate data stream. A 4×4 MIMO system can carry 4 independent streams simultaneously on the same frequency — quadrupling capacity without extra bandwidth. Richer scattering environment (indoor, urban) = better MIMO performance. Open field = poor scattering = MIMO gain disappears.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Your 4T4R AAU — MIMO in practice:</b><br>4 TX columns (A/B/C/D) with 4 PAs + 4 LNAs. TX side: typically used for beamforming (all 4 columns phase-shifted to steer beam in one direction) rather than 4-stream spatial multiplexing. RX side: MRC combining across 4 columns gives +6 dB diversity gain. Full 4-stream SU-MIMO requires UE to have 4 receive antennas — rare on phones, common on CPE. Typical: 2-stream MIMO per UE + 4T4R for beamforming gain.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">MRC diversity gain — why dead RX columns matter:</b><br>Maximum Ratio Combining weights each column by its SNR. Output SNR = sum of all column SNRs. For 4 equal columns: output SNR = 4× single column = +6 dB. Each dead RX column loses 1.5-2 dB of MRC gain. In your unit 26050510: B1C, B1D dead, B3D dead → 2 columns lost for B1 = −3 dB sensitivity degradation. This is why individual column RX failures directly affect sensitivity test results.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Multiply spectral efficiency without more bandwidth</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Single-stream capacity bottleneck</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Multiple PA/LNA/ADC per column</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.211 / 38.211</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">EVM per layer, MRC gain measurement</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Per-stream EVM, diversity gain</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">High column correlation, bad channel rank</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check antenna spacing, SRS config, column health</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Difference between MIMO diversity and spatial multiplexing</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Lower than expected peak throughput</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L25</span>
+  <span class="mod-title">Temperature testing — RF performance at −40°C to +70°C</span>
+  <span class="mod-level adv">L25 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="130" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Temperature Effects — RF Performance Across Operating Range</text>
+  <rect x="8"   y="28" width="186" height="90" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="101" y="48" fill="#5bc4ef" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">−40°C</text>
+  <text x="18"  y="65" fill="#8892b0" font-size="8" font-family="monospace">PA gain: +1 to +2 dB ↑</text>
+  <text x="18"  y="79" fill="#8892b0" font-size="8" font-family="monospace">ACLR: may worsen (DPD)</text>
+  <text x="18"  y="93" fill="#ff6b6b" font-size="8" font-family="monospace">Risk: PA over-power</text>
+  <text x="18"  y="107" fill="#f5a623" font-size="7" font-family="monospace">DPD coeffs need re-converge</text>
+  <rect x="204" y="28" width="186" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="297" y="48" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">+25°C</text>
+  <text x="214" y="65" fill="#8892b0" font-size="8" font-family="monospace">Reference / calibration point</text>
+  <text x="214" y="79" fill="#8892b0" font-size="8" font-family="monospace">All specs at nominal</text>
+  <text x="214" y="93" fill="#8892b0" font-size="8" font-family="monospace">DPD converges normally</text>
+  <text x="214" y="107" fill="#00d4a0" font-size="7" font-family="monospace">Factory cal reference temp</text>
+  <rect x="400" y="28" width="186" height="90" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="493" y="48" fill="#c8b800" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">+55°C</text>
+  <text x="410" y="65" fill="#8892b0" font-size="8" font-family="monospace">PA gain: −1 to −2 dB ↓</text>
+  <text x="410" y="79" fill="#8892b0" font-size="8" font-family="monospace">RSSI drifts without TEMP_COMP</text>
+  <text x="410" y="93" fill="#f5a623" font-size="8" font-family="monospace">TEMP_COMP table must be active</text>
+  <text x="410" y="107" fill="#4a5470" font-size="7" font-family="monospace">Common failure: RSSI off by 1-2 dB</text>
+  <rect x="596" y="28" width="196" height="90" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2.5" rx="4"/>
+  <text x="694" y="48" fill="#ff6b6b" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">+70°C</text>
+  <text x="606" y="65" fill="#8892b0" font-size="8" font-family="monospace">PA thermal protection fires</text>
+  <text x="606" y="79" fill="#8892b0" font-size="8" font-family="monospace">TX power derated or off</text>
+  <text x="606" y="93" fill="#ff6b6b" font-size="8" font-family="monospace">DPD model breaks down</text>
+  <text x="606" y="107" fill="#ff6b6b" font-size="7" font-family="monospace">Permanent damage risk &gt;85°C junction</text>
+</svg>
+<h4>Temperature testing — RF performance changes with heat and cold</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Why temperature changes RF performance:</b><br>GaN PA transconductance decreases at high temperature → gain drops (typically −0.02 dB/°C). At cold: gain increases, risk of over-power. DPD coefficients calibrated at room temperature become invalid at extremes — the PA nonlinearity profile changes, so pre-distortion no longer matches → ACLR worsens. RSSI readings drift because ADC_ADJUST was calibrated at a specific temperature. All of these effects require TEMP_COMP (temperature compensation) tables in hardware.json.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Classic interview scenario — RSSI fails at +55°C:</b><br>RSSI cal done at +25°C → TEMP_COMP table missing → LNA gain drifts −0.5 dB at 55°C → ADC_ADJUST is now wrong by 0.5 dB → get_rssi reads 0.5 dB low → exceeds ±2 dB limit. Fix: run RSSI cal at both 25°C and 55°C, measure temperature coefficient, populate TEMP_COMP table. This exact scenario appears in real product qualification and in interviews at Ericsson, Nokia, and similar companies.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">3GPP temperature test points:</b><br>3GPP TS 36.141 Annex C defines test conditions: Normal (25°C ±5°C), Extreme low (−30°C for indoor, −40°C for outdoor), Extreme high (+55°C for indoor, +55°C for outdoor with solar radiation add). All conformance tests must pass at all temperature conditions. The RU must maintain all specs across the full range — not just at room temperature. Qualification testing requires running the full RCT at each temperature point, typically 3-4 days of testing per temperature point.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Products deploy in −40 to +70°C environments</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">RF components change gain/NF with temperature</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">PA, LNA, ADC, TEMP_COMP firmware</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.141 Annex C environmental</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Full RCT at each temperature point</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All specs pass at all temperatures</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">RSSI drift, ACLR at cold, PA shutdown at hot</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">TEMP_COMP table, DPD re-convergence trigger</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">RSSI fails only at high temperature — debug</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Field units failing in summer heat or winter cold</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L26</span>
+  <span class="mod-title">Environmental testing — thermal, humidity, rain, salt fog, dust</span>
+  <span class="mod-level adv">L26 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Environmental Tests — Making the RU Survive the Real World</text>
+  <rect x="8"   y="28" width="148" height="82" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="82"  y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">IP65/IP67 (Dust+Water)</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">6=fully dust tight</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">5=water jet · 7=immersion</text>
+  <text x="18"  y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60529</text>
+  <rect x="166" y="28" width="148" height="82" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="240" y="48" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Thermal Cycling</text>
+  <text x="176" y="64" fill="#8892b0" font-size="8" font-family="monospace">−40°C to +70°C cycles</text>
+  <text x="176" y="78" fill="#8892b0" font-size="8" font-family="monospace">Solder joint fatigue</text>
+  <text x="176" y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60068-2-14</text>
+  <rect x="324" y="28" width="148" height="82" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="398" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Salt Fog</text>
+  <text x="334" y="64" fill="#8892b0" font-size="8" font-family="monospace">5% NaCl · 96 hours</text>
+  <text x="334" y="78" fill="#8892b0" font-size="8" font-family="monospace">Coastal deployment</text>
+  <text x="334" y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60068-2-52</text>
+  <rect x="482" y="28" width="148" height="82" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="556" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Humidity</text>
+  <text x="492" y="64" fill="#8892b0" font-size="8" font-family="monospace">85% RH at 40°C</text>
+  <text x="492" y="78" fill="#8892b0" font-size="8" font-family="monospace">Tropical deployment</text>
+  <text x="492" y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60068-2-78</text>
+  <rect x="640" y="28" width="152" height="82" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="716" y="48" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">After each test:</text>
+  <text x="650" y="64" fill="#8892b0" font-size="8" font-family="monospace">Full RF power + ACLR</text>
+  <text x="650" y="78" fill="#8892b0" font-size="8" font-family="monospace">Connector inspection</text>
+  <text x="650" y="92" fill="#00d4a0" font-size="7" font-family="monospace">All RF specs must pass</text>
+</svg>
+<h4>Environmental testing — the RU must survive its deployment environment</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Why env testing is separate from RF testing:</b><br>An RU might pass all RF specs in a clean lab at 25°C but fail in deployment due to: condensation shorting PCB traces (humidity), connector corrosion from sea air (salt fog), solder joint cracking from thermal expansion cycles. Environmental tests simulate the full deployment lifecycle — 10-15 years of outdoor exposure — in 50-200 hours of accelerated aging. Full RF RCT is run after each environmental test to verify no performance degradation.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Thermal cycling — the most common long-term failure mode:</b><br>Temperature cycling between −40°C and +70°C expands and contracts PCB and solder joints at different rates (thermal expansion mismatch). Over 100s of cycles, solder joints develop micro-cracks → intermittent connections → RF failures that only appear in the field. Qualification: typically 200-500 thermal cycles with RF check after each block of 50. ACLR starting to degrade at cycle 150: solder joint fatigue at PA or connector.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">IP rating and what it means for connector integrity:</b><br>Outdoor RU enclosures must be IP65 minimum. Testing: spray chamber with water jets for 15 minutes from all angles, verify no ingress and full RF function after. The most common IP failure: O-ring seal around a connector bulkhead degrades after thermal cycling, allowing water ingress. Water on RF PCB → corrosion → intermittent RSSI errors in field → impossible to reproduce in lab. Always inspect all gaskets and O-rings when diagnosing intermittent field failures.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Products deploy outdoors in all climates</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Lab conditions don't represent real deployment</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware + mechanical enclosure</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">IEC 60068 series, ETSI EN 300 019</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Full RF RCT after each environmental stress</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All RF specs pass after stress</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Intermittent faults after thermal cycling</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Inspect solder joints, gaskets, connectors under microscope</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">ACLR degrades in field after 6 months — how to diagnose?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Coastal RU corroding within 2 years of deployment</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L27</span>
+  <span class="mod-title">Power supply — sequencing, inrush current, ripple, brownout</span>
+  <span class="mod-level adv">L27 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Power Supply Testing — Sequencing, Inrush, Ripple, Brownout</text>
+  <rect x="8"   y="28" width="186" height="80" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="101" y="47" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Power Sequencing</text>
+  <text x="18"  y="63" fill="#8892b0" font-size="8" font-family="monospace">FPGA core → I/O → PA bias</text>
+  <text x="18"  y="77" fill="#8892b0" font-size="8" font-family="monospace">Wrong order → latchup/damage</text>
+  <text x="18"  y="91" fill="#f5a623" font-size="7" font-family="monospace">Verify with oscilloscope trigger</text>
+  <rect x="204" y="28" width="186" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="297" y="47" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Inrush Current</text>
+  <text x="214" y="63" fill="#8892b0" font-size="8" font-family="monospace">Large caps charge at power-on</text>
+  <text x="214" y="77" fill="#8892b0" font-size="8" font-family="monospace">Can trip PSU / site breaker</text>
+  <text x="214" y="91" fill="#f5a623" font-size="7" font-family="monospace">Measure: scope + current CT</text>
+  <rect x="400" y="28" width="186" height="80" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="493" y="47" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PSU Ripple → Spurious</text>
+  <text x="410" y="63" fill="#8892b0" font-size="8" font-family="monospace">AC ripple on DC rail</text>
+  <text x="410" y="77" fill="#8892b0" font-size="8" font-family="monospace">Modulates PA → AM sidebands</text>
+  <text x="410" y="91" fill="#f5a623" font-size="7" font-family="monospace">Limit &lt;50 mV p-p · check with scope</text>
+  <rect x="596" y="28" width="196" height="80" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="694" y="47" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Brownout −48V range</text>
+  <text x="606" y="63" fill="#8892b0" font-size="8" font-family="monospace">−48V ±10% (−43 to −53V)</text>
+  <text x="606" y="77" fill="#8892b0" font-size="8" font-family="monospace">Low Vdc → PA gain drops</text>
+  <text x="606" y="91" fill="#f5a623" font-size="7" font-family="monospace">Test: sweep Vdc, measure TX power</text>
+</svg>
+<h4>Power supply — PSU quality directly affects RF output quality</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">PSU ripple → spurious — a hidden RF link:</b><br>DC power supply with AC ripple at frequency f creates AM sidebands on the RF output at ±f from the carrier. A 50 Hz ripple at 50 mV p-p on the PA drain supply creates spurs at carrier ±50 Hz visible in EXA with narrow RBW. This is why PSU ripple spec exists. Always measure PSU ripple with oscilloscope before blaming RF chain for unexplained spurious emissions.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Brownout — the field failure that looks like PA fault:</b><br>"PA enters protection after 20 minutes." Classic brownout: operator site has marginal −48V supply. Under load, Vdc drops to −43V. PA Vdd droops. PA gain drops → TX power falls below threshold → power protection fires. Looks like PA hardware failure. Actually a site power problem. Test: run RCT with variable PSU, sweep Vdc from −40V to −57V, verify all RF specs across full range. Telecom spec: −48V ±10%.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Power sequencing — must be correct to avoid hardware damage:</b><br>FPGA requires: core voltage (1.0V) stable before I/O voltage (1.8V). PA requires: RF path enabled before PA bias applied. Wrong sequence = FPGA latchup or PA oscillation. Verify with oscilloscope triggered on power-on event — all rails must rise in specified order within specified timing. This is a manufacturing test step that is verified at ICT (In-Circuit Test) before each unit is shipped.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">All RF performance depends on clean DC power</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">PSU problems cause RF faults that look like hardware</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">PA bias circuit, FPGA power rails</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">ETSI EN 300 132-2 telecom power supply</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">RF measurement + oscilloscope simultaneously</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All RF specs at ±10% Vdc variation</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">PA protection at brownout, spurious from ripple</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Measure ripple with scope, sweep Vdc during RCT</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">TX power drops after 20 minutes — thermal or supply?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Site power variation causing intermittent outages</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L29</span>
+  <span class="mod-title">Network management — NETCONF, YANG, O1 interface, M-plane</span>
+  <span class="mod-level adv">L29 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">O-RAN M-Plane — NETCONF/YANG over O1 Interface</text>
+  <rect x="8"   y="28" width="180" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="98"  y="48" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">SMO / Controller</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">Configures RU parameters</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">Reads alarms and KPIs</text>
+  <text x="18"  y="92" fill="#4a5470" font-size="7" font-family="monospace">Runs at core network level</text>
+  <line x1="188" y1="68" x2="218" y2="68" stroke="#9b8cf8" stroke-width="2"/>
+  <text x="203" y="60" fill="#9b8cf8" font-size="7" text-anchor="middle" font-family="monospace">O1</text>
+  <rect x="218" y="28" width="180" height="80" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="308" y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">O-DU M-Plane</text>
+  <text x="228" y="64" fill="#8892b0" font-size="8" font-family="monospace">Aggregates RU config</text>
+  <text x="228" y="78" fill="#8892b0" font-size="8" font-family="monospace">Forwards to O-RU</text>
+  <line x1="398" y1="68" x2="428" y2="68" stroke="#5bc4ef" stroke-width="2"/>
+  <text x="413" y="60" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">M-Plane</text>
+  <rect x="428" y="28" width="180" height="80" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="518" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">O-RU (your AAU)</text>
+  <text x="438" y="64" fill="#8892b0" font-size="8" font-family="monospace">NETCONF server port 830</text>
+  <text x="438" y="78" fill="#8892b0" font-size="8" font-family="monospace">YANG model defines all params</text>
+  <text x="438" y="92" fill="#4a5470" font-size="7" font-family="monospace">SSH + XML over TCP 830</text>
+  <rect x="618" y="28" width="174" height="80" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="705" y="46" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Key YANG params</text>
+  <text x="628" y="62" fill="#8892b0" font-size="8" font-family="monospace">tx-array-carrier freq/BW</text>
+  <text x="628" y="76" fill="#8892b0" font-size="8" font-family="monospace">tx-common-array gain</text>
+  <text x="628" y="90" fill="#8892b0" font-size="8" font-family="monospace">alarm-thresholds</text>
+</svg>
+<h4>Network management — how operators configure and monitor the RU remotely</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">NETCONF/YANG — the language of RU configuration:</b><br>NETCONF is the protocol for network device configuration over SSH (port 830). YANG defines what parameters exist and their valid ranges. O-RAN Alliance defines standard YANG models for O-RU: tx-array-carrier (frequency, bandwidth, power), rx-array-carrier, alarms (PA temperature, VSWR, GPS loss). In production, operators configure the RU entirely via NETCONF — no CLI. When you change band config or TX power via CLI in the lab, you are doing manually what the NMS does via NETCONF in deployment.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">O1 interface — four management functions:</b><br>Configuration (edit-config to set frequencies, power, bandwidth), Performance Management (PM counters: RSSI per RB, ACLR history, temperature logs), Fault Management (alarm notifications: PA protection, GPS loss, carrier failure), Software Management (SW upgrade over O1). A NETCONF edit-config sets tx-carrier-frequency. A NETCONF get returns current temperature reading. An alarm notification arrives when PA protection fires.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">For Ericsson/Nokia/PW interviews:</b><br>Be able to explain: NETCONF session establishment (SSH → hello → capabilities exchange → edit-config/get). Know YANG container/list/leaf. Know that oran-o-ru-hardware.yang and oran-o-ru-interfaces.yang are key O-RAN models. YANG constraint violations return rpc-error — common source of M-plane integration failures. Be able to read a YANG edit-config XML snippet and identify what it configures.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Remote config and monitoring of deployed RUs</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Manual CLI is not scalable to 1000s of sites</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RU hardware parameters + network stack</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">O-RAN WG4 M-plane spec, RFC 6241 (NETCONF)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">NETCONF get-config, compare against expected YANG</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All parameters within YANG-defined ranges</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">NETCONF session fails, wrong parameter applied</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Wireshark/tcpdump on port 830 to capture NETCONF XML</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Operator cannot configure your RU via NMS — why?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Field RU configured wrongly → coverage hole</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L30</span>
+  <span class="mod-title">Transport — eCPRI, Ethernet, VLAN, QoS, fronthaul/backhaul</span>
+  <span class="mod-level adv">L30 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Transport — eCPRI Fronthaul to Core Backhaul</text>
+  <rect x="8"   y="28" width="150" height="82" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="83"  y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">O-RU (AAU)</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">eCPRI user plane (IQ)</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">PTP sync + NETCONF</text>
+  <text x="18"  y="92" fill="#f5a623" font-size="7" font-family="monospace">10GbE SFP+ port</text>
+  <line x1="158" y1="69" x2="188" y2="69" stroke="#4a5470" stroke-width="2"/>
+  <text x="173" y="60" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">Fronthaul</text>
+  <text x="173" y="82" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">&lt;100μs latency</text>
+  <rect x="188" y="28" width="150" height="82" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="263" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW / Switch</text>
+  <text x="198" y="64" fill="#8892b0" font-size="8" font-family="monospace">PTP transparent clock</text>
+  <text x="198" y="78" fill="#8892b0" font-size="8" font-family="monospace">VLAN + QoS priority</text>
+  <text x="198" y="92" fill="#f5a623" font-size="7" font-family="monospace">eCPRI = highest priority</text>
+  <line x1="338" y1="69" x2="368" y2="69" stroke="#4a5470" stroke-width="2"/>
+  <rect x="368" y="28" width="150" height="82" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="443" y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">O-DU</text>
+  <text x="378" y="64" fill="#8892b0" font-size="8" font-family="monospace">eCPRI termination</text>
+  <text x="378" y="78" fill="#8892b0" font-size="8" font-family="monospace">PTP grandmaster (GPS)</text>
+  <text x="378" y="92" fill="#f5a623" font-size="7" font-family="monospace">NETCONF client</text>
+  <line x1="518" y1="69" x2="548" y2="69" stroke="#4a5470" stroke-width="2"/>
+  <text x="533" y="60" fill="#9b8cf8" font-size="7" text-anchor="middle" font-family="monospace">Backhaul</text>
+  <rect x="548" y="28" width="244" height="82" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="670" y="48" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Core / O-CU</text>
+  <text x="558" y="64" fill="#8892b0" font-size="8" font-family="monospace">PDCP/RRC + user data</text>
+  <text x="558" y="78" fill="#8892b0" font-size="8" font-family="monospace">Standard IP/MPLS/fibre</text>
+  <text x="558" y="92" fill="#4a5470" font-size="7" font-family="monospace">Any latency acceptable</text>
+</svg>
+<h4>Transport — the network path that carries your RF signal</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">eCPRI fronthaul — strict latency requirements:</b><br>eCPRI carries IQ data between O-RU and O-DU over Ethernet. C-plane (control: scheduling, timing) requires < 100 μs one-way latency. If fronthaul latency exceeds the budget: IQ data arrives too late for IFFT → dropped symbols → BLER increases → throughput drops. Every Ethernet switch between RU and DU adds latency — must be measured and budgeted. In your bench: FHGW and RU directly connected → fronthaul latency ≈ 1 μs.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">VLAN and QoS — why misconfiguration causes intermittent RF failures:</b><br>eCPRI, PTP, and NETCONF share the same Ethernet network. Without QoS: a network burst can delay PTP timing packets → TDD sync loss → B41 DL/UL collision. VLAN separates traffic types. QoS assigns highest priority (DSCP EF) to eCPRI and PTP. Misconfigured QoS is a common field issue causing intermittent TDD frame timing errors that are impossible to reproduce in lab without load on the transport network.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Fronthaul vs backhaul — key distinction:</b><br>Fronthaul: O-RU ↔ O-DU, eCPRI, < 100 μs, < 20 km. Midhaul: O-DU ↔ O-CU, MAC/RLC PDUs, less latency-sensitive. Backhaul: O-CU ↔ Core, standard IP, tolerates higher latency. In field troubleshooting: if PRACH detection fails intermittently, check fronthaul packet loss with tcpdump on DU eCPRI interface before assuming RU hardware fault.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">RU IQ data must reach DU with bounded latency</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Fronthaul delay causes IQ loss → BLER increase</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">eCPRI switch, SFP+ optics, Ethernet stack</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">O-RAN WG4 fronthaul spec, eCPRI spec v2.0</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">iperf3 throughput, Wireshark timing, ping latency</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">eCPRI latency < 100 μs, PTP ±1.5 μs</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">QoS misconfiguration → TDD sync loss under load</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">tcpdump fronthaul port, check PTP offset stats</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Intermittent PRACH failures under high traffic — RF or transport?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Base station off-air during network congestion</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L31</span>
+  <span class="mod-title">Linux — journalctl, tcpdump, grep, awk, ssh for RF engineers</span>
+  <span class="mod-level adv">L31 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Linux Commands — Daily Essentials for RF Engineers</text>
+  <rect x="8" y="28" width="246" height="82" fill="#0a0a0a" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="131" y="46" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Log Analysis</text>
+  <text x="18" y="62" fill="#f5a623" font-size="8" font-family="monospace">journalctl -fu ruauto</text><text x="168" y="62" fill="#8892b0" font-size="8" font-family="monospace">live test log</text>
+  <text x="18" y="76" fill="#f5a623" font-size="8" font-family="monospace">grep -i "fail\|fault" *.log</text><text x="192" y="76" fill="#8892b0" font-size="8" font-family="monospace">search errors</text>
+  <text x="18" y="90" fill="#f5a623" font-size="8" font-family="monospace">dmesg | grep PA</text><text x="146" y="90" fill="#8892b0" font-size="8" font-family="monospace">kernel PA events</text>
+  <text x="18" y="104" fill="#f5a623" font-size="8" font-family="monospace">tail -f /var/log/rru/*.log</text><text x="192" y="104" fill="#8892b0" font-size="8" font-family="monospace">live log stream</text>
+  <rect x="264" y="28" width="246" height="82" fill="#0a0a0a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="387" y="46" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Network Debug</text>
+  <text x="274" y="62" fill="#f5a623" font-size="8" font-family="monospace">tcpdump -i eth0 port 830</text><text x="440" y="62" fill="#8892b0" font-size="8" font-family="monospace">NETCONF</text>
+  <text x="274" y="76" fill="#f5a623" font-size="8" font-family="monospace">tcpdump -i eth1 udp</text><text x="412" y="76" fill="#8892b0" font-size="8" font-family="monospace">eCPRI/PTP pkts</text>
+  <text x="274" y="90" fill="#f5a623" font-size="8" font-family="monospace">ping -i 0.01 &lt;DU_IP&gt;</text><text x="418" y="90" fill="#8892b0" font-size="8" font-family="monospace">latency check</text>
+  <text x="274" y="104" fill="#f5a623" font-size="8" font-family="monospace">ss -tlnp | grep 5025</text><text x="432" y="104" fill="#8892b0" font-size="8" font-family="monospace">SCPI port open?</text>
+  <rect x="520" y="28" width="272" height="82" fill="#0a0a0a" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="656" y="46" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">System + RF Debug</text>
+  <text x="530" y="62" fill="#f5a623" font-size="8" font-family="monospace">systemctl status ruauto</text><text x="688" y="62" fill="#8892b0" font-size="8" font-family="monospace">service health</text>
+  <text x="530" y="76" fill="#f5a623" font-size="8" font-family="monospace">top</text><text x="558" y="76" fill="#8892b0" font-size="8" font-family="monospace">CPU load (DPD is heavy)</text>
+  <text x="530" y="90" fill="#f5a623" font-size="8" font-family="monospace">awk '{print $3}' rssi.log</text><text x="690" y="90" fill="#8892b0" font-size="8" font-family="monospace">parse RSSI col</text>
+  <text x="530" y="104" fill="#f5a623" font-size="8" font-family="monospace">ssh -i key.pem root@RU_IP</text><text x="726" y="104" fill="#8892b0" font-size="8" font-family="monospace">remote access</text>
+</svg>
+<h4>Linux — the operating system your RU runs on</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Why RF engineers need Linux comfort:</b><br>Your RU runs embedded Linux. All RU processes (ruauto, DPD engine, NETCONF server, PTP daemon) are Linux services. When something fails in the field, you SSH into the RU and use Linux commands to: read logs, check services, capture network traffic, check CPU/memory. Without Linux, you cannot debug field issues remotely — you must physically ship the unit back.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Most useful commands for daily RCT work:</b><br><code>journalctl -fu ruauto</code>: live follow ruauto test logs. <code>grep -i "fault|error|fail" /var/log/rru/*.log | tail -50</code>: find recent errors. <code>tcpdump -i eth0 -n udp dst port 319</code>: capture PTP packets. <code>cat /sys/class/hwmon/hwmon0/temp1_input</code>: read PA temperature directly. <code>awk -F"," "NR>1{sum+=$3;count++} END{print sum/count}" rssi_results.csv</code>: compute average RSSI from results.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Scripting leverage — 3× test throughput:</b><br>Engineers who automate with Python + Shell: parse 1000-line log files in 2 minutes instead of 2 hours, run multi-band sweeps overnight unattended, generate pass/fail summary reports automatically. The most valuable skill combination for a junior RF engineer wanting to stand out: Linux command line + Python SCPI automation. It demonstrates both technical depth and practical engineering efficiency.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">RU is embedded Linux — all debug is via CLI/SSH</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Need remote debug without physical access</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All — embedded Linux is the RU OS</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">No specific standard — Linux fundamentals</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">journalctl, dmesg, tcpdump, grep</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Find root cause from logs remotely</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">SSH refused, service not starting</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check systemctl, firewall, SSH keys</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Walk me through debugging a field failure remotely</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Field engineer cannot restore service without lab support</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L32</span>
+  <span class="mod-title">Scripting — Python SCPI, Shell automation, YAML/JSON config</span>
+  <span class="mod-level adv">L32 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="110" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RF Test Automation Stack</text>
+  <rect x="8"   y="28" width="190" height="72" fill="#0a0a0a" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="103" y="46" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Python (main)</text>
+  <text x="18"  y="62" fill="#8892b0" font-size="8" font-family="monospace">SCPI via socket TCP 5025</text>
+  <text x="18"  y="76" fill="#8892b0" font-size="8" font-family="monospace">JSON parse/write results</text>
+  <text x="18"  y="90" fill="#4a5470" font-size="7" font-family="monospace">paramiko SSH · matplotlib plots</text>
+  <rect x="208" y="28" width="190" height="72" fill="#0a0a0a" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="303" y="46" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Shell / Bash</text>
+  <text x="218" y="62" fill="#8892b0" font-size="8" font-family="monospace">Batch overnight test runs</text>
+  <text x="218" y="76" fill="#8892b0" font-size="8" font-family="monospace">Log archiving + rotation</text>
+  <text x="218" y="90" fill="#4a5470" font-size="7" font-family="monospace">cron scheduled · grep/awk parse</text>
+  <rect x="408" y="28" width="190" height="72" fill="#0a0a0a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="503" y="46" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">SCPI Commands</text>
+  <text x="418" y="62" fill="#f5a623" font-size="8" font-family="monospace">:FREQ:CENT 2.14e9</text>
+  <text x="418" y="76" fill="#f5a623" font-size="8" font-family="monospace">:FETCH:ACLR?</text>
+  <text x="418" y="90" fill="#4a5470" font-size="7" font-family="monospace">port 5025 · all Keysight</text>
+  <rect x="608" y="28" width="184" height="72" fill="#0a0a0a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="700" y="46" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Data Formats</text>
+  <text x="618" y="62" fill="#8892b0" font-size="8" font-family="monospace">JSON: results + config</text>
+  <text x="618" y="76" fill="#8892b0" font-size="8" font-family="monospace">YAML: tc_cadence</text>
+  <text x="618" y="90" fill="#4a5470" font-size="7" font-family="monospace">XML: NETCONF · CSV: sweeps</text>
+</svg>
+<h4>Scripting — automation separates good engineers from great ones</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Three scripts you should be able to write today:</b><br>1. RSSI linearity sweep: inject −60 to −110 dBm in 1 dB steps with EXM, read get_rssi at each step, plot linearity, flag deviation > 2 dB. 2. Multi-band ACLR monitor: loop B1/B3/B8/B28/B41, measure ACLR per band, write JSON results, Slack alert on failure. 3. DPD convergence tracker: measure ACLR every 5s after TX enable, plot ACLR vs time, report convergence time. These three automate the most common manual verification tasks.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Python SCPI pattern:</b><br><code>import socket, time<br>class Instr:<br>  def __init__(self,ip): self.s=socket.socket(); self.s.connect((ip,5025))<br>  def send(self,c): self.s.send((c+chr(10)).encode())<br>  def query(self,c): self.send(c); return self.s.recv(4096).decode().strip()<br>exa=Instr("10.62.2.135")<br>exa.send(":FREQ:CENT 2.14e9")<br>aclr=float(exa.query(":FETCH:ACLR?"))<br>print("PASS" if aclr&lt;-45 else "FAIL", aclr)</code></div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">JSON results parsing — stop reading files manually:</b><br><code>import json<br>with open("rct_results.json") as f: r=json.load(f)<br>fails=[t for t in r["tests"] if t["result"]=="FAIL"]<br>for f in fails: print(f['group']+"/"+f['test']+": "+str(f['measured']))</code><br>Processing 100 test cases: script = 2 minutes, manual = 2 hours.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Manual test execution doesn't scale</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Consistency, speed, overnight unattended runs</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Any PC — Python + instrument APIs</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">No specific standard — de facto Keysight SCPI</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Code review + working test run</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Correct PASS/FAIL matching manual results</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Socket timeout, SCPI syntax error</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Add *OPC? synchronisation, sleep after slow commands</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Write me a script to measure ACLR across all 5 bands</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Test campaign that took 2 weeks now runs overnight</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L33</span>
+  <span class="mod-title">RF safety — SAR, EIRP limits, EMC, EMI, human exposure</span>
+  <span class="mod-level adv">L33 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="110" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RF Safety — Human Exposure, EMC, EIRP Limits</text>
+  <rect x="8"   y="28" width="185" height="72" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="100" y="48" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">SAR (devices)</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">W/kg into human tissue</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">FCC: 1.6 W/kg · ICNIRP: 2.0</text>
+  <text x="18"  y="92" fill="#f5a623" font-size="7" font-family="monospace">Phones/wearables — not base stations</text>
+  <rect x="203" y="28" width="185" height="72" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="295" y="48" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">MPE (base station)</text>
+  <text x="213" y="64" fill="#8892b0" font-size="8" font-family="monospace">Field strength at distance</text>
+  <text x="213" y="78" fill="#8892b0" font-size="8" font-family="monospace">Exclusion zone around antenna</text>
+  <text x="213" y="92" fill="#f5a623" font-size="7" font-family="monospace">FCC OET Bulletin 65</text>
+  <rect x="398" y="28" width="185" height="72" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="490" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EMC / EMI</text>
+  <text x="408" y="64" fill="#8892b0" font-size="8" font-family="monospace">Emissions: not disturb others</text>
+  <text x="408" y="78" fill="#8892b0" font-size="8" font-family="monospace">Immunity: not disturbed</text>
+  <text x="408" y="92" fill="#f5a623" font-size="7" font-family="monospace">CE: EN 55032 · FCC Part 15</text>
+  <rect x="593" y="28" width="199" height="72" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="692" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Lab Safety Rules</text>
+  <text x="603" y="64" fill="#8892b0" font-size="8" font-family="monospace">Never near open antenna port TX on</text>
+  <text x="603" y="78" fill="#8892b0" font-size="8" font-family="monospace">BOB SMA + 30 dB pad always</text>
+  <text x="603" y="92" fill="#00d4a0" font-size="7" font-family="monospace">Dummy load on unused ports</text>
+</svg>
+<h4>RF safety — protecting people and passing regulatory requirements</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">SAR vs MPE — two different metrics for two different products:</b><br>SAR (Specific Absorption Rate, W/kg): RF energy absorbed by body tissue. Used for devices held close to body (phones, tablets). FCC limit: 1.6 W/kg averaged over 1g tissue. Test: phantom head with tissue-simulating liquid. Not relevant for fixed base stations. MPE (Maximum Permissible Exposure): field strength limit at a distance from an antenna. Used for base stations. At 2 GHz: 1 mW/cm² general population limit. Creates an exclusion zone 3–10m in front of the panel.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">EMC — why your RU must not interfere with neighbours:</b><br>EMC testing verifies: (1) RU does not emit unintended radiation that interferes with other equipment (emissions test), (2) RU continues to work when subjected to external interference (immunity test). CE marking requires EN 55032 (emissions) and EN 55035 (immunity). Failure: RU interferes with adjacent cellular bands, medical equipment, or airport radar. Tested in anechoic chamber with spectrum analyser measuring radiated emissions from RU in all directions.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Lab safety — what you must actually do:</b><br>In your bench: +43 dBm = 20W of RF power at antenna port. At close range: RF burns to skin, hazardous to eyes. Always use: dummy load on unused antenna ports, 30 dB attenuator between BOB SMA and EXA, shielded cables. The BOB SMA output at +13 dBm (before pad) is still above comfortable unprotected handling levels. The 30 dB pad is not optional — it protects both you and the EXA input.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Protect humans, regulatory compliance for market access</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Without limits: RF energy causes tissue heating</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Antenna, PA, EMC shielding</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">FCC OET Bulletin 65, ICNIRP, CE directives</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">SAR: phantom measurement, MPE: field strength at distance</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">SAR < 1.6 W/kg, MPE within limit at exclusion zone</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Forgotten attenuator, open antenna port during TX</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check test setup, use dummy load, verify attenuation</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What is SAR and how is it measured?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Product recall, regulatory fine, deployment blocked</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L34</span>
+  <span class="mod-title">Standards — 3GPP, O-RAN, ETSI, FCC, CE, PTCRB, GCF</span>
+  <span class="mod-level adv">L34 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="110" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Standards Bodies — Who Sets the RF Rules</text>
+  <rect x="8"   y="28" width="148" height="72" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="82"  y="48" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">3GPP</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">TS 36.141 LTE RCT</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">TS 38.141 NR RCT</text>
+  <text x="18"  y="92" fill="#f5a623" font-size="7" font-family="monospace">Your primary reference</text>
+  <rect x="166" y="28" width="148" height="72" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="240" y="48" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">O-RAN Alliance</text>
+  <text x="176" y="64" fill="#8892b0" font-size="8" font-family="monospace">WG4: fronthaul spec</text>
+  <text x="176" y="78" fill="#8892b0" font-size="8" font-family="monospace">7.2x split definition</text>
+  <text x="176" y="92" fill="#f5a623" font-size="7" font-family="monospace">O-RU interoperability</text>
+  <rect x="324" y="28" width="148" height="72" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="398" y="48" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">FCC (US)</text>
+  <text x="334" y="64" fill="#8892b0" font-size="8" font-family="monospace">Part 15: EMC</text>
+  <text x="334" y="78" fill="#8892b0" font-size="8" font-family="monospace">Part 27: wireless EIRP</text>
+  <text x="334" y="92" fill="#f5a623" font-size="7" font-family="monospace">Required for US market</text>
+  <rect x="482" y="28" width="148" height="72" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="556" y="48" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">CE / ETSI (EU)</text>
+  <text x="492" y="64" fill="#8892b0" font-size="8" font-family="monospace">EN 301 908 RF specs</text>
+  <text x="492" y="78" fill="#8892b0" font-size="8" font-family="monospace">EN 55032 EMC</text>
+  <text x="492" y="92" fill="#f5a623" font-size="7" font-family="monospace">Required for EU market</text>
+  <rect x="640" y="28" width="152" height="72" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="716" y="48" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">PTCRB / GCF</text>
+  <text x="650" y="64" fill="#8892b0" font-size="8" font-family="monospace">PTCRB: North America</text>
+  <text x="650" y="78" fill="#8892b0" font-size="8" font-family="monospace">GCF: Europe / global</text>
+  <text x="650" y="92" fill="#f5a623" font-size="7" font-family="monospace">3GPP conformance cert</text>
+</svg>
+<h4>Standards — the rulebooks every RF engineer must know</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">3GPP — your primary reference:</b><br>All LTE and 5G NR specifications. For your work: TS 36.141 (LTE base station conformance — defines every ACLR, EVM, sensitivity limit you test against), TS 38.141-2 (NR OTA), TS 36.104 (LTE BS radio requirements), TS 38.104 (NR). When you set a pass/fail limit in tc_cadence.json, it comes from these documents. Knowing which clause defines which limit shows expertise in interviews.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">O-RAN Alliance — critical for your specific job:</b><br>O-RAN WG4 defines the fronthaul interface: eCPRI compression spec, M-plane YANG models, C/U/S-plane timing requirements. When PW AAU deploys with a non-PW DU, interoperability is verified against O-RAN WG4 specs. Key document: O-RAN.WG4.CUS.0-v07.00 (fronthaul interface spec). Your RCT work on eCPRI timing and M-plane configuration directly validates WG4 requirements.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">FCC vs CE — market determines what you test:</b><br>Product sold in US requires FCC ID. Product in Europe requires CE marking. Underlying RF performance (3GPP) is the same, but regulatory approval differs. FCC: certified test lab measures conducted and radiated emissions. CE: Declaration of Conformity supported by Technical File. Your RCT covers 3GPP conformance — regulatory approval is separate but uses many of the same measurements.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Define what correct behaviour means legally</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Without standards, no interoperability</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP, O-RAN, ETSI, FCC, CE</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Follow test plan defined in the standard</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Match standard-specified limits exactly</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Wrong test config doesn't match standard method</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Read the spec, check measurement setup matches spec</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Which 3GPP spec defines the ACLR limit for LTE BS?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Cannot sell product in a market without certification</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L35</span>
+  <span class="mod-title">Manufacturing — PCB assembly, factory calibration, end-of-line test, burn-in</span>
+  <span class="mod-level adv">L35 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="110" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Manufacturing Flow — PCB to Shipped Product</text>
+  <rect x="8"   y="28" width="116" height="72" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="66"  y="48" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">PCB Assembly</text>
+  <text x="18"  y="63" fill="#8892b0" font-size="7" font-family="monospace">SMT · solder reflow</text>
+  <text x="18"  y="77" fill="#8892b0" font-size="7" font-family="monospace">AOI · X-ray BGA</text>
+  <line x1="124" y1="64" x2="142" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="142" y="28" width="116" height="72" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="200" y="48" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">ICT / Flying Probe</text>
+  <text x="152" y="63" fill="#8892b0" font-size="7" font-family="monospace">Component check</text>
+  <text x="152" y="77" fill="#8892b0" font-size="7" font-family="monospace">Short/open detect</text>
+  <line x1="258" y1="64" x2="276" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="276" y="28" width="116" height="72" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="334" y="48" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Factory RF Cal</text>
+  <text x="286" y="63" fill="#8892b0" font-size="7" font-family="monospace">TX gain · RSSI cal</text>
+  <text x="286" y="77" fill="#8892b0" font-size="7" font-family="monospace">Phase cal · EEPROM write</text>
+  <line x1="392" y1="64" x2="410" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="410" y="28" width="116" height="72" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="468" y="48" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">End-of-Line Test</text>
+  <text x="420" y="63" fill="#8892b0" font-size="7" font-family="monospace">Full RCT subset</text>
+  <text x="420" y="77" fill="#8892b0" font-size="7" font-family="monospace">Automated &lt;30 min</text>
+  <line x1="526" y1="64" x2="544" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="544" y="28" width="116" height="72" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="602" y="48" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Burn-In</text>
+  <text x="554" y="63" fill="#8892b0" font-size="7" font-family="monospace">24-72h at +55°C</text>
+  <text x="554" y="77" fill="#8892b0" font-size="7" font-family="monospace">Catches infant failure</text>
+  <line x1="660" y1="64" x2="678" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="678" y="28" width="114" height="72" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="735" y="55" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Ship ✓</text>
+  <text x="735" y="71" fill="#8892b0" font-size="7" text-anchor="middle" font-family="monospace">All tests passed</text>
+  <text x="735" y="85" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">+ calibrated</text>
+</svg>
+<h4>Manufacturing — how an RU goes from components to deployed product</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Factory calibration — why it is unique per unit:</b><br>Every RU has different component values due to manufacturing tolerance. Factory calibration measures the actual performance of each specific unit and writes correction values to EEPROM (tx_calibration_eeprom.json, hardware.json). Unique to each serial number — cannot use unit 26050509 cal file on unit 26050508. When fault 12 (missing cal file) occurs, the unit uses defaults that assume perfect components → typically 3-6 dB wrong.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">End-of-line testing — fast subset of full RCT:</b><br>EOL test must complete in < 30 minutes to maintain factory throughput. Tests: TX power per band per column, ACLR per band (is DPD working?), RSSI calibration verification, basic boot and connectivity. Full RCT (2-3 hours) runs on sample units per batch and on units returned from field. Your RCT framework is the detailed version of the EOL test.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Burn-in — catching infant mortality failures:</b><br>Components follow a bathtub curve: high failure rate early (manufacturing defects), then low steady-state, then increasing at end of life. Burn-in at +55°C for 24-72 hours at full TX power stresses marginal solder joints and components. What would fail in the first month of deployment fails during burn-in instead. After burn-in: another EOL test run to confirm all specs still pass.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Every unit shipped must meet spec</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Component tolerances mean each unit is different</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware + automated test equipment</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">No standard — manufacturer responsibility</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Automated RCT subset + cal verification</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Every unit passes all EOL tests</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Cal file write failure, PA bias wrong after reflow</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Re-run cal, check EEPROM readback verify</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">How does factory calibration work?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Customer receives unit that fails on first power-on</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L36</span>
+  <span class="mod-title">Certification — FCC, CE, PTCRB, GCF, operator acceptance</span>
+  <span class="mod-level adv">L36 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="100" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Certification Path — Lab to Market</text>
+  <rect x="8"   y="28" width="146" height="62" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="81"  y="47" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Internal R&amp;D (your work)</text>
+  <text x="18"  y="62" fill="#8892b0" font-size="8" font-family="monospace">RCT / pre-cert validation</text>
+  <text x="18"  y="76" fill="#4a5470" font-size="7" font-family="monospace">Find issues before cert lab</text>
+  <line x1="154" y1="59" x2="172" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="172" y="28" width="146" height="62" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="245" y="47" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">3GPP Conformance</text>
+  <text x="182" y="62" fill="#8892b0" font-size="8" font-family="monospace">Accredited lab · GCF/PTCRB</text>
+  <text x="182" y="76" fill="#4a5470" font-size="7" font-family="monospace">6-12 weeks · $100k+</text>
+  <line x1="318" y1="59" x2="336" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="336" y="28" width="146" height="62" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="409" y="47" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Regulatory (FCC/CE)</text>
+  <text x="346" y="62" fill="#8892b0" font-size="8" font-family="monospace">EMC + RF conducted</text>
+  <text x="346" y="76" fill="#4a5470" font-size="7" font-family="monospace">FCC ID or CE mark issued</text>
+  <line x1="482" y1="59" x2="500" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="500" y="28" width="146" height="62" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="573" y="47" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Operator Acceptance</text>
+  <text x="510" y="62" fill="#8892b0" font-size="8" font-family="monospace">DTAG, Vodafone, AT&amp;T tests</text>
+  <text x="510" y="76" fill="#4a5470" font-size="7" font-family="monospace">Field trial + KPI validation</text>
+  <line x1="646" y1="59" x2="664" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="664" y="28" width="128" height="62" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="728" y="47" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Commercial Launch</text>
+  <text x="674" y="62" fill="#8892b0" font-size="8" font-family="monospace">Purchase order</text>
+  <text x="674" y="76" fill="#4a5470" font-size="7" font-family="monospace">Volume deployment</text>
+</svg>
+<h4>Certification — the path from your bench to the operator network</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Your role — saving money at the certification gate:</b><br>Your RCT work is the pre-certification validation. Goal: find and fix all failures before the product goes to an accredited test lab. Every failure found in the cert lab costs: test campaign pause ($5-10k/day), engineering fix time, re-test fee, schedule delay (weeks to months). Finding and fixing in your lab saves 10-100× the cost. Rigorous RCT is commercially critical, not just technically correct.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Operator acceptance — the final commercial gate:</b><br>Even with FCC/CE and 3GPP conformance, operators run their own acceptance tests: performance in their specific radio environment, interoperability with their DU vendor, energy efficiency (watts per Mbps), remote management via their NMS. Failure at this stage means no purchase order despite all prior certifications. Your RCT results are often submitted as evidence during operator acceptance.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Certification cost reality:</b><br>A 3GPP conformance test campaign at an accredited lab: 6-12 weeks, $50k-$200k. FCC filing: $5k-$20k. CE Declaration: $10k-$50k. Operator acceptance testing: $50k-$300k. Total certification budget for a new product: $200k-$500k. One failure requiring re-test: $20k-$50k additional. This is why pre-certification RCT investment is economically justified — catching 1 failure in your lab saves the full re-test cost.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Legal requirement to sell in a market</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">No certification = cannot deploy</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP, FCC, CE, ETSI, O-RAN Alliance</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Accredited lab runs official test cases</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Pass all specified test cases</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">RF test failures at cert lab</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Pre-cert validation (your RCT) catches them earlier</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Why does pre-certification testing save money?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Product launch delayed 6 months due to cert failure</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L37</span>
+  <span class="mod-title">Customer acceptance — field trial, optimisation, commercial launch</span>
+  <span class="mod-level adv">L37 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="100" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Customer Acceptance — Lab to Live Network</text>
+  <rect x="8"   y="28" width="145" height="62" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="80"  y="47" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Lab Acceptance</text>
+  <text x="18"  y="62" fill="#8892b0" font-size="8" font-family="monospace">Reviews RCT results + certs</text>
+  <text x="18"  y="76" fill="#4a5470" font-size="7" font-family="monospace">Approves purchase</text>
+  <line x1="153" y1="59" x2="171" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="171" y="28" width="145" height="62" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="243" y="47" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Field Trial</text>
+  <text x="181" y="62" fill="#8892b0" font-size="8" font-family="monospace">1-5 sites · KPI 4-8 weeks</text>
+  <text x="181" y="76" fill="#4a5470" font-size="7" font-family="monospace">Real UEs, real traffic</text>
+  <line x1="316" y1="59" x2="334" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="334" y="28" width="145" height="62" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="406" y="47" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Optimisation</text>
+  <text x="344" y="62" fill="#8892b0" font-size="8" font-family="monospace">Tilt/power/beam tuning</text>
+  <text x="344" y="76" fill="#4a5470" font-size="7" font-family="monospace">KPI improvement loop</text>
+  <line x1="479" y1="59" x2="497" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="497" y="28" width="145" height="62" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="569" y="47" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Commercial Launch</text>
+  <text x="507" y="62" fill="#8892b0" font-size="8" font-family="monospace">Volume deployment</text>
+  <text x="507" y="76" fill="#4a5470" font-size="7" font-family="monospace">Revenue-generating</text>
+  <line x1="642" y1="59" x2="660" y2="59" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="660" y="28" width="132" height="62" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="726" y="47" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Maintenance</text>
+  <text x="670" y="62" fill="#8892b0" font-size="8" font-family="monospace">SW updates 10-15 yr</text>
+  <text x="670" y="76" fill="#4a5470" font-size="7" font-family="monospace">Field fault resolution</text>
+</svg>
+<h4>Customer acceptance — what operators actually care about in field</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Why your lab margins matter to the operator:</b><br>Operator's lab acceptance team reviews your RCT results: are all 3GPP-mandated tests present? Did all pass? Are margins good (ACLR −52 dBc vs −45 limit = 7 dB margin)? Can results be reproduced? Poor margins = risk of field failures when conditions are not ideal. An operator will not accept a product that barely passes in lab conditions — field conditions (temperature, humidity, cable aging) will push it to fail.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Field trial KPIs — what the operator measures:</b><br>RSRP (coverage), SINR (quality), DL/UL throughput, PRACH success rate, handover success rate, call drop rate, energy consumption per Mbps. Your RCT tests directly predict these: bad ACLR → interference → low SINR → low throughput → unhappy operator. Understanding this chain makes you a more commercially aware RF engineer.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">CAPEX vs OPEX — the business context:</b><br>CAPEX: hardware purchase, site installation. Operators want RUs that work first time (no return-to-factory). OPEX: power ($/year), maintenance. Operators want efficient RUs (lower power bill) manageable remotely (no truck roll). Your work contributes to both: good RCT = first-time-right deployment (CAPEX), automation = low maintenance (OPEX), efficiency testing = operational savings over 10-year life.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">No revenue until operator accepts and deploys</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Product failing in field costs 10× more to fix</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All deployed RU hardware</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP + operator-specific acceptance criteria</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Field KPI: RSRP, SINR, throughput, PRACH SR</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">KPIs meet/exceed operator contracted SLA</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Coverage gaps, interference, high drop rate</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Correlate RCT results with field KPIs</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">How do lab results predict field KPIs?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Operator rejects product due to poor coverage at cell edge</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L40</span>
+  <span class="mod-title">Product lifecycle — requirements → design → validation → deployment → maintenance</span>
+  <span class="mod-level adv">L40 ⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="110" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Product Lifecycle — Where RF Validation Fits</text>
+  <rect x="8"   y="28" width="110" height="72" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="63"  y="48" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Requirements</text>
+  <text x="18"  y="63" fill="#8892b0" font-size="7" font-family="monospace">3GPP + operator</text>
+  <text x="18"  y="77" fill="#4a5470" font-size="6" font-family="monospace">System req doc</text>
+  <line x1="118" y1="64" x2="134" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="134" y="28" width="110" height="72" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="189" y="48" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Design</text>
+  <text x="144" y="63" fill="#8892b0" font-size="7" font-family="monospace">HW/SW arch</text>
+  <text x="144" y="77" fill="#4a5470" font-size="6" font-family="monospace">RF link budget</text>
+  <line x1="244" y1="64" x2="260" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="260" y="22" width="120" height="84" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="3"/>
+  <text x="320" y="44" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">RF Validation</text>
+  <text x="270" y="59" fill="#00d4a0" font-size="7" font-family="monospace">Unit test (your job)</text>
+  <text x="270" y="73" fill="#00d4a0" font-size="7" font-family="monospace">Integration test</text>
+  <text x="270" y="87" fill="#f5a623" font-size="6" font-family="monospace">RCT · Conformance</text>
+  <line x1="380" y1="64" x2="396" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="396" y="28" width="110" height="72" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="451" y="48" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Certification</text>
+  <text x="406" y="63" fill="#8892b0" font-size="7" font-family="monospace">GCF/PTCRB/FCC/CE</text>
+  <text x="406" y="77" fill="#4a5470" font-size="6" font-family="monospace">Operator acceptance</text>
+  <line x1="506" y1="64" x2="522" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="522" y="28" width="110" height="72" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="577" y="48" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Deployment</text>
+  <text x="532" y="63" fill="#8892b0" font-size="7" font-family="monospace">Field trial + launch</text>
+  <text x="532" y="77" fill="#4a5470" font-size="6" font-family="monospace">Volume ramp</text>
+  <line x1="632" y1="64" x2="648" y2="64" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="648" y="28" width="144" height="72" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="720" y="48" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Maintenance</text>
+  <text x="658" y="63" fill="#8892b0" font-size="7" font-family="monospace">SW updates 10-15 yr</text>
+  <text x="658" y="77" fill="#4a5470" font-size="6" font-family="monospace">Field failure analysis</text>
+</svg>
+<h4>Product lifecycle — understanding where your work fits</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">RF validation — the most critical quality gate:</b><br>RF validation is the gate between design and market. Every design decision (antenna spacing, PA selection, LNA choice, duplexer spec) manifests as a pass or fail in your lab. Finding failures in RF validation is good — it is the cheapest place to find them. Finding them after certification costs 100×. Finding them after deployment costs 1000× (recall, reputation damage, SLA penalties).</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">How your RCT connects to every lifecycle phase:</b><br>Requirements: ACLR limit (−45 dBc) comes from 3GPP TS 36.141 — you test against it. Design: link budget predicts sensitivity (−99 dBm) — you verify the prediction. Validation: your RCT is the validation. Certification: your results provide evidence for the cert lab. Maintenance: when a field unit fails, you reproduce the failure in the lab using the same RCT framework. Understanding the full lifecycle makes every test more meaningful.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">CI/CD in hardware development:</b><br>Every firmware commit triggers automated smoke RCT (15 min, key tests), full RCT on release candidates (2-3 hours). Regression tracking shows if a commit broke something. PreChecks before every session catch setup issues automatically. This Agile approach finds firmware bugs early — before they reach the certification stage. Your automated scripts must be robust, fast, and unambiguous in their pass/fail output.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Products have a defined lifecycle</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Each phase catches different failures at different costs</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware + test systems</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP + company internal process</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Full RCT at each major milestone</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All specs pass at each lifecycle gate</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Regression: new firmware breaks passing test</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">CI/CD automated RCT catches regressions</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Where does RF validation fit in the product lifecycle?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Late field failures cost 1000× more than lab failures</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L41</span>
+  <span class="mod-title">Telecom business context — CAPEX/OPEX, energy efficiency, why operators care</span>
+  <span class="mod-level adv">L41 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Telecom Business — Why RF Quality Has Financial Consequences</text>
+  <rect x="8"   y="28" width="240" height="80" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="128" y="48" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Bad ACLR → Business Impact</text>
+  <text x="18"  y="65" fill="#ff6b6b" font-size="9" font-family="monospace">ACLR −42 dBc (fails −45 limit)</text>
+  <text x="18"  y="79" fill="#8892b0" font-size="8" font-family="monospace">↓ Adjacent channel interference</text>
+  <text x="18"  y="93" fill="#8892b0" font-size="8" font-family="monospace">↓ SINR down → MCS down → throughput down</text>
+  <text x="18"  y="107" fill="#f5a623" font-size="7" font-family="monospace">Regulator fine + operator SLA penalty</text>
+  <rect x="258" y="28" width="240" height="80" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="378" y="48" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Energy Efficiency</text>
+  <text x="268" y="65" fill="#8892b0" font-size="8" font-family="monospace">Base stations = 2% world electricity</text>
+  <text x="268" y="79" fill="#8892b0" font-size="8" font-family="monospace">uSleep: saves ~70% idle power</text>
+  <text x="268" y="93" fill="#8892b0" font-size="8" font-family="monospace">Dynamic Vdd: saves ~15% average</text>
+  <text x="268" y="107" fill="#f5a623" font-size="7" font-family="monospace">10k sites × 2kW × $0.10/kWh = $17M/yr</text>
+  <rect x="508" y="28" width="284" height="80" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="650" y="48" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">CAPEX vs OPEX</text>
+  <text x="518" y="65" fill="#8892b0" font-size="8" font-family="monospace">CAPEX: hardware + installation (one-time)</text>
+  <text x="518" y="79" fill="#8892b0" font-size="8" font-family="monospace">OPEX: power + maintenance (per year)</text>
+  <text x="518" y="93" fill="#8892b0" font-size="8" font-family="monospace">10-yr TCO: OPEX often &gt; CAPEX</text>
+  <text x="518" y="107" fill="#f5a623" font-size="7" font-family="monospace">Efficient RU = lower 10-yr total cost</text>
+</svg>
+<h4>Telecom business context — RF engineering decisions have financial consequences</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Why operators care about every dB of sensitivity:</b><br>A 1 dB sensitivity improvement extends cell coverage by ~12% (coverage radius ∝ 10^(dB/20)). More coverage = fewer sites = less CAPEX. A 3 dB improvement doubles coverage radius — halves number of sites for same coverage. This is why operators negotiate hard on sensitivity specs and why DSA sensitivity tests are commercially critical — they directly determine how much the operator spends on infrastructure.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Energy efficiency — a major commercial differentiator:</b><br>10,000-site network at 2 kW per site = 20 MW = ~$17M/year in electricity. A 10% efficiency improvement = $1.7M/year saving. uSleep (70% power reduction when idle) and Dynamic Vdd (15% average reduction) are not academic features — they are selling points that win contracts. When you test and characterise these features, you are generating data that the sales team uses in commercial negotiations.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">EVM → MCS → throughput → revenue:</b><br>High EVM forces scheduler to use lower MCS (QPSK instead of 64QAM) → lower throughput → lower operator revenue per site. A cell doing 100 Mbps vs 150 Mbps due to poor EVM forcing lower MCS costs the operator 33% of that cell's revenue capacity. This is why EVM limits are tight and EVM failure is treated seriously by operators — it is a direct revenue impact, not just a technical measurement.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Technical decisions have direct financial impact</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Operators optimise every dollar</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware + network architecture</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP, operator SLA agreements</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">KPI measurement: RSRP, SINR, throughput per site</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">KPIs meet contracted SLA, energy within budget</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">High OPEX from inefficient power</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Enable uSleep, Dynamic Vdd, check idle power</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Why does ACLR matter to the operator business?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Operator cancels contract due to high energy consumption</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L43</span>
+  <span class="mod-title">Interview scenarios — 8 systematic debug walkthroughs</span>
+  <span class="mod-level adv">L43 ⭐⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="100" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Interview Scenarios — Systematic Debug Method</text>
+  <rect x="8" y="28" width="380" height="62" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="198" y="46" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">The method (applies to all scenarios):</text>
+  <text x="18" y="62" fill="#8892b0" font-size="8" font-family="monospace">1. Confirm measurement valid (setup, attenuation, DPD converged)</text>
+  <text x="18" y="76" fill="#8892b0" font-size="8" font-family="monospace">2. Isolate: which band, column, measurement? 3. 5-Why: change ONE variable at a time</text>
+  <rect x="398" y="28" width="394" height="62" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="595" y="46" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Common interview mistake:</text>
+  <text x="408" y="62" fill="#8892b0" font-size="8" font-family="monospace">Jumping to "replace the PA" before checking measurement setup</text>
+  <text x="408" y="76" fill="#8892b0" font-size="8" font-family="monospace">3 of 4 RF failures in lab are measurement / procedure errors</text>
+</svg>
+<h4>Interview scenarios — walk through these before every RF test engineer interview</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Scenario 1: ACLR degrades after software update</b><br>Step 1: Is measurement valid? Attenuation correct, preamp OFF, DPD converged (60s wait)? Step 2: Reproduce on second unit — systematic or unit-specific? Step 3: Diff the SW update — what changed? DPD algorithm? CFR threshold? DAC scale? Step 4: Roll back FW on one unit — does ACLR recover? Step 5: If rollback fixes: update changed DPD or CFR parameter. Check DPD_ENABLE, CFR_CLIP_LEVEL in changelogs. Root cause: usually CFR threshold changed → larger peaks → overdriving PA.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Scenario 2: RSSI accuracy fails only at high temperature</b><br>Step 1: Confirm failure is reproducible at +55°C. Step 2: Check TEMP_COMP table in hardware.json — populated? If empty: temperature compensation disabled → RSSI drifts. Step 3: Measure RSSI at +25°C and +55°C with same EXM injection → compute drift = X dB/°C. Step 4: Calculate required TEMP_COMP coefficient. Step 5: Run RSSI cal at both temperatures, update table. Root cause: TEMP_COMP table not calibrated or not loaded at boot.</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#ff6b6b">Scenario 3: PA enters protection after 20 minutes</b><br>Step 1: Which protection? Check fault register: over-temperature vs over-current vs VSWR. Step 2: If over-temperature: thermal camera on PA, check ambient > 55°C, heatsink contact, fan. Step 3: If VSWR: VNA on antenna port — is load present? Step 4: If over-current: check PA bias vs spec, check if unit is over-driven. Monitor temperature over time — steady rise until threshold = thermal compound deficiency. Root cause in 70% of cases: thermal management, not electrical.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Scenario 4: Dynamic range fails B3 but passes B1</b><br>Step 1: Confirm back-to-back with same setup. Step 2: Check ADC channel mapping — correct ADC for B3? (ch 2/3/6/7, not ch 0/1/4/5 for B1). Step 3: Check ADC_ADJUST_B3 — calibrated correctly? Step 4: Sweep EXM −60 to −110 dBm for both bands, plot RSSI vs injected power — compare curves. Parallel but offset: ADC_ADJUST_B3 wrong → recalibrate. Different slope: hardware fault in LNA or mixer at B3 frequency. Root cause: most likely wrong ADC_ADJUST_B3.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Interviews test systematic thinking</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Rote knowledge doesn't reveal problem-solving</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">All conformance specs</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Reproduce, isolate, root cause, fix, verify</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Root cause found, fix proposed, verified</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Jumping to hardware swap without checking procedure</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Measurement valid → isolate → 5-Why → fix → verify</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">ACLR suddenly fails after SW update — walk me through debug</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Product in field failing, customer angry, cannot reproduce</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L44</span>
+  <span class="mod-title">Hands-on lab skills — spectrum analyser, VNA, oscilloscope, power meter</span>
+  <span class="mod-level adv">L44 ⭐⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Lab Instrument Mastery — Every RF Engineer Must Know These</text>
+  <rect x="8"   y="28" width="150" height="82" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="83"  y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXA N9010B</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">Spectrum + ACLR + EVM</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">Atten · preamp · RBW</text>
+  <text x="18"  y="92" fill="#f5a623" font-size="7" font-family="monospace">IP 10.62.2.135 · port 5025</text>
+  <rect x="168" y="28" width="150" height="82" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="243" y="48" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXM E6640A</text>
+  <text x="178" y="64" fill="#8892b0" font-size="8" font-family="monospace">Inject PRACH + FRC</text>
+  <text x="178" y="78" fill="#8892b0" font-size="8" font-family="monospace">Verify output with EXA first</text>
+  <text x="178" y="92" fill="#f5a623" font-size="7" font-family="monospace">port 5025 SCPI</text>
+  <rect x="328" y="28" width="150" height="82" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="403" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VNA E5071C</text>
+  <text x="338" y="64" fill="#8892b0" font-size="8" font-family="monospace">S11 VSWR · S21 phase/loss</text>
+  <text x="338" y="78" fill="#8892b0" font-size="8" font-family="monospace">SOLT cal required first</text>
+  <text x="338" y="92" fill="#f5a623" font-size="7" font-family="monospace">Phase cal for beamforming</text>
+  <rect x="488" y="28" width="150" height="82" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="563" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Oscilloscope</text>
+  <text x="498" y="64" fill="#8892b0" font-size="8" font-family="monospace">PSU ripple measurement</text>
+  <text x="498" y="78" fill="#8892b0" font-size="8" font-family="monospace">Power sequencing verify</text>
+  <text x="498" y="92" fill="#f5a623" font-size="7" font-family="monospace">Inrush current with CT</text>
+  <rect x="648" y="28" width="144" height="82" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="720" y="48" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Power Meter</text>
+  <text x="658" y="64" fill="#8892b0" font-size="8" font-family="monospace">Absolute power faster</text>
+  <text x="658" y="78" fill="#8892b0" font-size="8" font-family="monospace">Thermal sensor head</text>
+  <text x="658" y="92" fill="#f5a623" font-size="7" font-family="monospace">Cross-check against EXA</text>
+</svg>
+<h4>Hands-on lab skills — what you must be able to do physically</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">EXA — the instrument you use most every day:</b><br>Must be able to: Set centre frequency, span, RBW, attenuation in under 60 seconds. Switch between ACLR, EVM, spectrum modes without manual. Know exactly which attenuation and preamp setting for which measurement. Read ACLR result and interpret pass/fail. Export trace data. Control via Python SCPI script. The EXA is your primary window into what the RU is actually transmitting.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">VNA — skills that separate intermediate from senior engineers:</b><br>Must be able to: Perform full SOLT 2-port calibration in 5 minutes. Measure S11, S21, group delay without guidance. Measure cable phase at a specific frequency. Compare per-column phase for beamforming calibration. Interpret return loss results. The VNA is more complex than the EXA — engineers comfortable with it stand out significantly in interviews.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">CMW500 / EXM as call box — end-to-end system testing:</b><br>CMW500 (R&S) and EXM (Keysight) simulate a complete network (eNB + UE) to run real LTE/NR calls. Used for: end-to-end throughput, handover, UE power control, real PRACH-to-data flow. Different from injecting a waveform — full L2/L3 signalling. Knowing how to set up a real call is a significant differentiator — means you can do system-level testing, not just component measurements.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Cannot test RF without instrument fluency</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Instrument errors are #1 cause of wrong results</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All lab instruments</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">No standard — lab practice</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Run measurement, read result, reproduce</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Correct result matching known input</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Wrong attenuation, preamp on for TX, not sweeping</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Reset instrument, re-read quick guide, check setup</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Set up ACLR measurement on EXA for LTE B1 10 MHz</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Cannot reproduce field failure due to wrong lab setup</span></div></div></div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">L45</span>
+  <span class="mod-title">Company knowledge — Ericsson, Nokia, Apple, Qualcomm focus areas</span>
+  <span class="mod-level adv">L45 ⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Company Focus Areas — Tailor Your Preparation</text>
+  <rect x="8"   y="28" width="185" height="82" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="100" y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Ericsson / Nokia / PW</text>
+  <text x="18"  y="65" fill="#8892b0" font-size="8" font-family="monospace">O-RAN interoperability</text>
+  <text x="18"  y="79" fill="#8892b0" font-size="8" font-family="monospace">Energy efficiency (OPEX focus)</text>
+  <text x="18"  y="93" fill="#8892b0" font-size="8" font-family="monospace">Carrier-grade reliability</text>
+  <text x="18"  y="107" fill="#f5a623" font-size="7" font-family="monospace">RCT, conformance, field ops</text>
+  <rect x="203" y="28" width="185" height="82" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="295" y="48" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Apple / Google</text>
+  <text x="213" y="65" fill="#8892b0" font-size="8" font-family="monospace">OTA (Over The Air)</text>
+  <text x="213" y="79" fill="#8892b0" font-size="8" font-family="monospace">Device antenna performance</text>
+  <text x="213" y="93" fill="#8892b0" font-size="8" font-family="monospace">SAR, co-existence, UX</text>
+  <text x="213" y="107" fill="#f5a623" font-size="7" font-family="monospace">CTIA OTA, FCC, CE cert</text>
+  <rect x="398" y="28" width="185" height="82" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="490" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Qualcomm / Samsung</text>
+  <text x="408" y="65" fill="#8892b0" font-size="8" font-family="monospace">Modem RF integration</text>
+  <text x="408" y="79" fill="#8892b0" font-size="8" font-family="monospace">RFIC characterisation</text>
+  <text x="408" y="93" fill="#8892b0" font-size="8" font-family="monospace">PHY conformance, carrier cert</text>
+  <text x="408" y="107" fill="#f5a623" font-size="7" font-family="monospace">PTCRB, GCF, operator labs</text>
+  <rect x="593" y="28" width="199" height="82" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="692" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">What They All Want</text>
+  <text x="603" y="65" fill="#8892b0" font-size="8" font-family="monospace">Systematic troubleshooting</text>
+  <text x="603" y="79" fill="#8892b0" font-size="8" font-family="monospace">Hands-on instrument fluency</text>
+  <text x="603" y="93" fill="#8892b0" font-size="8" font-family="monospace">Automation (Python/SCPI)</text>
+  <text x="603" y="107" fill="#f5a623" font-size="7" font-family="monospace">Clear communication of results</text>
+</svg>
+<h4>Company knowledge — tailor your preparation to the employer</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">Ericsson, Nokia, Parallel Wireless — your current context:</b><br>Focus: O-RAN interoperability (can O-RU work with non-vendor O-DU?), energy efficiency (uSleep, Dynamic Vdd, W/Mbps), carrier-grade reliability (99.999% uptime), field ops (remote diagnosis, SW updates, no truck roll). For interviews: be ready to discuss O-RAN functional split, NETCONF/YANG M-plane, eCPRI fronthaul latency, and the DSA/sensitivity framework in detail. Your current RCT work at PW directly prepares you for roles here.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Apple / Google — OTA and device RF (very different domain):</b><br>Focus: Over-The-Air measurements (how well does the device radiate and receive in all directions?), SAR compliance (RF energy absorbed by human body), antenna design within a phone enclosure, co-existence (WiFi + BT + 5G all in same device without interfering), user experience metrics (call drop when holding phone a certain way?). OTA uses anechoic chambers and 3D radiation pattern measurements. The 3GPP spec for device OTA is TS 38.176. Very different from base station testing but shares RF fundamentals.</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Universal skills — what every company values most:</b><br>(1) Systematic troubleshooting — find root cause without replacing things randomly. (2) Instrument fluency — set up EXA ACLR measurement correctly without checking manual. (3) Quantitative thinking — think in dB, know what 3 dB means. (4) Automation — write Python SCPI script to automate a measurement. (5) Communication — explain why ACLR matters to a non-RF engineer. These transfer across all companies. Build these first, company-specific knowledge comes with the job.</div>
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Different companies have different RF domains</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Tailored prep shows research and genuine interest</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Company-specific hardware + test systems</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">Company-specific + 3GPP/O-RAN/FCC</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Company-specific test procedures</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Meeting company's specific quality bar</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Wrong focus area for the specific company</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Research company products and tech focus before interview</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What does this company test that others don't?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Interviewer sees you understand their specific domain</span></div></div></div>
 </div>
 </div>
 
