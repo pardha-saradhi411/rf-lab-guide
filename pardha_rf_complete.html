@@ -1138,6 +1138,49 @@ footer span{color:var(--text2)}
 </div>
 <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">A01: RF Fundamentals — Signals, Power, Frequency, Wavelength</text>
+  <!-- 4 concept visual boxes -->
+  <rect x="10"  y="35" width="185" height="145" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="102" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Frequency</text>
+  <path d="M 20,120 Q 50,80 80,120 Q 110,160 140,120 Q 170,80 190,120" fill="none" stroke="#5bc4ef" stroke-width="2.5"/>
+  <text x="102" y="155" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">f = 1/T · Unit: Hz</text>
+  <text x="102" y="168" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">B1: 2140 MHz</text>
+  <text x="102" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">B28: 758 MHz (lower=better coverage)</text>
+
+  <rect x="205" y="35" width="185" height="145" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="297" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Wavelength</text>
+  <!-- wave with lambda annotation -->
+  <path d="M 215,110 Q 250,70 285,110 Q 320,150 360,110" fill="none" stroke="#00d4a0" stroke-width="2.5"/>
+  <line x1="215" y1="125" x2="285" y2="125" stroke="#f5a623" stroke-width="1.5"/>
+  <text x="250" y="140" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">λ</text>
+  <text x="297" y="155" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">λ = c/f · c=3×10⁸ m/s</text>
+  <text x="297" y="168" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">B1: 14 cm · B8: 32 cm</text>
+  <text x="297" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">λ/2 = antenna element spacing</text>
+
+  <rect x="400" y="35" width="185" height="145" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="492" y="55" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Power (dBm)</text>
+  <!-- dBm bar -->
+  <rect x="415" y="65"  width="40" height="80" fill="#ff6b6b40" stroke="#ff6b6b" stroke-width="1" rx="2"/>
+  <rect x="463" y="85"  width="40" height="60" fill="#f5a62340" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <rect x="511" y="105" width="40" height="40" fill="#00d4a040" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="435" y="155" fill="#ff6b6b"  font-size="7" text-anchor="middle" font-family="monospace">+43dBm TX</text>
+  <text x="483" y="155" fill="#f5a623"  font-size="7" text-anchor="middle" font-family="monospace">0 dBm ref</text>
+  <text x="531" y="155" fill="#00d4a0"  font-size="7" text-anchor="middle" font-family="monospace">−95dBm sens</text>
+  <text x="492" y="170" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+3dB=×2 power</text>
+  <text x="492" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+10dB=×10 power</text>
+
+  <rect x="595" y="35" width="195" height="145" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="692" y="55" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Amplitude</text>
+  <!-- two waves, different amplitude -->
+  <path d="M 605,110 Q 630,70 660,110 Q 690,150 720,110 Q 750,70 780,110" fill="none" stroke="#ff6b6b" stroke-width="2.5"/>
+  <path d="M 605,110 Q 630,95 660,110 Q 690,125 720,110 Q 750,95 780,110" fill="none" stroke="#5bc4ef" stroke-width="2"/>
+  <text x="692" y="155" fill="#ff6b6b"  font-size="8" text-anchor="middle" font-family="monospace">High amplitude (strong)</text>
+  <text x="692" y="168" fill="#5bc4ef"  font-size="8" text-anchor="middle" font-family="monospace">Low amplitude (weak)</text>
+  <text x="692" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">P ∝ A² (power ∝ amplitude²)</text>
+</svg>
+
 <div class="mod-section-title">1.1 What is RF?</div>
 <div class="mod-p">RF stands for Radio Frequency — electromagnetic waves that carry energy and information through space without any physical conductor. The RF spectrum spans from roughly 3 Hz to 300 GHz. Below 20 kHz is audio; above 300 GHz is infrared/optical. Everything in between is RF.</div>
 <div class="mod-p">An electromagnetic wave has two components oscillating perpendicular to each other and perpendicular to the direction of travel: the electric field (E) and the magnetic field (H). These cannot exist independently — changing E creates H and vice versa (Maxwell's equations). The wave travels at the speed of light c = 3×10⁸ m/s in free space.</div>
@@ -1251,6 +1294,42 @@ footer span{color:var(--text2)}
 </div>
 <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">S-Parameters, Filters, VNA — Advanced Measurements</text>
+  <!-- S-param 2-port -->
+  <rect x="10" y="35" width="230" height="130" fill="#141720" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="125" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">S-Parameters</text>
+  <text x="20" y="72"  fill="#8892b0" font-size="8" font-family="monospace">S11: Return loss at Port 1 (VSWR)</text>
+  <text x="20" y="86"  fill="#8892b0" font-size="8" font-family="monospace">S21: Fwd transmission P1→P2 (gain/loss)</text>
+  <text x="20" y="100" fill="#8892b0" font-size="8" font-family="monospace">S12: Rev transmission P2→P1 (isolation)</text>
+  <text x="20" y="114" fill="#8892b0" font-size="8" font-family="monospace">S22: Return loss at Port 2</text>
+  <text x="20" y="132" fill="#f5a623" font-size="8" font-family="monospace">Cable: S11&lt;−20dB, S21=−loss dB</text>
+  <text x="20" y="146" fill="#f5a623" font-size="8" font-family="monospace">Amplifier: S11&lt;−15dB, S21=+gain dB</text>
+  <text x="20" y="160" fill="#4a5470" font-size="7" font-family="monospace">Always SOLT calibrate first → removes cable/connector error</text>
+  <!-- Filter responses -->
+  <rect x="250" y="35" width="260" height="130" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="380" y="55" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Filter Types</text>
+  <text x="260" y="72"  fill="#00d4a0" font-size="9" font-family="monospace">LPF: pass DC-fc, block &gt;fc</text>
+  <text x="260" y="86"  fill="#5bc4ef" font-size="9" font-family="monospace">HPF: block &lt;fc, pass &gt;fc</text>
+  <text x="260" y="100" fill="#f5a623" font-size="9" font-family="monospace">BPF: pass f1-f2 only ← your RU</text>
+  <text x="260" y="114" fill="#9b8cf8" font-size="9" font-family="monospace">BSF/Notch: block f1-f2</text>
+  <text x="260" y="132" fill="#4a5470" font-size="8" font-family="monospace">Key specs: insertion loss, passband ripple</text>
+  <text x="260" y="146" fill="#4a5470" font-size="8" font-family="monospace">rejection dB, group delay variation</text>
+  <text x="260" y="160" fill="#ff6b6b" font-size="7" font-family="monospace">Your B1 BPF: pass 2110-2170MHz, reject &gt;60dB outside</text>
+  <!-- VNA usage -->
+  <rect x="520" y="35" width="270" height="130" fill="#0d1a2a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="655" y="55" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">VNA E5071C Usage</text>
+  <text x="530" y="72"  fill="#8892b0" font-size="8" font-family="monospace">Freq range: 300kHz–8.5GHz</text>
+  <text x="530" y="86"  fill="#8892b0" font-size="8" font-family="monospace">Ports: 2 (can add external)</text>
+  <text x="530" y="100" fill="#f5a623" font-size="8" font-family="monospace">Your use cases:</text>
+  <text x="530" y="114" fill="#8892b0" font-size="8" font-family="monospace">· Cable loss measurement (S21)</text>
+  <text x="530" y="128" fill="#8892b0" font-size="8" font-family="monospace">· Antenna match (S11/VSWR)</text>
+  <text x="530" y="142" fill="#8892b0" font-size="8" font-family="monospace">· Duplexer isolation (S12)</text>
+  <text x="530" y="156" fill="#8892b0" font-size="8" font-family="monospace">· TX path phase (S21 phase)</text>
+  <text x="530" y="168" fill="#00d4a0" font-size="7" font-family="monospace">Cal first: SOLT at measurement plane</text>
+</svg>
+
 <div class="mod-section-title">3.1 S-parameters — the language of VNA measurements</div>
 <div class="mod-p">S-parameters (Scattering parameters) describe how RF signals are transmitted and reflected at the ports of a device. For a 2-port device (like a filter or cable), there are 4 S-parameters organized in a 2×2 matrix:</div>
 <div class="mod-table-wrap"><table class="test-table">
@@ -1311,6 +1390,41 @@ footer span{color:var(--text2)}
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">LTE Air Interface — OFDM, Resource Blocks, FDD vs TDD</text>
+  <!-- LTE bandwidth vs RBs -->
+  <rect x="10" y="35" width="280" height="130" fill="#141720" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="150" y="53" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">BW → Resource Blocks</text>
+  <text x="20" y="70"  fill="#8892b0" font-size="9" font-family="monospace">BW     RBs   Subcarriers  Data rate</text>
+  <line x1="20" y1="76" x2="285" y2="76" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20" y="91"  fill="#5bc4ef" font-size="9" font-family="monospace">5 MHz   25     300        ~37 Mbps</text>
+  <text x="20" y="106" fill="#5bc4ef" font-size="9" font-family="monospace">10 MHz  50     600        ~75 Mbps</text>
+  <text x="20" y="121" fill="#f5a623" font-size="9" font-family="monospace">15 MHz  75     900        ~112 Mbps</text>
+  <text x="20" y="136" fill="#f5a623" font-size="9" font-family="monospace">20 MHz  100    1200       ~150 Mbps</text>
+  <text x="20" y="155" fill="#4a5470" font-size="8" font-family="monospace">1 RB = 12 subcarriers × 15kHz = 180kHz</text>
+  <!-- OFDM numerology -->
+  <rect x="300" y="35" width="230" height="130" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="415" y="53" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">OFDM Numerology</text>
+  <text x="310" y="70"  fill="#8892b0" font-size="9" font-family="monospace">Subcarrier spacing:  15 kHz (LTE)</text>
+  <text x="310" y="84"  fill="#8892b0" font-size="9" font-family="monospace">Symbol duration:     66.7 μs</text>
+  <text x="310" y="98"  fill="#8892b0" font-size="9" font-family="monospace">Cyclic prefix:       4.69 μs (normal)</text>
+  <text x="310" y="112" fill="#8892b0" font-size="9" font-family="monospace">Symbols/slot:        7 (normal CP)</text>
+  <text x="310" y="126" fill="#8892b0" font-size="9" font-family="monospace">Slot duration:       0.5 ms</text>
+  <text x="310" y="140" fill="#8892b0" font-size="9" font-family="monospace">Subframe:            1 ms = 2 slots</text>
+  <text x="310" y="155" fill="#f5a623" font-size="8" font-family="monospace">PAPR: ~10-12 dB → DPD needed</text>
+  <!-- FDD vs TDD -->
+  <rect x="540" y="35" width="250" height="130" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="665" y="53" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">FDD vs TDD</text>
+  <text x="550" y="70"  fill="#5bc4ef" font-size="9" font-weight="bold" font-family="monospace">FDD (B1/B3/B8/B28):</text>
+  <text x="550" y="84"  fill="#8892b0" font-size="8" font-family="monospace">DL and UL on different frequencies</text>
+  <text x="550" y="98"  fill="#8892b0" font-size="8" font-family="monospace">Simultaneous TX+RX → duplexer</text>
+  <text x="550" y="112" fill="#8892b0" font-size="8" font-family="monospace">Duplex gap: 45-190 MHz per band</text>
+  <text x="550" y="128" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">TDD (B41):</text>
+  <text x="550" y="142" fill="#8892b0" font-size="8" font-family="monospace">DL+UL share same frequency</text>
+  <text x="550" y="156" fill="#ff6b6b" font-size="8" font-family="monospace">Needs phase sync (PTP ±1.5μs)</text>
+</svg>
 
 <div class="mod-section-title">4.1 Why OFDM?</div>
 <div class="mod-p">A wideband channel (20 MHz of LTE) has frequency-selective fading — some frequencies fade more than others depending on the multipath environment. In a single-carrier system, a deep fade at one frequency wipes out a chunk of your data. OFDM (Orthogonal Frequency Division Multiplexing) slices the wideband channel into N narrow subcarriers, each so narrow (15 kHz in LTE) that it experiences flat fading. A fade at one subcarrier only kills data on that one subcarrier — easy to correct with FEC coding.</div>
@@ -1539,6 +1653,75 @@ footer span{color:var(--text2)}
 </div>
 <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Propagation Channel Models — AWGN, EPA, EVA, ETU, PropSim</text>
+  <!-- Model boxes -->
+  <rect x="10"  y="35" width="148" height="150" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="84"  y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">AWGN</text>
+  <text x="84"  y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">White Gaussian Noise</text>
+  <!-- Flat line representing AWGN -->
+  <path d="M 20,110 Q 30,107 40,112 Q 50,108 60,111 Q 70,109 80,113 Q 90,107 100,111 Q 110,109 120,113 Q 130,108 145,110" fill="none" stroke="#00d4a0" stroke-width="2"/>
+  <text x="84"  y="138" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Single path, no fading</text>
+  <text x="84"  y="152" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Lab baseline test</text>
+  <text x="84"  y="166" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Ideal conditions</text>
+  <text x="84"  y="178" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Sensitivity test model</text>
+
+  <rect x="165" y="35" width="148" height="150" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="239" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EPA</text>
+  <text x="239" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Extended Pedestrian A</text>
+  <!-- Multi-tap representation -->
+  <line x1="175" y1="115" x2="305" y2="115" stroke="#4a5470" stroke-width="1"/>
+  <rect x="185" y="100" width="8" height="15" fill="#5bc4ef" rx="1"/>
+  <rect x="215" y="105" width="8" height="10" fill="#5bc4ef" rx="1"/>
+  <rect x="245" y="108" width="8" height="7"  fill="#5bc4ef" rx="1"/>
+  <rect x="275" y="110" width="8" height="5"  fill="#5bc4ef" rx="1"/>
+  <text x="239" y="138" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">7 taps, 0-410ns delay</text>
+  <text x="239" y="152" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">5 km/h (pedestrian)</text>
+  <text x="239" y="166" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Low Doppler spread</text>
+  <text x="239" y="178" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Indoor/suburban</text>
+
+  <rect x="320" y="35" width="148" height="150" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="394" y="55" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EVA</text>
+  <text x="394" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Extended Vehicular A</text>
+  <line x1="330" y1="115" x2="460" y2="115" stroke="#4a5470" stroke-width="1"/>
+  <rect x="340" y="90"  width="8" height="25" fill="#c8b800" rx="1"/>
+  <rect x="365" y="100" width="8" height="15" fill="#c8b800" rx="1"/>
+  <rect x="390" y="105" width="8" height="10" fill="#c8b800" rx="1"/>
+  <rect x="415" y="108" width="8" height="7"  fill="#c8b800" rx="1"/>
+  <rect x="440" y="110" width="8" height="5"  fill="#c8b800" rx="1"/>
+  <text x="394" y="138" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">9 taps, 0-2.51μs delay</text>
+  <text x="394" y="152" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">120 km/h (vehicular)</text>
+  <text x="394" y="166" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Higher Doppler spread</text>
+  <text x="394" y="178" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Urban micro cell</text>
+
+  <rect x="475" y="35" width="148" height="150" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="549" y="55" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ETU</text>
+  <text x="549" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Extended Typical Urban</text>
+  <line x1="485" y1="115" x2="615" y2="115" stroke="#4a5470" stroke-width="1"/>
+  <rect x="490" y="80"  width="8" height="35" fill="#ff6b6b" rx="1"/>
+  <rect x="510" y="90"  width="8" height="25" fill="#ff6b6b" rx="1"/>
+  <rect x="530" y="95"  width="8" height="20" fill="#ff6b6b" rx="1"/>
+  <rect x="550" y="100" width="8" height="15" fill="#ff6b6b" rx="1"/>
+  <rect x="570" y="105" width="8" height="10" fill="#ff6b6b" rx="1"/>
+  <rect x="590" y="108" width="8" height="7"  fill="#ff6b6b" rx="1"/>
+  <text x="549" y="138" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">9 taps, 0-5μs delay</text>
+  <text x="549" y="152" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">High delay spread</text>
+  <text x="549" y="166" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Dense urban macro</text>
+  <text x="549" y="178" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Worst ISI condition</text>
+
+  <rect x="630" y="35" width="160" height="150" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="710" y="55" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">PropSim</text>
+  <text x="710" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Propagation Simulator</text>
+  <text x="710" y="88" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Hardware box between</text>
+  <text x="710" y="101" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">EXM and RU port</text>
+  <text x="710" y="118" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Emulates EPA/EVA/ETU</text>
+  <text x="710" y="132" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">in real-time hardware</text>
+  <text x="710" y="149" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Used for conformance</text>
+  <text x="710" y="163" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">when AWGN not enough</text>
+  <text x="710" y="178" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Your bench: AWGN only</text>
+</svg>
+
 <div class="mod-section-title">8.1 Why channel models exist</div>
 <div class="mod-p">In the real world, a UE's signal travels to the base station via many different physical paths: direct line-of-sight, reflections off buildings, diffraction over rooftops, ground reflection, etc. Each path has different delay (due to different path length) and different amplitude (due to different path loss and reflection coefficient). The received signal is the sum of all these copies.</div>
 <div class="mod-p">These paths change as the UE moves, causing the channel to fade — sometimes coherently constructive (signal peaks), sometimes destructive (signal dips). At a UE speed of 70 km/h on a 1.8 GHz channel, a complete fade cycle (UE moves λ/2 = 8.3 cm) takes 8.3 cm / (70/3.6 m/s) = 4.3 ms — very fast.</div>
@@ -1637,6 +1820,60 @@ footer span{color:var(--text2)}
 </div>
 <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">A10: Troubleshooting Methodology — 5-Why Root Cause Analysis</text>
+  <!-- 5-Why chain -->
+  <rect x="10"  y="35" width="130" height="145" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="75"  y="55" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Symptom</text>
+  <text x="75"  y="70" fill="#ff6b6b" font-size="9" text-anchor="middle" font-family="monospace">⚠ ACLR fail</text>
+  <text x="75"  y="85" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">ACLR = −42 dBc</text>
+  <text x="75"  y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Limit = −45 dBc</text>
+  <text x="75"  y="118" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Why #1:</text>
+  <text x="75"  y="131" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">PA nonlinearity</text>
+  <text x="75"  y="144" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">high distortion</text>
+  <text x="75"  y="160" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">→ spectral regrowth</text>
+  <line x1="140" y1="107" x2="155" y2="107" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="153,103 163,107 153,111" fill="#f5a623"/>
+
+  <rect x="163" y="35" width="130" height="145" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="228" y="55" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Why #2:</text>
+  <text x="228" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">DPD not working</text>
+  <text x="228" y="83" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">PA not linearised</text>
+  <text x="228" y="100" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Why #3:</text>
+  <text x="228" y="115" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">DPD not converged</text>
+  <text x="228" y="128" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">after power change</text>
+  <text x="228" y="145" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Why #4:</text>
+  <text x="228" y="160" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Measured too soon</text>
+  <text x="228" y="173" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DPD needs 60s</text>
+  <line x1="293" y1="107" x2="308" y2="107" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="306,103 316,107 306,111" fill="#f5a623"/>
+
+  <rect x="316" y="35" width="130" height="145" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="381" y="55" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Why #5:</text>
+  <text x="381" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">No wait after</text>
+  <text x="381" y="83" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">power register</text>
+  <text x="381" y="96" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">change</text>
+  <text x="381" y="115" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Root Cause:</text>
+  <text x="381" y="130" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Test procedure</text>
+  <text x="381" y="143" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">missing 60s wait</text>
+  <text x="381" y="162" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Fix:</text>
+  <text x="381" y="175" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Add sleep(60) to</text>
+
+  <!-- Other failure trees -->
+  <rect x="460" y="35" width="330" height="145" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="625" y="52" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Other failure trees (apply same method):</text>
+  <text x="470" y="68"  fill="#ff6b6b" font-size="8" font-family="monospace">EVM fail → DPD / cable / LO / IQ imbalance</text>
+  <text x="470" y="83"  fill="#ff6b6b" font-size="8" font-family="monospace">TX power low → PA bias / calibration file / V ATT</text>
+  <text x="470" y="98"  fill="#ff6b6b" font-size="8" font-family="monospace">RSSI wrong → ADC_ADJUST / cable loss / temp</text>
+  <text x="470" y="113" fill="#ff6b6b" font-size="8" font-family="monospace">Sensitivity bad → NF / LNA / duplexer / DSA wrong</text>
+  <text x="470" y="128" fill="#ff6b6b" font-size="8" font-family="monospace">PA protection → temp / VSWR / over-current reg</text>
+  <line x1="470" y1="137" x2="785" y2="137" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="625" y="153" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Rule: change ONE variable at a time</text>
+  <text x="625" y="167" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Document before/after every change</text>
+  <text x="625" y="181" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Root cause = smallest change that explains ALL symptoms</text>
+</svg>
+
 <div class="mod-section-title">10.1 EVM failure diagnosis — systematic approach</div>
 <div class="mod-p">EVM fail is one of the most common test failures and often the hardest to root cause because multiple independent faults can cause similar EVM degradation. Use this systematic approach:</div>
 <div class="mod-p"><b>Step 1 — Characterize the failure pattern:</b></div>
@@ -1713,6 +1950,44 @@ footer span{color:var(--text2)}
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="240" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Link Budget — TX Power to RX Sensitivity, Every Step Accounted</text>
+  <!-- DL Link Budget -->
+  <text x="200" y="42" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">DL Link Budget (eNB → UE)</text>
+  <rect x="10" y="50" width="380" height="175" fill="#141720" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="20"  y="68"  fill="#8892b0" font-size="9" font-family="monospace">TX power (per port):        +23 dBm</text>
+  <text x="20"  y="82"  fill="#8892b0" font-size="9" font-family="monospace">TX antenna gain (BF):       +15 dBi</text>
+  <text x="20"  y="96"  fill="#8892b0" font-size="9" font-family="monospace">EIRP:                       +38 dBm</text>
+  <line x1="20"  y1="103" x2="385" y2="103" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20"  y="116" fill="#ff6b6b" font-size="9" font-family="monospace">FSPL @ 1km, 2140MHz:        −99.6 dB</text>
+  <text x="20"  y="130" fill="#ff6b6b" font-size="9" font-family="monospace">Building penetration loss:  −20 dB (indoor)</text>
+  <text x="20"  y="144" fill="#ff6b6b" font-size="9" font-family="monospace">Body/polarisation loss:     −3 dB</text>
+  <line x1="20"  y1="151" x2="385" y2="151" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20"  y="164" fill="#8892b0" font-size="9" font-family="monospace">Signal at UE antenna:       −84.6 dBm</text>
+  <text x="20"  y="178" fill="#00d4a0" font-size="9" font-family="monospace">UE sensitivity (QPSK):      −105 dBm</text>
+  <text x="20"  y="192" fill="#4a5470" font-size="8" font-family="monospace">Fade margin:                20.4 dB ✓</text>
+  <text x="20"  y="207" fill="#f5a623" font-size="8" font-family="monospace">Max path loss allowed:      143 dB</text>
+  <text x="20"  y="220" fill="#4a5470" font-size="7" font-family="monospace">Covers: 1km free space + 20dB building</text>
+
+  <!-- UL Link Budget -->
+  <text x="600" y="42" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">UL Link Budget (UE → eNB)</text>
+  <rect x="410" y="50" width="380" height="175" fill="#141720" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="420" y="68"  fill="#8892b0" font-size="9" font-family="monospace">UE TX power:                +23 dBm (PC3)</text>
+  <text x="420" y="82"  fill="#8892b0" font-size="9" font-family="monospace">UE antenna gain:            0 dBi (omni)</text>
+  <text x="420" y="96"  fill="#8892b0" font-size="9" font-family="monospace">EIRP:                       +23 dBm</text>
+  <line x1="420" y1="103" x2="785" y2="103" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="420" y="116" fill="#ff6b6b" font-size="9" font-family="monospace">FSPL @ 1km, 1950MHz:        −98.6 dB</text>
+  <text x="420" y="130" fill="#ff6b6b" font-size="9" font-family="monospace">Building penetration:       −20 dB</text>
+  <text x="420" y="144" fill="#ff6b6b" font-size="9" font-family="monospace">Body loss:                  −3 dB</text>
+  <line x1="420" y1="151" x2="785" y2="151" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="420" y="164" fill="#8892b0" font-size="9" font-family="monospace">Signal at eNB RU port:      −98.6 dBm</text>
+  <text x="420" y="178" fill="#00d4a0" font-size="9" font-family="monospace">RU sensitivity (QPSK FRC):  −99 dBm</text>
+  <text x="420" y="192" fill="#4a5470" font-size="8" font-family="monospace">Link margin:                0.4 dB ← barely!</text>
+  <text x="420" y="207" fill="#ff6b6b" font-size="8" font-family="monospace">Better antenna or MRC → +3-6 dB margin</text>
+  <text x="420" y="220" fill="#4a5470" font-size="7" font-family="monospace">UL is usually the limiting direction</text>
+</svg>
 
   <div class="mod-section-title">11.1 What a link budget is and why you need it</div>
   <div class="mod-p">A link budget is a complete accounting of every gain and every loss a signal experiences from the moment it leaves the transmitter to the moment it arrives at the receiver. It answers one fundamental question: does the received signal power exceed the receiver sensitivity by enough margin to give reliable communication?</div>
@@ -1853,6 +2128,51 @@ footer span{color:var(--text2)}
   </div>
   <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">5G NR — SSB, CSI-RS, SRS, Beam Management</text>
+  <!-- SSB -->
+  <rect x="10" y="35" width="180" height="130" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="100" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SSB (Sync Signal Block)</text>
+  <text x="20" y="72" fill="#8892b0" font-size="8" font-family="monospace">PSS + SSS + PBCH</text>
+  <text x="20" y="86" fill="#8892b0" font-size="8" font-family="monospace">4 symbols, 20 RBs</text>
+  <text x="20" y="100" fill="#f5a623" font-size="8" font-family="monospace">Burst: up to 64 beams</text>
+  <text x="20" y="114" fill="#8892b0" font-size="8" font-family="monospace">Period: 20ms typical</text>
+  <text x="20" y="128" fill="#4a5470" font-size="7" font-family="monospace">UE uses RSRP per beam</text>
+  <text x="20" y="142" fill="#4a5470" font-size="7" font-family="monospace">to select best beam</text>
+  <text x="20" y="158" fill="#00d4a0" font-size="7" font-family="monospace">Initial access = SSB</text>
+  <!-- CSI-RS -->
+  <rect x="200" y="35" width="180" height="130" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="290" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">CSI-RS</text>
+  <text x="210" y="72" fill="#8892b0" font-size="8" font-family="monospace">Channel State Info</text>
+  <text x="210" y="86" fill="#8892b0" font-size="8" font-family="monospace">Reference Signal</text>
+  <text x="210" y="100" fill="#f5a623" font-size="8" font-family="monospace">Beam refinement</text>
+  <text x="210" y="114" fill="#8892b0" font-size="8" font-family="monospace">Finer than SSB sweep</text>
+  <text x="210" y="128" fill="#4a5470" font-size="7" font-family="monospace">UE reports CRI/RSRP</text>
+  <text x="210" y="142" fill="#4a5470" font-size="7" font-family="monospace">per CSI-RS beam</text>
+  <text x="210" y="158" fill="#00d4a0" font-size="7" font-family="monospace">gNB picks best beam</text>
+  <!-- SRS -->
+  <rect x="390" y="35" width="180" height="130" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="480" y="55" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SRS</text>
+  <text x="400" y="72" fill="#8892b0" font-size="8" font-family="monospace">Sounding Reference</text>
+  <text x="400" y="86" fill="#8892b0" font-size="8" font-family="monospace">Signal (UL from UE)</text>
+  <text x="400" y="100" fill="#f5a623" font-size="8" font-family="monospace">UL beam management</text>
+  <text x="400" y="114" fill="#8892b0" font-size="8" font-family="monospace">gNB measures UL channel</text>
+  <text x="400" y="128" fill="#4a5470" font-size="7" font-family="monospace">Reciprocity: UL=DL</text>
+  <text x="400" y="142" fill="#4a5470" font-size="7" font-family="monospace">TDD assumption</text>
+  <text x="400" y="158" fill="#00d4a0" font-size="7" font-family="monospace">Used for MU-MIMO</text>
+  <!-- Beam lifecycle -->
+  <rect x="580" y="35" width="210" height="130" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="685" y="52" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Beam Lifecycle</text>
+  <text x="590" y="68"  fill="#8892b0" font-size="8" font-family="monospace">1. SSB sweep → UE reports</text>
+  <text x="590" y="82"  fill="#8892b0" font-size="8" font-family="monospace">2. gNB selects TX beam</text>
+  <text x="590" y="96"  fill="#8892b0" font-size="8" font-family="monospace">3. CSI-RS refines beam</text>
+  <text x="590" y="110" fill="#8892b0" font-size="8" font-family="monospace">4. Track: periodic CSI-RS</text>
+  <text x="590" y="124" fill="#ff6b6b" font-size="8" font-family="monospace">5. Beam failure detected</text>
+  <text x="590" y="138" fill="#00d4a0" font-size="8" font-family="monospace">6. Recovery: PRACH new beam</text>
+  <text x="590" y="155" fill="#4a5470" font-size="7" font-family="monospace">Recovery target: &lt;50ms</text>
+</svg>
+
   <div class="mod-section-title">13.1 Why 5G NR needs explicit beam management</div>
   <div class="mod-p">In LTE, beamforming was relatively simple — the gNB would use feedback from the UE (PMI — Precoding Matrix Indicator) to choose a downlink precoding vector. In 5G NR with 64 or 192 antenna elements and 3D beamforming, the beam space is enormous. You need a systematic procedure to find the best beam pair between gNB and UE, track it as the UE moves, and recover when the beam fails. This is the beam management framework.</div>
 
@@ -1900,6 +2220,32 @@ footer span{color:var(--text2)}
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="170" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Connectors, Cables, Torque Specs — Zero Tolerance for Defects</text>
+  <!-- Connector types -->
+  <rect x="10" y="35" width="600" height="80" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="310" y="53" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Connector Reference:</text>
+  <text x="20"  y="70"  fill="#8892b0" font-size="9" font-family="monospace">SMA:    DC-18GHz · 0.9 N·m (8 in·lb) · Most common in lab · Your BOB ports use SMA</text>
+  <text x="20"  y="85"  fill="#8892b0" font-size="9" font-family="monospace">N-type: DC-11GHz · 1.36 N·m (12 in·lb) · High power, outdoor · Antenna feed cables</text>
+  <text x="20"  y="100" fill="#8892b0" font-size="9" font-family="monospace">2.92mm: DC-40GHz · 0.9 N·m · Precision, mmWave · EXA/VNA ports use this</text>
+  <text x="20"  y="115" fill="#4a5470" font-size="7" font-family="monospace">NEVER hand-tighten precision connectors — always use calibrated torque wrench. Over-torque destroys center pin. Under-torque = bad VSWR, data scatter.</text>
+  <!-- Cable types -->
+  <rect x="10" y="125" width="600" height="38" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="20" y="141" fill="#00d4a0" font-size="9" font-family="monospace">SF141: VF=0.696, 1.56dB/m@2GHz · LMR400: VF=0.85, 0.55dB/m@2GHz · RG316: flexible, 2.5dB/m (your lab cables)</text>
+  <text x="20" y="156" fill="#4a5470" font-size="7" font-family="monospace">Inspect every connection: bent pin → replace immediately. Dirty center pin → clean with isopropanol. Scratch on mating face → replace.</text>
+  <!-- Inspection checklist -->
+  <rect x="620" y="35" width="170" height="128" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="705" y="53" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Inspect before use:</text>
+  <text x="630" y="70"  fill="#8892b0" font-size="8" font-family="monospace">□ Center pin straight?</text>
+  <text x="630" y="84"  fill="#8892b0" font-size="8" font-family="monospace">□ No scratches on face?</text>
+  <text x="630" y="98"  fill="#8892b0" font-size="8" font-family="monospace">□ Outer thread clean?</text>
+  <text x="630" y="112" fill="#8892b0" font-size="8" font-family="monospace">□ Use torque wrench?</text>
+  <text x="630" y="126" fill="#00d4a0" font-size="8" font-family="monospace">□ Verify S11&lt;−20dB</text>
+  <text x="630" y="140" fill="#4a5470" font-size="7" font-family="monospace">1 bad connector = 1</text>
+  <text x="630" y="152" fill="#4a5470" font-size="7" font-family="monospace">week of chasing ghost</text>
+</svg>
 
   <div class="mod-section-title">14.1 Connector types you encounter in your lab</div>
   <div class="mod-table-wrap"><table class="test-table">
@@ -2066,6 +2412,63 @@ footer span{color:var(--text2)}
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Path Components — Duplexer, BPF, LNA, VGA, Mixer</text>
+  <!-- 5 components -->
+  <rect x="10"  y="35" width="140" height="140" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="80"  y="57" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="80"  y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">TX+RX share antenna</text>
+  <text x="80"  y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">via frequency separation</text>
+  <text x="80"  y="103" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Ins. loss: 0.5 dB</text>
+  <text x="80"  y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">TX→RX isol: &gt;50 dB</text>
+  <text x="80"  y="133" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">FDD only — TDD uses</text>
+  <text x="80"  y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">T/R switch instead</text>
+  <text x="80"  y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: VSWR alarm</text>
+
+  <rect x="160" y="35" width="140" height="140" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="230" y="57" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">BPF</text>
+  <text x="230" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Bandpass Filter</text>
+  <text x="230" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Passes only wanted</text>
+  <text x="230" y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">frequency band</text>
+  <text x="230" y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Pre-LNA: 0.3 dB loss</text>
+  <text x="230" y="129" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Rejects blockers</text>
+  <text x="230" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Selectivity spec</text>
+  <text x="230" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: blocking test</text>
+
+  <rect x="310" y="25" width="140" height="160" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="380" y="48" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">LNA ★</text>
+  <text x="380" y="63" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Low Noise Amplifier</text>
+  <text x="380" y="77" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">MOST IMPORTANT</text>
+  <text x="380" y="91" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">RX component</text>
+  <text x="380" y="108" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">NF=2dB, G=+20dB</text>
+  <text x="380" y="122" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Sets system NF</text>
+  <text x="380" y="136" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Gain ÷ post NF</text>
+  <text x="380" y="155" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">pHEMT or GaAs FET</text>
+  <text x="380" y="168" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: sensitivity</text>
+  <text x="380" y="180" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">blocker compresses</text>
+
+  <rect x="460" y="35" width="140" height="140" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="530" y="57" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">VGA / AGC</text>
+  <text x="530" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Variable Gain Amp</text>
+  <text x="530" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Auto Gain Control</text>
+  <text x="530" y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Keeps ADC in range</text>
+  <text x="530" y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Range: −20 to +40 dB</text>
+  <text x="530" y="130" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RSSI feedback loop</text>
+  <text x="530" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Settles in &lt;10μs</text>
+  <text x="530" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: ADC overrange</text>
+
+  <rect x="610" y="35" width="180" height="140" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="700" y="57" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Mixer</text>
+  <text x="700" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">fout = |fRF ± fLO|</text>
+  <text x="700" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Downconverts to BB</text>
+  <text x="700" y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">IQ mixer: I+Q outputs</text>
+  <text x="700" y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">NF=7dB (÷100 after LNA)</text>
+  <text x="700" y="130" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Effective: 0.05 dB</text>
+  <text x="700" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">IIP3 matters for blockers</text>
+  <text x="700" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: IQ imbalance EVM</text>
+</svg>
 <div class="mod-section-title">Duplexer / T-R Switch — first after antenna</div>
 <div class="mod-p">In FDD (B1/B3/B8/B28): the duplexer simultaneously passes UL and DL on separate ports with >50 dB TX→RX isolation. It stops the PA's +43 dBm TX power from flooding the LNA input and desensitising the receiver. In TDD (B41): a T/R switch replaces the duplexer — faster switching, but cannot transmit and receive simultaneously on the same antenna.</div>
 <div class="mod-section-title">BPF — Band-pass filter</div>
@@ -2099,6 +2502,34 @@ footer span{color:var(--text2)}
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">ADC — 12-bit, Dynamic Range, dBFS, Clipping, SQNR</text>
+  <!-- ADC properties visual -->
+  <rect x="10" y="35" width="380" height="150" fill="#141720" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="200" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">12-bit ADC Properties</text>
+  <text x="20"  y="73"  fill="#8892b0" font-size="9" font-family="monospace">Levels:   2¹² = 4096 discrete levels</text>
+  <text x="20"  y="88"  fill="#8892b0" font-size="9" font-family="monospace">SQNR:     6.02×12 + 1.76 = 74 dB</text>
+  <text x="20"  y="103" fill="#8892b0" font-size="9" font-family="monospace">Full scale: 0 dBFS (clips above this)</text>
+  <text x="20"  y="118" fill="#8892b0" font-size="9" font-family="monospace">Noise floor: −74 dBFS (quantisation)</text>
+  <text x="20"  y="133" fill="#f5a623" font-size="9" font-family="monospace">Operating point: −12 dBFS (headroom)</text>
+  <text x="20"  y="148" fill="#f5a623" font-size="9" font-family="monospace">Sample rate: 122.88 MSPS typical</text>
+  <text x="20"  y="163" fill="#4a5470" font-size="8" font-family="monospace">Clock: external GPS-locked reference</text>
+  <text x="20"  y="177" fill="#ff6b6b" font-size="8" font-family="monospace">Clip: input &gt;0 dBFS → distortion, wrong RSSI</text>
+  <!-- Dynamic range diagram -->
+  <rect x="400" y="35" width="390" height="150" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="595" y="55" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Dynamic Range in Your RU</text>
+  <rect x="415" y="63" width="35" height="15" fill="#2a0d0d" rx="2"/>
+  <text x="455" y="74"  fill="#ff6b6b" font-size="8" font-family="monospace">0 dBFS: strong UE &lt;10m (clip risk)</text>
+  <rect x="415" y="83" width="35" height="35" fill="#1a1a0d" rx="2"/>
+  <text x="455" y="97"  fill="#c8b800" font-size="8" font-family="monospace">−6 to −20 dBFS: operating zone (AGC target)</text>
+  <rect x="415" y="123" width="35" height="55" fill="#0d1a0d" rx="2"/>
+  <text x="455" y="140" fill="#00d4a0" font-size="8" font-family="monospace">−20 to −60 dBFS: normal UE range</text>
+  <text x="455" y="154" fill="#00d4a0" font-size="8" font-family="monospace">−60 to −74 dBFS: weak UE near sens.</text>
+  <rect x="415" y="178" width="35" height="5"  fill="#0d0d2a" rx="2"/>
+  <text x="455" y="183" fill="#9b8cf8" font-size="8" font-family="monospace">−74 dBFS: quantisation noise floor</text>
+</svg>
 <div class="mod-section-title">What the ADC does</div>
 <div class="mod-p">The ADC (Analog-to-Digital Converter) is the boundary between the analog RF world and digital processing. It samples the baseband IQ signal at the Nyquist rate and converts each sample to a binary number. David: "we are working with 12 bits. Sorry, 11 bits. It means 2 by 11 steps of resolution."</div>
 <div class="mod-formula">Resolution: N bits → 2^N amplitude levels
@@ -2132,6 +2563,34 @@ SQNR = 6.02 × N + 1.76 dB
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RSSI — Two Methods (CLI dBFS vs DU dBm), ±2 dB Pass Criterion</text>
+  <!-- Method 1: CLI -->
+  <rect x="10" y="35" width="370" height="150" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="195" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Method 1: CLI get_rssi</text>
+  <text x="20"  y="72"  fill="#8892b0" font-size="9" font-family="monospace">Command: get_rssi 0 (B1 ADC channel 0)</text>
+  <text x="20"  y="86"  fill="#f5a623" font-size="9" font-family="monospace">Returns:  −12.5 dBFS</text>
+  <text x="20"  y="100" fill="#8892b0" font-size="9" font-family="monospace">Convert:  −12.5 + ADC_ADJUST = dBm</text>
+  <text x="20"  y="114" fill="#f5a623" font-size="9" font-family="monospace">ADC_ADJUST in /etc/rru/hardware.json</text>
+  <text x="20"  y="128" fill="#8892b0" font-size="9" font-family="monospace">Example:  ADC_ADJUST = −82.5</text>
+  <text x="20"  y="142" fill="#00d4a0" font-size="9" font-family="monospace">Result:   −12.5 + (−82.5) = −95 dBm</text>
+  <text x="20"  y="158" fill="#4a5470" font-size="8" font-family="monospace">ADC channels: B1=0,1,4,5 · B3=2,3,6,7</text>
+  <text x="20"  y="172" fill="#ff6b6b" font-size="8" font-family="monospace">If wrong: recalibrate ADC_ADJUST from EXM</text>
+
+  <!-- Method 2: DU -->
+  <rect x="390" y="35" width="400" height="150" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="590" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Method 2: DU/testmac</text>
+  <text x="400" y="72"  fill="#8892b0" font-size="9" font-family="monospace">Command:  testmac&gt; rssi (on FHGW)</text>
+  <text x="400" y="86"  fill="#f5a623" font-size="9" font-family="monospace">Returns:  −94.8 dBm (per RB, all chains)</text>
+  <text x="400" y="100" fill="#8892b0" font-size="9" font-family="monospace">Source:   after FFT processing in DU L1</text>
+  <text x="400" y="114" fill="#8892b0" font-size="9" font-family="monospace">Includes: interference + signal + noise</text>
+  <text x="400" y="130" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">Pass criterion: |CLI − DU| ≤ 2 dB</text>
+  <text x="400" y="148" fill="#4a5470" font-size="8" font-family="monospace">And: |EXM_injected − CLI_result| ≤ 2 dB</text>
+  <text x="400" y="162" fill="#f5a623" font-size="8" font-family="monospace">All 3 sources must agree within ±2 dB</text>
+  <text x="400" y="178" fill="#ff6b6b" font-size="8" font-family="monospace">Fail sources: wrong offset, temp drift, bad cable</text>
+</svg>
 <div class="mod-section-title">Two RSSI measurement methods</div>
 <div class="mod-p">David described two independent ways the system measures RSSI:</div>
 <div class="mod-p"><b>Method 1 — DU RSSI (dBm):</b> After FFT processing, IQ samples flow to the DU via eCPRI fronthaul. The DU sums power across all subcarriers and computes RSSI in dBm. This is what your test automation reads from the OAM portal or DU CLI. Also: the DU calculates the "blur" (sensitivity point) from these same samples.</div>
@@ -2173,6 +2632,58 @@ SQNR = 6.02 × N + 1.76 dB
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW Internals — FFT, BFP Compression, eCPRI Fronthaul</text>
+  <!-- eCPRI in -->
+  <rect x="10"  y="50" width="100" height="50" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="60"  y="72" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">eCPRI</text>
+  <text x="60"  y="85" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">10GbE SFP+</text>
+  <text x="60"  y="95" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">from DU</text>
+  <line x1="110" y1="75" x2="130" y2="75" stroke="#9b8cf8" stroke-width="1.5"/>
+
+  <rect x="130" y="40" width="110" height="70" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="185" y="62" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BFP decomp</text>
+  <text x="185" y="76" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Block Floating</text>
+  <text x="185" y="88" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Point expand</text>
+  <text x="185" y="100" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">9-bit → 16-bit IQ</text>
+  <line x1="240" y1="75" x2="260" y2="75" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="260" y="40" width="110" height="70" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="315" y="62" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">IFFT</text>
+  <text x="315" y="76" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">freq → time</text>
+  <text x="315" y="88" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">domain conv</text>
+  <text x="315" y="100" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">OFDM symbols</text>
+  <line x1="370" y1="75" x2="390" y2="75" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="390" y="40" width="110" height="70" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="445" y="59" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Add CP</text>
+  <text x="445" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Cyclic Prefix</text>
+  <text x="445" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">protects vs ISI</text>
+  <text x="445" y="99" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4.69μs normal CP</text>
+  <line x1="500" y1="75" x2="520" y2="75" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="520" y="40" width="110" height="70" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="575" y="59" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">CFR + DPD</text>
+  <text x="575" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Crest factor</text>
+  <text x="575" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">reduce + preD</text>
+  <text x="575" y="99" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Linearise PA</text>
+  <line x1="630" y1="75" x2="650" y2="75" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="650" y="40" width="140" height="70" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="3"/>
+  <text x="720" y="59" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DAC → RF</text>
+  <text x="720" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">D→A convert</text>
+  <text x="720" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Upconvert to</text>
+  <text x="720" y="99" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">2140/1842/942 MHz</text>
+
+  <!-- BFP compression explanation -->
+  <rect x="10" y="130" width="780" height="60" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="148" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BFP Compression (O-RAN 7.2x split — what it compresses):</text>
+  <text x="20"  y="163" fill="#8892b0" font-size="8" font-family="monospace">Full IQ: 16-bit I + 16-bit Q per subcarrier × 3276 RBs × 14 symbols = 147 Mbps per antenna — too much for fronthaul</text>
+  <text x="20"  y="177" fill="#00d4a0" font-size="8" font-family="monospace">BFP compressed: 9-bit mantissa + 4-bit exponent shared per RB → ~50% reduction → fits in 10GbE eCPRI</text>
+  <text x="20"  y="187" fill="#4a5470" font-size="7" font-family="monospace">Quality check: expansion error &lt;0.1 dB · EVM impact &lt;0.5% · Verified by your EVM test passing</text>
+</svg>
 <div class="mod-section-title">FHGW digital processing blocks</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Block</th><th>UL function</th><th>DL function</th><th>Why it matters</th></tr>
@@ -2208,6 +2719,39 @@ SQNR = 6.02 × N + 1.76 dB
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RSSI Calibration Procedure — Manual Steps and Automated via RuAuto</text>
+  <!-- Manual flow -->
+  <text x="200" y="42" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Manual procedure:</text>
+  <rect x="10"  y="52" width="90" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="55"  y="73" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">EXM inject</text>
+  <text x="55"  y="84" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−95 dBm known</text>
+  <line x1="100" y1="72" x2="115" y2="72" stroke="#4a5470" stroke-width="1"/>
+  <rect x="115" y="52" width="90" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="160" y="70" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">get_rssi 0</text>
+  <text x="160" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">read dBFS value</text>
+  <line x1="205" y1="72" x2="220" y2="72" stroke="#4a5470" stroke-width="1"/>
+  <rect x="220" y="52" width="100" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="270" y="68" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Compute offset</text>
+  <text x="270" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−95 − dBFS_val</text>
+  <line x1="320" y1="72" x2="335" y2="72" stroke="#4a5470" stroke-width="1"/>
+  <rect x="335" y="52" width="100" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="385" y="68" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Update hw.json</text>
+  <text x="385" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ADC_ADJUST field</text>
+  <line x1="435" y1="72" x2="450" y2="72" stroke="#4a5470" stroke-width="1"/>
+  <rect x="450" y="52" width="100" height="40" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="500" y="68" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Reflash to RU</text>
+  <text x="500" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">verify ±1 dB</text>
+  <!-- Automated -->
+  <text x="400" y="112" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Automated via RuAuto: rssi_cal test case in tc_cadence.json</text>
+  <rect x="10" y="122" width="780" height="68" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="20"  y="140" fill="#8892b0" font-size="9" font-family="monospace">1. EXM sweeps −60 → −110 dBm in 5 dB steps across all B1/B3/B8/B28/B41 frequencies</text>
+  <text x="20"  y="155" fill="#8892b0" font-size="9" font-family="monospace">2. At each step: read get_rssi + DU RSSI, compute error = EXM − cable_loss − RU_reading</text>
+  <text x="20"  y="170" fill="#8892b0" font-size="9" font-family="monospace">3. If max error &gt;±2 dB: flag RSSI_CAL_FAIL, log to rct_results.json, update ADC_ADJUST</text>
+  <text x="20"  y="183" fill="#f5a623" font-size="8" font-family="monospace">Separate ADC_ADJUST per band per ADC channel (B1 has 4: ADC0/1/4/5, B3 has 4: ADC2/3/6/7)</text>
+</svg>
 <div class="mod-section-title">Goals from David</div>
 <div class="mbullet">Measure sensitivity point (min power RU can receive) in dBm — must be ≤ −69 dBm (3GPP Wide Area BS)</div>
 <div class="mbullet">Measure full dynamic range of ADC from noise floor to max — should be ~68–74 dB (11–12 bit)</div>
@@ -5565,6 +6109,69 @@ Real ADCs: SFDR typically 3–10 dB below theoretical due to harmonics, clock ji
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">SCPI Automation — Python → EXA/EXM Control Flow</text>
+  <!-- Python script box -->
+  <rect x="10" y="35" width="150" height="160" fill="#0a0a0a" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="85" y="55" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Python Script</text>
+  <text x="20" y="72"  fill="#f5a623" font-size="8" font-family="monospace">import socket</text>
+  <text x="20" y="85"  fill="#f5a623" font-size="8" font-family="monospace">s = socket.socket()</text>
+  <text x="20" y="98"  fill="#f5a623" font-size="8" font-family="monospace">s.connect((ip, 5025))</text>
+  <text x="20" y="114" fill="#5bc4ef" font-size="8" font-family="monospace">s.send(b"*RST
+")</text>
+  <text x="20" y="127" fill="#5bc4ef" font-size="8" font-family="monospace">s.send(b":FREQ:CENT 2.14e9
+")</text>
+  <text x="20" y="140" fill="#5bc4ef" font-size="8" font-family="monospace">s.send(b":ACLR ON
+")</text>
+  <text x="20" y="153" fill="#9b8cf8" font-size="8" font-family="monospace">s.send(b":FETCH:ACLR?
+")</text>
+  <text x="20" y="166" fill="#9b8cf8" font-size="8" font-family="monospace">result = s.recv(1024)</text>
+  <text x="20" y="180" fill="#4a5470" font-size="7" font-family="monospace"># port 5025 always</text>
+
+  <!-- TCP arrow -->
+  <line x1="160" y1="115" x2="195" y2="115" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="193,111 203,115 193,119" fill="#5bc4ef"/>
+  <text x="177" y="108" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">TCP</text>
+  <text x="177" y="127" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LAN</text>
+
+  <!-- EXA box -->
+  <rect x="203" y="60" width="130" height="110" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="268" y="80"  fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXA</text>
+  <text x="268" y="95"  fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">10.62.2.135</text>
+  <text x="268" y="110" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR, EVM, Power</text>
+  <text x="268" y="125" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SEM, Spectrum</text>
+  <text x="268" y="145" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Returns: -54.2,dBc</text>
+
+  <!-- TCP arrow to EXM -->
+  <line x1="333" y1="115" x2="368" y2="115" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="366,111 376,115 366,119" fill="#ff6b6b"/>
+  <text x="350" y="108" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">TCP</text>
+
+  <!-- EXM box -->
+  <rect x="376" y="60" width="130" height="110" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="441" y="80"  fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXM</text>
+  <text x="441" y="95"  fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">VSG output</text>
+  <text x="441" y="110" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Set: −95 dBm</text>
+  <text x="441" y="123" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Freq: 1950 MHz</text>
+  <text x="441" y="136" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">FRC: A1 QPSK</text>
+  <text x="441" y="145" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Returns: OK</text>
+
+  <!-- Pass/Fail logic -->
+  <rect x="530" y="35" width="260" height="165" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="660" y="55" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Pass/Fail Logic</text>
+  <text x="540" y="72"  fill="#00d4a0" font-size="8" font-family="monospace">aclr = float(result)</text>
+  <text x="540" y="86"  fill="#00d4a0" font-size="8" font-family="monospace">if aclr &lt; -45.0:</text>
+  <text x="540" y="100" fill="#00d4a0" font-size="8" font-family="monospace">    print("PASS")</text>
+  <text x="540" y="114" fill="#ff6b6b" font-size="8" font-family="monospace">else:</text>
+  <text x="540" y="128" fill="#ff6b6b" font-size="8" font-family="monospace">    print("FAIL")</text>
+  <text x="540" y="142" fill="#ff6b6b" font-size="8" font-family="monospace">    log_failure(band, result)</text>
+  <line x1="540" y1="152" x2="780" y2="152" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="660" y="167" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RuAuto does this automatically</text>
+  <text x="660" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">tc_cadence.json defines all limits</text>
+  <text x="660" y="193" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Results saved to rct_results.json</text>
+</svg>
 <div class="mod-section-title">SCPI basics</div>
 <div class="mod-p">SCPI (Standard Commands for Programmable Instruments) is a text-based protocol over LAN (TCP port 5025), USB, or GPIB. Every key on the EXM/EXA front panel has an equivalent SCPI command. RuAuto uses SCPI exclusively — every measurement in tc_cadence.json eventually calls an SCPI function.</div>
 
@@ -6671,6 +7278,58 @@ Converting dBFS → dBm:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Noise Floor — From First Principles to Your RU Sensitivity</text>
+  <!-- Building blocks left to right -->
+  <rect x="10" y="40" width="100" height="60" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="60" y="62" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">kTB floor</text>
+  <text x="60" y="77" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">−174 dBm/Hz</text>
+  <text x="60" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">absolute physics</text>
+  <text x="60" y="80" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace"> </text>
+  <line x1="110" y1="70" x2="130" y2="70" stroke="#9b8cf8" stroke-width="1.5"/>
+  <text x="120" y="63" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+10log(BW)</text>
+
+  <rect x="130" y="40" width="100" height="60" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="180" y="62" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Noise floor</text>
+  <text x="180" y="77" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">−104 dBm</text>
+  <text x="180" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">10 MHz BW</text>
+  <line x1="230" y1="70" x2="250" y2="70" stroke="#f5a623" stroke-width="1.5"/>
+  <text x="240" y="63" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+NF(5.75)</text>
+
+  <rect x="250" y="40" width="115" height="60" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="3"/>
+  <text x="307" y="62" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">System floor</text>
+  <text x="307" y="77" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">−98.25 dBm</text>
+  <text x="307" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+NF degradation</text>
+  <line x1="365" y1="70" x2="385" y2="70" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="375" y="63" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+SNR(−1)</text>
+
+  <rect x="385" y="30" width="130" height="80" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="3"/>
+  <text x="450" y="52" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Sensitivity</text>
+  <text x="450" y="70" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">−99.25 dBm</text>
+  <text x="450" y="87" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">B1, 10MHz, QPSK 1/3</text>
+  <text x="450" y="100" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">30dB better than 3GPP!</text>
+  <line x1="515" y1="70" x2="535" y2="70" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="525" y="63" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−base</text>
+
+  <rect x="535" y="40" width="100" height="60" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="585" y="62" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DSA offset</text>
+  <text x="585" y="77" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">B1 = 5 dB</text>
+  <text x="585" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">vs B3 baseline</text>
+  <line x1="635" y1="70" x2="655" y2="70" stroke="#5bc4ef" stroke-width="1.5"/>
+  <text x="645" y="63" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+base</text>
+
+  <rect x="655" y="40" width="130" height="60" fill="#2a0000" stroke="#ff6b6b" stroke-width="2" rx="3"/>
+  <text x="720" y="62" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXM injects</text>
+  <text x="720" y="77" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">−87 + 5 = −82 dBm</text>
+  <text x="720" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">PRACH threshold</text>
+
+  <text x="400" y="135" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Every step is measurable — you can verify each block by measuring RU noise floor with EXA (preamp ON, 0dB atten)</text>
+  <text x="400" y="150" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">EXA DANL (−130 dBm/Hz) must be &lt; RU noise floor (−104+NF ≈ −98 dBm in 10MHz) — otherwise EXA limits your measurement</text>
+  <text x="400" y="167" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">Check: EXA floor at −130 dBm/Hz × 10MHz = −130+70 = −60 dBm — safely below your −98 dBm system floor ✓</text>
+  <text x="400" y="182" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">If EXA floor exceeded RU floor, you'd be measuring the analyser noise, not the RU — always check before RSSI cal</text>
+</svg>
 <div class="mod-section-title">Where −174 dBm/Hz comes from</div>
 <div class="mod-p">Thermal noise is the random motion of electrons in any resistor at any temperature above absolute zero. It sets the absolute minimum noise floor of any receiver, regardless of how good the electronics are.</div>
 <div class="mod-formula">Thermal noise power in bandwidth B:
@@ -6734,6 +7393,58 @@ For B1 10 MHz:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">PRACH Detector — Noise Estimator, Peak Multiplier, False Alarm Rate</text>
+  <!-- Detector chain -->
+  <rect x="10"  y="40" width="110" height="60" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="65"  y="60" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">UL signal</text>
+  <text x="65"  y="75" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">from antenna</text>
+  <text x="65"  y="90" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">may contain PRACH</text>
+  <line x1="120" y1="70" x2="140" y2="70" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="140" y="40" width="120" height="60" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="200" y="60" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Noise estimator</text>
+  <text x="200" y="74" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Measures noise floor</text>
+  <text x="200" y="87" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">in non-PRACH RBs</text>
+  <text x="200" y="98" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">≈ −104 dBm ref</text>
+  <line x1="260" y1="70" x2="280" y2="70" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="280" y="40" width="120" height="60" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="340" y="60" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Correlator</text>
+  <text x="340" y="74" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Cross-correlate vs</text>
+  <text x="340" y="87" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Zadoff-Chu preamble</text>
+  <text x="340" y="98" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">839-length sequence</text>
+  <line x1="400" y1="70" x2="420" y2="70" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="420" y="40" width="130" height="60" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="485" y="57" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Peak detector</text>
+  <text x="485" y="71" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">peak &gt; threshold?</text>
+  <text x="485" y="84" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">thresh = noise × α</text>
+  <text x="485" y="97" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">α sets false alarm rate</text>
+  <line x1="550" y1="70" x2="570" y2="70" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="570" y="40" width="110" height="60" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="625" y="58" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PRACH detected</text>
+  <text x="625" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">→ RA-RNTI assigned</text>
+  <text x="625" y="85" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">→ RAR sent to UE</text>
+  <text x="625" y="98" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">→ TA measured</text>
+
+  <!-- Threshold diagram -->
+  <text x="400" y="125" fill="#c8c8d8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Threshold = Noise_floor × Peak_multiplier (α):</text>
+  <rect x="20"  y="135" width="175" height="50" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="107" y="153" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">Low α → sensitive</text>
+  <text x="107" y="166" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Detects weak UE</text>
+  <text x="107" y="178" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">But more false alarms</text>
+  <rect x="315" y="135" width="175" height="50" fill="#1a1a0d" stroke="#f5a623" stroke-width="1" rx="3"/>
+  <text x="402" y="153" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">High α → robust</text>
+  <text x="402" y="166" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Fewer false alarms</text>
+  <text x="402" y="178" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">May miss weak UE</text>
+  <text x="660" y="153" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Your RU sensitivity</text>
+  <text x="660" y="166" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">test verifies the UE</text>
+  <text x="660" y="178" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">clears the threshold</text>
+</svg>
 <div class="mod-section-title">The full PRACH detection pipeline</div>
 <div class="mod-formula">Stage 1 — Front end:
   Remove CP → apply FFT → extract PRACH subcarriers (839 bins at 1.25 kHz spacing)
@@ -6798,6 +7509,40 @@ UE then transmits that much earlier so signal arrives aligned at eNB</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">dBFS ↔ dBm Conversion — The Complete Guide with Your RU Numbers</text>
+  <!-- Left: dBFS scale -->
+  <rect x="20" y="35" width="40" height="145" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <rect x="20" y="35"  width="40" height="20"  fill="#2a0d0d" rx="2"/>
+  <rect x="20" y="75"  width="40" height="65"  fill="#0d1a0d" rx="2"/>
+  <rect x="20" y="140" width="40" height="40"  fill="#0d0d2a" rx="2"/>
+  <text x="10" y="49"  fill="#ff6b6b" font-size="8" text-anchor="end" font-family="monospace">0 dBFS</text>
+  <text x="10" y="80"  fill="#c8b800" font-size="8" text-anchor="end" font-family="monospace">-6</text>
+  <text x="10" y="107" fill="#00d4a0" font-size="8" text-anchor="end" font-family="monospace">-12</text>
+  <text x="10" y="144" fill="#9b8cf8" font-size="8" text-anchor="end" font-family="monospace">-72</text>
+  <text x="10" y="178" fill="#4a5470" font-size="8" text-anchor="end" font-family="monospace">-∞</text>
+  <!-- Annotations -->
+  <text x="65" y="49"  fill="#ff6b6b" font-size="8" font-family="monospace">← ADC clips (overrange → bad RSSI reading)</text>
+  <text x="65" y="80"  fill="#c8b800" font-size="8" font-family="monospace">← 6dB headroom (typical operating point)</text>
+  <text x="65" y="107" fill="#00d4a0" font-size="8" font-family="monospace">← Typical signal level in your RU</text>
+  <text x="65" y="144" fill="#9b8cf8" font-size="8" font-family="monospace">← 12-bit SQNR floor (74 dB range)</text>
+  <text x="65" y="178" fill="#4a5470" font-size="8" font-family="monospace">← No signal</text>
+  <!-- Formula box -->
+  <rect x="20" y="192" width="760" height="1" fill="#4a5470"/>
+  <!-- Conversion -->
+  <rect x="430" y="35" width="360" height="150" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="610" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Conversion Formula:</text>
+  <text x="440" y="75"  fill="#c8c8d8" font-size="10" font-family="monospace">dBm = dBFS + ADC_fullscale_dBm</text>
+  <text x="440" y="92"  fill="#4a5470" font-size="8" font-family="monospace">ADC_fullscale_dBm = calibration constant in hardware.json</text>
+  <line x1="440" y1="100" x2="780" y2="100" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="610" y="116" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Your B1 ADC example:</text>
+  <text x="440" y="132" fill="#8892b0" font-size="9" font-family="monospace">get_rssi output:  -12 dBFS</text>
+  <text x="440" y="146" fill="#8892b0" font-size="9" font-family="monospace">ADC_fullscale:    -83 dBm (from hw.json)</text>
+  <text x="440" y="160" fill="#00d4a0" font-size="9" font-family="monospace">dBm = -12 + (-83) = -95 dBm ← matches EXM</text>
+  <text x="440" y="175" fill="#ff6b6b" font-size="8" font-family="monospace">If off by &gt;2dB → wrong ADC_ADJUST → recalibrate</text>
+</svg>
 <div class="mod-section-title">The fundamental difference</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th></th><th>dBm</th><th>dBFS</th></tr>
@@ -7384,6 +8129,45 @@ So Cable B is 0.91 mm longer than Cable A. Trim 0.91 mm off Cable B to match.</d
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Antenna Element Phase Cal — Measuring TX Path Phase with VNA</text>
+  <!-- Setup diagram -->
+  <rect x="10"  y="40" width="80" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="50"  y="63" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VNA Port 1</text>
+  <line x1="90" y1="60" x2="130" y2="60" stroke="#5bc4ef" stroke-width="2"/>
+  <text x="110" y="53" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RF in</text>
+  <rect x="130" y="40" width="80" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="170" y="55" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">BOB SMA</text>
+  <text x="170" y="68" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">TRX0A port</text>
+  <line x1="210" y1="60" x2="250" y2="60" stroke="#ff6b6b" stroke-width="2"/>
+  <rect x="250" y="30" width="90" height="60" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="295" y="55" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">RFFE</text>
+  <text x="295" y="69" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">TX chain Col A</text>
+  <text x="295" y="80" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">PA+phase shifter</text>
+  <line x1="340" y1="60" x2="380" y2="60" stroke="#00d4a0" stroke-width="2"/>
+  <rect x="380" y="40" width="80" height="40" fill="#0d0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="420" y="55" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Antenna</text>
+  <text x="420" y="68" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">element A</text>
+  <line x1="460" y1="60" x2="500" y2="60" stroke="#9b8cf8" stroke-width="2"/>
+  <rect x="500" y="40" width="80" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="540" y="63" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">VNA Port 2</text>
+  <!-- S21 result -->
+  <rect x="600" y="35" width="190" height="80" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="695" y="53" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">S21 reading:</text>
+  <text x="695" y="68" fill="#00d4a0" font-size="10" text-anchor="middle" font-family="monospace">Mag: −16.7 dBm</text>
+  <text x="695" y="83" fill="#00d4a0" font-size="10" text-anchor="middle" font-family="monospace">Phase: −125.4°</text>
+  <text x="695" y="98" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Repeat for B, C, D</text>
+  <text x="695" y="109" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Record phase difference</text>
+  <!-- Phase comparison table -->
+  <rect x="10" y="100" width="580" height="90" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="295" y="118" fill="#c8c8d8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Per-column phase measurements (4T4R, 4 columns):</text>
+  <text x="30"  y="135" fill="#8892b0" font-size="9" font-family="monospace">Column:    A          B          C          D</text>
+  <text x="30"  y="150" fill="#5bc4ef" font-size="9" font-family="monospace">Phase:  −125.4°    −127.1°    −124.8°    −128.3°</text>
+  <text x="30"  y="165" fill="#00d4a0" font-size="9" font-family="monospace">Δ vs A:    0°        −1.7°      +0.6°      −2.9°   ← phase error</text>
+  <text x="30"  y="180" fill="#f5a623" font-size="8" font-family="monospace">Target: all columns within ±2° of each other. Else beamforming direction will be off.</text>
+</svg>
 <div class="mod-section-title">What you are measuring</div>
 <div class="mod-p">Each of the 8 or 12 TX paths in your AAU (from FHGW DAC output to RFFE antenna port) introduces a different phase shift. Sources of inter-element phase difference: slightly different trace lengths on PCB, component tolerance in phase shifters, connector variations, filter group delay differences. The OB_CAL (observation calibration) corrects these in firmware — but first you need to MEASURE them to know how much correction is needed.</div>
 
@@ -7446,6 +8230,40 @@ So Cable B is 0.91 mm longer than Cable A. Trim 0.91 mm off Cable B to match.</d
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Beamforming Angle Calibration — Phase Shift → Beam Angle</text>
+  <!-- Formula -->
+  <rect x="20" y="35" width="380" height="50" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="210" y="55" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">θ = arcsin(λ × Δφ / (2π × d))</text>
+  <text x="210" y="73" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">λ = wavelength (m) · Δφ = phase step (rad) · d = element spacing (m)</text>
+  <!-- Element spacing diagram -->
+  <rect x="420" y="35" width="360" height="50" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="600" y="53" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">B1 (2140 MHz): λ=14.0cm, d=7.0cm (λ/2)</text>
+  <text x="600" y="68" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">Δφ = 20° → θ = arcsin(0.14×0.349/(2π×0.07)) = 6.4°</text>
+  <!-- Angle-phase table -->
+  <rect x="20" y="97" width="760" height="90" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="115" fill="#c8c8d8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Phase step → beam angle lookup (B1, 2140 MHz, d=λ/2=7cm):</text>
+  <text x="50"  y="132" fill="#8892b0" font-size="9" font-family="monospace">Δφ per element:</text>
+  <text x="170" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">0°</text>
+  <text x="240" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">10°</text>
+  <text x="310" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">20°</text>
+  <text x="380" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">30°</text>
+  <text x="450" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">40°</text>
+  <text x="520" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">60°</text>
+  <text x="590" y="132" fill="#5bc4ef" font-size="9" font-family="monospace">90°</text>
+  <text x="50"  y="150" fill="#8892b0" font-size="9" font-family="monospace">Beam angle θ:</text>
+  <text x="170" y="150" fill="#00d4a0" font-size="9" font-family="monospace">0.0°</text>
+  <text x="240" y="150" fill="#00d4a0" font-size="9" font-family="monospace">3.2°</text>
+  <text x="310" y="150" fill="#00d4a0" font-size="9" font-family="monospace">6.4°</text>
+  <text x="380" y="150" fill="#00d4a0" font-size="9" font-family="monospace">9.6°</text>
+  <text x="450" y="150" fill="#00d4a0" font-size="9" font-family="monospace">12.9°</text>
+  <text x="520" y="150" fill="#f5a623" font-size="9" font-family="monospace">19.5°</text>
+  <text x="590" y="150" fill="#f5a623" font-size="9" font-family="monospace">30.0°</text>
+  <text x="50"  y="168" fill="#4a5470" font-size="8" font-family="monospace">VNA verifies actual phase vs programmed → correct PE44820DS register if drift detected</text>
+  <text x="50"  y="180" fill="#4a5470" font-size="7" font-family="monospace">Repeat for B3 (λ=16.3cm), B8 (λ=31.9cm), B28 (λ=39.5cm), B41 (λ=11.8cm) — each has different d</text>
+</svg>
 <div class="mod-section-title">From phase difference to beam angle</div>
 <div class="mod-formula">For a uniform linear array with element spacing d:
 
@@ -7519,6 +8337,50 @@ Your B1/B3 4-column array (12 elements):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Practical VNA Tips — Common Mistakes and How to Avoid Them</text>
+  <!-- 6 mistake boxes -->
+  <rect x="10"  y="35" width="245" height="75" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="132" y="53" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">❌ Not warming up VNA</text>
+  <text x="20"  y="68" fill="#8892b0" font-size="8" font-family="monospace">VNA needs 30min warm-up</text>
+  <text x="20"  y="81" fill="#8892b0" font-size="8" font-family="monospace">LO drifts in first 15min</text>
+  <text x="20"  y="94" fill="#00d4a0" font-size="8" font-family="monospace">✓ Fix: power on 30min before cal</text>
+  <text x="20"  y="106" fill="#4a5470" font-size="7" font-family="monospace">Phase can drift 5-10° without warmup</text>
+
+  <rect x="265" y="35" width="245" height="75" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="387" y="53" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">❌ Wrong connector torque</text>
+  <text x="275" y="68" fill="#8892b0" font-size="8" font-family="monospace">SMA: spec is 0.9 N·m (8 in·lb)</text>
+  <text x="275" y="81" fill="#8892b0" font-size="8" font-family="monospace">Over-torque: damages center pin</text>
+  <text x="275" y="94" fill="#00d4a0" font-size="8" font-family="monospace">✓ Fix: use torque wrench, always</text>
+  <text x="275" y="106" fill="#4a5470" font-size="7" font-family="monospace">VSWR degrades 0.5→2.0 with bad connector</text>
+
+  <rect x="520" y="35" width="270" height="75" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="655" y="53" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">❌ Cal at wrong port plane</text>
+  <text x="530" y="68" fill="#8892b0" font-size="8" font-family="monospace">Cal moves reference plane to tip of cal kit</text>
+  <text x="530" y="81" fill="#8892b0" font-size="8" font-family="monospace">If cable added after cal → phase error</text>
+  <text x="530" y="94" fill="#00d4a0" font-size="8" font-family="monospace">✓ Fix: cal WITH the cable attached</text>
+  <text x="530" y="106" fill="#4a5470" font-size="7" font-family="monospace">Or use port extension after cal to move ref plane</text>
+
+  <rect x="10"  y="120" width="245" height="70" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="132" y="138" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ Forgetting isolation step</text>
+  <text x="20"  y="153" fill="#8892b0" font-size="8" font-family="monospace">SOLT needs ISOLATION between ports</text>
+  <text x="20"  y="166" fill="#8892b0" font-size="8" font-family="monospace">Skip it → errors in S21 at high loss</text>
+  <text x="20"  y="180" fill="#00d4a0" font-size="8" font-family="monospace">✓ Fix: always do full SOLT 12-step cal</text>
+
+  <rect x="265" y="120" width="245" height="70" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="387" y="138" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ Wrong IF bandwidth</text>
+  <text x="275" y="153" fill="#8892b0" font-size="8" font-family="monospace">Wide IFBW = fast but noisy trace</text>
+  <text x="275" y="166" fill="#8892b0" font-size="8" font-family="monospace">Narrow IFBW = slow but accurate</text>
+  <text x="275" y="180" fill="#00d4a0" font-size="8" font-family="monospace">✓ Phase cal: use 1kHz IFBW</text>
+
+  <rect x="520" y="120" width="270" height="70" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="655" y="138" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ Bending cable after cal</text>
+  <text x="530" y="153" fill="#8892b0" font-size="8" font-family="monospace">Phase changes when cable flexes</text>
+  <text x="530" y="166" fill="#8892b0" font-size="8" font-family="monospace">~2-5° per 90° bend in SMA cable</text>
+  <text x="530" y="180" fill="#00d4a0" font-size="8" font-family="monospace">✓ Fix: secure cables after cal, don't move</text>
+</svg>
 <div class="mod-section-title">Top phase measurement mistakes and how to avoid them</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Mistake</th><th>Effect on phase measurement</th><th>Prevention</th></tr>
@@ -7579,6 +8441,66 @@ Your B1/B3 4-column array (12 elements):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Worked Example — Full B1 TX Path Phase Cal (step by step)</text>
+  <!-- 7 steps -->
+  <rect x="10"  y="35" width="100" height="48" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="60"  y="52" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">① Warm up</text>
+  <text x="60"  y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">VNA E5071C</text>
+  <text x="60"  y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">30 min idle</text>
+
+  <line x1="110" y1="59" x2="120" y2="59" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="120" y="35" width="100" height="48" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="170" y="52" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">② Set freq</text>
+  <text x="170" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Span: 2100-</text>
+  <text x="170" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">2180 MHz</text>
+
+  <line x1="220" y1="59" x2="230" y2="59" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="230" y="35" width="100" height="48" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="280" y="52" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">③ SOLT Cal</text>
+  <text x="280" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SHORT-OPEN</text>
+  <text x="280" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LOAD-THRU</text>
+
+  <line x1="330" y1="59" x2="340" y2="59" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="340" y="35" width="100" height="48" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="390" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">④ Col A meas</text>
+  <text x="390" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">BOB→antenna</text>
+  <text x="390" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">S21 @ 2140MHz</text>
+
+  <line x1="440" y1="59" x2="450" y2="59" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="450" y="35" width="100" height="48" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="500" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">⑤ Cols B-D</text>
+  <text x="500" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Repeat per col</text>
+  <text x="500" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Record phase</text>
+
+  <line x1="550" y1="59" x2="560" y2="59" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="560" y="35" width="100" height="48" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="610" y="52" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">⑥ Calc Δφ</text>
+  <text x="610" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Each col vs A</text>
+  <text x="610" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">note offsets</text>
+
+  <line x1="660" y1="59" x2="670" y2="59" stroke="#4a5470" stroke-width="1"/>
+
+  <rect x="670" y="35" width="120" height="48" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="730" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">⑦ Correct</text>
+  <text x="730" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Update PE44820DS</text>
+  <text x="730" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">register offsets</text>
+
+  <!-- Results table -->
+  <rect x="10" y="95" width="780" height="95" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="113" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Sample results for unit 26050509 B1 at 2140 MHz:</text>
+  <text x="30"  y="130" fill="#8892b0" font-size="9" font-family="monospace">Col A (ref):    S21 phase = −125.4°  → Δ = 0.0° ✓</text>
+  <text x="30"  y="145" fill="#f5a623" font-size="9" font-family="monospace">Col B:          S21 phase = −127.1°  → Δ = −1.7°  (within ±2° ✓)</text>
+  <text x="30"  y="160" fill="#ff6b6b" font-size="9" font-family="monospace">Col C:          S21 phase = −131.8°  → Δ = −6.4°  (FAIL &gt;±2°) → adjust PE44820DS by +6.4°</text>
+  <text x="30"  y="175" fill="#f5a623" font-size="9" font-family="monospace">Col D:          S21 phase = −126.9°  → Δ = −1.5°  (within ±2° ✓)</text>
+</svg>
 <div class="mod-section-title">Scenario</div>
 <div class="mod-p">You have a Metro AAU unit (unit 509, RFFE2 recently reflashed via JTAG). After reflash you need to verify the B1 TX path phase response on all 4 B1 antenna elements and confirm OB_CAL brings them within ±1° of each other.</div>
 
@@ -8156,6 +9078,47 @@ This proves: the FIRST amplifier dominates — always minimise NF of the first s
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">NF of Passive Devices — The Key Rule: NF = Loss (dB)</text>
+  <!-- Rule box -->
+  <rect x="20" y="35" width="760" height="35" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="400" y="57" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">GOLDEN RULE: Every passive device with X dB loss adds exactly X dB to system NF</text>
+  <!-- Device boxes -->
+  <rect x="20"  y="82" width="130" height="80" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="85"  y="102" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Attenuator</text>
+  <text x="85"  y="117" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">10 dB pad</text>
+  <text x="85"  y="133" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">NF = 10 dB</text>
+  <text x="85"  y="150" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Use AFTER LNA only!</text>
+
+  <rect x="160" y="82" width="130" height="80" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="225" y="102" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Cable (1m)</text>
+  <text x="225" y="117" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">2.5 dB loss</text>
+  <text x="225" y="133" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">NF = 2.5 dB</text>
+  <text x="225" y="150" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Before LNA = full hit</text>
+
+  <rect x="300" y="82" width="130" height="80" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="365" y="102" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="365" y="117" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">0.5 dB loss</text>
+  <text x="365" y="133" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">NF = 0.5 dB</text>
+  <text x="365" y="150" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Always before LNA</text>
+
+  <rect x="440" y="82" width="130" height="80" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="505" y="102" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">BPF Filter</text>
+  <text x="505" y="117" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">1.0 dB loss</text>
+  <text x="505" y="133" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">NF = 1.0 dB</text>
+  <text x="505" y="150" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Post-LNA: ÷100=0.01</text>
+
+  <rect x="580" y="82" width="200" height="80" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="680" y="100" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Why position matters:</text>
+  <text x="590" y="117" fill="#8892b0" font-size="8" font-family="monospace">Same 10dB attenuator:</text>
+  <text x="590" y="130" fill="#ff6b6b" font-size="8" font-family="monospace">Before LNA → NF +10dB (disaster)</text>
+  <text x="590" y="143" fill="#00d4a0" font-size="8" font-family="monospace">After LNA → NF +10/100 = 0.1dB (ok)</text>
+  <text x="590" y="157" fill="#4a5470" font-size="7" font-family="monospace">LNA gain divides all downstream NF</text>
+
+  <text x="400" y="185" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">For EXA measurements: always put the 30dB pad AFTER the RU (strong TX signal) — never in RX path</text>
+</svg>
 <div class="mod-section-title">Golden rule for passive lossy devices</div>
 <div class="mod-p">The Noise Figure of an attenuator (or any purely resistive lossy passive device) equals its attenuation in dB. A 10 dB attenuator has exactly 10 dB NF. This is a fundamental result — the device attenuates the signal but cannot attenuate the thermal noise floor below kTB.</div>
 <div class="mod-formula">Attenuator (L dB loss):
@@ -8198,6 +9161,67 @@ BUT: if noise at attenuator input is ABOVE kTB (e.g. −144 dBm/Hz = 30 dB above
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">5 Types of Noise — Sources, Spectrum Shape, What to Do</text>
+  <!-- Thermal -->
+  <rect x="10"  y="35" width="148" height="155" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="55" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① Thermal</text>
+  <text x="84"  y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">kTB, Johnson-Nyquist</text>
+  <line x1="20" y1="80" x2="148" y2="80" stroke="#4a5470" stroke-width="0.5"/>
+  <!-- Flat spectrum -->
+  <line x1="20" y1="140" x2="148" y2="140" stroke="#ff6b6b" stroke-width="2"/>
+  <text x="84" y="158" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Flat (white) spectrum</text>
+  <text x="84" y="172" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">Always present</text>
+  <text x="84" y="185" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Reduce: low T, narrow BW</text>
+
+  <!-- Shot noise -->
+  <rect x="164" y="35" width="148" height="155" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="238" y="55" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② Shot</text>
+  <text x="238" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Discrete electron flow</text>
+  <line x1="174" y1="80" x2="302" y2="80" stroke="#4a5470" stroke-width="0.5"/>
+  <!-- Also flat -->
+  <line x1="174" y1="140" x2="302" y2="140" stroke="#c8b800" stroke-width="2"/>
+  <text x="238" y="158" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Flat spectrum</text>
+  <text x="238" y="172" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">In diodes, BJTs</text>
+  <text x="238" y="185" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Reduce: lower current</text>
+
+  <!-- Flicker/1/f -->
+  <rect x="318" y="35" width="148" height="155" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="392" y="52" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Flicker (1/f)</text>
+  <text x="392" y="67" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Low-frequency noise</text>
+  <line x1="328" y1="78" x2="456" y2="78" stroke="#4a5470" stroke-width="0.5"/>
+  <!-- 1/f curve -->
+  <path d="M 330,135 Q 350,115 370,120 Q 400,125 456,138" fill="none" stroke="#5bc4ef" stroke-width="2"/>
+  <text x="392" y="158" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">High at low freq, flat HF</text>
+  <text x="392" y="172" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">GaN PA issue at &lt;1MHz</text>
+  <text x="392" y="185" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Reduce: GaAs instead of Si</text>
+
+  <!-- Phase noise -->
+  <rect x="472" y="35" width="148" height="155" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="546" y="52" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Phase Noise</text>
+  <text x="546" y="67" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">LO frequency jitter</text>
+  <line x1="482" y1="78" x2="610" y2="78" stroke="#4a5470" stroke-width="0.5"/>
+  <!-- Spiky spectrum -->
+  <line x1="546" y1="135" x2="546" y2="95" stroke="#9b8cf8" stroke-width="2"/>
+  <path d="M 490,135 Q 510,130 530,133 Q 546,95 562,133 Q 580,130 610,135" fill="none" stroke="#9b8cf8" stroke-width="1.5"/>
+  <text x="546" y="158" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Skirts around carrier</text>
+  <text x="546" y="172" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">Causes EVM floor</text>
+  <text x="546" y="185" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Reduce: better VCO/PLL</text>
+
+  <!-- Quantisation -->
+  <rect x="626" y="35" width="165" height="155" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="708" y="52" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑤ Quantisation</text>
+  <text x="708" y="67" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">ADC rounding error</text>
+  <line x1="636" y1="78" x2="781" y2="78" stroke="#4a5470" stroke-width="0.5"/>
+  <line x1="636" y1="135" x2="781" y2="135" stroke="#00d4a0" stroke-width="2"/>
+  <text x="708" y="158" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Flat, white-like</text>
+  <text x="708" y="172" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">SQNR=6N+1.76 dB</text>
+  <text x="708" y="185" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">12-bit → 74 dB SQNR</text>
+
+  <text x="400" y="205" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Your main concerns: ① Thermal (sensitivity floor) · ④ Phase noise (EVM) · ⑤ Quantisation (ADC dynamic range)</text>
+</svg>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Noise type</th><th>Also called</th><th>Source</th><th>Frequency behaviour</th><th>RF context</th></tr>
 <tr><td><b>Thermal</b></td><td>Johnson-Nyquist noise</td><td>Thermal agitation of electrons in any conductor above 0K</td><td>White (flat across all frequencies). Power ∝ temperature and bandwidth.</td><td>Fundamental limit of all receivers. Sets the −174 dBm/Hz noise floor. Gaussian amplitude distribution. Dominates in wideband RF systems.</td></tr>
@@ -8243,6 +9267,36 @@ For your GaN PA (RENESAS F8410 — GaN on SiC):
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">NF Applied to Your Work — EXA Preamp, Sensitivity Testing</text>
+  <!-- EXA preamp settings -->
+  <rect x="10" y="35" width="370" height="145" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="195" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXA N9010B Preamp Settings</text>
+  <text x="20" y="72"  fill="#8892b0" font-size="9" font-family="monospace">Setting                  DANL @ 2GHz</text>
+  <line x1="20" y1="78" x2="375" y2="78" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20" y="93"  fill="#ff6b6b" font-size="9" font-family="monospace">Atten 20dB, preamp OFF:  −103 dBm/Hz  ← TX ACLR use this</text>
+  <text x="20" y="108" fill="#f5a623" font-size="9" font-family="monospace">Atten  0dB, preamp OFF:  −120 dBm/Hz</text>
+  <text x="20" y="123" fill="#00d4a0" font-size="9" font-family="monospace">Atten  0dB, preamp ON:   −130 dBm/Hz  ← RX/RSSI use this</text>
+  <line x1="20" y1="130" x2="375" y2="130" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20" y="145" fill="#4a5470" font-size="8" font-family="monospace">Preamp = internal LNA (adds gain → reduces NF of rest of chain)</text>
+  <text x="20" y="158" fill="#4a5470" font-size="8" font-family="monospace">NEVER use preamp for TX — overloads input → false readings</text>
+  <text x="20" y="172" fill="#f5a623" font-size="8" font-family="monospace">Rule: TX power &gt;−30dBm → preamp OFF · RX/RSSI → preamp ON</text>
+
+  <!-- Sensitivity budget -->
+  <rect x="395" y="35" width="395" height="145" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="592" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Per-Band Sensitivity Budget</text>
+  <text x="405" y="72"  fill="#8892b0" font-size="9" font-family="monospace">Band    NF(dB)  Sens@10MHz   DSA</text>
+  <line x1="405" y1="78" x2="785" y2="78" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="405" y="93"  fill="#5bc4ef" font-size="9" font-family="monospace">B1      2.44    −99.3 dBm    5 dB</text>
+  <text x="405" y="107" fill="#5bc4ef" font-size="9" font-family="monospace">B3      2.40    −99.4 dBm    0 dB ← baseline</text>
+  <text x="405" y="121" fill="#5bc4ef" font-size="9" font-family="monospace">B8      3.15    −98.6 dBm    8 dB</text>
+  <text x="405" y="135" fill="#5bc4ef" font-size="9" font-family="monospace">B28     2.73    −99.0 dBm    8 dB</text>
+  <text x="405" y="149" fill="#5bc4ef" font-size="9" font-family="monospace">B41     2.00    −99.8 dBm    5 dB (TDD)</text>
+  <text x="405" y="165" fill="#4a5470" font-size="7" font-family="monospace">Higher DSA = worse sensitivity vs B3 = EXM injects higher power</text>
+  <text x="405" y="177" fill="#f5a623" font-size="7" font-family="monospace">Sensitivity = −174 + 70 + NF_band + (−1) for each</text>
+</svg>
 <div class="mod-section-title">EXA N9010B noise figure in your tests</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>EXA configuration</th><th>Approx NF</th><th>DANL at 2 GHz</th><th>Use for</th></tr>
@@ -8319,6 +9373,36 @@ These are 6–8 dB above the theoretical −102 dBm — consistent with:
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="260" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Sensitivity — From Physics Limit to Your Lab Measurement</text>
+  <!-- Vertical scale -->
+  <rect x="60" y="35" width="30" height="200" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <rect x="60" y="35"  width="30" height="40"  fill="#2a0d0d" rx="2"/>
+  <rect x="60" y="115" width="30" height="40"  fill="#1a1a0d" rx="2"/>
+  <rect x="60" y="155" width="30" height="40"  fill="#0d1a0d" rx="2"/>
+  <rect x="60" y="195" width="30" height="40"  fill="#0d0d2a" rx="2"/>
+  <!-- Lines + labels -->
+  <line x1="90" y1="35"  x2="740" y2="35"  stroke="#ff6b6b" stroke-width="1.5"/>
+  <text x="96" y="50" fill="#ff6b6b" font-size="10" font-weight="bold" font-family="monospace">−104 dBm — noise floor (kTB, 10 MHz BW only, no NF)</text>
+  <line x1="90" y1="115" x2="740" y2="115" stroke="#f5a623" stroke-width="1.5"/>
+  <text x="96" y="130" fill="#f5a623" font-size="10" font-family="monospace">−98 dBm — noise floor + NF 6 dB (system noise floor)</text>
+  <line x1="90" y1="155" x2="740" y2="155" stroke="#5bc4ef" stroke-width="2"/>
+  <text x="96" y="170" fill="#5bc4ef" font-size="10" font-weight="bold" font-family="monospace">−99 dBm — YOUR SENSITIVITY (B1, QPSK 1/3, 10 MHz)</text>
+  <text x="96" y="183" fill="#4a5470" font-size="8" font-family="monospace">At this power, BLER just reaches 5% threshold → this IS the sensitivity</text>
+  <line x1="90" y1="215" x2="740" y2="215" stroke="#9b8cf8" stroke-width="1"/>
+  <text x="96" y="230" fill="#9b8cf8" font-size="10" font-family="monospace">−174 dBm/Hz — kTB, physics absolute floor</text>
+  <!-- Sensitivity gap arrows -->
+  <line x1="45" y1="115" x2="45" y2="155" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="41,152 49,152 45,158" fill="#ff6b6b"/>
+  <text x="35" y="138" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace" transform="rotate(-90,35,138)">Required SNR</text>
+  <line x1="45" y1="35"  x2="45" y2="115" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="41,112 49,112 45,118" fill="#f5a623"/>
+  <text x="35" y="75"  fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace" transform="rotate(-90,35,75)">NF = 6 dB</text>
+  <!-- Formula bottom -->
+  <text x="400" y="248" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Sensitivity (dBm) = −174 + 10·log(BW) + NF + Required_SNR</text>
+</svg>
 <div class="mod-section-title">Your current understanding — correct but surface level</div>
 <div class="mod-p">You currently measure sensitivity as: minimum power injected from EXM, minus cable loss, at which the RU still decodes the signal. That is the <b>measured sensitivity</b> — the engineering test. But the PDF explains <b>why</b> that number is what it is, from first principles.</div>
 
@@ -8356,6 +9440,52 @@ If RU decodes at this level → sensitivity = −99.5 dBm ✓</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Modulation vs Required SNR — Why Sensitivity Changes with FRC</text>
+  <!-- Constellation complexity ladder -->
+  <rect x="20"  y="40" width="100" height="120" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="70"  y="65" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">QPSK</text>
+  <text x="70"  y="82" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">4 points</text>
+  <text x="70"  y="96" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">2 bits/sym</text>
+  <text x="70"  y="114" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SNR ≈ −1 dB</text>
+  <text x="70"  y="128" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">Best sensitivity</text>
+  <text x="70"  y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FRC A1</text>
+
+  <rect x="135" y="40" width="100" height="120" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="185" y="65" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">16QAM</text>
+  <text x="185" y="82" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">16 points</text>
+  <text x="185" y="96" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">4 bits/sym</text>
+  <text x="185" y="114" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SNR ≈ +12 dB</text>
+  <text x="185" y="128" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">−13 dB worse</text>
+  <text x="185" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FRC A3</text>
+
+  <rect x="250" y="40" width="100" height="120" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="300" y="65" fill="#c8b800" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">64QAM</text>
+  <text x="300" y="82" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">64 points</text>
+  <text x="300" y="96" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">6 bits/sym</text>
+  <text x="300" y="114" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SNR ≈ +18 dB</text>
+  <text x="300" y="128" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">−19 dB worse</text>
+  <text x="300" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FRC A5</text>
+
+  <!-- Impact on sensitivity chart -->
+  <rect x="380" y="35" width="400" height="140" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="580" y="55" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Sensitivity at 10 MHz BW, B1</text>
+  <!-- Bars -->
+  <rect x="400" y="65" width="180" height="20" fill="#00d4a0"/>
+  <text x="395" y="79" fill="#8892b0" font-size="8" text-anchor="end" font-family="monospace">QPSK 1/3</text>
+  <text x="585" y="79" fill="#c8c8d8" font-size="8" font-family="monospace">−99 dBm (best)</text>
+  <rect x="400" y="92" width="150" height="20" fill="#5bc4ef"/>
+  <text x="395" y="106" fill="#8892b0" font-size="8" text-anchor="end" font-family="monospace">16QAM 1/2</text>
+  <text x="555" y="106" fill="#c8c8d8" font-size="8" font-family="monospace">−86 dBm</text>
+  <rect x="400" y="119" width="120" height="20" fill="#c8b800"/>
+  <text x="395" y="133" fill="#8892b0" font-size="8" text-anchor="end" font-family="monospace">64QAM 1/2</text>
+  <text x="525" y="133" fill="#c8c8d8" font-size="8" font-family="monospace">−80 dBm</text>
+  <text x="580" y="165" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">More bits/symbol → more SNR needed → worse sensitivity</text>
+  <!-- Key -->
+  <text x="400" y="185" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">QPSK is most robust — used for FRC A1 (best sensitivity test). 64QAM needs clean signal — used for peak throughput, not sensitivity.</text>
+</svg>
 <div class="mod-section-title">Why modulation changes the sensitivity number</div>
 <div class="mod-p">The "Required SNR" term in the sensitivity formula is entirely determined by the modulation scheme and coding rate. Higher modulation order = symbols closer together on the constellation = need cleaner signal (higher SNR) to distinguish them = worse sensitivity.</div>
 <div class="mod-table-wrap"><table class="test-table">
@@ -8520,6 +9650,65 @@ Step 6: RuAuto uses DSA in test threshold
 </div>
 <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">DSA — Complete Table Explained (what each column actually is)</text>
+  <!-- Column headers -->
+  <rect x="10"  y="35" width="80"  height="24" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1" rx="3"/>
+  <text x="50"  y="51" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Flavour/Band</text>
+  <rect x="95"  y="35" width="50"  height="24" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="120" y="51" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">DSA(dB)</text>
+  <rect x="150" y="35" width="50"  height="24" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="3"/>
+  <text x="175" y="51" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">RX paths</text>
+  <rect x="205" y="35" width="130" height="24" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1" rx="3"/>
+  <text x="270" y="51" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">rev5 before → after</text>
+  <rect x="340" y="35" width="130" height="24" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="3"/>
+  <text x="405" y="51" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">rev1 before → after</text>
+  <rect x="475" y="35" width="130" height="24" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="3"/>
+  <text x="540" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">comb rev3 before/after</text>
+  <rect x="610" y="35" width="180" height="24" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="3"/>
+  <text x="700" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">comb rev1 before/after</text>
+  <!-- Sample data rows -->
+  <rect x="10" y="63" width="780" height="18" fill="#0d1a0d" rx="2"/>
+  <text x="50"  y="75" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">b1b3 / B1</text>
+  <text x="120" y="75" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">5</text>
+  <text x="175" y="75" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">4</text>
+  <text x="270" y="75" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">-102.46 → -102.41</text>
+  <text x="405" y="75" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">-101.85 → -101.80</text>
+  <text x="540" y="75" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">-108.66 → -108.47</text>
+  <text x="700" y="75" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">-107.86 → -107.80</text>
+
+  <rect x="10" y="85" width="780" height="18" fill="#141720" rx="2"/>
+  <text x="50"  y="97" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">b1b3 / B3 ★</text>
+  <text x="120" y="97" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">0 ← BASE</text>
+  <text x="175" y="97" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">4</text>
+  <text x="270" y="97" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">-102.70 → -102.70</text>
+  <text x="405" y="97" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">identical (DSA=0)</text>
+  <text x="700" y="97" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">-108.75 → -108.75</text>
+
+  <rect x="10" y="107" width="780" height="18" fill="#0d1a0d" rx="2"/>
+  <text x="50"  y="119" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">b1b3/B28</text>
+  <text x="120" y="119" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">8 ← worst</text>
+  <text x="175" y="119" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">2</text>
+  <text x="270" y="119" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">-102.20 → -101.95</text>
+  <text x="540" y="119" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">-105.39 → -105.03</text>
+
+  <!-- Explanations -->
+  <rect x="10" y="135" width="380" height="75" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="4"/>
+  <text x="200" y="153" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">before vs after:</text>
+  <text x="20"  y="168" fill="#8892b0" font-size="8" font-family="monospace">before = raw theoretical sensitivity (kTB+NF+SNR)</text>
+  <text x="20"  y="181" fill="#8892b0" font-size="8" font-family="monospace">after = corrected value after DSA offset applied</text>
+  <text x="20"  y="194" fill="#f5a623" font-size="8" font-family="monospace">DSA=0 → before=after (B3 baseline needs no correction)</text>
+  <text x="20"  y="207" fill="#f5a623" font-size="8" font-family="monospace">DSA=5 → after = before+5 (EXM injects 5dB more power)</text>
+
+  <rect x="400" y="135" width="390" height="75" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="4"/>
+  <text x="595" y="153" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">comb vs single path:</text>
+  <text x="410" y="168" fill="#8892b0" font-size="8" font-family="monospace">Single path (rev5): one RX chain tested alone</text>
+  <text x="410" y="181" fill="#8892b0" font-size="8" font-family="monospace">comb rev3: 3 paths combined (MRC diversity)</text>
+  <text x="410" y="194" fill="#00d4a0" font-size="8" font-family="monospace">Combined is ~5-6 dB better — always passes more easily</text>
+  <text x="410" y="207" fill="#4a5470" font-size="7" font-family="monospace">MRC = Maximum Ratio Combining — weights signals by quality</text>
+</svg>
+
 <!-- Visual flow -->
 <div style="background:#0d0f14;border:1px solid #232840;border-radius:10px;padding:16px;margin-bottom:16px;overflow-x:auto">
   <div style="font-size:10px;color:#4a5470;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">From physics to your PRACH test pass/fail</div>
@@ -8600,6 +9789,55 @@ Step 6: RuAuto uses DSA in test threshold
 </div>
 <div class="module-body">
 
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">kTB — Boltzmann × Temperature × Bandwidth (step by step)</text>
+  <!-- Three boxes k, T, B -->
+  <rect x="20"  y="40" width="170" height="90" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="105" y="63" fill="#9b8cf8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">k (Boltzmann)</text>
+  <text x="105" y="83" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">1.38 × 10⁻²³ J/K</text>
+  <text x="105" y="100" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Fixed physical constant</text>
+  <text x="105" y="114" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">You cannot change this</text>
+  <text x="105" y="126" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">Sets physics floor</text>
+
+  <text x="200" y="90" fill="#f5a623" font-size="20" text-anchor="middle" font-family="monospace">×</text>
+
+  <rect x="215" y="40" width="170" height="90" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="300" y="63" fill="#c8b800" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">T (Temperature)</text>
+  <text x="300" y="83" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">290 K = 17°C room</text>
+  <text x="300" y="100" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">IEEE standard ref temp</text>
+  <text x="300" y="114" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Hot PA → higher noise</text>
+  <text x="300" y="126" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">+3dB per 2× temp (K)</text>
+
+  <text x="395" y="90" fill="#f5a623" font-size="20" text-anchor="middle" font-family="monospace">×</text>
+
+  <rect x="410" y="40" width="170" height="90" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="495" y="63" fill="#5bc4ef" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">B (Bandwidth)</text>
+  <text x="495" y="83" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">1 Hz → 10 MHz → 20 MHz</text>
+  <text x="495" y="100" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Wider BW = more noise</text>
+  <text x="495" y="114" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">10log(BW): 67/70/73 dB</text>
+  <text x="495" y="126" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">You choose BW in test</text>
+
+  <text x="590" y="90" fill="#f5a623" font-size="20" text-anchor="middle" font-family="monospace">=</text>
+
+  <rect x="610" y="35" width="170" height="100" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="695" y="60" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">kTB</text>
+  <text x="695" y="82" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">−174 dBm/Hz</text>
+  <text x="695" y="100" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">+70 dB (10 MHz)</text>
+  <text x="695" y="116" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">= −104 dBm</text>
+  <text x="695" y="130" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Your noise floor</text>
+
+  <!-- BW table -->
+  <rect x="20"  y="145" width="760" height="65" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="163" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BW vs noise floor vs sensitivity (B1, NF=5.75 dB, QPSK 1/3 SNR=−1 dB)</text>
+  <text x="80"  y="180" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">5 MHz → −107 dBm</text>
+  <text x="230" y="180" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">10 MHz → −104 dBm</text>
+  <text x="380" y="180" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">15 MHz → −102 dBm</text>
+  <text x="530" y="180" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">20 MHz → −101 dBm</text>
+  <text x="680" y="180" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">+3dB per 2×BW</text>
+  <text x="400" y="200" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Sensitivity = kTB + 10log(BW) + NF + SNR_req = −174 + 70 + 5.75 + (−1) = −99.25 dBm (10 MHz B1)</text>
+</svg>
+
 <!-- Visual KTB breakdown -->
 <div style="background:#0d0f14;border:1px solid #232840;border-radius:10px;padding:18px;margin-bottom:18px">
   <div style="font-size:10px;color:#4a5470;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">kTB = the three ingredients of thermal noise</div>
@@ -8675,6 +9913,80 @@ Step 6: RuAuto uses DSA in test threshold
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Complete Noise Chain — EXM → Cable → RU Port → LNA → ADC</text>
+  <!-- Blocks -->
+  <rect x="10"  y="40" width="80" height="50" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="50"  y="60" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXM</text>
+  <text x="50"  y="74" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">outputs</text>
+  <text x="50"  y="85" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">−95 dBm</text>
+  <line x1="90" y1="65" x2="105" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="105" y="40" width="80" height="50" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="145" y="58" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Cable</text>
+  <text x="145" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">−2.5 dB</text>
+  <text x="145" y="85" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">loss</text>
+  <line x1="185" y1="65" x2="200" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <!-- RU port marker -->
+  <line x1="200" y1="35" x2="200" y2="100" stroke="#00d4a0" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="200" y="112" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">RU port</text>
+  <text x="200" y="123" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">−97.5 dBm</text>
+
+  <rect x="210" y="40" width="80" height="50" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="3"/>
+  <text x="250" y="58" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="250" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">+0.5 dB NF</text>
+  <text x="250" y="85" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">FULL penalty</text>
+  <line x1="290" y1="65" x2="305" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="305" y="40" width="80" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="345" y="58" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Pre-BPF</text>
+  <text x="345" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">+0.3 dB NF</text>
+  <text x="345" y="85" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">FULL penalty</text>
+  <line x1="385" y1="65" x2="400" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="400" y="30" width="95" height="70" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="3"/>
+  <text x="447" y="52" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">LNA</text>
+  <text x="447" y="68" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">NF=2 dB G=+20dB</text>
+  <text x="447" y="82" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">gain ×100 linear</text>
+  <text x="447" y="93" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">★ SETS EVERYTHING</text>
+  <line x1="495" y1="65" x2="510" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="510" y="40" width="80" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="550" y="58" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Post-BPF</text>
+  <text x="550" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">÷100 = 0.01 dB</text>
+  <text x="550" y="85" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">negligible</text>
+  <line x1="590" y1="65" x2="605" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="605" y="40" width="80" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="645" y="58" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Mixer</text>
+  <text x="645" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">÷100 = 0.05 dB</text>
+  <text x="645" y="85" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">negligible</text>
+  <line x1="685" y1="65" x2="700" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="700" y="40" width="85" height="50" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="742" y="58" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ADC</text>
+  <text x="742" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">12-bit, 74dB SQNR</text>
+  <text x="742" y="85" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">→ DU</text>
+
+  <!-- NF accumulation bar -->
+  <text x="10" y="140" fill="#4a5470" font-size="8" font-family="monospace">Cumulative NF:</text>
+  <rect x="10"  y="148" width="125" height="14" fill="#ff6b6b" rx="2"/>
+  <text x="15"  y="159" fill="#fff" font-size="8" font-family="monospace">Cable: +2.5 dB</text>
+  <rect x="210" y="148" width="25"  height="14" fill="#f5a623" rx="2"/>
+  <text x="240" y="159" fill="#f5a623" font-size="8" font-family="monospace">+0.5</text>
+  <rect x="305" y="148" width="15"  height="14" fill="#c8b800" rx="2"/>
+  <text x="325" y="159" fill="#c8b800" font-size="8" font-family="monospace">+0.3</text>
+  <rect x="400" y="148" width="100" height="14" fill="#00d4a0" rx="2"/>
+  <text x="405" y="159" fill="#000" font-size="8" font-family="monospace">LNA: +2.0 dB (KEY)</text>
+  <rect x="510" y="148" width="3"   height="14" fill="#5bc4ef" rx="1"/>
+  <rect x="605" y="148" width="3"   height="14" fill="#5bc4ef" rx="1"/>
+  <text x="400" y="180" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">System NF = 2.5 + 0.5 + 0.3 + 2.0 + ≈0 + ≈0 = 5.75 dB total</text>
+  <text x="400" y="198" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">True RU input power = EXM output − cable loss = −95 − 2.5 = −97.5 dBm at RU port</text>
+  <text x="400" y="213" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Always measure cable loss with VNA before RX tests and subtract it from EXM output reading</text>
+</svg>
 
 <!-- Full visual chain diagram -->
 <div style="background:#0d0f14;border:1px solid #232840;border-radius:10px;padding:16px;margin-bottom:20px;overflow-x:auto">
