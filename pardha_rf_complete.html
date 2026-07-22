@@ -9351,6 +9351,238 @@ These are 6–8 dB above the theoretical −102 dBm — consistent with:
 </div>
 </div>
 
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NF_CAL</span>
+  <span class="mod-title">Noise Figure calibration — Y-factor method, ENR, hot/cold noise, what it measures and why</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">NF Calibration — Y-Factor Method (Hot/Cold Noise Source)</text>
+  <!-- Hot injection -->
+  <rect x="10" y="35" width="110" height="55" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="65" y="56" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Noise Source</text>
+  <text x="65" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">HOT: ENR=15dB</text>
+  <text x="65" y="83" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">T_hot ≈ 9600 K</text>
+  <line x1="120" y1="62" x2="155" y2="62" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="153,58 163,62 153,66" fill="#ff6b6b"/>
+  <rect x="163" y="35" width="110" height="55" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="218" y="56" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">DUT (your RU)</text>
+  <text x="218" y="70" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">NF = ? dB</text>
+  <text x="218" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LNA + duplexer chain</text>
+  <line x1="273" y1="62" x2="308" y2="62" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="306,58 316,62 306,66" fill="#5bc4ef"/>
+  <rect x="316" y="35" width="130" height="55" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="381" y="53" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXA measures</text>
+  <text x="381" y="68" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">N_hot = −60 dBm</text>
+  <text x="381" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">power in measurement BW</text>
+  <!-- Cold injection -->
+  <rect x="10" y="103" width="110" height="55" fill="#0d0d2a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="65" y="124" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Noise Source</text>
+  <text x="65" y="138" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">COLD: source OFF</text>
+  <text x="65" y="151" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">T_cold = 290 K</text>
+  <line x1="120" y1="130" x2="155" y2="130" stroke="#9b8cf8" stroke-width="2"/>
+  <polygon points="153,126 163,130 153,134" fill="#9b8cf8"/>
+  <rect x="163" y="103" width="110" height="55" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="218" y="124" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">DUT (your RU)</text>
+  <text x="218" y="138" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">same gain, same BW</text>
+  <line x1="273" y1="130" x2="308" y2="130" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="306,126 316,130 306,134" fill="#5bc4ef"/>
+  <rect x="316" y="103" width="130" height="55" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="381" y="121" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXA measures</text>
+  <text x="381" y="136" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">N_cold = −66 dBm</text>
+  <text x="381" y="151" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">6 dB lower (Y=4 linear)</text>
+  <!-- Formula -->
+  <rect x="460" y="35" width="330" height="130" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="625" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Y-Factor calculation:</text>
+  <text x="470" y="72"  fill="#f5a623" font-size="9" font-family="monospace">Y = N_hot / N_cold (linear)</text>
+  <text x="470" y="87"  fill="#f5a623" font-size="9" font-family="monospace">  = 10^(6/10) = 3.98 ≈ 4.0</text>
+  <text x="470" y="105" fill="#c8c8d8" font-size="9" font-family="monospace">NF = ENR − 10·log(Y−1)</text>
+  <text x="470" y="120" fill="#c8c8d8" font-size="9" font-family="monospace">   = 15 − 10·log(3)</text>
+  <text x="470" y="138" fill="#00d4a0" font-size="11" font-weight="bold" font-family="monospace">   = 15 − 4.77 = 10.2 dB</text>
+  <text x="470" y="155" fill="#4a5470" font-size="7" font-family="monospace">ENR = Excess Noise Ratio of source</text>
+  <!-- Band results -->
+  <rect x="10" y="170" width="780" height="42" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="187" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Your RU measured NF targets (at RU input port, after duplexer+cable subtracted):</text>
+  <text x="80"  y="203" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">B1: 2.44 dB</text>
+  <text x="220" y="203" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">B3: 2.40 dB</text>
+  <text x="360" y="203" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">B8: 3.15 dB</text>
+  <text x="500" y="203" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">B28: 2.73 dB</text>
+  <text x="660" y="203" fill="#5bc4ef" font-size="9" text-anchor="middle" font-family="monospace">B41: 2.00 dB</text>
+</svg>
+
+<h4>What is NF calibration?</h4>
+<p>NF cal answers one question: <strong>how much noise does your RX chain add to the signal?</strong> This is a hardware characterisation measurement — it tells you whether the LNA, duplexer, and cable are performing to spec. It does NOT write any correction value — it just confirms (or flags) the hardware quality.</p>
+
+<h4>Key terms, each explained</h4>
+
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">ENR — Excess Noise Ratio</b><br>
+The "how much hotter than room temperature is the noise source" spec. ENR=15 dB means the source outputs noise equivalent to a resistor at <code>290 × 10^(15/10) ≈ 9200 K</code> when switched ON. This is the known reference your calculation depends on. The noise source module has its ENR printed on it and also stored in its EEPROM so the EXA can read it automatically.
+</div>
+
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Y-factor</b><br>
+Y = N_hot / N_cold in linear power. If hot output is −60 dBm and cold output is −66 dBm, the difference is 6 dB → Y = 10^(6/10) = 3.98. The Y-factor is how much "more noise" comes out when you switch the source hot vs cold. A low Y means the DUT is adding so much noise of its own that the source temperature barely matters — i.e., high NF device. A high Y means the DUT is quiet and is faithfully amplifying the difference — i.e., low NF device.
+</div>
+
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">T_hot and T_cold</b><br>
+T_cold = 290 K (standard room temperature, the IEEE reference). T_hot = 290 × 10^(ENR/10). When the noise source is OFF, it still generates thermal noise at 290 K — that becomes your cold reference. This is why you use the same physical source for both measurements: it removes cable and connector uncertainty from the result.
+</div>
+
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">NF formula: NF = ENR − 10·log(Y−1)</b><br>
+Where this comes from: NF definition is SNR_in/SNR_out. For a two-port device with gain G and noise temperature T_e, the output noise is G·k·(T_cold + T_e)·B for cold input and G·k·(T_hot + T_e)·B for hot input. Taking the ratio cancels G and B, and solving for T_e gives you NF = 10·log(1 + T_e/T_0). Substituting T_e from the Y-factor ratio gives the formula above.
+</div>
+
+<div style="background:#0d1a2a;border-left:3px solid #9b8cf8;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#9b8cf8">In your lab — no standalone noise source needed</b><br>
+The EXA N9010B has a built-in NF measurement mode under <code>Meas → Noise Figure</code>. It drives its own internal noise source through Port 1 output, sweeps frequencies, and automatically computes NF vs frequency. You connect EXA Port 1 → RU RX port (via calibrated cable), tell it your cable loss, and it plots NF(f) for you. You then read off the NF at your band centre (e.g. 1950 MHz for B1 UL). The EXA handles the Y-factor math internally.
+</div>
+
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">When NF is worse than spec — what to check</b><br>
+If measured NF > spec by more than 1 dB: (1) Check cable loss — every 0.1 dB extra cable loss before the LNA adds 0.1 dB to measured NF. (2) Check connector torque — loose SMA can add 0.3–0.5 dB. (3) Check LNA bias — wrong supply voltage shifts NF. (4) Check for LNA compression — if signal level too high, LNA is not in its linear region and NF appears worse. (5) Duplexer damage — a damaged duplexer filter adds extra loss before the LNA, directly adding to NF.
+</div>
+
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">GAIN_CAL</span>
+  <span class="mod-title">Gain calibration — RX chain ADC_ADJUST, TX power trim, what each register means</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+
+<svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="240" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Gain Calibration — RX and TX Chain</text>
+
+  <!-- RX Gain Cal -->
+  <text x="10" y="42" fill="#5bc4ef" font-size="10" font-weight="bold" font-family="monospace">RX Gain Cal (finds ADC_ADJUST):</text>
+  <rect x="10"  y="50" width="100" height="50" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="3"/>
+  <text x="60"  y="70" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXM injects</text>
+  <text x="60"  y="83" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">−95.0 dBm</text>
+  <text x="60"  y="95" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">known exactly</text>
+  <line x1="110" y1="75" x2="128" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="128" y="55" width="55" height="40" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="155" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Cable</text>
+  <text x="155" y="85" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">−2.5 dB</text>
+  <line x1="183" y1="75" x2="201" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="192" y="68" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−97.5</text>
+  <rect x="201" y="50" width="90" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="246" y="68" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">RU RX chain</text>
+  <text x="246" y="81" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">dup+BPF+LNA</text>
+  <text x="246" y="94" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">+VGA+mixer</text>
+  <line x1="291" y1="75" x2="309" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="309" y="50" width="75" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="346" y="68" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ADC</text>
+  <text x="346" y="83" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">−12.5 dBFS</text>
+  <text x="346" y="95" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">get_rssi reads</text>
+  <line x1="384" y1="75" x2="402" y2="75" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="402" y="42" width="190" height="66" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="497" y="62" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ADC_ADJUST = ?</text>
+  <text x="412" y="76" fill="#8892b0" font-size="8" font-family="monospace">= P_at_RU_port − dBFS</text>
+  <text x="412" y="89" fill="#8892b0" font-size="8" font-family="monospace">= −97.5 − (−12.5)</text>
+  <text x="412" y="104" fill="#00d4a0" font-size="10" font-weight="bold" font-family="monospace">= −85 dBm/dBFS offset</text>
+  <rect x="600" y="50" width="190" height="58" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="695" y="68" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Written to hardware.json:</text>
+  <text x="695" y="82" fill="#c8c8d8" font-size="8" text-anchor="middle" font-family="monospace">"ADC_ADJUST_B1": −85,</text>
+  <text x="695" y="96" fill="#c8c8d8" font-size="8" text-anchor="middle" font-family="monospace">"ADC_ADJUST_B3": −84.5,</text>
+  <text x="695" y="106" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">separate per band, per ADC ch</text>
+
+  <!-- TX Gain Cal -->
+  <text x="10" y="130" fill="#f5a623" font-size="10" font-weight="bold" font-family="monospace">TX Gain Cal (trims output power to rated target):</text>
+  <rect x="10"  y="138" width="95" height="50" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="57"  y="158" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BBU sets</text>
+  <text x="57"  y="171" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">TX_GAIN reg</text>
+  <text x="57"  y="183" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">integer 0-255</text>
+  <line x1="105" y1="163" x2="123" y2="163" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="123" y="138" width="95" height="50" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="170" y="158" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DAC→PA</text>
+  <text x="170" y="171" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">RFFE TX chain</text>
+  <text x="170" y="183" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DPD+CFR active</text>
+  <line x1="218" y1="163" x2="236" y2="163" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="236" y="138" width="95" height="50" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="283" y="158" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BOB SMA</text>
+  <text x="283" y="171" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">coupler output</text>
+  <text x="283" y="183" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">−16.7 dBm target</text>
+  <line x1="331" y1="163" x2="349" y2="163" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="349" y="138" width="110" height="50" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="404" y="158" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXA measures</text>
+  <text x="404" y="171" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">actual: −17.9 dBm</text>
+  <text x="404" y="183" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">error = −1.2 dB</text>
+  <line x1="459" y1="163" x2="477" y2="163" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="477" y="130" width="130" height="66" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="3"/>
+  <text x="542" y="150" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Adjust TX_GAIN</text>
+  <text x="487" y="165" fill="#8892b0" font-size="8" font-family="monospace">+1.2 dB → increment</text>
+  <text x="487" y="178" fill="#8892b0" font-size="8" font-family="monospace">register by ~4 counts</text>
+  <text x="487" y="191" fill="#00d4a0" font-size="8" font-family="monospace">re-measure → repeat</text>
+  <rect x="617" y="138" width="175" height="50" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="704" y="158" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PASS: |error| ≤ 1 dB</text>
+  <text x="704" y="172" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">write final reg value</text>
+  <text x="704" y="184" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">to tx_calibration.json</text>
+
+  <!-- Targets -->
+  <rect x="10" y="200" width="780" height="32" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="400" y="213" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">TX rated targets at BOB SMA: B1=−16.7 · B3=−15.7 · B8=−18.0 · B28=−27.3 · B41=−23.0 dBm</text>
+  <text x="400" y="226" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">These are the power levels seen at the coupler output — full antenna power is ~30 dB higher after the coupler ratio</text>
+</svg>
+
+<h4>RX Gain Calibration — what ADC_ADJUST really is</h4>
+<p>The RX chain has many components between the antenna port and the ADC register: duplexer, BPF, LNA, VGA, mixer, another BPF, then the ADC. Each one has gain or loss. Rather than calibrating each component separately, RX gain cal treats the entire chain as a black box and finds one single number — <strong>ADC_ADJUST</strong> — that converts any dBFS reading into an accurate dBm reading at the RU input port.</p>
+
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">ADC_ADJUST</b><br>
+A calibration constant stored in <code>hardware.json</code>, one per band per ADC channel. Formula: <code>ADC_ADJUST = P_known_at_RU_port − dBFS_reading</code>. Once calibrated, converting any future reading is: <code>P_dBm = dBFS + ADC_ADJUST</code>. It absorbs the total chain gain between RU port and ADC register — so even though the LNA adds +20 dB, the VGA might be at +6 dB, and the mixer has conversion loss of −7 dB, you never need to know each individual value. The single offset does it all.
+</div>
+
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Why separate ADC_ADJUST per band and per ADC channel</b><br>
+Each band has a different LNA gain and filter response, so the total chain gain is different per band. B1 at 2140 MHz has slightly different gain than B3 at 1843 MHz — even though they may share physical hardware, the frequency-dependent component behaviour means each band needs its own cal constant. Per ADC channel (B1 uses ADC channels 0/1/4/5, B3 uses 2/3/6/7) further accounts for ADC input impedance variation and any mismatch in the IQ paths.
+</div>
+
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Temperature dependence — why RSSI can drift</b><br>
+LNA gain changes with temperature — typically −0.02 to −0.05 dB/°C for GaAs pHEMT LNAs. In a hot lab (40°C vs 25°C calibration temp), the LNA gain drops ~0.3–0.7 dB, which makes RSSI read 0.3–0.7 dB low. If you see systematic RSSI error that grows as the RU warms up, this is why. Some RU designs have temperature compensation tables that auto-correct ADC_ADJUST as a function of measured board temperature — check <code>hardware.json</code> for a <code>TEMP_COMP</code> array.
+</div>
+
+<h4>TX Gain Calibration — what TX_GAIN register controls</h4>
+<p>The TX chain starts with the baseband IQ signal at full digital scale, passes through the DPD block, DAC, upconverter, PA driver, and finally the main PA. The total gain from baseband to RF output is roughly fixed by hardware, but there is always ±2–3 dB unit-to-unit variation from component tolerances. TX gain cal trims a digital attenuator (or the PA bias point) until the output power at the coupler port exactly hits the rated target.</p>
+
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">tx_calibration_eeprom.json</b><br>
+This is the file that holds the final TX_GAIN register values after calibration — one per band per column (A/B/C/D). It is written during factory calibration and stored in the RU EEPROM. When the RU boots, it reads this file and loads the register values before enabling TX. <strong>If this file is missing or corrupt, the RU falls back to default gain values which can be 6 dB low or high</strong> — this is exactly what caused the ~6 dB B41 power deficit you found on unit 26050509 (fault 12: missing tx_calibration_eeprom.json).
+</div>
+
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Coupler ratio — the BOB SMA is not antenna power</b><br>
+The BOB SMA port is a directional coupler output, not the main antenna port. The coupler splits a small fraction of the TX power for monitoring — typically the coupling ratio is 30 dB, meaning the BOB SMA sees 30 dB less power than what goes to the antenna. So B1 rated power at BOB SMA = −16.7 dBm corresponds to +13.3 dBm at the antenna connector, or roughly 21 W EIRP per column after antenna gain. Always measure at the BOB SMA — connecting EXA directly to the antenna port would overload it instantly.
+</div>
+
+<div style="background:#1a0d1a;border-left:3px solid #9b8cf8;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#9b8cf8">DPD and its interaction with gain cal</b><br>
+DPD (Digital Pre-Distortion) must converge before you measure TX power — it actively adjusts its coefficients for 30–60 seconds after power-on or after any power level change. If you measure output power while DPD is still adapting, you will see power fluctuating ±0.5 dB and possibly a wrong ACLR. Always wait for DPD to converge (check the DPD status register or simply wait 60 s) before taking a TX power or ACLR reading used for gain calibration.
+</div>
+
+<div style="background:#1a0d0d;border-left:3px solid #f5a623;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#f5a623">Gain cal vs RSSI cal — how they relate</b><br>
+They are the same operation from opposite ends of the RX chain. RSSI cal (ADC_ADJUST) calibrates the entire RX path as one unit. NF cal measures just the noise-adding property of that path. TX gain cal calibrates the TX path. All three together ensure that when EXM injects −95 dBm, the RU reports −95 dBm via get_rssi, and when the BBU commands rated TX power, the antenna port outputs exactly rated power. Any mismatch between these three is a sign something has drifted or failed.
+</div>
+
+</div>
+</div>
+
 </div><!-- end noisefigure section -->
 
 <!-- ═══════════════ SENSITIVITY & DSA ═══════════════ -->
