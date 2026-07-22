@@ -1493,46 +1493,122 @@ footer span{color:var(--text2)}
 </div>
 <div class="module-body">
 
-<div class="mod-section-title">5.1 Power amplifier (PA) — the heart of the TX chain</div>
-<div class="mod-p">The PA takes the modulated signal from the DAC and amplifies it to the required output power (+43 dBm for a macro RU). The PA is the most power-hungry and performance-critical component in the RU.</div>
-<div class="mod-p"><b>PA operating regions:</b></div>
-<div class="topic"><span><b>Linear region:</b> Output power increases proportionally with input. Gain is constant. EVM and ACLR are excellent here. The PA runs cool and efficient but doesn't deliver maximum power.</span></div>
-<div class="topic"><span><b>Compression region:</b> Input drive is high enough that the PA begins to saturate. Gain decreases (gain compression). For every 1 dB increase in input, output increases less than 1 dB. EVM and ACLR degrade significantly.</span></div>
-<div class="topic"><span><b>P1dB (1 dB compression point):</b> The output power at which the gain has dropped by 1 dB from its small-signal value. Typically the maximum usable output power for linear operation. OFDM signals must be backed off from P1dB due to their high PAPR.</span></div>
-<div class="topic"><span><b>Saturation:</b> Maximum output power. Gain = 0. Signal is severely clipped. Never operate here for communications — catastrophic EVM and ACLR.</span></div>
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">TX Chain — Complete DL Signal Path (FHGW → RFFE → Antenna)</text>
+  <!-- Blocks left to right -->
+  <rect x="8"   y="30" width="72" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="44"  y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">BBU/DU</text>
+  <text x="44"  y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">IQ baseband</text>
+  <text x="44"  y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">eCPRI out</text>
+  <line x1="80" y1="55" x2="94" y2="55" stroke="#4a5470" stroke-width="1.5"/>
 
-<div class="mod-section-title">5.2 PAPR — why OFDM is hard on PAs</div>
-<div class="mod-p">PAPR (Peak-to-Average Power Ratio) is the ratio between the peak instantaneous power and the average power of a signal. An unmodulated CW signal has PAPR = 0 dB (peak = average). An OFDM signal with N subcarriers can have peaks up to N times the average when all subcarriers align in phase simultaneously — in theory PAPR = 10·log10(N) dB.</div>
-<div class="mod-p">For a 20 MHz LTE signal (100 RBs × 12 subcarriers = 1200 subcarriers), theoretical max PAPR ≈ 31 dB. Practical PAPR (with random data, 0.01% exceedance probability) ≈ 10–12 dB.</div>
-<div class="mod-p">This means: if you want average output power of +43 dBm, the PA must handle peaks of +43 + 12 = +55 dBm without clipping. This forces the PA to have a much higher P1dB than the average output power, making it less efficient. PA efficiency at back-off is terrible — a PA might be 50% efficient at P1dB but only 20% efficient at 10 dB back-off.</div>
-<div class="tip">This is why modern RUs use DPD (digital pre-distortion) — it lets the PA operate closer to P1dB while maintaining acceptable EVM/ACLR, significantly improving efficiency and reducing heat generation.</div>
+  <rect x="94"  y="30" width="72" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="130" y="48" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW</text>
+  <text x="130" y="61" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">BFP decomp</text>
+  <text x="130" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">IFFT + CP</text>
+  <line x1="166" y1="55" x2="180" y2="55" stroke="#4a5470" stroke-width="1.5"/>
 
-<div class="mod-section-title">5.3 Nonlinearity — where EVM and ACLR come from</div>
-<div class="mod-p">A real PA's output is not perfectly proportional to its input. The transfer function can be modeled as a polynomial:</div>
-<div class="mod-formula">y(t) = a₁·x(t) + a₂·x²(t) + a₃·x³(t) + ...</div>
-<div class="mod-p">The linear term (a₁) is the desired gain. Higher-order terms create distortion:</div>
-<div class="topic"><span><b>Even-order terms (a₂):</b> Create harmonics at 2f, 3f and DC offset. Filtered out easily by the band-select filter. Less of a problem in practice.</span></div>
-<div class="topic"><span><b>Odd-order terms (a₃, a₅):</b> Create intermodulation products that fall INSIDE the signal band and adjacent channels. Cannot be filtered without removing wanted signal. This is the source of EVM degradation and ACLR.</span></div>
-<div class="mod-p"><b>How ACLR happens physically:</b> Consider two tones at f1 and f2 within your LTE channel. The a₃ term produces products at 2f1−f2 and 2f2−f1 — these land in the adjacent channel, appearing as spectral regrowth extending outside your carrier. With 1200 subcarriers, there are billions of such mixing products, creating the characteristic "skirt" shape seen on the spectrum analyzer when a PA is driven into compression.</div>
-<div class="mod-p"><b>How EVM happens:</b> AM-AM distortion (gain changes with power level) and AM-PM distortion (phase shift changes with power level) both cause each subcarrier's constellation point to move away from its ideal position. The distance from ideal position = EVM. High PAPR signals constantly sweep through the PA's nonlinear region, creating EVM that varies per symbol.</div>
+  <rect x="180" y="22" width="85" height="66" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="222" y="44" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">CFR</text>
+  <text x="222" y="57" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Crest Factor</text>
+  <text x="222" y="68" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Reduce PAPR</text>
+  <text x="222" y="79" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">10-12dB→8dB</text>
+  <line x1="265" y1="55" x2="279" y2="55" stroke="#4a5470" stroke-width="1.5"/>
 
-<div class="mod-section-title">5.4 IP3 — the linearity figure of merit</div>
-<div class="mod-p">The Third-order Intercept Point (IP3) is the theoretical power level where the fundamental output and the third-order intermodulation product would be equal (they never actually reach this point because the PA saturates first). Higher IP3 = more linear device.</div>
-<div class="mod-p"><b>IIP3 (Input-referred IP3):</b> The input power at which this theoretical crossing would occur. For an LNA: IIP3 typically −10 to +10 dBm. For a PA: IIP3 typically well above P1dB.</div>
-<div class="mod-p"><b>OIP3 (Output-referred IP3):</b> OIP3 = IIP3 + Gain. Relationship between IIP3, OIP3, and P1dB: OIP3 ≈ P1dB + 9 to 11 dB (rule of thumb for class AB PAs).</div>
-<div class="mod-p"><b>Cascaded IIP3 (Friis for nonlinearity):</b></div>
-<div class="mod-formula">1/IIP3_total = 1/IIP3₁ + G₁/IIP3₂ + G₁G₂/IIP3₃ + ...</div>
-<div class="mod-p">Unlike noise (where first stage dominates), for IIP3 the LAST high-gain stage often dominates. The PA is typically the worst nonlinear element in the entire chain and the one DPD must correct.</div>
+  <rect x="279" y="22" width="85" height="66" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="321" y="44" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">DPD</text>
+  <text x="321" y="57" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Pre-distort</text>
+  <text x="321" y="68" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">linearise PA</text>
+  <text x="321" y="79" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">60s converge</text>
+  <line x1="364" y1="55" x2="378" y2="55" stroke="#4a5470" stroke-width="1.5"/>
 
-<div class="mod-section-title">5.5 DPD — Digital Pre-Distortion</div>
-<div class="mod-p">DPD pre-distorts the input signal with the mathematical inverse of the PA's nonlinearity, so the PA's output is linear even when the PA itself isn't. Think of it as teaching the PA to lie about its input so that the actual output is correct.</div>
-<div class="mod-p"><b>How DPD works in your RU:</b></div>
-<div class="topic"><span><b>1. Observation path:</b> A small coupler takes a sample of the PA output and routes it back to a dedicated ADC (the "DPD observation receiver").</span></div>
-<div class="topic"><span><b>2. Error calculation:</b> The baseband processor compares the PA output (observed) with the desired output (reference). The difference = distortion introduced by the PA.</span></div>
-<div class="topic"><span><b>3. Model update:</b> An adaptive algorithm (LMS, RLS, or more complex) updates the DPD model coefficients to reduce this error.</span></div>
-<div class="topic"><span><b>4. Pre-distortion:</b> The updated model pre-distorts the TX signal so the PA output is linearized.</span></div>
-<div class="mod-p">DPD can improve ACLR by 10–20 dB and EVM by 5–10 dB while allowing the PA to operate at higher average power (better efficiency). The limitation: DPD must be retrained when the PA characteristics change due to temperature, aging, or power level changes. This is why you see DPD adaptation time in your test setup — the RU must "settle" after a power change before measurements are valid.</div>
-<div class="warn">If DPD fails or is miscalibrated (wrong observation path calibration, coefficient overflow, wrong center frequency), you'll see sudden ACLR degradation of 10–20 dB. This is distinct from a PA hardware failure. Always check whether DPD is enabled and converged before declaring an ACLR failure as a hardware fault.</div>
+  <rect x="378" y="30" width="72" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="414" y="48" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">DAC</text>
+  <text x="414" y="61" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Digital→RF</text>
+  <text x="414" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">122.88 MSPS</text>
+  <line x1="450" y1="55" x2="464" y2="55" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="464" y="30" width="72" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="500" y="48" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Upconv</text>
+  <text x="500" y="61" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">BB→RF freq</text>
+  <text x="500" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LO + mixer</text>
+  <line x1="536" y1="55" x2="550" y2="55" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="550" y="22" width="85" height="66" fill="#2a0000" stroke="#ff6b6b" stroke-width="2.5" rx="3"/>
+  <text x="592" y="44" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PA ★</text>
+  <text x="592" y="58" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">+43 dBm</text>
+  <text x="592" y="70" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">GaN · Eff~35%</text>
+  <text x="592" y="81" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">ACLR&lt;−45dBc</text>
+  <line x1="635" y1="55" x2="649" y2="55" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="649" y="30" width="72" height="50" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="3"/>
+  <text x="685" y="48" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="685" y="61" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">TX→antenna</text>
+  <text x="685" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">isolate RX</text>
+  <line x1="721" y1="55" x2="735" y2="55" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="735" y="30" width="57" height="50" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="763" y="51" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Antenna</text>
+  <text x="763" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4×column</text>
+  <text x="763" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">BF array</text>
+
+  <!-- Observation path for DPD -->
+  <line x1="592" y1="88" x2="592" y2="110" stroke="#00d4a0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="321" y1="110" x2="592" y2="110" stroke="#00d4a0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="321" y1="88" x2="321" y2="110" stroke="#00d4a0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="456" y="125" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">DPD observation path — PA output fed back to adapt pre-distortion coefficients</text>
+
+  <!-- BOB SMA coupler -->
+  <rect x="640" y="110" width="120" height="30" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="700" y="122" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">BOB SMA coupler</text>
+  <text x="700" y="134" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−30 dB tap → EXA</text>
+  <line x1="685" y1="80" x2="685" y2="110" stroke="#f5a623" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Key metrics -->
+  <rect x="8" y="148" width="784" height="44" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="164" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Key TX measurements at BOB SMA (coupler output, −30 dB from antenna):</text>
+  <text x="60"  y="180" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">Power: B1=−16.7 dBm</text>
+  <text x="190" y="180" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">B3=−15.7 dBm</text>
+  <text x="310" y="180" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">B8=−18.0 dBm</text>
+  <text x="430" y="180" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">B28=−27.3 dBm</text>
+  <text x="560" y="180" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">B41=−23.0 dBm</text>
+  <text x="700" y="180" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">ACLR&lt;−45 dBc</text>
+</svg>
+
+<h4>TX chain — complete downlink signal path</h4>
+<p>The TX chain converts baseband IQ data from the BBU into a high-power RF signal at the antenna. Every stage serves a specific purpose. Understanding each block explains every TX test you run — power, ACLR, EVM, DPD convergence.</p>
+
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">FHGW — what it does before the RF chain:</b><br>
+The Fronthaul Gateway receives compressed IQ data from the DU via eCPRI over 10GbE. It performs BFP (Block Floating Point) decompression — expanding 9-bit compressed samples back to 16-bit IQ. Then IFFT converts frequency-domain subcarriers to time-domain OFDM symbols. Cyclic prefix is added (4.69 μs normal CP) to protect against multipath. CFR (Crest Factor Reduction) clips and filters the waveform to reduce PAPR from ~12 dB down to ~8 dB — this is critical because the PA cannot handle 12 dB PAPR efficiently.
+</div>
+
+<div style="background:#001a00;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">DPD — Digital Pre-Distortion (most important TX block):</b><br>
+The PA is nonlinear — it compresses near saturation, generating harmonics and intermodulation products that cause ACLR failures. DPD pre-distorts the input signal with the inverse of the PA's nonlinearity so the output is linear. It works by sampling a small portion of the PA output (the observation path), comparing it to the ideal signal, and continuously updating its pre-distortion coefficients. DPD needs 30–60 seconds to converge after power-on or any power level change. <b>Always wait for DPD convergence before measuring ACLR or EVM</b> — measuring before convergence gives wrong results. When DPD works correctly: ACLR improves by 10–15 dB compared to no DPD.
+</div>
+
+<div style="background:#2a0000;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">PA — Power Amplifier (the dominant TX block):</b><br>
+The PA is the final amplifier that brings the signal to full transmit power. Your AAU uses GaN (Gallium Nitride) PAs — chosen for high power density and efficiency at RF frequencies. Key PA specs:<br>
+• Output power: +43 dBm (20W) per column at antenna port<br>
+• Efficiency: ~35% (Class AB operation) — means 65% of DC power becomes heat<br>
+• ACLR limit: −45 dBc — signal power in adjacent channel must be 45 dB below wanted signal<br>
+• EVM limit: 3% for 64QAM<br>
+• Protection: thermal shutdown at 85°C junction temp, VSWR protection, over-current protection<br><br>
+The PA is why your RU gets hot — at 20W output and 35% efficiency, the PA dissipates about 37W of heat per column = 148W total for 4 columns.
+</div>
+
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">BOB SMA — how you measure TX without destroying EXA:</b><br>
+The BOB (Break-Out Board) SMA port is a directional coupler output that taps −30 dB of the main TX signal. If antenna port has +43 dBm, BOB SMA has +43 − 30 = +13 dBm — still too high for EXA (max input −10 dBm safely). You add a 30 dB attenuator pad between BOB SMA and EXA input. Final EXA input = +13 − 30 = −17 dBm — safe range. Your rated power targets at BOB SMA already account for the coupler ratio — B1 target −16.7 dBm at BOB SMA = +43.3 dBm at antenna = about 21W.
+</div>
+
+<div style="background:#0d1a2a;border-left:3px solid #9b8cf8;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#9b8cf8">ACLR — what it measures and why it matters:</b><br>
+ACLR (Adjacent Channel Leakage Ratio) measures how much of the TX signal power spills into adjacent frequency channels. Limit is −45 dBc (45 dB below the wanted signal power). ACLR failure means your PA is generating spectral regrowth — nonlinear distortion products spreading into adjacent channels. This would interfere with other operators' spectrum. Root causes of ACLR failure: DPD not converged, DPD model wrong (e.g. after PA replacement), CFR not working, PA operating beyond its P1dB compression point. Always measure ACLR at rated power — measuring at reduced power can give passing results even when the real operating point would fail.
+</div>
 
 </div>
 </div>
@@ -1547,49 +1623,111 @@ footer span{color:var(--text2)}
 </div>
 <div class="module-body">
 
-<div class="mod-section-title">6.1 Receiver chain architecture</div>
-<div class="mod-p">The RU receiver takes the UE's uplink signal from the antenna, downconverts it to baseband, and hands off to the digital baseband processor for decoding. The chain is:</div>
-<div class="mod-formula">Antenna → Duplexer/Filter → LNA → Band-pass filter → Mixer → IF filter → ADC → Digital baseband</div>
-<div class="mod-p"><b>Each stage's role and what can go wrong:</b></div>
-<div class="topic"><span><b>Duplexer RX filter:</b> Passes the UL band (e.g. 1710–1785 MHz for B3), blocks the DL band (1805–1880 MHz) and everything else. This is the first and most important rejection of out-of-band blockers. Your E5071C S21 measurement of the filter is this stage.</span></div>
-<div class="topic"><span><b>LNA (Low Noise Amplifier):</b> First active component. Sets the system NF (Friis formula — first stage dominates). Must balance NF, IIP3, and gain. Low NF = better REFSENS. High IIP3 = better blocking performance. Usually the gain is 15–25 dB. Temperature and aging affect NF by 0.1–0.5 dB over life.</span></div>
-<div class="topic"><span><b>Band-pass filter (post-LNA):</b> Additional image reject filtering and further blocker suppression after the first gain stage. Prevents large off-frequency blockers from hitting the mixer with high power.</span></div>
-<div class="topic"><span><b>Downconversion mixer:</b> Multiplies the RF signal with a local oscillator (LO) signal to shift frequency to baseband (direct conversion) or IF. The LO is generated by the RU's frequency synthesizer (PLL). LO phase noise here degrades the downconverted signal's SNR — you see this as EVM on the received signal.</span></div>
-<div class="topic"><span><b>ADC (Analog-to-Digital Converter):</b> Samples the analog baseband at Nyquist rate. Quantization noise = 6.02·N_bits + 1.76 dB SQNR (signal-to-quantization-noise ratio). A 14-bit ADC: ~86 dB SQNR. This sets the ADC dynamic range ceiling. You must keep the signal level well within this range using AGC.</span></div>
+<svg width="100%" viewBox="0 0 800 195" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="195" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RX Chain — Complete UL Signal Path (Antenna → LNA → ADC → DU)</text>
 
-<div class="mod-section-title">6.2 REFSENS derivation from first principles</div>
-<div class="mod-p">Let's derive the −69 dBm REFSENS spec for a Wide Area BS from the physics, then understand why the actual implementation can do better.</div>
-<div class="mod-p"><b>Step 1 — Thermal noise floor at 10 MHz BW:</b></div>
-<div class="mod-formula">P_noise = kTB = −174 dBm/Hz + 10·log10(10×10⁶ Hz) = −174 + 70 = −104 dBm</div>
-<div class="mod-p"><b>Step 2 — Add typical receiver NF (LNA + rest of chain):</b></div>
-<div class="mod-formula">Noise floor at RX input = −104 + NF_total. Assume NF = 5 dB → −99 dBm</div>
-<div class="mod-p"><b>Step 3 — Required SNR for the test signal:</b> The REFSENS test uses a Fixed Reference Channel (FRC) with QPSK modulation, 1/3 coding rate, in 1 RB. Required SNR for 95% throughput: approximately −1 to +1 dB depending on exact conditions.</div>
-<div class="mod-p"><b>Step 4 — Sensitivity:</b></div>
-<div class="mod-formula">REFSENS = noise floor + required SNR = −99 + (−1) = −100 dBm</div>
-<div class="mod-p">3GPP specifies −69 dBm as the required minimum REFSENS. This gives ~31 dB of margin over the theoretical limit. Why so much margin? In practice:
-<ul style="margin-top:8px;padding-left:20px;color:var(--text2)">
-<li>The test measures with 1 RB allocated — not optimal usage of the full channel bandwidth</li>
-<li>Real implementations have ADC quantization noise, IQ imbalance, LO phase noise all adding to the noise floor</li>
-<li>The spec must accommodate low-cost/small-cell base stations with worse NF than premium macros</li>
-<li>A modern macro RU with a good LNA can achieve REFSENS of −100 dBm or better — well beyond the −69 dBm spec</li>
-</ul>
+  <!-- Signal from UE -->
+  <text x="8" y="52" fill="#4a5470" font-size="7" font-family="monospace">UE signal</text>
+  <line x1="8" y1="58" x2="24" y2="58" stroke="#9b8cf8" stroke-width="2"/>
+  <polygon points="22,54 32,58 22,62" fill="#9b8cf8"/>
+
+  <rect x="32"  y="33" width="68" height="50" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="66"  y="53" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Antenna</text>
+  <text x="66"  y="66" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4×column</text>
+  <text x="66"  y="77" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">BF array</text>
+  <line x1="100" y1="58" x2="114" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="114" y="33" width="68" height="50" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="3"/>
+  <text x="148" y="51" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="148" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RX path</text>
+  <text x="148" y="75" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">NF=0.5 dB</text>
+  <line x1="182" y1="58" x2="196" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="196" y="33" width="68" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="230" y="51" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Pre-BPF</text>
+  <text x="230" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">band select</text>
+  <text x="230" y="75" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">NF=0.3 dB</text>
+  <line x1="264" y1="58" x2="278" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="278" y="25" width="80" height="66" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="3"/>
+  <text x="318" y="47" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">LNA ★</text>
+  <text x="318" y="61" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">NF=2dB · G=+20dB</text>
+  <text x="318" y="74" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">GaAs pHEMT</text>
+  <text x="318" y="85" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">sets system NF</text>
+  <line x1="358" y1="58" x2="372" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="372" y="33" width="68" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="406" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Post-BPF</text>
+  <text x="406" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">image reject</text>
+  <text x="406" y="75" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">÷100=0.01dB</text>
+  <line x1="440" y1="58" x2="454" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="454" y="33" width="68" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="488" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Mixer</text>
+  <text x="488" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RF→BB IQ</text>
+  <text x="488" y="75" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">÷100=0.07dB</text>
+  <line x1="522" y1="58" x2="536" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="536" y="33" width="68" height="50" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="570" y="51" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">VGA/AGC</text>
+  <text x="570" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−20→+40dB</text>
+  <text x="570" y="75" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">keeps ADC safe</text>
+  <line x1="604" y1="58" x2="618" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="618" y="25" width="80" height="66" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="658" y="47" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ADC</text>
+  <text x="658" y="61" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">12-bit · 74dB</text>
+  <text x="658" y="74" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">dBFS reading</text>
+  <text x="658" y="85" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">get_rssi here</text>
+  <line x1="698" y1="58" x2="712" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="712" y="33" width="80" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="752" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW/DU</text>
+  <text x="752" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">FFT→OFDM</text>
+  <text x="752" y="75" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">DU RSSI here</text>
+
+  <!-- NF accumulation bar -->
+  <text x="8" y="112" fill="#4a5470" font-size="7" font-family="monospace">NF contrib:</text>
+  <rect x="114" y="118" width="68" height="12" fill="#ff6b6b" rx="2"/>
+  <text x="148" y="128" fill="#fff" font-size="6" text-anchor="middle" font-family="monospace">Dup 0.5dB</text>
+  <rect x="196" y="118" width="68" height="12" fill="#c8b800" rx="2"/>
+  <text x="230" y="128" fill="#000" font-size="6" text-anchor="middle" font-family="monospace">BPF 0.3dB</text>
+  <rect x="278" y="110" width="80" height="20" fill="#00d4a0" rx="2"/>
+  <text x="318" y="123" fill="#000" font-size="7" font-weight="bold" text-anchor="middle" font-family="monospace">LNA 2.0dB ★</text>
+  <rect x="372" y="122" width="68" height="8" fill="#0d5420" rx="1"/>
+  <text x="406" y="130" fill="#00d4a0" font-size="5" text-anchor="middle" font-family="monospace">0.01</text>
+  <rect x="454" y="122" width="68" height="8" fill="#0d5420" rx="1"/>
+  <text x="488" y="130" fill="#00d4a0" font-size="5" text-anchor="middle" font-family="monospace">0.07</text>
+  <text x="400" y="150" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">System NF = 0.5 + 0.3 + 2.0 + ≈0 + ≈0 = 2.5dB(cable) + 2.8dB(RFFE) = 5.75 dB total</text>
+  <text x="400" y="165" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Lab cable adds 2.5 dB before chain · RFFE components add 2.8 dB · LNA is the single most critical component</text>
+  <rect x="8" y="173" width="784" height="18" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="400" y="185" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">ADC channels: B1 cols A/B/C/D → ADC 0/1/4/5 · B3 cols A/B/C/D → ADC 2/3/6/7 · get_rssi 0 = B1 Col A</text>
+</svg>
+
+<h4>RX chain — complete uplink signal path</h4>
+<p>The RX chain converts a weak RF signal from the UE antenna into a digital baseband stream that the DU can process. Every component in the chain adds noise (increasing NF) or adds gain (amplifying both signal and noise). The art of RX chain design is minimising noise before the first amplifier.</p>
+
+<div style="background:#001a00;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">LNA — why it is the most critical component:</b><br>
+The LNA (Low Noise Amplifier) is the first active component the signal reaches after passing through the duplexer and pre-BPF. Its NF of 2 dB and gain of +20 dB (×100 linear) set the entire system noise figure. Everything before the LNA (cable, duplexer, pre-BPF) adds its full loss as NF. Everything after the LNA has its NF contribution divided by 100 — making post-LNA components almost irrelevant to sensitivity. This is why: a 7 dB NF mixer after the LNA only contributes 0.07 dB to system NF, but a 0.1 dB longer cable before the LNA degrades sensitivity by exactly 0.1 dB. Your LNA is a GaAs pHEMT — chosen for low noise at microwave frequencies.
 </div>
 
-<div class="mod-section-title">6.3 ACS — Adjacent Channel Selectivity in depth</div>
-<div class="mod-p">ACS tests whether the RU can correctly receive a wanted signal on channel fm when a strong interferer is present on an adjacent channel (fm ± channel bandwidth). The interferer level is +16 dBm above the wanted signal.</div>
-<div class="mod-p"><b>What happens physically:</b></div>
-<div class="topic"><span><b>At the LNA input:</b> Both wanted (at −69 dBm) and interferer (at −53 dBm) enter simultaneously. The LNA amplifies both. If the interferer is strong enough, it partially compresses the LNA, raising the effective NF seen by the wanted signal. This is called desensitization or blocking gain compression.</span></div>
-<div class="topic"><span><b>At the mixer:</b> If the IF filter's rejection at ±BW is insufficient, the interferer leaks into the wanted channel's IF bandwidth, adding noise. The mixer's IIP3 also generates intermodulation products between the interferer and any other signal that can land in the wanted band.</span></div>
-<div class="topic"><span><b>At the ADC:</b> If the interferer level causes the ADC to clip or use too many quantization levels for the interferer, there are fewer bits available for the wanted signal — degraded effective resolution on the wanted signal.</span></div>
-<div class="mod-p">A good ACS result requires high IIP3 in the LNA, steep IF filter rolloff, and sufficient ADC headroom. The duplexer RX filter's rejection of out-of-band signals is the first line of defense — if the filter is good, the LNA never sees the full interferer power.</div>
+<div style="background:#1a0d1a;border-left:3px solid #9b8cf8;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#9b8cf8">VGA/AGC — keeping the ADC in range:</b><br>
+The Variable Gain Amplifier with Automatic Gain Control adjusts the signal level dynamically to keep the ADC operating in its optimal range (~−12 dBFS). A nearby UE (strong signal) causes the AGC to reduce gain to prevent ADC clipping. A distant UE (weak signal) causes AGC to increase gain to stay above the quantisation noise floor. The AGC settles in <10 μs — fast enough to track fast fading. If AGC fails or saturates, the ADC clips → RSSI reading wraps around → completely wrong power measurement → all RSSI-based tests fail.
+</div>
 
-<div class="mod-section-title">6.4 AGC — Automatic Gain Control</div>
-<div class="mod-p">The received UL signal level can vary from −120 dBm (distant cell-edge UE at minimum power) to −30 dBm (nearby UE at full power) — a 90 dB range. The ADC has maybe 70–86 dB of useful dynamic range. AGC maps the received signal into the ADC's optimal input range.</div>
-<div class="mod-p"><b>AGC control loop:</b></div>
-<div class="topic"><span><b>Measurement:</b> The digital baseband measures the received signal power every subframe (1 ms).</span></div>
-<div class="topic"><span><b>Decision:</b> If signal is too strong → increase attenuation (reduce LNA gain or add a digital attenuator). If too weak → decrease attenuation.</span></div>
-<div class="topic"><span><b>Settling time:</b> AGC takes 1–3 subframes to settle after a large level change. During this time, the SNR may be suboptimal. This is why throughput-based tests use long averaging (many subframes) and ignore initial transient.</span></div>
-<div class="mod-p">The RSSI measurement in your tests (test_Rx_RSSI) verifies that after AGC settles, the reported RSSI value accurately reflects the actual received power. The RSSI accuracy test at band edge (test_Rx_RSSI_Accuracy at fb) is harder because the filter roll-off means the AGC must account for the non-flat band edge response.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">ADC — where the signal becomes digital:</b><br>
+The 12-bit ADC samples the analog baseband IQ signal at 122.88 MSPS (mega samples per second). It outputs dBFS readings — power relative to ADC full scale. The ADC_ADJUST calibration constant converts dBFS to absolute dBm at the RU antenna port. The 12-bit resolution gives 74 dB of dynamic range (SQNR = 6.02×12 + 1.76 = 74 dB). This means the ADC can cleanly handle signals from full scale (0 dBFS) down to −74 dBFS — a 74 dB window that the VGA/AGC keeps the signal centred in.
+</div>
+
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Two places to read RSSI — CLI vs DU, must agree within 2 dB:</b><br>
+<b>CLI (get_rssi N)</b>: reads raw dBFS from ADC N, adds ADC_ADJUST → dBm at RU port. Fast, direct, per-column.<br>
+<b>DU RSSI (testmac rssi)</b>: reads after FFT processing in the baseband — averages across subcarriers, includes interference. Both must agree within ±2 dB. If they disagree: CLI accurate but DU off → FHGW/baseband path issue. Both off from EXM → ADC_ADJUST wrong. CLI varies per column → individual column hardware fault.
+</div>
 
 </div>
 </div>
@@ -1603,6 +1741,56 @@ footer span{color:var(--text2)}
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="150" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Beamforming — Phase Shift per Column → Steered Beam Direction</text>
+  <rect x="8" y="30" width="80" height="110" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="48" y="48" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Col A</text>
+  <text x="48" y="62" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Δφ=0°</text>
+  <text x="48" y="76" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Col B</text>
+  <text x="48" y="90" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Δφ=20°</text>
+  <text x="48" y="104" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Col C</text>
+  <text x="48" y="118" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Δφ=40°</text>
+  <text x="48" y="132" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Col D</text>
+  <text x="48" y="142" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">Δφ=60°</text>
+  <!-- Beam lines showing constructive interference at angle -->
+  <line x1="88" y1="55"  x2="300" y2="85"  stroke="#9b8cf8" stroke-width="1.5"/>
+  <line x1="88" y1="75"  x2="300" y2="85"  stroke="#9b8cf8" stroke-width="2"/>
+  <line x1="88" y1="95"  x2="300" y2="85"  stroke="#9b8cf8" stroke-width="2.5"/>
+  <line x1="88" y1="115" x2="300" y2="85"  stroke="#9b8cf8" stroke-width="3"/>
+  <!-- Beam at boresight (0°) -->
+  <line x1="88" y1="55"  x2="300" y2="55"  stroke="#4a5470" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="88" y1="75"  x2="300" y2="55"  stroke="#4a5470" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="88" y1="95"  x2="300" y2="55"  stroke="#4a5470" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="88" y1="115" x2="300" y2="55"  stroke="#4a5470" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <rect x="300" y="70" width="90" height="30" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="345" y="87" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Beam at θ°</text>
+  <rect x="300" y="40" width="90" height="22" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="345" y="54" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Boresight (0°)</text>
+  <!-- Formula -->
+  <rect x="410" y="30" width="382" height="110" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="601" y="50" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">θ = arcsin(λ·Δφ / 2π·d)</text>
+  <text x="420" y="68" fill="#8892b0" font-size="8" font-family="monospace">λ = wavelength (m) · d = element spacing (m) · Δφ = phase step (rad)</text>
+  <text x="420" y="84" fill="#5bc4ef" font-size="8" font-family="monospace">B1 (2140 MHz): λ=14cm, d=7cm (λ/2 spacing)</text>
+  <text x="420" y="98" fill="#5bc4ef" font-size="8" font-family="monospace">Δφ=20° per element → θ = arcsin(0.14×0.349/(2π×0.07)) = 6.4°</text>
+  <text x="420" y="112" fill="#00d4a0" font-size="8" font-family="monospace">VNA verifies actual phase vs programmed per column</text>
+  <text x="420" y="126" fill="#4a5470" font-size="7" font-family="monospace">Phase error &gt;±2° → beamforming direction will be off → adjust PE44820DS register</text>
+  <text x="420" y="140" fill="#4a5470" font-size="7" font-family="monospace">B8 (900MHz): λ=33cm, d=16.5cm · B28 (758MHz): λ=40cm, d=20cm</text>
+</svg>
+<h4>Beamforming — how phase shifts steer the beam</h4>
+<div style="background:#1a0d1a;border-left:3px solid #9b8cf8;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#9b8cf8">Analog vs digital beamforming:</b><br>
+<b>Analog beamforming</b>: one phase shifter per antenna element in the RF domain. Simple, low power, but can only form one beam at a time. Your AAU uses this for horizontal beam steering.<br><b>Digital beamforming</b>: separate ADC/DAC per element, phase applied in baseband. Multiple simultaneous beams possible. Enables MU-MIMO. Your AAU uses digital BF for vertical tilt (elevation).<br><b>Hybrid</b>: combination — analog in azimuth (wide sweep), digital in elevation (fine control).
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Why element spacing = λ/2:</b><br>
+λ/2 spacing prevents grating lobes — spurious beams at other angles that would waste power and cause interference. With λ/2 spacing, the maximum steerable angle without grating lobes is ±90° (boresight to endfire). Wider spacing allows finer steering resolution but at the cost of grating lobes. Your 4-column array with λ/2 spacing gives about ±90° steering range and ~20° beam half-power width.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">VNA phase calibration — what it corrects:</b><br>
+Each column's TX path (from digital beamformer output to antenna element) has slightly different electrical length due to cable/trace length variation and component tolerances. If Column B is 5° longer than Column A, the beam will point 2° off from commanded angle. VNA measures S21 phase per column → computes Δφ vs Column A → corrects the PE44820DS digital phase shifter register per column. Target: all columns within ±2° of each other.
+</div>
+
 
 <div class="mod-section-title">7.1 Antenna fundamentals</div>
 <div class="mod-p"><b>Antenna gain:</b> An antenna doesn't amplify — it redistributes power. Gain G (in dBi) describes how much more power is radiated in the peak direction compared to an isotropic antenna that radiates equally in all directions. A 17 dBi antenna radiates 50× more power in its peak direction than an isotropic antenna — by concentrating energy spatially rather than amplifying.</div>
@@ -1766,6 +1954,46 @@ footer span{color:var(--text2)}
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="130" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RuAuto Framework — 3-Layer Architecture</text>
+  <rect x="8"   y="28" width="240" height="90" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="128" y="47" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Layer 1: Configuration</text>
+  <text x="18"  y="63" fill="#8892b0" font-size="8" font-family="monospace">tc_cadence.json — test cases, limits, DSA</text>
+  <text x="18"  y="77" fill="#8892b0" font-size="8" font-family="monospace">hardware.json — ADC_ADJUST, cable loss</text>
+  <text x="18"  y="91" fill="#8892b0" font-size="8" font-family="monospace">instrument_config.json — IP addresses</text>
+  <text x="18"  y="105" fill="#4a5470" font-size="7" font-family="monospace">Edit these to customise test behaviour</text>
+  <line x1="248" y1="73" x2="268" y2="73" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="266,69 276,73 266,77" fill="#4a5470"/>
+  <rect x="276" y="28" width="240" height="90" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="396" y="47" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Layer 2: Orchestration</text>
+  <text x="286" y="63" fill="#8892b0" font-size="8" font-family="monospace">ruauto.py — reads config, runs tests</text>
+  <text x="286" y="77" fill="#8892b0" font-size="8" font-family="monospace">SCPI → EXM/EXA · CLI → RU · REST → DU</text>
+  <text x="286" y="91" fill="#8892b0" font-size="8" font-family="monospace">Applies DSA offsets, waits for DPD, logs</text>
+  <text x="286" y="105" fill="#f5a623" font-size="7" font-family="monospace">This layer you rarely touch</text>
+  <line x1="516" y1="73" x2="536" y2="73" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="534,69 544,73 534,77" fill="#4a5470"/>
+  <rect x="544" y="28" width="248" height="90" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="668" y="47" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Layer 3: Results</text>
+  <text x="554" y="63" fill="#8892b0" font-size="8" font-family="monospace">rct_results_DATE.json — all measurements</text>
+  <text x="554" y="77" fill="#8892b0" font-size="8" font-family="monospace">PASS/FAIL per Group-ID → Test-ID</text>
+  <text x="554" y="91" fill="#8892b0" font-size="8" font-family="monospace">EXM readings, CLI, DU RSSI per column</text>
+  <text x="554" y="105" fill="#f5a623" font-size="7" font-family="monospace">Parse this for post-analysis and reports</text>
+</svg>
+<h4>Test automation — how RuAuto, SCPI, and tc_cadence work together</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">SCPI — how Python talks to instruments:</b><br>
+SCPI (Standard Commands for Programmable Instruments) is the language all Keysight instruments speak. Every function you can do on the front panel has an equivalent SCPI command. Connect via TCP socket on port 5025. Commands are ASCII strings terminated with \n. Query (?) returns a response. Example: <code>:FREQ:CENT 2.14e9</code> sets EXA centre frequency to 2140 MHz. <code>:FETCH:ACLR?</code> returns the ACLR measurement result. RuAuto sends these automatically per tc_cadence.json instructions.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">When a test fails — how to trace through layers:</b><br>
+1. Open rct_results_DATE.json → find the failing Group-ID and Test-ID<br>2. Look at the measurement values logged (EXM power, CLI reading, DU RSSI, ACLR dBc)<br>3. Identify which measurement is wrong (power? RSSI? ACLR?)<br>4. Go to tc_cadence.json → verify the DSA offset and limit for that test case<br>5. Run the failing test manually with SCPI commands to isolate the issue<br>6. Check hardware: cable, connector, instrument calibration
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">ETM — Embedded Test Mode:</b><br>
+ETM allows running some RCT tests without a full DU connection — the RU itself acts as loopback. Useful for initial hardware bring-up when DU is not available. ETM supports: TX power measurement (no DU needed), RSSI injection (EXM→RU port), basic PA tests. ETM does NOT support: PRACH detection (needs real baseband), full sensitivity (needs DU decoder), TDD gating (needs DU frame timing). Use ETM for hardware validation, full RCT for conformance testing.
+</div>
+
 
 <div class="mod-section-title">9.1 Why test hierarchies exist — the CI vs regression tradeoff</div>
 <div class="mod-p">Every test you run costs time and resources. A single REFSENS test at one BW, one channel model, one frequency point: ~2–5 minutes. Your full test matrix for one band has: 4 BWs × 3 freq points × 3 channel models × 3 tests = 108 individual measurements per band. Across 5 bands: 540 measurements × 5 min each = 45 hours. Nobody runs this on every commit.</div>
@@ -2306,6 +2534,63 @@ footer span{color:var(--text2)}
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<svg width="100%" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="140" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">O-RAN Architecture — O-RU / O-DU / O-CU Split (7.2x)</text>
+  <rect x="8"   y="28" width="150" height="100" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="83"  y="48" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">O-CU</text>
+  <text x="83"  y="64" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Centralised Unit</text>
+  <text x="83"  y="78" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RRC + PDCP</text>
+  <text x="83"  y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">User plane split</text>
+  <text x="83"  y="106" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">F1 interface → DU</text>
+  <text x="83"  y="120" fill="#9b8cf8" font-size="7" text-anchor="middle" font-family="monospace">Cloud/datacenter</text>
+  <line x1="158" y1="78" x2="178" y2="78" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="168" y="72" fill="#4a5470" font-size="6" font-family="monospace">F1</text>
+  <rect x="178" y="28" width="150" height="100" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="253" y="48" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">O-DU</text>
+  <text x="253" y="64" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Distributed Unit</text>
+  <text x="253" y="78" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">MAC + RLC + HiPHY</text>
+  <text x="253" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scheduling</text>
+  <text x="253" y="106" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">eCPRI → O-RU</text>
+  <text x="253" y="120" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">Edge server/BBU</text>
+  <line x1="328" y1="78" x2="348" y2="78" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="338" y="72" fill="#4a5470" font-size="6" font-family="monospace">eCPRI</text>
+  <rect x="348" y="28" width="150" height="100" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="423" y="48" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW</text>
+  <text x="423" y="64" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Fronthaul Gateway</text>
+  <text x="423" y="78" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">BFP compress/expand</text>
+  <text x="423" y="92" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Split 7.2x LoWPHY</text>
+  <text x="423" y="106" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">IFFT/FFT · CP add/rm</text>
+  <text x="423" y="120" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">Your PW FHGW unit</text>
+  <line x1="498" y1="78" x2="518" y2="78" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="508" y="72" fill="#4a5470" font-size="6" font-family="monospace">CPRI</text>
+  <rect x="518" y="22" width="150" height="112" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="593" y="44" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">O-RU</text>
+  <text x="593" y="60" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Radio Unit</text>
+  <text x="593" y="76" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LoWPHY (RFFE)</text>
+  <text x="593" y="90" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DAC/ADC</text>
+  <text x="593" y="104" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">PA/LNA/BF</text>
+  <text x="593" y="118" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">Your Metro AAU</text>
+  <line x1="668" y1="78" x2="692" y2="78" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="692" y="48" width="100" height="60" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="742" y="68" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Antenna</text>
+  <text x="742" y="83" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4T4R array</text>
+  <text x="742" y="97" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">BF panels</text>
+</svg>
+<h4>O-RAN functional split — where your RU sits in the architecture</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">O-RAN 7.2x split — what each node does:</b><br>
+O-RAN split 7.2x divides the baseband processing between O-DU and O-RU. O-DU handles: MAC scheduling, RLC, High-PHY (channel coding, rate matching, scrambling, resource mapping). O-RU handles: Low-PHY (IFFT/FFT, CP add/remove, precoding/beamforming, PRACH extraction). The FHGW in your system is the O-RU's Low-PHY processor — it receives compressed IQ from the O-DU via eCPRI and generates the final OFDM waveforms for the RFFE.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">eCPRI fronthaul — what travels over the fiber:</b><br>
+eCPRI (evolved Common Public Radio Interface) carries IQ data between O-DU and FHGW over Ethernet (10GbE SFP+). The data is BFP compressed: 16-bit IQ samples are compressed to 9-bit mantissa + 4-bit shared exponent per resource block, reducing bandwidth by ~50%. Without compression, a 20 MHz 4T4R system would need: 4×2×12×7×20×16×2 = ~430 Mbps — too much for 10GbE. With BFP compression: ~200 Mbps — fits comfortably.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Why O-RAN matters for your testing:</b><br>
+O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any compliant O-DU, not just PW's own DU. Your RCT framework tests the O-RU in isolation using PW's own FHGW+DU stack. Conformance testing against 3rd-party DUs requires the O-RU to follow the exact eCPRI timing and BFP compression specs. Any deviation shows up as frame timing errors, RSSI discrepancies between CLI and DU, or PRACH detection failures.
+</div>
+
 
   <div class="mod-section-title">15.1 Traditional RAN vs Open RAN</div>
   <div class="mod-p"><b>Traditional (monolithic) RAN:</b> The baseband unit (BBU) and radio unit (RU) are tightly coupled, often from the same vendor. The interface between them is proprietary — you can't mix Nokia BBU with Ericsson RU. This worked but locked operators into single-vendor ecosystems.</div>
@@ -2530,6 +2815,20 @@ footer span{color:var(--text2)}
   <rect x="415" y="178" width="35" height="5"  fill="#0d0d2a" rx="2"/>
   <text x="455" y="183" fill="#9b8cf8" font-size="8" font-family="monospace">−74 dBFS: quantisation noise floor</text>
 </svg>
+<h4>12-bit ADC — dynamic range, SQNR, dBFS, clipping</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">SQNR and what 12 bits gives you:</b><br>
+SQNR (Signal to Quantisation Noise Ratio) = 6.02×N + 1.76 dB where N = number of bits. For 12 bits: SQNR = 6.02×12 + 1.76 = 74 dB. This is the ratio between the full-scale signal and the quantisation noise floor. 74 dB of dynamic range means signals up to 74 dB above the quantisation noise floor are cleanly digitised. A 16-bit ADC would give 98 dB — used in audio. RF systems use 12–16 bits because the VGA/AGC keeps the signal in a narrow range.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Operating point — why −12 dBFS is the target:</b><br>
+Operating at 0 dBFS (full scale) means any instantaneous peak clips → severe distortion → wrong RSSI, high EVM. Operating too low (−40 dBFS) wastes dynamic range — more quantisation noise relative to signal. −12 dBFS is the standard operating point: 12 dB of headroom for signal peaks above average, and 62 dB of SQNR still available below the signal. The VGA/AGC loop constantly adjusts gain to maintain this target.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Clipping — what happens and how to detect:</b><br>
+When input exceeds full scale (0 dBFS), the ADC output saturates at the maximum code (all 1s). RSSI reading wraps around or saturates at a wrong value. On EXA: flat-top distortion visible on spectrum (compressed waveform). In CLI: get_rssi returns a value close to 0 dBFS regardless of actual input power. Fix: reduce gain (check VGA/AGC settings, check if LNA is in compression from a strong blocker).
+</div>
+
 <div class="mod-section-title">What the ADC does</div>
 <div class="mod-p">The ADC (Analog-to-Digital Converter) is the boundary between the analog RF world and digital processing. It samples the baseband IQ signal at the Nyquist rate and converts each sample to a binary number. David: "we are working with 12 bits. Sorry, 11 bits. It means 2 by 11 steps of resolution."</div>
 <div class="mod-formula">Resolution: N bits → 2^N amplitude levels
@@ -2591,6 +2890,20 @@ SQNR = 6.02 × N + 1.76 dB
   <text x="400" y="162" fill="#f5a623" font-size="8" font-family="monospace">All 3 sources must agree within ±2 dB</text>
   <text x="400" y="178" fill="#ff6b6b" font-size="8" font-family="monospace">Fail sources: wrong offset, temp drift, bad cable</text>
 </svg>
+<h4>RSSI — CLI dBFS method vs DU dBm method, when they disagree</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">CLI method — get_rssi N:</b><br>
+Reads the ADC digital output directly. Returns dBFS value (e.g. −12.5). Converted to dBm via: P_dBm = dBFS + ADC_ADJUST. Fast, per-column, direct hardware reading. Does not go through DU processing. Useful for: initial calibration, column-by-column fault isolation, debugging without DU. Limit: only as accurate as ADC_ADJUST calibration.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">DU method — testmac rssi:</b><br>
+Reads RSSI computed inside the DU baseband after FFT processing. Averages power across active subcarriers. Includes interference contributions. Goes through eCPRI fronthaul → FHGW → DU. More representative of what the scheduler sees. More affected by fronthaul issues. Useful for: validating end-to-end chain, checking FHGW BFP accuracy, confirming what the network actually "sees".
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Disagreement diagnosis — what each pattern means:</b><br>
+CLI accurate, DU off by 2–3 dB → FHGW BFP decompression issue or eCPRI timing problem → check FHGW firmware.<br>Both off from EXM by same amount → ADC_ADJUST wrong → re-run RSSI cal.<br>One column CLI wrong → hardware fault on that column (LNA, cable, connector) → inspect physically.<br>All columns drift together as unit warms → temperature compensation not set → check TEMP_COMP in hardware.json.<br>CLI varies but DU is stable → ADC channel mapping wrong in configuration.
+</div>
+
 <div class="mod-section-title">Two RSSI measurement methods</div>
 <div class="mod-p">David described two independent ways the system measures RSSI:</div>
 <div class="mod-p"><b>Method 1 — DU RSSI (dBm):</b> After FFT processing, IQ samples flow to the DU via eCPRI fronthaul. The DU sums power across all subcarriers and computes RSSI in dBm. This is what your test automation reads from the OAM portal or DU CLI. Also: the DU calculates the "blur" (sensitivity point) from these same samples.</div>
@@ -2684,6 +2997,20 @@ SQNR = 6.02 × N + 1.76 dB
   <text x="20"  y="177" fill="#00d4a0" font-size="8" font-family="monospace">BFP compressed: 9-bit mantissa + 4-bit exponent shared per RB → ~50% reduction → fits in 10GbE eCPRI</text>
   <text x="20"  y="187" fill="#4a5470" font-size="7" font-family="monospace">Quality check: expansion error &lt;0.1 dB · EVM impact &lt;0.5% · Verified by your EVM test passing</text>
 </svg>
+<h4>FHGW internals — BFP compression, IFFT, eCPRI, what can go wrong</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">BFP compression — why it is needed:</b><br>
+Raw 16-bit IQ for a 20 MHz 4T4R system: 4 columns × 2 (I+Q) × 1200 subcarriers × 14 symbols/ms × 16 bits = ~430 Mbps. Standard 10GbE fronthaul supports 10 Gbps — but with overhead, practical is ~8 Gbps. With BFP: each resource block (12 subcarriers) shares one 4-bit exponent, and each sample uses 9-bit mantissa instead of 16-bit. Compression ratio ≈ 9/16 = 56% → bandwidth = ~240 Mbps. Fits easily in 10GbE with margin.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">IFFT — frequency to time domain:</b><br>
+The DU schedules which UEs get which subcarriers (resource blocks). It passes the frequency-domain IQ values per subcarrier to the FHGW. The FHGW performs IFFT (Inverse FFT) to convert this to a time-domain OFDM symbol. Then adds cyclic prefix (4.69 μs for normal CP). The resulting time-domain waveform goes to the DAC and then to the RF chain. For UL: the FHGW performs FFT (removes CP first) to convert received time-domain samples back to frequency-domain subcarriers for the DU to decode.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">FHGW faults that cause RSSI discrepancies:</b><br>
+BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are wrong by a power of 2 → RSSI off by 6 dB steps.<br>IFFT timing: if FHGW IFFT timing drifts, the cyclic prefix overlaps with the data → inter-symbol interference → EVM increase.<br>eCPRI packet loss: dropped eCPRI packets cause missing subcarriers → DU sees lower RSSI.<br>Clock reference loss: FHGW loses GPS/PTP sync → frame timing drifts → TDD B41 DL/UL collision.
+</div>
+
 <div class="mod-section-title">FHGW digital processing blocks</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Block</th><th>UL function</th><th>DL function</th><th>Why it matters</th></tr>
@@ -2899,6 +3226,21 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
   <text x="400" y="337" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Linear: 0.000000001mW to 20,000mW · dB: -90 dBm to +43 dBm · Same information, much easier to work with</text>
 </svg>
 
+<h4>dB, dBm, dBc, dBFS — the language of RF</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Why RF uses logarithmic scale (dB):</b><br>
+RF signals span 13 orders of magnitude in power — from a 20W PA (+43 dBm) to a sensitivity threshold of −99 dBm. That is a ratio of 10^14. Working in linear watts is impossible. dB compresses this: every ×10 power = +10 dB, every ×2 = +3 dB. Adding gains in dB = multiplying in linear. Chain gain = sum of all block gains in dB.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">dBm, dBc, dBFS — reference points:</b><br>
+<b>dBm</b> = power relative to 1 mW. 0 dBm = 1 mW. +30 dBm = 1W. −99 dBm = your RX sensitivity.<br><b>dBc</b> = power relative to carrier. Used for ACLR (adjacent channel power vs carrier) and spurious. ACLR limit −45 dBc means adjacent channel must be 45 dB below the wanted signal.<br><b>dBFS</b> = power relative to ADC full scale. 0 dBFS = ADC clipping. −12 dBFS = typical operating point. Converted to dBm via ADC_ADJUST in hardware.json.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Quick mental maths — dB rules to memorise:</b><br>
++3 dB = ×2 power · −3 dB = ÷2 · +10 dB = ×10 · −10 dB = ÷10<br>+6 dB = ×4 · +20 dB = ×100 · +30 dB = ×1000<br>0 dBm = 1 mW · +10 dBm = 10 mW · +30 dBm = 1 W · +43 dBm = 20 W<br>−30 dBm = 1 μW · −60 dBm = 1 nW · −99 dBm ≈ your sensitivity floor
+</div>
+
+
 <div class="mod-section-title">Why RF lives in logarithms</div>
 <div class="mod-p">A base station may transmit 40 W; the signal it receives from a phone at the cell edge can be around 10⁻¹³ W — a ratio of ~100,000,000,000,000 to 1. You cannot reason about that range in linear watts. RF uses a logarithmic scale, the decibel, which compresses that range and turns multiplication into addition.</div>
 
@@ -3009,6 +3351,21 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
   <text x="245" y="270" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">75Ω = cable TV (low loss priority)</text>
   <text x="245" y="282" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">300Ω = TV antenna balanced line</text>
 </svg>
+
+<h4>50 Ω impedance — why it matters for every connector and cable</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Why 50 Ω is the RF standard:</b><br>
+75 Ω minimises cable loss (optimal for coax). 33 Ω maximises power transfer. 50 Ω is the engineering compromise — acceptable loss, acceptable power handling, rugged connectors. The entire RF industry standardised on 50 Ω so equipment from different manufacturers connects without impedance mismatch.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">What happens when impedance is not matched (VSWR):</b><br>
+When source and load impedances differ, part of the signal reflects back. VSWR (Voltage Standing Wave Ratio) measures this. VSWR = 1.0 = perfect match, zero reflection. VSWR = 2.0 = 11% power reflected. A poorly torqued SMA connector can have VSWR > 2.0, meaning you lose 11% of your signal before it even enters the RU. In your sensitivity tests, a VSWR of 2.0 at the cable-to-RU connection costs you about 0.5 dB sensitivity.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Return loss — how VNA shows mismatch:</b><br>
+Return Loss (dB) = −20·log(reflection coefficient Γ). RL = 20 dB means Γ = 0.1 = 1% power reflected = excellent. RL = 10 dB means Γ = 0.316 = 10% reflected = poor. Your VNA S11 measurement shows return loss. Target: S11 < −20 dB (RL > 20 dB) for all cables and connectors in your test setup.
+</div>
+
 
 <div class="mod-section-title">Why 50 ohms?</div>
 <div class="mod-p">At RF, a cable is a transmission line with characteristic impedance Z₀ set by its geometry, not its length. The industry standardised on 50Ω: coax handles maximum power near 30Ω and minimum loss near 77Ω — 50Ω is the compromise. Rule: keep the entire path 50Ω end to end.</div>
@@ -3127,6 +3484,21 @@ VSWR = (1 + |Γ|) / (1 − |Γ|)           ← near 1 is better</div>
   <text x="400" y="195" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">B1 Sensitivity = -174 + 70(10MHz) + 5.75(NF) + (-1)(QPSK 1/3 SNR req) = -99.25 dBm</text>
 </svg>
 
+<h4>RF chain gain cascade — how gains and losses combine</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Gain cascade in dB — just add:</b><br>
+The beauty of dB: total chain gain = sum of all individual gains and losses. Example DL chain: DAC output 0 dBm → PA gain +43 dB → duplexer loss −0.5 dB → coupler loss −30 dB → BOB SMA = +12.5 dBm. For UL: antenna receives −97.5 dBm → duplexer −0.5 dB → LNA +20 dB → mixer −7 dB → ADC input = +15 dBm... wait, that cannot be right — AGC reduces gain to keep ADC safe. Real chain includes AGC which maintains ADC at −12 dBFS regardless of input.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Noise Figure in a cascade — Friis:</b><br>
+Unlike gain, noise figures do NOT simply add. First stage NF dominates. NF_total = NF1 + (NF2−1)/G1 + (NF3−1)/(G1×G2) + ... This is why LNA is first active component and why cable before LNA directly adds to NF. See NCH card for full numerical calculation showing your 5.75 dB system NF.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">P1dB — compression point:</b><br>
+At high input powers, the PA gain compresses — output power no longer tracks input linearly. P1dB is the input power where gain drops by 1 dB from its small-signal value. Operating near P1dB causes ACLR failures. Your PA is backed off from P1dB to operate in its linear region — this is why DPD is needed, it allows operating closer to P1dB while maintaining linearity.
+</div>
+
+
 <div class="mod-section-title">The transmit chain (left to right)</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Stage</th><th>What it does</th></tr>
@@ -3213,6 +3585,21 @@ Sensitivity = −174 + 10×log₁₀(BW_Hz) + NF + required_SNR</div>
   <text x="400" y="170" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">RSSI → RSRP → RSRQ → SINR → CQI → MCS → Throughput: each metric is a step closer to understanding user experience</text>
   <text x="400" y="184" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Bad ACLR from RU → raised noise in adjacent cell → lower SINR → lower MCS → lower throughput = customer complaint</text>
 </svg>
+
+<h4>Key radio metrics — RSSI, RSRP, RSRQ, SINR explained</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">RSSI vs RSRP vs RSRQ — what each measures:</b><br>
+<b>RSSI</b> (Received Signal Strength Indicator): total wideband power received — signal + interference + noise. Measured in dBm. Your CLI get_rssi reads this.<br><b>RSRP</b> (Reference Signal Received Power): power of LTE reference signals (CRS) per resource element. More precise than RSSI. Used for handover decisions. Range: −44 to −140 dBm.<br><b>RSRQ</b> (Reference Signal Received Quality): RSRP / RSSI × N_RB. Includes interference quality. Range: −3 to −19.5 dB.<br><b>SINR</b> (Signal to Interference+Noise Ratio): signal power / (interference + noise). The quality metric the scheduler uses.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Dynamic range — why it matters for your tests:</b><br>
+Dynamic range = max receivable signal − sensitivity floor = ~0 dBm − (−99 dBm) = 99 dB. Your ADC has 74 dB of instantaneous dynamic range. The AGC extends this by adjusting gain — a close UE at −40 dBm and a far UE at −99 dBm both need to be handled cleanly. If AGC saturates, all RSSI measurements are wrong.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">EVM — Error Vector Magnitude (TX quality metric):</b><br>
+EVM measures how far each received IQ symbol is from its ideal constellation point, as a percentage of the ideal signal amplitude. EVM = |error vector| / |reference vector| × 100%. Limits: QPSK < 17.5%, 16QAM < 12.5%, 64QAM < 8%, 256QAM < 3.5%. EVM failures caused by: phase noise (LO quality), IQ imbalance, nonlinearity (DPD failure), clipping (CFR too aggressive).
+</div>
+
 
 <div class="mod-section-title">RSSI</div>
 <div class="mod-p">Total power in the receive band at the radio input, in dBm. Wideband: it sums wanted signal + noise + interference. High RSSI alone does NOT mean good signal — it could be mostly interference. Used for coverage monitoring and AGC control.</div>
@@ -3358,6 +3745,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="400" y="253" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">EVM% = |error|/|ideal| × 100 · Limit: QPSK=17.5%, 16QAM=12.5%, 64QAM=8%, 256QAM=3.5%</text>
 </svg>
 
+<h4>IQ modulation, OFDM, constellations — how radio carries data</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">IQ — In-phase and Quadrature:</b><br>
+A single RF carrier can carry two independent data streams: I (in-phase, cosine) and Q (quadrature, sine). They are orthogonal — they do not interfere with each other. A QAM constellation is a grid of I/Q amplitude combinations. QPSK uses 4 points (±1, ±1 for I and Q). 16QAM uses 16 points. 64QAM uses 64 points. More points = more bits per symbol = higher throughput = but needs higher SNR to distinguish points.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">OFDM — how LTE uses it:</b><br>
+OFDM (Orthogonal Frequency Division Multiplexing) divides the channel into many narrow subcarriers (15 kHz each in LTE). Each subcarrier carries its own QAM symbol. 1 Resource Block = 12 subcarriers × 180 kHz. 10 MHz channel = 50 RBs = 600 subcarriers. OFDM is robust against multipath because the cyclic prefix (4.69 μs) is longer than most delay spreads. The IFFT in the FHGW converts your frequency-domain subcarrier assignments into the time-domain OFDM signal.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">IQ imbalance — what goes wrong:</b><br>
+If the I and Q paths have amplitude or phase mismatch, the constellation rotates and the points blur. Amplitude imbalance: all points shift toward I or Q axis. Phase imbalance: constellation rotates. Both increase EVM and cause ACLR to worsen. In your RU: IQ imbalance manifests as asymmetric constellation in the EXA modulation analysis view — left/right clusters at different sizes, or constellation tilted off axis.
+</div>
+
+
 <div class="mod-section-title">IQ — why two numbers?</div>
 <div class="mod-p">A signal has both amplitude and phase. The clean way to carry both is two numbers: I (in-phase) and Q (quadrature, 90° offset). Any modulated signal is I + jQ — a point on a 2D plane. The DAC, ADC, and all digital processing work in IQ.</div>
 
@@ -3456,6 +3858,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="700" y="247" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">In: tx_config.json</text>
 </svg>
 
+<h4>DL TX chain — CFR, DPD, power scaling, common failures</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">CFR — why PAPR must be reduced before PA:</b><br>
+OFDM signals have high PAPR (Peak to Average Power Ratio) — typically 10–12 dB. This means the PA must handle peaks 10–12 dB above the average power. To handle the peaks without clipping, the PA would need to be backed off by 10–12 dB from its P1dB — operating at only 1/10th to 1/100th of its capacity. CFR clips these rare high peaks and smooths them, reducing PAPR to ~8 dB. This lets the PA operate 3–4 dB closer to P1dB, dramatically improving efficiency.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">DPD convergence — the 60-second rule:</b><br>
+DPD adapts its pre-distortion polynomial coefficients by comparing the PA output (via observation path) to the ideal signal. This adaptation takes 30–60 seconds after power-on. During convergence: ACLR may be 5–10 dB worse than final value, EVM is elevated, power may fluctuate ±0.5 dB. Always wait for DPD to converge before measuring ACLR, EVM, or doing TX gain calibration. Check DPD status register or simply wait 60 seconds after enabling TX.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Common TX failures and root causes:</b><br>
+<b>ACLR fail</b>: DPD not converged (wait 60s), DPD model mismatch after hardware change, PA operating beyond P1dB (check rated power), CFR not working.<br><b>EVM fail</b>: IQ imbalance, LO phase noise, clipping from over-driven input, DPD coefficients diverged.<br><b>Power low</b>: tx_calibration_eeprom.json missing (fault 12), wrong TX_GAIN register, PA bias wrong, damaged PA.
+</div>
+
+
 <div class="mod-section-title">The real FHGW DL chain order</div>
 <div class="mod-formula">Digital 2CC → DL Power Scaling → Gain → CFR → Gain → DPD → Per-channel Gain → DAC</div>
 <div class="mod-p">The power_monitor reads dBFS at taps along the way. DPD is ONE link in this chain — not a standalone box.</div>
@@ -3539,6 +3956,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="400" y="246" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Your B28 result: 49.14 dBm carrier, ACLR ≈54 dBc · FAIL root cause: DPD not adapted · Fix: wait 60s or lower power</text>
 </svg>
 
+<h4>ACLR — Adjacent Channel Leakage Ratio measurement setup</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">What ACLR measures and the limit:</b><br>
+ACLR = power in adjacent channel / power in wanted channel, in dBc. 3GPP limit for LTE base station: −45 dBc for adjacent channel (offset = channel BW), −50 dBc for alternate channel (offset = 2× channel BW). Measured on EXA using the ACLR/ACP measurement mode. A value of −42 dBc = FAIL (limit is −45 dBc). This means the PA is leaking 3 dB too much power into adjacent spectrum.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">EXA setup for ACLR measurement:</b><br>
+Center freq = band center (B1 = 2140 MHz). Span = 5× channel BW minimum. RBW = 100 kHz. Atten = 20–30 dB (preamp OFF — signal is strong). Input = BOB SMA + 30 dB pad. Trigger = frame trigger or free-run. Use EXA ACLR function (not manual integration). Important: EXA automatically integrates power in each channel using the correct LTE RRC filter — do not try to measure ACLR manually from the spectrum trace.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">TDD gating for B41 ACLR:</b><br>
+B41 is TDD — the PA transmits only during DL subframes. EXA must be gated to measure only during TX active periods. Without gating, the ACLR measurement includes the noise floor during UL periods, making ACLR appear 5–10 dB better than it actually is. Set EXA gate delay = DL subframe start offset, gate length = DL subframe duration. Use the TDD frame structure from tc_cadence.json to find the correct timing.
+</div>
+
+
 <div class="mod-section-title">ACLR — test 6.6.2</div>
 <div class="mod-p">Adjacent Channel Leakage Ratio = wanted-channel power / adjacent-channel leakage power, in dBc. The direct measure of spectral regrowth from PA nonlinearity and DPD performance. In RuAuto: sa_set_ACP_mode. Higher dBc = better (less leakage).</div>
 <div class="mod-table-wrap"><table class="test-table">
@@ -3605,6 +4037,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="400" y="192" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Cell radius ≈ TA_max × c / 2 = 3846 × 0.521μs × 3×10⁸ / 2 ≈ 100km max (LTE)</text>
   <text x="400" y="207" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PRACH formats: Preamble length (839 ZC), subcarrier spacing, guard period for max cell size</text>
 </svg>
+
+<h4>PRACH — Zadoff-Chu preambles, detection threshold, timing advance</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">What PRACH is and when it is sent:</b><br>
+PRACH (Physical Random Access Channel) is the UE's first transmission when connecting to the network. The UE sends a PRACH preamble to request access. The gNB must detect this preamble even at very low power — this is your sensitivity test. PRACH uses Zadoff-Chu sequences (length 839 for long preamble, 139 for short) chosen for their perfect correlation properties — a Zadoff-Chu sequence correlated with itself gives a sharp peak, making it easy to detect.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">PRACH detector — how detection works:</b><br>
+The RU receives the wideband UL signal and runs a correlator against each of the 64 possible Zadoff-Chu root sequences. If the correlation peak exceeds a threshold (noise floor × peak_multiplier α), a PRACH is declared detected. The threshold α trades off: low α = sensitive (detect weak UEs, but more false alarms), high α = robust (few false alarms, but misses weak UEs). Your DSA sensitivity test verifies that at the stated threshold power, the detection rate exceeds 99%.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Timing Advance — what PRACH timing measures:</b><br>
+When a PRACH is detected, the RU measures the arrival time of the correlation peak. The offset from the expected time = propagation delay from the UE. The gNB sends a Timing Advance command telling the UE to advance its transmission timing by this amount. This ensures UL signals from all UEs arrive at the RU synchronised to within the cyclic prefix window (4.69 μs). TA range: 0 to 667 μs = ~100 km cell radius.
+</div>
+
 
 <div class="mod-section-title">What PRACH is for</div>
 <div class="mod-p">PRACH (Physical Random Access Channel) is how a UE first reaches the network with no uplink timing. At power-on, or to re-sync, the UE sends a random-access preamble (a "signature"). The base station detects it and replies with a timing-advance (TA) command — telling the UE how early to transmit so data arrives at exactly the right time.</div>
@@ -3747,6 +4194,21 @@ TRP = EIRP integrated over the full sphere</div>
   <path d="M 672,90 Q 730,130 672,165" fill="#9b8cf850" stroke="#9b8cf8" stroke-width="1.5"/>
   <text x="750" y="135" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">RF beam</text>
 </svg>
+
+<h4>AAU architecture — midBRD, RFFE, board split, 5-band design</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">5-Band AAU board structure:</b><br>
+Your Metro AAU has two main boards: <b>midBRD</b> (mid-band board) handles B1 (2140 MHz) and B3 (1843 MHz) digital processing, DAC/ADC, and digital beamforming. <b>RFFE</b> boards (RF Front-End) handle the analog RF — PA, LNA, duplexer, BPF — for each column. B8 (900 MHz), B28 (758 MHz) are low-band and handled by a separate LB RFFE. B41 (2545 MHz TDD) shares the mid-band RFFE with B1/B3. The midBRD connects to RFFE via JESD204B high-speed serial interface.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Single DPD observation path — shared between bands:</b><br>
+DPD needs to observe the PA output to adapt. A single observation receiver (ORX) path is shared between B1, B3, and B41 — it cannot observe all bands simultaneously. The DPD engine time-shares the ORX, adapting one band at a time. When you change power on one band, the DPD for that band re-adapts while others hold their last coefficients. This is why individual band power changes take 60s for DPD to re-converge.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">4T4R vs 4T2R vs 2T2R — flavour impact:</b><br>
+4T4R: all 4 columns (A/B/C/D) active for TX and RX — full beamforming, best capacity. 4T2R: 4 TX columns but only 2 RX — used for LB (B8/B28) where 2 RX paths are sufficient. 2T2R: reduced mode for lower power operation. The flavour (b1b3, b1b3b41, b1b3b8b28b41) determines which bands are active simultaneously and which columns are used — directly affecting DSA values and RX path counts in the test table.
+</div>
+
 
 <div class="mod-section-title">The board split</div>
 <div class="mod-table-wrap"><table class="test-table">
@@ -4395,6 +4857,21 @@ TRP = EIRP integrated over the full sphere</div>
   <line x1="120" y1="160" x2="120" y2="185" stroke="#4a5470" stroke-width="1" stroke-dasharray="3,3"/>
 </svg>
 
+<h4>Lab measurement practice — bench setup, instrument connections, test checklist</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Standard bench setup for RCT:</b><br>
+EXM (E6640A) → SMA cable → RU BOB SMA port (UL inject). EXA (N9010B) → 30dB pad → SMA cable → RU BOB SMA port (DL measure). VNA (E5071C) → calibrated cable → RU BOB SMA (phase cal). All instruments connected to lab LAN (10.62.2.x subnet). EXM IP: check front panel. EXA IP: 10.62.2.135. RU connected to FHGW via Ethernet. FHGW connected to BBU/DU. GPS/PTP sync to DU for TDD bands.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Pre-measurement checklist (do before every test session):</b><br>
+□ Measure cable loss with VNA → note value per cable<br>□ Verify EXM output power with EXA before injection<br>□ Check RU is fully booted and all bands enabled<br>□ Confirm DPD converged (wait 60s after TX enable)<br>□ Set EXA preamp OFF for TX measurements, ON for RX<br>□ Verify GPS/PTP lock for TDD (B41) tests<br>□ Check connector torque with torque wrench (SMA: 0.9 N·m)<br>□ Confirm tc_cadence.json has correct DSA values loaded
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Instrument IP and SCPI port:</b><br>
+All Keysight instruments listen on TCP port 5025 for SCPI commands. Connect via socket: <code>socket.connect((ip, 5025))</code>. Send: <code>s.send(b"*RST\n")</code>. Query: <code>s.send(b"*IDN?\n"); s.recv(1024)</code>. EXA centre freq: <code>":FREQ:CENT 2.14e9\n"</code>. EXM output power: <code>":POW:AMPL -95\n"</code>. EXM RF on: <code>":OUTP ON\n"</code>. RuAuto handles all this automatically via tc_cadence.json.
+</div>
+
+
 <div class="mod-section-title">Instrument roles</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Instrument</th><th>Role</th></tr>
@@ -4488,6 +4965,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="595" y="103" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">Save 20%</text>
   <text x="710" y="58"  fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">Full power</text>
 </svg>
+
+<h4>PA efficiency — Dynamic Vdd, class AB, gate bias, power optimisation</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">PA efficiency classes — why Class AB:</b><br>
+Class A: always on, linear, efficiency ~30% max. Class B: on for half cycle, efficient ~78% max, but nonlinear crossover distortion. Class AB: compromise — on for slightly more than half cycle, efficiency ~35–45% with DPD linearisation. Class F: resonant load, theoretical ~90% but very narrowband. Your GaN PA operates Class AB — DPD handles the nonlinearity, and ~35% efficiency is acceptable for the power levels involved.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Dynamic Vdd — what it does and why it matters:</b><br>
+Dynamic Vdd (supply modulation) changes the PA drain voltage in proportion to the instantaneous signal envelope. For low-amplitude OFDM symbols, Vdd drops → less power wasted as heat. For high-amplitude peaks, Vdd rises → PA stays linear. This improves average efficiency from ~35% to ~50%+ for OFDM signals with their high PAPR. Your AAU has Dynamic Vdd implemented per column — the staircase supply voltage tracks the signal envelope in steps. The step size and timing are in the PA configuration registers.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Thermal management — why temperature monitoring matters:</b><br>
+GaN PA junction temperature limit: typically 150–200°C. At 20W output and 35% efficiency, each PA dissipates ~37W of heat. With 4 columns = 148W of heat generation inside the AAU enclosure. The thermal protection system monitors junction temperature via diode sensors and reduces power or shuts down if temp exceeds threshold. In your RCT: PA_PROTECTION fault typically triggers at 85–95°C junction. Check ambient temp and heatsink contact if PA protection fires repeatedly.
+</div>
+
 
 <div class="mod-section-title">The efficiency problem</div>
 <div class="mod-p">A macro PA can burn hundreds of watts. Drain efficiency = RF power out / DC power in. A PA is MOST efficient near saturation and LEAST efficient when backed off. But OFDM PAPR forces back-off. So at low traffic the PA sits deep in back-off, wasting power.</div>
@@ -4590,6 +5082,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="400" y="196" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Key files: tc_cadence.json (config) · PreChecks.log (pre-test state) · rct_results.json (measurements) · rct_report.pdf</text>
   <text x="400" y="210" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Test IDs: TX_POWER · ACLR · EVM · SENS_B1 · SENS_B3 · RSSI_ACCURACY · PA_PROT · USLEEP</text>
 </svg>
+
+<h4>tc_cadence.json — how the RCT config drives all tests</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">tc_cadence.json structure:</b><br>
+tc_cadence.json is the master config that tells RuAuto exactly what to test and what limits to apply. Structure: Group-IDs group related tests (e.g. TX_POWER, ACLR, RSSI_CAL). Each group contains Test-IDs (individual test cases). Each test has: band, BW, FRC/modulation, injection power (= base + DSA), pass/fail limits, measurement instrument, number of averages. RuAuto reads this file at startup and executes all enabled tests in order.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How DSA appears in tc_cadence.json:</b><br>
+For sensitivity tests: injection_power = base_power + DSA_offset. Example B1 entry: {"band":"B1","BW":"10M","FRC":"A1","injection_dBm":-87.0,"DSA_offset":5.0,"limit_BLER":0.05}. RuAuto computes: EXM_power = injection_dBm + DSA_offset = −87 + 5 = −82 dBm. This is sent to EXM. The test waits for PRACH detection rate and compares to the BLER limit.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Group-IDs and Test-IDs — how to navigate failures:</b><br>
+When RuAuto reports a failure, it includes Group-ID and Test-ID. Group_TX_POWER > Test_B1_10M = TX power test for B1 at 10 MHz failed. Group_RSSI > Test_B3_Ch2 = RSSI calibration failed on B3 ADC channel 2. This tells you exactly which band, which BW, which measurement, and which column/ADC channel to investigate. The log file (rct_results.json) stores all results with timestamps for post-analysis.
+</div>
+
 
 <div class="mod-section-title">Tests are DATA, not code</div>
 <div class="mod-p">In RuAuto you almost never write a new test in Python. A test is a generic method driven by JSON. To "write" or change a test you edit the config. Reading the config IS reading the test.</div>
@@ -5461,6 +5968,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="406" y="145" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace" transform="rotate(-90,406,145)">dBFS</text>
 </svg>
 
+<h4>RSSI and receive chain — dBFS to dBm, ADC calibration, dynamic range</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">dBFS to dBm conversion — the complete path:</b><br>
+get_rssi N → returns value in dBFS (e.g. −12.5 dBFS). ADC_ADJUST stored in hardware.json per band per ADC channel. Conversion: P_dBm = dBFS + ADC_ADJUST. If ADC_ADJUST_B1_ADC0 = −85: P_dBm = −12.5 + (−85) = −97.5 dBm at RU antenna port. This matches EXM injected −95 dBm minus cable loss −2.5 dB = −97.5 dBm. Agreement within ±1 dB = calibration good.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">ADC channel mapping — which command reads which path:</b><br>
+B1 Column A → ADC channel 0 → get_rssi 0<br>B1 Column B → ADC channel 1 → get_rssi 1<br>B1 Column C → ADC channel 4 → get_rssi 4<br>B1 Column D → ADC channel 5 → get_rssi 5<br>B3 Column A → ADC channel 2 → get_rssi 2<br>B3 Column B → ADC channel 3 → get_rssi 3<br>B3 Column C → ADC channel 6 → get_rssi 6<br>B3 Column D → ADC channel 7 → get_rssi 7<br>B8/B28 use 2 paths (A and B only) with separate ADC_ADJUST values.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">RSSI failures — diagnosis by which number is wrong:</b><br>
+All three (EXM, CLI, DU) off → EXM not calibrated, or cable loss not subtracted.<br>CLI wrong, DU correct → ADC_ADJUST wrong for that channel.<br>CLI correct, DU wrong → FHGW processing chain issue.<br>One column CLI wrong, others correct → hardware fault on that column (LNA, cable, connector).<br>All columns drift same direction as unit warms → temperature compensation not configured.
+</div>
+
+
 <div class="mod-section-title">The real RSSI calibration method</div>
 <div class="mod-p">Inject a CW tone at band centre at 3 known power levels (e.g. −40.5, −60.5, −70.5 dBm). Read RSSI at each. Fit an approximate straight line. Compute the average offset. Write that offset per-ADC into /etc/configs/hardware.json (the ADC_ADJUST vector — one entry per ADC 0–7). Then automation sweeps the input over [−40 dBm : 1 dB : −120 dBm] and records corrected RSSI.</div>
 
@@ -5548,6 +6070,21 @@ TRP = EIRP integrated over the full sphere</div>
   <text x="400" y="172" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FRC scenarios: A1 (QPSK 1/3, best sens) · A2 (QPSK 1/2) · A3 (16QAM 1/2) · A4 · A5 (64QAM, worst sens)</text>
   <text x="400" y="186" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Each FRC tested per band: B1/B3/B8/B28/B41 × A1-A5 = 25 test cases total per unit</text>
 </svg>
+
+<h4>UL RCT test — ul-rct-test pipeline, 4-stage process, what it verifies</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">What the UL embedded RCT tests:</b><br>
+The UL RCT (uplink Radio Conformance Test) verifies that the RU's receive chain is performing correctly end-to-end — from RF input at the antenna port to decoded data at the DU. It uses EXM to inject a known uplink signal and measures: (1) PRACH detection rate (sensitivity), (2) RSSI accuracy (calibration), (3) SINR under various conditions, (4) multi-path robustness (EPA/ETU if PropSim connected).
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">4-stage UL test pipeline:</b><br>
+<b>Stage 1 — Sync</b>: RU acquires timing from DU. GPS/PTP lock verified for TDD.<br><b>Stage 2 — RSSI calibration</b>: EXM injects known power, CLI and DU readings verified vs EXM.<br><b>Stage 3 — Sensitivity</b>: EXM injects at DSA-corrected threshold per band/BW/FRC. PRACH detection rate measured. Must exceed 99% in 100 attempts.<br><b>Stage 4 — Dynamic range</b>: EXM sweeps from −60 to −110 dBm. Verifies RSSI tracks linearly across the dynamic range window.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">ul-rct-test command and parameters:</b><br>
+<code>ul-rct-test --band B1 --bw 10M --frc A1 --iterations 100 --dsafile tc_cadence.json</code><br>Key parameters: band (B1/B3/B8/B28/B41), BW (5M/10M/15M/20M), FRC (A1/A2/A3/A5), iterations (100 minimum for statistical validity), dsafile (points to your calibrated DSA table). Results saved to rct_results_YYYYMMDD.json with per-column pass/fail, RSSI error, and detection count.
+</div>
+
 
 <div class="mod-section-title">What UL RCT embedded is</div>
 <div class="mod-p">Validates the entire uplink receive path — antenna to BLER — against 3GPP FRCs. "Embedded" means it runs entirely on the FHGW: no DU, no external test PC, one CLI command. A signal generator still injects the FRC waveform; everything else is on-RU. Catches receive-chain regressions at box level, fast, before DU integration.</div>
@@ -5641,6 +6178,21 @@ ul-rct-test 10 a34 0                   # → BLER 0.00%  SNR 24.6 dB</div>
   <text x="475" y="178" fill="#8892b0" font-size="8" font-family="monospace">Time-divided — T/R switch, needs sync</text>
   <text x="400" y="198" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Your B41 AAU: TDD Config 1 (2DL:2UL:6DL:2UL) · Requires ±1.5μs phase sync via PTP · SSF config determines DwPTS/GP/UpPTS sizes</text>
 </svg>
+
+<h4>TDD frame structure — special subframes, DL/UL ratio, B41 timing</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">TDD vs FDD — the fundamental difference:</b><br>
+FDD (B1/B3/B8/B28): separate frequencies for DL and UL. They can transmit simultaneously. Duplexer separates them at the antenna. TDD (B41): DL and UL share the same frequency, separated in time. A T/R switch connects either the PA (during DL) or LNA (during UL) to the antenna. PA and LNA never operate simultaneously — no duplexer needed. This is why B41 has better NF (2.0 dB) — the T/R switch has lower loss than a duplexer.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">TDD frame structure — subframe types:</b><br>
+LTE TDD uses 10ms radio frames divided into 10 subframes (1ms each). Subframe types: D=Downlink, U=Uplink, S=Special. Special subframe has 3 parts: DwPTS (DL pilot), GP (guard period for switching), UpPTS (UL pilot). Common config 2: DSUDD DSUDD = repeating pattern. Config 5: DSUUU DSUUU = more UL. Your B41 config is set in the DU — check which TDD config is active before EXA gating setup.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Timing impact on measurements:</b><br>
+B41 ACLR must be measured with EXA gating on DL subframes only. PRACH arrives in UL subframes only. The guard period (GP) must be large enough for signal propagation delay plus switching transient — typically 3–14 OFDM symbols. PTP synchronisation accuracy must be ±1.5 μs for TDD — a drift > 1.5 μs causes DL/UL collision (TX and RX active simultaneously) which can damage the T/R switch and the LNA.
+</div>
+
 
 <div class="mod-section-title">TDD vs FDD — the key difference</div>
 <div class="mod-p">FDD (B1/B3/B8/B28): separate paired UL/DL frequencies, transmit and receive simultaneously. TDD (B41): UL and DL share the same frequency, alternating in time slots. TDD works in unpaired spectrum. The price: more complex scheduling, more stringent timing requirements.</div>
@@ -6082,6 +6634,20 @@ Flow:
 
   <text x="400" y="205" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Dynamic range = DANL to max safe input · Increase atten to protect input · Decrease atten for better DANL · Use preamp for weak signal measurements</text>
 </svg>
+<h4>Expert RF topics — PLL/LO, mixers, filters in depth</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">PLL/LO — how the carrier frequency is generated:</b><br>
+PLL (Phase-Locked Loop) generates the Local Oscillator frequency by locking a VCO (Voltage Controlled Oscillator) to a reference (GPS-locked 10 MHz). The PLL compares the VCO output (divided by N) to the reference and adjusts the VCO until they match. Result: stable carrier frequency with close-in phase noise determined by the reference and loop bandwidth, and far-out noise determined by the VCO. GPS lock gives frequency accuracy of ±50 ppb — essential for TDD synchronisation and carrier frequency accuracy.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Mixer operation — frequency translation:</b><br>
+A mixer multiplies two signals: RF input × LO → outputs at sum (RF+LO) and difference (RF−LO) frequencies. For downconversion: RF = 2140 MHz, LO = 2140 MHz → IF = 0 Hz (direct conversion IQ). For upconversion: IF = 0 + LO = 2140 MHz. The mixer's IIP3 (3rd order intercept point) determines how well it handles strong blockers without generating intermodulation products. IIP3 must be > 20 dB above the strongest input signal to stay in the linear region.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Filter types in your RX chain and what they do:</b><br>
+<b>Pre-BPF</b> (before LNA): rejects out-of-band blockers (strong signals from other systems) before they can compress the LNA. Adds 0.3 dB NF. Worth it because a compressed LNA has much worse NF than 0.3 dB.<br><b>Post-BPF</b> (after LNA): rejects image frequency and wideband noise. NF contribution negligible after LNA gain.<br><b>Duplexer</b>: specially designed to pass only the RX band while heavily attenuating the TX band (>50 dB isolation) — prevents the high-power TX signal from going directly into the LNA input.
+</div>
+
 
 <div class="mod-section-title">PLL (Phase-Locked Loop) — the LO source</div>
 <div class="mod-p">Every mixer in your RU needs a Local Oscillator (LO) at exactly the carrier frequency. The LO is generated by a PLL: a feedback system that locks a Voltage-Controlled Oscillator (VCO) to a precise reference frequency (usually a 10 MHz TCXO or OCXO).</div>
@@ -6201,6 +6767,32 @@ Real ADCs: SFDR typically 3–10 dB below theoretical due to harmonics, clock ji
   <text x="660" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">tc_cadence.json defines all limits</text>
   <text x="660" y="193" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Results saved to rct_results.json</text>
 </svg>
+<h4>SCPI automation — Python socket control of EXA and EXM</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Complete Python SCPI pattern:</b><br>
+<code>import socket, time<br>
+s = socket.socket()<br>
+s.connect(("10.62.2.135", 5025))  # EXA<br>
+s.send(b"*RST\n"); time.sleep(2)<br>
+s.send(b":FREQ:CENT 2.14e9\n")<br>
+s.send(b":FREQ:SPAN 50e6\n")<br>
+s.send(b":POW:ATT 20\n")<br>
+s.send(b":ACLR:STAN:PRES LTE\n")<br>
+s.send(b":INIT:CONT OFF\n")<br>
+s.send(b":INIT\n"); time.sleep(3)<br>
+s.send(b":FETCH:ACLR?\n")<br>
+result = s.recv(4096).decode()<br>
+print(result)  # returns ACLR values in dBc</code>
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Key SCPI commands for your measurements:</b><br>
+EXA centre freq: <code>:FREQ:CENT {f}\n</code><br>EXA attenuation: <code>:POW:ATT {n}\n</code><br>EXA preamp: <code>:POW:GAIN:STAT ON\n</code><br>EXA ACLR result: <code>:FETCH:ACLR?\n</code><br>EXA EVM: <code>:CONF:EVM; :INIT; :FETCH:EVM?\n</code><br>EXM freq: <code>:FREQ:CENT {f}\n</code><br>EXM power: <code>:POW:AMPL {p}\n</code><br>EXM RF on: <code>:OUTP ON\n</code><br>EXM FRC: <code>:SOUR:RAD:ARB:WAV "FRC_A1_10M"\n</code>
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">RuAuto does this automatically — when to use manual SCPI:</b><br>
+RuAuto handles all SCPI for standard RCT. Use manual SCPI when: debugging a specific failed test case interactively, running a measurement not in tc_cadence.json, verifying instrument state, or developing a new test case before adding it to the config. Keep manual SCPI scripts in a separate folder — never modify rct_results.json directly from SCPI scripts (use RuAuto for official results).
+</div>
+
 <div class="mod-section-title">SCPI basics</div>
 <div class="mod-p">SCPI (Standard Commands for Programmable Instruments) is a text-based protocol over LAN (TCP port 5025), USB, or GPIB. Every key on the EXM/EXA front panel has an equivalent SCPI command. RuAuto uses SCPI exclusively — every measurement in tc_cadence.json eventually calls an SCPI function.</div>
 
@@ -7199,6 +7791,20 @@ Converting dBFS → dBm:
   <!-- Doherty label -->
   <text x="400" y="390" fill="#c8b800" font-size="11" text-anchor="middle" font-family="monospace">Doherty = Carrier amp (Class AB) + Peaking amp (Class C) combined → η ~60% at 6dB backoff</text>
 </svg>
+<h4>PA classes — efficiency vs linearity trade-off</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Class A — most linear, least efficient:</b><br>
+Bias point: mid-supply. Conducts for full 360° of input cycle. Gain is perfectly linear (constant). Efficiency: theoretically 25–50%, practically 15–30%. No crossover distortion. Used where linearity is critical and efficiency is secondary — e.g. small-signal driver stages. Your AAU does NOT use pure Class A — too much heat for 20W output.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Class AB — your AAU PA operating class:</b><br>
+Bias point: slightly above cutoff. Conducts for 180–360° of cycle. Combines best features of A and B — reasonable linearity, reasonable efficiency (~35–45% with DPD). The slight nonlinearity at crossover is corrected by DPD. This is the standard choice for cellular base station PAs. GaN technology (your PA material) enables higher efficiency than older GaAs at same output power.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Dynamic Vdd — how supply modulation improves efficiency:</b><br>
+Class AB PA efficiency is highest at peak power and drops at lower power levels. OFDM signals spend most of their time at low-to-medium power levels (high PAPR means peaks are rare). Dynamic Vdd reduces the PA supply voltage during low-power periods, so the PA dissipates less heat even though it's conducting. At 6 dB below peak power, Dynamic Vdd can improve efficiency from 35% to 55% — reducing heat by 30%. This is why your AAU's Dynamic Vdd configuration in the PA registers directly affects both efficiency and junction temperature.
+</div>
+
 
 <!-- EXP3 SVG 2: Efficiency vs Output Power Backoff -->
 <svg width="100%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:16px">
@@ -7359,6 +7965,20 @@ Converting dBFS → dBm:
   <text x="400" y="167" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">Check: EXA floor at −130 dBm/Hz × 10MHz = −130+70 = −60 dBm — safely below your −98 dBm system floor ✓</text>
   <text x="400" y="182" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">If EXA floor exceeded RU floor, you'd be measuring the analyser noise, not the RU — always check before RSSI cal</text>
 </svg>
+<h4>Noise floor from first principles — thermal noise to system sensitivity</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Full chain: kTB → NF → Sensitivity → EXM injection:</b><br>
+kTB at 290K = −174 dBm/Hz. Add 10·log(10MHz) = +70 dB → noise floor = −104 dBm. Add system NF = +5.75 dB → system noise floor = −98.25 dBm. Add SNR_req for QPSK 1/3 = −1 dB → sensitivity = −99.25 dBm (B1). EXM must inject at this power level minus cable loss correction. If cable = −2.5 dB: EXM output = −99.25 + 2.5 = −96.75 dBm to achieve −99.25 dBm at RU port. See DSA card for per-band offsets.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Why EXA DANL must be checked before RX measurements:</b><br>
+EXA DANL with preamp ON: −130 dBm/Hz. In 10 MHz BW: −130 + 70 = −60 dBm. Your system noise floor is −98.25 dBm — 38 dB above EXA DANL. Safe margin. But if you try to measure an antenna noise floor directly (passive, no LNA), you would be measuring the EXA noise, not the antenna. Always verify EXA DANL > 10 dB below the signal you want to measure.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">When measured sensitivity is worse than expected:</b><br>
+Check in order: (1) Cable loss — measure with VNA, subtract from EXM output. (2) Connector torque and condition. (3) EXM output power — verify with EXA before injection. (4) EXA preamp state — must be ON for RSSI/sensitivity checks. (5) ADC_ADJUST calibration — if off, RSSI will read wrong even though physics is fine. (6) LNA health — measure NF directly with EXA NF mode.
+</div>
+
 <div class="mod-section-title">Where −174 dBm/Hz comes from</div>
 <div class="mod-p">Thermal noise is the random motion of electrons in any resistor at any temperature above absolute zero. It sets the absolute minimum noise floor of any receiver, regardless of how good the electronics are.</div>
 <div class="mod-formula">Thermal noise power in bandwidth B:
@@ -7474,6 +8094,20 @@ For B1 10 MHz:
   <text x="660" y="166" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">test verifies the UE</text>
   <text x="660" y="178" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">clears the threshold</text>
 </svg>
+<h4>PRACH detector internals — noise estimator, peak multiplier, false alarm</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How PRACH detection decides pass/fail:</b><br>
+The PRACH detector correlates the received UL signal against each of the 64 possible Zadoff-Chu root sequences. For each root, the correlator produces a power profile over the cyclic shift dimension. The peak power is compared to a detection threshold: threshold = measured_noise_floor × peak_multiplier_α. If peak > threshold: PRACH detected. The noise floor is measured from non-PRACH resource blocks in the same subframe.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Peak multiplier α — the key parameter:</b><br>
+α is set by the RU configuration. Low α (e.g. 4 = 6 dB above noise): detects weak UEs, but more false alarms (random noise peaks exceed threshold). High α (e.g. 16 = 12 dB above noise): robust against false alarms, but misses UEs at or below threshold power. Your sensitivity test uses a specific α — the DSA power level is set so that at the rated sensitivity, the signal peak is just above threshold at the standard α value. This is why the sensitivity number is not "noise floor + NF" alone — it includes the peak_multiplier overhead.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">False alarm rate — why it matters in deployment:</b><br>
+A false PRACH alarm causes the gNB to send a Random Access Response (RAR) to a nonexistent UE, wasting resources. High false alarm rate degrades cell capacity. Too sensitive α → many false alarms. In your lab: false alarms show up as PRACH detected count exceeding the number of EXM injections (more detections than preambles sent). Normal: detection count = injections × detection_rate. If detection count > injections: false alarm problem — α too low.
+</div>
+
 <div class="mod-section-title">The full PRACH detection pipeline</div>
 <div class="mod-formula">Stage 1 — Front end:
   Remove CP → apply FFT → extract PRACH subcarriers (839 bins at 1.25 kHz spacing)
@@ -7572,6 +8206,20 @@ UE then transmits that much earlier so signal arrives aligned at eNB</div>
   <text x="440" y="160" fill="#00d4a0" font-size="9" font-family="monospace">dBm = -12 + (-83) = -95 dBm ← matches EXM</text>
   <text x="440" y="175" fill="#ff6b6b" font-size="8" font-family="monospace">If off by &gt;2dB → wrong ADC_ADJUST → recalibrate</text>
 </svg>
+<h4>dBFS ↔ dBm conversion — complete guide with your RU numbers</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">The conversion formula and where the constants come from:</b><br>
+P_dBm = dBFS_reading + ADC_ADJUST. ADC_ADJUST = (total RX chain gain from RU port to ADC register) in dB. This includes: LNA gain (+20 dB), VGA gain (variable, AGC-controlled), mixer conversion gain, ADC full-scale calibration. Rather than tracking all these separately, RSSI cal measures the net offset once and stores it. Example: EXM injects −97.5 dBm at RU port. ADC reads −12.5 dBFS. ADC_ADJUST = −97.5 − (−12.5) = −85. Future readings: P_dBm = dBFS + (−85).
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">dBFS scale — understanding what each level means:</b><br>
+0 dBFS: ADC output saturated (all bits = 1). This is clipping — measurement invalid.<br>−12 dBFS: target operating point (12 dB headroom for peaks).<br>−40 dBFS: low signal — AGC should have increased gain already.<br>−74 dBFS: quantisation noise floor (12-bit ADC limit).<br>Below −74 dBFS: signal lost in quantisation noise.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Common conversion errors:</b><br>
+Forgetting cable loss: P_at_port = EXM_output − cable_loss. Using wrong ADC channel: get_rssi 0 is B1 Col A, not B3. ADC_ADJUST drifts with temperature: recalibrate at operating temperature. ADC_ADJUST is band-specific: B1 and B3 have different values even on the same ADC chip because they use different gain settings.
+</div>
+
 <div class="mod-section-title">The fundamental difference</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th></th><th>dBm</th><th>dBFS</th></tr>
@@ -7752,6 +8400,20 @@ If hardware.json is wrong (offset not calibrated for your unit):
   <text x="380" y="250" fill="#9b8cf8" font-size="8" font-family="monospace">exa = rm.open_resource("TCPIP::10.62.2.135::5025::SOCKET")</text>
   <text x="380" y="263" fill="#9b8cf8" font-size="8" font-family="monospace">exa.write(":CALC:MARK:FUNC:ACLR ON")</text>
 </svg>
+<h4>EXA N9010B — your primary TX measurement instrument</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Key EXA specs and settings for your work:</b><br>
+Freq range: 10 Hz – 26.5 GHz. DANL: −163 dBm/Hz (preamp ON). Max input: +30 dBm (+20 dBm recommended with pad). Port: TCP 5025 for SCPI. Serial: MY59070653. IP: 10.62.2.135.<br>For ACLR: Atten 20–30 dB, preamp OFF, RBW 100 kHz, Meas→ACLR function.<br>For EVM: use VSA mode or dedicated EVM measurement. Input: BOB SMA + 30 dB pad.<br>For RSSI check: Atten 0 dB, preamp ON, narrow span around band centre.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">DANL and why preamp matters:</b><br>
+DANL (Displayed Average Noise Level) is the EXA's own noise floor — the minimum signal it can display. With preamp OFF and 0 dB attenuation: DANL ≈ −120 dBm/Hz. With preamp ON: DANL ≈ −130 dBm/Hz. For your sensitivity tests, the signal at the RU output is around −97.5 dBm in 10 MHz = −167 dBm/Hz spectral density. EXA preamp ON gives −130 dBm/Hz — 37 dB above the signal. Fine for direct spectrum viewing. But for ACLR on TX: signal is −17 dBm at BOB SMA after pad — preamp OFF absolutely required.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Common EXA mistakes to avoid:</b><br>
+Preamp ON with TX signal → input compression → ACLR reads 10–15 dB better than reality (wrong, fail in field).<br>Attenuation too low → ADC in EXA compresses → same wrong result.<br>RBW too wide → noise floor appears higher → sensitivity appears worse.<br>Not waiting for sweep → single sweep gives noise-contaminated ACLR → always average ≥10 sweeps.<br>Wrong centre frequency → measuring wrong channel → wrong ACLR offsets.
+</div>
+
 
 
 <!-- Instrument ID banner -->
@@ -7895,6 +8557,20 @@ If hardware.json is wrong (offset not calibrated for your unit):
   <!-- Values -->
   <text x="400" y="186" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">S11=-0dB=open · S11=-20dB=1% reflected=good · S21=-0.5dB=cable loss · S21=+20dB=amplifier gain · Always calibrate first (SOLT)</text>
 </svg>
+<h4>VNA phase calibration — why phase matters for beamforming</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Why phase calibration is required:</b><br>
+Beamforming steers the antenna beam by applying precise phase shifts to each column's TX signal. If Column B's actual phase is 5° different from Column A due to cable or connector variation, the beam will point 2° off from the commanded direction. Over a 200m cell radius, a 2° beam error means the signal maximum is 7m away from where you think it is — reducing effective coverage. Phase cal measures the actual phase of each column and corrects it in the PE44820DS phase shifter register.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">What the VNA measures:</b><br>
+S21 at the TX band centre frequency (e.g. 2140 MHz for B1). Source: VNA Port 1 → RU BOB SMA (one column at a time). Sink: VNA Port 2 → reference point. The S21 phase for each column gives: electrical path length from BOB SMA to measurement plane. Difference between columns A, B, C, D = phase mismatch to correct. Target: all four columns within ±2° of Column A. If Column C shows −6.4°, adjust PE44820DS register for Column C by +6.4°.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">VNA E5071C — key settings for phase cal:</b><br>
+Freq range: single point or narrow span (±10 MHz) around band centre. IFBW: 1 kHz (low noise for accurate phase). Power: −10 dBm (keep RU in linear region). Cal: SOLT full 2-port, performed at measurement cable tips. Warm-up: 30 minutes before any measurement. Format: Phase (degrees). Do NOT bend cables between cal and measurement — phase shifts by 2–5° per 90° bend.
+</div>
+
 
 <div class="mod-section-title">Phase in your AAU — the core reason</div>
 <div class="mod-p">Your Metro AAU has 12 antenna elements (B1/B3/B41) steered by digital phase shifters (PE44820DS). Each element must transmit at a precise phase relative to the others. The beam points in the direction where the phases add constructively. A 5° phase error on one element degrades the beam pattern — the main lobe shifts, the gain drops, and side lobes increase. This is why TX_CAL (transmit calibration) exists and why the VNA is your primary tool for verifying it.</div>
@@ -8003,6 +8679,20 @@ If hardware.json is wrong (offset not calibrated for your unit):
   <text x="30" y="340" fill="#8892b0" font-size="9" font-family="monospace">LOAD ⊡50Ω</text>
   <text x="30" y="356" fill="#8892b0" font-size="9" font-family="monospace">THRU —</text>
 </svg>
+<h4>VNA calibration — SOLT, error models, reference plane</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">What SOLT calibration removes:</b><br>
+SOLT (Short-Open-Load-Through) calibration corrects 12 systematic errors: directivity, source match, reflection tracking, transmission tracking, load match, and isolation — for both ports. After calibration, the VNA measurement reference plane moves to the tips of the calibration standard, removing cable and connector effects. Skipping cal means your S21 phase includes the electrical length of the measurement cables — meaningless for per-column phase comparison.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">12-step SOLT procedure:</b><br>
+1. Warm up VNA 30 min. 2. Set frequency range (e.g. 2100–2180 MHz for B1). 3. Set IFBW 1 kHz. 4. Port 1: connect SHORT, press Measure. 5. Port 1: connect OPEN, press Measure. 6. Port 1: connect LOAD (50Ω), press Measure. 7. Port 2: connect SHORT. 8. Port 2: connect OPEN. 9. Port 2: connect LOAD. 10. Connect THROUGH between ports. 11. Press Apply Cal. 12. Verify: S11 of LOAD should be < −40 dB. Then connect DUT without moving cables.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">What invalidates your calibration:</b><br>
+Bending cables after cal, changing adapters, temperature change > 10°C, loosening any connector. If in doubt: re-cal. A 5-minute re-cal is always cheaper than a wrong measurement leading to a wrong register correction.
+</div>
+
 
 <div class="mod-section-title">Why you MUST calibrate before any phase measurement</div>
 <div class="mod-p">The VNA measures phase at its test ports. But everything between the VNA port and your DUT (cables, adaptors, connectors) adds phase. Without calibration, you are measuring the phase of your test setup, not the DUT. A 30 cm test cable at 2 GHz adds ~72° of phase. After SOLT calibration, the reference plane moves to the cal kit connector tips — the cable phase is mathematically removed.</div>
@@ -8085,6 +8775,20 @@ Procedure:
   <text x="325" y="158" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">After SOLT cal: S21 shows phase difference between ports → cable length difference → trim or add length</text>
   <text x="325" y="171" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Your beamforming: each column phase must be set independently after accounting for cable electrical length</text>
 </svg>
+<h4>Cable electrical length — phase matching, propagation delay</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Electrical length vs physical length:</b><br>
+Electromagnetic waves travel slower in coax than in free space. Velocity factor (VF) = speed in cable / speed of light. RG316 (your lab cables): VF = 0.695. A 1m RG316 cable has electrical length = 1 / (VF × c) = 1 / (0.695 × 3e8) = 4.78 ns propagation delay = 4.78 ns × 2140 MHz × 360° = 3680° electrical length. This is why cable length directly determines S21 phase — and why cables to each column must be matched in electrical length (not just physical length).
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Phase matching cables for beamforming:</b><br>
+For accurate beamforming, the cable from each column's BOB SMA to the measurement point must be phase-matched. Use VNA to measure S21 phase of each cable at band centre frequency. Target: all cables within ±2° of each other. If one cable is 5° longer, the column will appear 5° phase-shifted — exactly the error you are trying to measure in the RU. Use matched-pair cables (same manufacturer, same batch, same length) or trim electrical length using phase extender adapters.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Port extension — moving the reference plane after cal:</b><br>
+If you cal at the cable tips but then add an adapter, VNA port extension moves the reference plane electrically. Measure the adapter electrical length separately. Enter as port extension delay (ps) in VNA setup. This avoids a full re-cal whenever adapters change.
+</div>
+
 
 <div class="mod-section-title">Why cable phase matching matters</div>
 <div class="mod-p">In your test setup, multiple cables connect the FHGW BOB SMA ports to the EXA/EXM. For multi-port measurements (e.g. comparing TX power across 4 antenna elements simultaneously using a switch matrix), each cable must have the same electrical length — otherwise you are adding cable-to-cable phase differences to your measurement. For beamforming calibration, cable phase differences directly appear as beam pointing errors.</div>
@@ -8197,6 +8901,20 @@ So Cable B is 0.91 mm longer than Cable A. Trim 0.91 mm off Cable B to match.</d
   <text x="30"  y="165" fill="#00d4a0" font-size="9" font-family="monospace">Δ vs A:    0°        −1.7°      +0.6°      −2.9°   ← phase error</text>
   <text x="30"  y="180" fill="#f5a623" font-size="8" font-family="monospace">Target: all columns within ±2° of each other. Else beamforming direction will be off.</text>
 </svg>
+<h4>Antenna element phase calibration — per-column measurement</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Measurement procedure per column:</b><br>
+1. SOLT cal at cable tips. 2. Connect Port 1 to Column A BOB SMA. 3. Connect Port 2 to reference point (or use a known reference cable). 4. Measure S21 at band centre. 5. Record magnitude and phase. 6. Repeat for columns B, C, D. 7. Compute Δφ = each column phase − Column A phase. 8. Δφ > ±2° → update PE44820DS register for that column by −Δφ (opposite sign correction).
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Real B1 example (unit 26050509):</b><br>
+Col A: −125.4° (ref). Col B: −127.1° → Δ = −1.7° (within ±2° ✓). Col C: −131.8° → Δ = −6.4° (FAIL) → adjust PE44820DS by +6.4°. Col D: −126.9° → Δ = −1.5° (within ±2° ✓). After correction: re-measure Col C → should show ≈ −125°. If not: PE44820DS register may have limited resolution (e.g. 5.625° steps) — round to nearest step.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">When phase error is larger than ±5°:</b><br>
+Δφ > 5° usually means: cable swap (wrong cable connected to that column), connector not fully mated (1–2 turns left to tighten), or physical damage to the RF trace/connector on the BOB. Inspect physically before adjusting register — a register correction of 8° when the actual problem is a loose connector will appear to pass VNA check but drift back when temperature changes.
+</div>
+
 <div class="mod-section-title">What you are measuring</div>
 <div class="mod-p">Each of the 8 or 12 TX paths in your AAU (from FHGW DAC output to RFFE antenna port) introduces a different phase shift. Sources of inter-element phase difference: slightly different trace lengths on PCB, component tolerance in phase shifters, connector variations, filter group delay differences. The OB_CAL (observation calibration) corrects these in firmware — but first you need to MEASURE them to know how much correction is needed.</div>
 
@@ -8293,6 +9011,20 @@ So Cable B is 0.91 mm longer than Cable A. Trim 0.91 mm off Cable B to match.</d
   <text x="50"  y="168" fill="#4a5470" font-size="8" font-family="monospace">VNA verifies actual phase vs programmed → correct PE44820DS register if drift detected</text>
   <text x="50"  y="180" fill="#4a5470" font-size="7" font-family="monospace">Repeat for B3 (λ=16.3cm), B8 (λ=31.9cm), B28 (λ=39.5cm), B41 (λ=11.8cm) — each has different d</text>
 </svg>
+<h4>Beamforming angle calibration — phase to beam angle mapping</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Beam angle formula and your numbers:</b><br>
+θ = arcsin(λ × Δφ_rad / (2π × d)). For B1 at 2140 MHz: λ = c/f = 3e8/2140e6 = 0.140 m. d = λ/2 = 0.070 m. Δφ = 20° = 0.349 rad → θ = arcsin(0.140 × 0.349 / (2π × 0.070)) = arcsin(0.111) = 6.4°. This means: if each consecutive column is programmed 20° more phase shift than the previous, the beam points 6.4° off boresight.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Per-band beam angle differences:</b><br>
+Different bands have different wavelengths and different element spacings, so the same phase step gives a different beam angle per band. B1 (2140 MHz): 20° Δφ = 6.4° beam angle. B3 (1843 MHz): 20° Δφ = 5.5°. B8 (942 MHz): 20° Δφ = 2.8°. B28 (758 MHz): 20° Δφ = 2.2°. This is why beam calibration is done per band, not once for all bands. The PE44820DS register value for a given beam direction differs by band.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Verifying beam steering with OTA measurement:</b><br>
+After phase cal, verify beam steering optionally using a reference antenna on a tripod at known angle from the AAU. Measure receive power at multiple angles while sweeping phase commands. Maximum received power angle should match commanded angle within ±1°. If not: re-run VNA phase cal, check PE44820DS register writes were accepted, verify mutual coupling between columns is within design spec.
+</div>
+
 <div class="mod-section-title">From phase difference to beam angle</div>
 <div class="mod-formula">For a uniform linear array with element spacing d:
 
@@ -8410,6 +9142,20 @@ Your B1/B3 4-column array (12 elements):
   <text x="530" y="166" fill="#8892b0" font-size="8" font-family="monospace">~2-5° per 90° bend in SMA cable</text>
   <text x="530" y="180" fill="#00d4a0" font-size="8" font-family="monospace">✓ Fix: secure cables after cal, don't move</text>
 </svg>
+<h4>Practical VNA tips — common mistakes, cable handling</h4>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Six most common VNA mistakes:</b><br>
+1. Not warming up — LO drifts 5–10° in first 15 min. Always wait 30 min.<br>2. Wrong torque — SMA spec is 0.9 N·m. Over-torque destroys center pin. Always use torque wrench.<br>3. Cal at wrong plane — cal WITH measurement cables attached, not before.<br>4. Skipping isolation step — SOLT needs isolation between ports for accurate S21 at high loss.<br>5. Wrong IFBW — use 1 kHz for phase cal (slow but accurate), not 1 MHz (fast but noisy).<br>6. Moving cables after cal — phase shifts 2–5° per cable flex.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Connector inspection before every connection:</b><br>
+Look for: bent center pin (replace immediately), scratches on mating face (replace), debris in connector (clean with IPA and wooden toothpick — never metal). After cleaning, inspect with loupe. A bent center pin costs 2 minutes to catch and replace. A bent pin that makes contact costs a 2-day measurement mystery.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Port extension vs full recal — when to use which:</b><br>
+Full recal: whenever you change cable, add/remove adapter, or temperature changes > 10°C. Port extension: when you want to move reference plane by a fixed electrical delay (e.g. accounting for a short adapter). Port extension does not correct impedance mismatch — it only shifts phase. Never use port extension as a substitute for proper recal when making precision measurements.
+</div>
+
 <div class="mod-section-title">Top phase measurement mistakes and how to avoid them</div>
 <div class="mod-table-wrap"><table class="test-table">
 <tr><th>Mistake</th><th>Effect on phase measurement</th><th>Prevention</th></tr>
@@ -8530,6 +9276,20 @@ Your B1/B3 4-column array (12 elements):
   <text x="30"  y="160" fill="#ff6b6b" font-size="9" font-family="monospace">Col C:          S21 phase = −131.8°  → Δ = −6.4°  (FAIL &gt;±2°) → adjust PE44820DS by +6.4°</text>
   <text x="30"  y="175" fill="#f5a623" font-size="9" font-family="monospace">Col D:          S21 phase = −126.9°  → Δ = −1.5°  (within ±2° ✓)</text>
 </svg>
+<h4>Worked example — B1 TX path phase calibration step by step</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Complete 7-step procedure with your actual numbers:</b><br>
+① Warm up VNA E5071C 30 min.<br>② Set freq: 2100–2180 MHz, 201 points, IFBW 1 kHz, power −10 dBm.<br>③ SOLT cal at cable tips (SHORT/OPEN/LOAD each port, then THROUGH).<br>④ Connect Port 1 → Column A BOB SMA. Connect Port 2 → reference terminator with cable. Measure S21. Record: Mag = −16.7 dBm, Phase = −125.4°. This is the Column A baseline.<br>⑤ Move Port 1 to Column B. Record: −127.1° → Δ = −1.7° (PASS).<br>⑥ Move to Column C. Record: −131.8° → Δ = −6.4° (FAIL > ±2°). Write PE44820DS register with +6.4° correction.<br>⑦ Re-measure Column C after correction → confirm within ±2°.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">What to do when correction does not take effect:</b><br>
+PE44820DS is an SPI-controlled digital phase shifter. Write via CLI: <code>pe44820_write col_C 0x2A</code> (register value depends on step size). Verify readback matches. If phase still wrong after register write: check SPI communication to RFFE (possible RFFE fault), check PE44820DS power supply (1.8V), check if DPD override is forcing phase (some DPD modes lock phase to calibrated values — disable DPD during phase cal).
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Frequency dependence — why you calibrate at band centre:</b><br>
+Phase is frequency-dependent. A cable that is 0° at 2100 MHz may be +3° at 2180 MHz. Phase cal at band centre (2140 MHz for B1) gives the best average across the band. For wideband beamforming, some systems do phase cal at 3 frequencies (low edge, centre, high edge) and interpolate. Your RU uses single-frequency cal — adequate for 80 MHz B1 bandwidth where phase variation is small.
+</div>
+
 <div class="mod-section-title">Scenario</div>
 <div class="mod-p">You have a Metro AAU unit (unit 509, RFFE2 recently reflashed via JTAG). After reflash you need to verify the B1 TX path phase response on all 4 B1 antenna elements and confirm OB_CAL brings them within ±1° of each other.</div>
 
@@ -8772,6 +9532,20 @@ Thermal noise (kTB) sets the absolute noise floor. NF1 explains the physics. The
   <text x="538" y="107" fill="#00d4a0" font-size="8" font-family="monospace">+SNR_req −1dB: −99.25 dBm</text>
   <text x="538" y="121" fill="#4a5470" font-size="7" font-family="monospace">= B1 10MHz QPSK sensitivity</text>
 </svg>
+<h4>RCT bench setup — DU, AAU, instruments, connections decoded</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Your bench setup — instrument roles:</b><br>
+<b>EXM E6640A</b>: Vector Signal Generator. Injects calibrated UL signals (PRACH preambles at DSA-corrected power levels) into RU BOB SMA for RX/sensitivity tests. Also generates FRC waveforms for RSSI cal.<br><b>EXA N9010B</b>: Signal/Spectrum Analyser. Measures TX output: power, ACLR, EVM, spectrum mask. Connect via BOB SMA + 30 dB pad.<br><b>VNA E5071C</b>: Network Analyser. Measures S21 (phase) for per-column beamforming calibration, cable loss, connector VSWR.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Connection diagram — RX test (sensitivity/RSSI):</b><br>
+EXM output → SMA cable (measure loss with VNA first) → RU BOB SMA port (UL column under test). EXM controls: frequency = band UL centre, power = target sensitivity + cable_loss, waveform = FRC_A1. RU CLI: get_rssi N to read ADC. DU CLI: testmac rssi to read DU RSSI. All three must agree within ±2 dB.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Connection diagram — TX test (ACLR/power):</b><br>
+RU BOB SMA (DL column under test) → 30 dB attenuator pad → SMA cable → EXA input. EXA: centre freq = band DL centre, atten = 10 dB (+ 30 dB pad = 40 dB total), preamp OFF, ACLR mode. Wait 60s for DPD convergence. Measure: power (compare to rated target ±1 dB), ACLR (compare to −45 dBc limit), EVM if required.
+</div>
+
 
 <h4>Why thermal noise is unavoidable</h4>
 <div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
@@ -10851,6 +11625,16 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="10"  y="236" fill="#8892b0" font-size="9" font-family="monospace">-3dB = ÷2 power   -10dB = ÷10 power   -20dB = ÷100 power   -30dB = ÷1000 power</text>
   <text x="10"  y="249" fill="#4a5470" font-size="8" font-family="monospace">0 dBm = 1 mW   +30 dBm = 1 W   +43 dBm = 20 W (your B1 output)   -174 dBm/Hz = thermal noise floor</text>
 </svg>
+<h4>Electronics foundation — the base you build RF knowledge on</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Ohm's Law to RF — the continuity:</b><br>
+V=IR, P=VI=V²/R=I²R in DC circuits. In RF, impedance Z replaces resistance R and includes reactance (capacitors, inductors). At RF frequencies, lumped components behave differently — a capacitor becomes a short at high freq, an inductor becomes an open. This is why RF design is about distributed elements (transmission lines, antennas) and why 50 Ω is the universal RF reference impedance.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">dB/dBm — the RF number system:</b><br>
+Learn these rules cold: +3dB=×2 power, +10dB=×10. 0dBm=1mW, +30dBm=1W, −30dBm=1μW. Every RF calculation uses dB because gain and loss simply add. Chain gain = sum of all block gains in dB. This is the single most important concept to internalise — you use it 50× per day in RF work.
+</div>
+
 <div class="mod-p">Master these before touching RF equipment. Every RF measurement is built on these foundations — Ohm's law for power calculations, dBm for every instrument reading, VSWR for every antenna match check, S-parameters for every VNA measurement.</div>
 </div>
 </div>
@@ -10932,6 +11716,16 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="400" y="264" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Coding adds redundancy → receiver can correct errors → enables BLER≤5% at sensitivity threshold</text>
   <text x="400" y="276" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">QPSK 1/3 code rate → required SNR ≈ -1dB (signal CAN be below noise floor with coding gain)</text>
 </svg>
+<h4>Digital communications — modulation, coding, OFDM basics</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">From bits to waveform:</b><br>
+Digital comms: bits → symbol mapping (QAM) → pulse shaping → carrier modulation → channel → demodulation → symbol decision → bits. Each step has a quality metric: Symbol Error Rate → Bit Error Rate → Block Error Rate (BLER). 3GPP uses 5% BLER as the sensitivity threshold. The entire DSA framework is calibrating your test to this 5% BLER threshold.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Why OFDM was chosen for LTE:</b><br>
+OFDM converts a wideband channel into many narrow subchannels (15 kHz each). Each subchannel experiences flat fading (not frequency-selective). Frequency-domain equalization becomes trivial — one complex multiply per subcarrier. Guard bands (cyclic prefix) eliminate inter-symbol interference from multipath. The price: high PAPR (10–12 dB) requiring DPD and CFR.
+</div>
+
 <div class="mod-p">LTE downlink uses OFDMA with QAM modulation on each subcarrier. Uplink uses SC-FDMA (single carrier) to keep UE PAPR low (battery saving). Your RU receives SC-FDMA from UE and transmits OFDMA to UE.</div>
 </div>
 </div>
@@ -11015,6 +11809,16 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="20"  y="291" fill="#8892b0" font-size="8" font-family="monospace">Q: ACLR is -52dBc, limit is -45dBc. Why might it fail after you increase TX power? → PA approaches compression, DPD not yet adapted at new power point</text>
   <text x="20"  y="304" fill="#8892b0" font-size="8" font-family="monospace">Q: EVM is 12% (limit 8%). List 5 possible root causes. → ADC overrange, DPD diverged, cable fault, LO phase noise, IQ imbalance, PA over-temp</text>
 </svg>
+<h4>RF measurements — power, EVM, ACLR, SEM, RSSI in depth</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">The 5 measurements you run most often:</b><br>
+<b>TX Power</b>: output at BOB SMA vs rated target (±1 dB). <b>ACLR</b>: adjacent channel leakage (< −45 dBc). <b>EVM</b>: IQ constellation quality (< 8% for 64QAM). <b>RSSI</b>: receive power calibration (CLI vs DU within ±2 dB). <b>Sensitivity</b>: PRACH detection at threshold (>99% in 100 attempts). Everything else is derived from or feeds into these five.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">SEM — Spectrum Emission Mask:</b><br>
+SEM verifies TX spectral purity across a wide frequency range — not just the adjacent channel (ACLR) but spurious emissions 10s of MHz away. 3GPP defines limits at multiple offset frequencies. EXA measures this in one sweep using the SEM measurement function. Failures outside the main ACLR range usually indicate harmonics (PA operating at wrong Vdd) or spurious oscillations.
+</div>
+
 <div class="mod-p">This is where you live as an RF engineer. Every instrument reading, every test result, every pass/fail decision maps to this level. The goal is not just to measure but to understand WHY a measurement fails and trace it to the exact root cause in the hardware or software chain.</div>
 </div>
 </div>
@@ -11146,6 +11950,16 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="400" y="215" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">Everything BEFORE LNA adds full NF penalty · Everything AFTER LNA is divided by LNA gain (×100)</text>
   <text x="400" y="230" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Sensitivity = -174 + 10log(BW) + NF + Required_SNR = -174 + 70 + 5.75 + (-1) = -99.25 dBm for B1 10MHz</text>
 </svg>
+<h4>RF components — full signal chain from BBU to antenna</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">DL signal chain — every block:</b><br>
+BBU/DU (IQ data) → FHGW (IFFT, BFP, CFR, DPD) → DAC → upconverter (mixer+LO) → PA → duplexer/T-R switch → antenna. Each adds gain or loss. DPD is the most complex — adaptively pre-distorts the signal to compensate for PA nonlinearity. Without DPD, ACLR would fail by 10–15 dB. See A05 (TX chain) and A06 (RX chain) cards for full diagrams.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">UL signal chain — every block:</b><br>
+Antenna → duplexer/T-R switch → pre-BPF → LNA → post-BPF → mixer → VGA/AGC → ADC → FHGW (FFT, BFP compress) → eCPRI → DU. NF is set by the first components: cable+duplexer+LNA. LNA gain divides all subsequent NF contributions. See NCH card for full Friis calculation. See DSA card for how NF drives sensitivity and test thresholds.
+</div>
+
 </div>
 </div>
 
@@ -11296,6 +12110,16 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="400" y="215" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">EXA DANL: preamp ON+0dBatten = -130dBm/Hz · EXM RF range must match input power to avoid ADC overrange</text>
   <text x="400" y="228" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">SCPI: connect via TCP port 5025 (EXA: 10.62.2.135:5025) · Python: socket or pyvisa</text>
 </svg>
+<h4>Test equipment — EXA, EXM, VNA — specs, settings, use cases</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Instrument purpose summary:</b><br>
+<b>EXA N9010B</b> (Spectrum/Signal Analyser): measures what the RU transmits — power, ACLR, EVM, SEM. Input always from BOB SMA via 30 dB pad. IP: 10.62.2.135, port 5025. <b>EXM E6640A</b> (VSG): injects calibrated signals into RU for RX tests — RSSI cal, sensitivity, PRACH. Output to BOB SMA via measured cable. <b>VNA E5071C</b>: measures RF paths — cable loss, connector VSWR, column-to-column phase difference for beamforming cal.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Key settings per measurement:</b><br>
+ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp OFF, power meter mode. EVM: EXA, VSA mode or EVM function. RSSI cal: EXM inject known power, EXA verify EXM accuracy first. Phase cal: VNA, SOLT cal first, IFBW 1kHz, single frequency at band centre.
+</div>
+
 </div>
 </div>
 
@@ -11508,6 +12332,16 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <line x1="320" y1="350" x2="480" y2="350" stroke="#4a5470" stroke-width="2" stroke-dasharray="5,3"/>
   <text x="400" y="345" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Shared antenna port</text>
 </svg>
+<h4>RF system architecture — end to end from core to antenna</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How your AAU fits in the network:</b><br>
+Core (AMF/SMF/UPF) ↔ gNB (O-CU ↔ O-DU ↔ FHGW ↔ O-RU/AAU) ↔ UE. Your work is at the O-RU layer — you test the Radio Unit in isolation using PW's FHGW+DU as the counterpart. O-RAN standardises the O-RU↔O-DU interface (eCPRI + 7.2x split) so the O-RU must interoperate with any compliant O-DU. This is what the RCT conformance tests verify.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Power budget end to end:</b><br>
+gNB TX: +43 dBm (20W) per column at antenna port. Free space loss at 1km, 2140MHz: −99.6 dB. UE receive: +43 − 99.6 = −56.6 dBm. UE sensitivity: ~−105 dBm. DL margin: 48.4 dB. UE TX: +23 dBm. Free space loss: −99.6 dB. gNB receive: +23 − 99.6 = −76.6 dBm. gNB sensitivity: −99.25 dBm. UL margin: 22.6 dB. UL is the limiting direction — this is always why coverage is UL-limited.
+</div>
+
 <div class="mod-p">Know every block's purpose, failure mode, and impact on the signal. For each block ask: What does it do? What happens to the signal? What can go wrong? How does a failure manifest at the measurement point (EXA/EXM)? The complete chain from L2 bits to radiated RF and back is your mental model for all debugging.</div>
 </div>
 </div>
@@ -11593,6 +12427,20 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="20"  y="276" fill="#f5a623" font-size="8" font-family="monospace">LTE EVM limits: QPSK=17.5%, 16QAM=12.5%, 64QAM=8%, 256QAM=3.5% (3GPP TS 36.104 Table 6.5.2.2-1)</text>
   <text x="20"  y="288" fill="#4a5470" font-size="8" font-family="monospace">Debug: disable DPD → measure PA-only EVM · enable DPD → measure improvement · identify dominant impairment source</text>
 </svg>
+<h4>RF impairments — IQ imbalance, LO leakage, phase noise, compression</h4>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">IQ imbalance — cause and effect:</b><br>
+I and Q paths have slightly different gain or phase due to component mismatch. Effect: constellation rotates and compresses → EVM increases. On EXA constellation display: asymmetric clusters (amplitude imbalance) or rotated clusters (phase imbalance). Spec: IQ amplitude balance < 0.5 dB, IQ phase imbalance < 1°. Root cause: analog baseband circuit tolerance in the DAC/mixer.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">LO leakage — DC offset in IQ:</b><br>
+If the LO signal leaks to the output, it appears as a large carrier at the centre frequency. In the IQ constellation: all symbols offset from origin. In spectrum: spike at band centre frequency (DC offset in baseband maps to carrier frequency after upconversion). Spec: LO leakage < −30 dBc. Causes: mixer imbalance, LO feedthrough, ground bounce in analog baseband.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Compression — PA P1dB impact:</b><br>
+As input power approaches P1dB, PA gain drops. In the constellation: all points compress inward toward origin (amplitude compression). In spectrum: ACLR increases (spectral regrowth). EVM worsens. DPD is designed to operate right at P1dB and compensate, but if DPD model is wrong or not converged, compression shows through.
+</div>
+
 </div>
 </div>
 
@@ -11743,6 +12591,20 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
   <text x="400" y="252" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Beam Sweeping (SSB burst) → Beam Measurement (RSRP per beam) → Beam Selection → Beam Refinement (CSI-RS) → Beam Tracking → Beam Failure Detection → Beam Failure Recovery (new beam request)</text>
   <text x="400" y="266" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Beam Failure Recovery: UE sends PRACH on candidate beam → gNB acknowledges → new beam established · Recovery time target: &lt;50ms</text>
 </svg>
+<h4>Beamforming — analog, digital, hybrid; your 4T4R AAU</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How your 4T4R AAU does beamforming:</b><br>
+4 TX columns (A/B/C/D), each connected to a separate PA. Phase shifter (PE44820DS) applied per column digitally. Baseband beamforming weights computed by O-DU scheduler based on UE channel feedback (CSI-RS/SRS measurements). Phase weights sent to FHGW → applied to each column's IQ stream before DAC. Result: constructive interference in desired UE direction, destructive in other directions.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">MRC on the RX side — how 4 columns combine:</b><br>
+Maximum Ratio Combining weights each column's received signal by its own SNR quality. Column with strong LNA and clean cable gets high weight. Degraded column gets low weight automatically. Algebraically: output SNR = Σ(SNR_i) for all columns i. For 4 equal columns: output SNR = 4× single column SNR = +6 dB. This is why combined sensitivity is always 5–6 dB better than single-column sensitivity.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Beamforming gain in the link budget:</b><br>
+Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 dBi over isotropic per column = +6 dB EIRP improvement. With 4 columns transmitting coherently: total EIRP = single_column_power + 4_column_BF_gain = +43 dBm + 6 dB = +49 dBm EIRP (excluding antenna element gain). Antenna element gain adds another 8–12 dBi. Total EIRP can reach +60 dBm for a 4T4R AAU with panel antenna.
+</div>
+
 </div>
 </div>
 
