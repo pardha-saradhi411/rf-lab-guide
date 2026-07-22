@@ -1180,6 +1180,20 @@ footer span{color:var(--text2)}
   <text x="692" y="168" fill="#5bc4ef"  font-size="8" text-anchor="middle" font-family="monospace">Low amplitude (weak)</text>
   <text x="692" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">P ∝ A² (power ∝ amplitude²)</text>
 </svg>
+<h4>RF fundamentals — signals, power, frequency, wavelength</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Frequency, wavelength, and why band choice matters:</b><br>
+f = 1/T (Hz). λ = c/f where c = 3×10⁸ m/s. B1 at 2140 MHz: λ = 14 cm. B28 at 758 MHz: λ = 40 cm. Lower frequency = longer wavelength = better building penetration = wider coverage. Higher frequency = shorter wavelength = more bandwidth available = higher capacity. This is why B28 (700 MHz) is used for coverage (rural, indoors) and B41 (2545 MHz) for capacity (dense urban).
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Power — amplitude, dBm, and what numbers mean in RF:</b><br>
+Signal power in RF is always in dBm (decibels relative to 1 mW). 0 dBm = 1 mW. +30 dBm = 1 W. +43 dBm = 20 W (your PA). −99 dBm = your RX sensitivity. The 142 dB difference between PA output and sensitivity threshold is the dynamic range challenge that every part of the RF chain must handle.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Sine wave parameters — amplitude, phase, frequency:</b><br>
+A sine wave is fully described by: amplitude (power level in dBm), frequency (carrier), and phase (timing offset vs reference). Beamforming works by controlling phase per column. ACLR measures spectral purity. EVM measures how accurately amplitude and phase are reproduced for each symbol. All three physical parameters appear as measurement metrics in your RCT.
+</div>
+
 
 <div class="mod-section-title">1.1 What is RF?</div>
 <div class="mod-p">RF stands for Radio Frequency — electromagnetic waves that carry energy and information through space without any physical conductor. The RF spectrum spans from roughly 3 Hz to 300 GHz. Below 20 kHz is audio; above 300 GHz is infrared/optical. Everything in between is RF.</div>
@@ -1329,6 +1343,20 @@ footer span{color:var(--text2)}
   <text x="530" y="156" fill="#8892b0" font-size="8" font-family="monospace">· TX path phase (S21 phase)</text>
   <text x="530" y="168" fill="#00d4a0" font-size="7" font-family="monospace">Cal first: SOLT at measurement plane</text>
 </svg>
+<h4>S-parameters, filters, VNA — advanced RF measurements</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">S-parameters — what S11/S21/S12/S22 measure:</b><br>
+A 2-port network has 4 S-parameters. S11: input reflection (VSWR at Port 1). S21: forward transmission (gain or loss from Port 1 to Port 2). S12: reverse transmission (isolation). S22: output reflection. For a cable: S11 < −20 dB (good match), S21 = −loss dB (e.g. −2.5 dB). For your duplexer: S21_TX = −0.5 dB (TX insertion loss), S21_RX = −0.5 dB (RX insertion loss), S12_TX_to_RX < −50 dB (TX-to-RX isolation).
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Filter specs — what each number means:</b><br>
+Insertion loss: how much the filter attenuates in the passband (bad, adds NF). Rejection: how much it attenuates out-of-band (good, blocks blockers). Passband ripple: variation of insertion loss across the passband. Group delay variation: frequency-dependent delay causing phase distortion. Your B1 pre-BPF: insertion loss 0.3 dB (passband 2110–2170 MHz), rejection > 60 dB (at B3 and B41 frequencies).
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">VNA usage in your lab:</b><br>
+S11 (cable/connector quality): both ports, check S11 < −20 dB at band frequencies. S21 (cable loss): Port 1 → cable → Port 2, magnitude gives loss, phase gives electrical length. S21 (column phase cal): Port 1 → BOB SMA → RFFE → Port 2, phase difference between columns = beamforming correction needed. Always SOLT cal first. See VNA2-7 cards for detailed procedures.
+</div>
+
 
 <div class="mod-section-title">3.1 S-parameters — the language of VNA measurements</div>
 <div class="mod-p">S-parameters (Scattering parameters) describe how RF signals are transmitted and reflected at the ports of a device. For a 2-port device (like a filter or cable), there are 4 S-parameters organized in a 2×2 matrix:</div>
@@ -1425,6 +1453,20 @@ footer span{color:var(--text2)}
   <text x="550" y="142" fill="#8892b0" font-size="8" font-family="monospace">DL+UL share same frequency</text>
   <text x="550" y="156" fill="#ff6b6b" font-size="8" font-family="monospace">Needs phase sync (PTP ±1.5μs)</text>
 </svg>
+<h4>LTE air interface — OFDM, resource blocks, FDD, TDD</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Resource block structure — from subcarrier to throughput:</b><br>
+1 subcarrier = 15 kHz. 1 Resource Block (RB) = 12 subcarriers = 180 kHz. 1 slot = 7 symbols (normal CP) = 0.5 ms. 1 subframe = 2 slots = 1 ms. Channel bandwidth to RBs: 5 MHz→25RB, 10 MHz→50RB, 15 MHz→75RB, 20 MHz→100RB. Peak throughput (100RB, 64QAM, MIMO 4×4): ~300 Mbps. Your sensitivity test uses all RBs at QPSK 1/3 — lowest throughput, best coverage.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">FDD bands (B1/B3/B8/B28) vs TDD band (B41):</b><br>
+FDD: separate DL and UL frequencies. B1: DL 2110–2170 MHz, UL 1920–1980 MHz (190 MHz duplex gap). Duplexer separates TX and RX. Can transmit and receive simultaneously. TDD B41: DL and UL share 2496–2690 MHz. T/R switch alternates TX and RX. DL/UL ratio configurable (e.g. 3DL:1UL). Needs PTP timing synchronisation (±1.5 μs). Asymmetric — can give more DL capacity on demand.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">OFDM benefits and the PAPR cost:</b><br>
+Benefits: flat fading per subcarrier (simple equalisation), flexible resource allocation (schedule per RB per UE), robust against multipath (cyclic prefix). PAPR cost: OFDM sum of many subcarriers creates random peaks 10–12 dB above average. PA must handle these peaks without clipping → either back off PA (lower efficiency) or use CFR+DPD (maintain efficiency). Your AAU uses CFR+DPD to enable PA operation near P1dB without ACLR violations.
+</div>
+
 
 <div class="mod-section-title">4.1 Why OFDM?</div>
 <div class="mod-p">A wideband channel (20 MHz of LTE) has frequency-selective fading — some frequencies fade more than others depending on the multipath environment. In a single-carrier system, a deep fade at one frequency wipes out a chunk of your data. OFDM (Orthogonal Frequency Division Multiplexing) slices the wideband channel into N narrow subcarriers, each so narrow (15 kHz in LTE) that it experiences flat fading. A fade at one subcarrier only kills data on that one subcarrier — easy to correct with FEC coding.</div>
@@ -1909,6 +1951,20 @@ Each column's TX path (from digital beamformer output to antenna element) has sl
   <text x="710" y="163" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">when AWGN not enough</text>
   <text x="710" y="178" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Your bench: AWGN only</text>
 </svg>
+<h4>Propagation channel models — AWGN, EPA, EVA, ETU in your tests</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">AWGN — your standard lab test condition:</b><br>
+AWGN (Additive White Gaussian Noise) is the simplest channel model — single path, flat fading, no multipath. Your lab bench with direct cable connection from EXM to RU is AWGN. All DSA sensitivity values in your table are AWGN performance. Real channels have multipath, but AWGN gives the best achievable sensitivity that sets the baseline. 3GPP defines sensitivity tests under AWGN — this is what you verify.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">EPA/EVA/ETU — multipath channel models:</b><br>
+EPA (Extended Pedestrian A): 7 taps, 0–410 ns delay, 5 km/h Doppler. Represents pedestrian indoor/suburban. EVA (Extended Vehicular A): 9 taps, 0–2.51 μs delay, 70 km/h. Urban micro. ETU (Extended Typical Urban): 9 taps, 0–5 μs delay, high delay spread. Dense urban macro. Each model has delay profiles and Doppler spread specified by 3GPP. Sensitivity degrades 1–3 dB vs AWGN under these conditions due to multipath combining losses.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">PropSim — when you need it:</b><br>
+PropSim is a hardware channel emulator that sits between EXM and RU. It applies the EPA/EVA/ETU delay profiles in real hardware, including realistic Doppler. Required for full conformance testing when AWGN sensitivity alone is not sufficient. Your bench (AWGN only) is sufficient for RCT smoke tests and hardware validation. PropSim is used for type approval / 3GPP conformance certification.
+</div>
+
 
 <div class="mod-section-title">8.1 Why channel models exist</div>
 <div class="mod-p">In the real world, a UE's signal travels to the base station via many different physical paths: direct line-of-sight, reflections off buildings, diffraction over rooftops, ground reflection, etc. Each path has different delay (due to different path length) and different amplitude (due to different path loss and reflection coefficient). The received signal is the sum of all these copies.</div>
@@ -2101,6 +2157,20 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
   <text x="625" y="167" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Document before/after every change</text>
   <text x="625" y="181" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Root cause = smallest change that explains ALL symptoms</text>
 </svg>
+<h4>Troubleshooting — 5-Why analysis, RF fault patterns</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">5-Why method — finding root cause, not symptoms:</b><br>
+When a test fails, always ask Why 5 times before touching hardware. Example: ACLR fail (−42 dBc, limit −45 dBc). Why? PA nonlinear. Why? DPD not compensating. Why? DPD not converged. Why? Measured only 15s after TX enable. Why? No wait step in test script. Root cause: missing sleep(60) in procedure — not a hardware fault. Fix the procedure, not the hardware. 3 of 4 RF failures in the lab are procedure errors, not hardware faults.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Systematic fault isolation — TX path:</b><br>
+TX power low: check (1) tx_calibration_eeprom.json present, (2) TX_GAIN register value, (3) PA bias voltage, (4) cable between BOB SMA and EXA (swap known-good cable). ACLR fail: check (1) DPD converged (wait 60s), (2) rated power correct (not over-driven), (3) EXA atten and preamp correct. EVM fail: check (1) IQ imbalance, (2) LO phase noise, (3) CFR settings.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Systematic fault isolation — RX path:</b><br>
+Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct column tested (get_rssi N), (3) ADC_ADJUST calibrated recently, (4) EXM output verified with EXA before injection, (5) preamp ON on EXA if checking noise floor. RSSI off: check (1) ADC_ADJUST correct per band per channel, (2) cable not swapped since last cal. One column bad: physical inspection of that column connector and cable.
+</div>
+
 
 <div class="mod-section-title">10.1 EVM failure diagnosis — systematic approach</div>
 <div class="mod-p">EVM fail is one of the most common test failures and often the hardest to root cause because multiple independent faults can cause similar EVM degradation. Use this systematic approach:</div>
@@ -2216,6 +2286,20 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
   <text x="420" y="207" fill="#ff6b6b" font-size="8" font-family="monospace">Better antenna or MRC → +3-6 dB margin</text>
   <text x="420" y="220" fill="#4a5470" font-size="7" font-family="monospace">UL is usually the limiting direction</text>
 </svg>
+<h4>Link budget — TX power to RX sensitivity, DL and UL</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">DL link budget (eNB → UE):</b><br>
+EIRP = TX power per column (+43 dBm) + antenna gain (+8 dBi) = +51 dBm. FSPL at 1 km, 2140 MHz = −99.6 dB. Building penetration = −20 dB. UE sensitivity (QPSK, 10 MHz) = −105 dBm. DL margin = +51 − 99.6 − 20 − (−105) = +36.4 dB. Coverage radius where margin = 0: FSPL_max = 51 + 105 − 20 = 136 dBm → d_max ≈ 6 km (free space). Practical with shadowing margin: 1–2 km.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">UL link budget (UE → eNB):</b><br>
+UE EIRP = +23 dBm (23 dBm TX power, 0 dBi antenna). FSPL at 1 km = −99.6 dB. Building penetration = −20 dB. eNB (your RU) sensitivity = −99.25 dBm (B1, 10 MHz, QPSK, 4 columns MRC). UL margin = 23 − 99.6 − 20 − (−99.25) = +2.65 dB. UL is the limiting link — only 2.65 dB margin vs 36.4 dB DL margin. This asymmetry is why UL sensitivity matters so much and why MRC combining (adding 5–6 dB) is critical.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">MRC gain in the link budget:</b><br>
+Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin = 23 − 99.6 − 20 − (−93.25) = −3.35 dB — link FAILS at 1km with building penetration. With 4-column MRC: −99.25 dBm → UL margin = +2.65 dB — link passes. MRC gain is what makes the difference between a passing and failing coverage scenario. Every dead RX column you lose 1.5–2 dB of MRC gain.
+</div>
+
 
   <div class="mod-section-title">11.1 What a link budget is and why you need it</div>
   <div class="mod-p">A link budget is a complete accounting of every gain and every loss a signal experiences from the moment it leaves the transmitter to the moment it arrives at the receiver. It answers one fundamental question: does the received signal power exceed the receiver sensitivity by enough margin to give reliable communication?</div>
@@ -2400,6 +2484,20 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
   <text x="590" y="138" fill="#00d4a0" font-size="8" font-family="monospace">6. Recovery: PRACH new beam</text>
   <text x="590" y="155" fill="#4a5470" font-size="7" font-family="monospace">Recovery target: &lt;50ms</text>
 </svg>
+<h4>5G NR beam management — SSB, CSI-RS, SRS lifecycle</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">SSB — initial beam discovery:</b><br>
+SSB (Synchronisation Signal Block) contains PSS+SSS+PBCH. Transmitted in bursts of up to 64 beams sweeping different directions. Period: 20 ms. UE measures RSRP per beam index and reports the best beam. gNB selects the TX beam with highest reported RSRP. This is beam acquisition — coarse, done at initial access. The PRACH preamble is sent in the direction of the best SSB beam.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">CSI-RS — beam refinement after access:</b><br>
+CSI-RS (Channel State Information Reference Signal) is a reference signal the gNB transmits in a specific beam direction for the UE to measure. Finer granularity than SSB — can test many more beam directions. UE reports CRI (CSI-RS Resource Indicator) and RSRP per beam. gNB refines the TX beam from the SSB-selected direction to the optimal CSI-RS direction. Repeated periodically to track UE movement.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">SRS — uplink beam management:</b><br>
+SRS (Sounding Reference Signal) is transmitted by the UE and received by the gNB. The gNB measures the UL channel quality from each of the 4 RX columns. For TDD: UL and DL channels are reciprocal — gNB uses SRS measurements to select the best RX beam and derive the optimal DL TX beam without UE feedback. For FDD: SRS used for scheduling but DL beamforming still relies on CSI feedback since channels are different frequencies.
+</div>
+
 
   <div class="mod-section-title">13.1 Why 5G NR needs explicit beam management</div>
   <div class="mod-p">In LTE, beamforming was relatively simple — the gNB would use feedback from the UE (PMI — Precoding Matrix Indicator) to choose a downlink precoding vector. In 5G NR with 64 or 192 antenna elements and 3D beamforming, the beam space is enormous. You need a systematic procedure to find the best beam pair between gNB and UE, track it as the UE moves, and recover when the beam fails. This is the beam management framework.</div>
@@ -2474,6 +2572,20 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
   <text x="630" y="140" fill="#4a5470" font-size="7" font-family="monospace">1 bad connector = 1</text>
   <text x="630" y="152" fill="#4a5470" font-size="7" font-family="monospace">week of chasing ghost</text>
 </svg>
+<h4>RF connectors, cables, torque specs — zero tolerance for defects</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Connector specs — SMA, N-type, 2.92mm:</b><br>
+ <b>SMA</b>: DC–18 GHz, 0.9 N·m (8 in·lb). Your BOB SMA ports. Most common in your lab. <b>N-type</b>: DC–11 GHz, 1.36 N·m (12 in·lb). High-power outdoor use. Antenna feed. <b>2.92mm (K)</b>: DC–40 GHz, 0.9 N·m. Precision. EXA and VNA input ports. Never cross-mate N-type and SMA — pin diameters differ, permanent damage results.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Cable loss per metre at band frequencies:</b><br>
+RG316 (flexible, your lab cables): 2.5 dB/m @ 2 GHz. A 1m cable = −2.5 dB. LMR400 (low-loss semi-rigid): 0.55 dB/m. SF141 (semi-rigid): 1.56 dB/m. ALWAYS measure your specific cable with VNA before use — cable loss varies with frequency (higher loss at higher freq) and individual manufacturing variation. Never assume the nominal spec.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Inspection checklist before every connection:</b><br>
+□ Center pin straight and not recessed (replace if bent — even 5° of bend fails at RF)<br>□ Mating surface clean with no scratches (IPA + lint-free swab, visual inspect with loupe)<br>□ No debris in outer conductor<br>□ Use calibrated torque wrench — hand-tight is never correct<br>□ After connection: verify S11 < −20 dB with VNA<br>One bad connector = one week of unexplained measurement scatter.
+</div>
+
 
   <div class="mod-section-title">14.1 Connector types you encounter in your lab</div>
   <div class="mod-table-wrap"><table class="test-table">
@@ -2754,6 +2866,20 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
   <text x="700" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">IIP3 matters for blockers</text>
   <text x="700" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: IQ imbalance EVM</text>
 </svg>
+<h4>RF path components — duplexer, BPF, LNA, VGA, mixer, ADC</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Component purpose and NF contribution (B1 RX chain):</b><br>
+<b>Duplexer</b>: separates TX and RX paths at antenna port. Insertion loss 0.5 dB → NF contribution 0.5 dB. TX rejection >50 dB (prevents PA from entering LNA).<br><b>Pre-BPF</b>: rejects out-of-band blockers before LNA. Loss 0.3 dB → NF 0.3 dB. Worth it — without it, a strong blocker could compress LNA.<br><b>LNA</b>: NF 2.0 dB, gain +20 dB. Most critical component. Sets system NF. GaAs pHEMT.<br><b>Mixer</b>: NF 7 dB, but after LNA gain ÷100 = 0.07 dB contribution. Negligible.<br><b>VGA</b>: variable gain ±30 dB range. AGC-controlled. Keeps ADC at −12 dBFS.<br><b>ADC</b>: 12-bit, 74 dB SQNR, 122.88 MSPS.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">TX path components — FHGW to PA:</b><br>
+<b>DAC</b>: converts digital IQ to analog. 16-bit, 122.88 MSPS. Clock from GPS-locked reference.<br><b>Upconverter</b>: baseband IQ → RF. Mixer × LO frequency. IQ imbalance here → constellation rotation.<br><b>PA</b>: GaN, Class AB, +43 dBm output, ~35% efficiency. Protected by: thermal shutdown, VSWR protection, over-current detection.<br><b>Duplexer</b>: TX side routes PA output to antenna. Loss 0.5 dB from rated power.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Failure modes per component:</b><br>
+LNA dead → sensitivity fails, all columns for that band. LNA compressed (blocker) → NF increases, sensitivity degrades but LNA not dead. VGA/AGC stuck → RSSI reads wrong, may clip ADC. ADC_ADJUST wrong → RSSI off by fixed offset. PA degraded → TX power low, ACLR may worsen. Duplexer cracked → TX-to-RX leakage → RX desensitisation, possible LNA damage.
+</div>
+
 <div class="mod-section-title">Duplexer / T-R Switch — first after antenna</div>
 <div class="mod-p">In FDD (B1/B3/B8/B28): the duplexer simultaneously passes UL and DL on separate ports with >50 dB TX→RX isolation. It stops the PA's +43 dBm TX power from flooding the LNA input and desensitising the receiver. In TDD (B41): a T/R switch replaces the duplexer — faster switching, but cannot transmit and receive simultaneously on the same antenna.</div>
 <div class="mod-section-title">BPF — Band-pass filter</div>
@@ -4856,6 +4982,48 @@ DPD needs to observe the PA output to adapt. A single observation receiver (ORX)
   <text x="120" y="202" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">FHGW (SSH+NETCONF)</text>
   <line x1="120" y1="160" x2="120" y2="185" stroke="#4a5470" stroke-width="1" stroke-dasharray="3,3"/>
 </svg>
+<h4>Real lab screenshots — EXM ACP, Modulation Analysis decoded</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Reading the EXM ACP screenshot:</b><br>
+ACP (Adjacent Channel Power) display on EXM shows: centre channel power (your rated output), adjacent channel power at ±offset frequency, alternate channel at ±2× offset. The ratios between adjacent and centre are ACLR values. Red bars exceeding the mask = FAIL. Vertical axis: power in dBm. Pass criterion: adjacent channel ≥ 45 dB below centre. Check: is DPD converged? Is measurement BW correct for your channel BW?
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Reading the Modulation Analysis (constellation) display:</b><br>
+EVM display shows IQ constellation plot. Good result: tight clusters at each QAM point, all within the decision boundary. Problems: Spread clusters = phase noise (LO quality). Clusters offset from grid = DC offset (LO leakage). One axis compressed = IQ amplitude imbalance. Rotated grid = IQ phase imbalance. All points compressed inward = PA compression. Each fault pattern gives different constellation shape — learn to read them.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">EXM screenshot — what each field means:</b><br>
+Carrier freq: your configured DL centre frequency. Output power: measured conducted output (before coupler loss). EVM rms: overall modulation quality (pass < 8% for 64QAM). EVM peak: worst single symbol (pass < 24% for 64QAM). Freq error: carrier offset from programmed frequency. Symbol rate: confirms correct FRC loaded. CRC: pass/fail on PBCH decode (if measuring DL reference signals).
+</div>
+
+<h4>FHGW DL chain — LowPHY, DFE, DAC, register map</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">FHGW DL processing chain:</b><br>
+eCPRI receive → BFP decompression (9-bit mantissa + 4-bit exponent → 16-bit IQ) → resource mapping → IFFT (1024/2048 point per BW) → cyclic prefix insertion → CFR (clip + filter, PAPR target 8 dB) → DPD (pre-distortion lookup + adaptation) → DFE (digital front-end: half-band filter, interpolation, frequency shift) → DAC interface (JESD204B) → DAC → analog path.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Key register map locations:</b><br>
+DPD coefficients: FHGW memory map 0x4000_0000 (DPD_COEF base). Read via: fhgw_read 0x40000000. CFR threshold: CFR_THRESH register. PAPR limit: CFR_CLIP_LEVEL. DPD enable: DPD_ENABLE_B1/B3/B41. DAC scale: DAC_SCALE per band → sets digital gain before DAC → directly affects output power. Incorrect DAC_SCALE causes TX power wrong by fixed offset independent of TX_GAIN calibration.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">DPD observation path — how the feedback loop works:</b><br>
+A small portion of the PA output is tapped by the coupler and routed back to an observation ADC (ORX) on the FHGW. The ORX digitises this sample. DPD engine compares: ideal (DPD input) vs actual (ORX sample). Computes error and updates LUT (Look-Up Table) coefficients. Convergence: error < 1% = converged. Indicators: DPD_STATUS register bit, ACLR improvement from −30 dBc to < −45 dBc.
+</div>
+
+<h4>RFFE TX block diagram — B1/B3 three-band TX_A path</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">RFFE TX_A path structure (B1/B3/B41):</b><br>
+TX_A path handles Column A for all mid-band frequencies. Signal enters from FHGW DAC per band (B1 and B3 at different times or different IQ streams). Band selection switch routes to the correct PA driver and PA for each band. B1 PA and B3 PA are separate devices — different frequency response. B41 may share B1 PA hardware with band-specific matching network. RFFE board connects to midBRD via JESD204B high-speed differential interface.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Key RFFE control registers:</b><br>
+TX_GAIN per band per column: digital attenuator setting → sets output power. Written from tx_calibration_eeprom.json at boot. PA_BIAS per band: gate voltage setting → sets PA operating class and efficiency. PE44820DS: phase shifter per column → beamforming angle. RFFE_ENABLE per band: enables/disables RF path. All controlled via SPI bus from midBRD FPGA. CLI command: rffe_read/rffe_write for debug access.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Common RFFE faults in your work:</b><br>
+RFFE2 LB fault: Low-band RFFE (B8/B28) JTAG re-flash required when RFFE control firmware corrupted. Symptoms: B8/B28 fail to enable, fault code logged. Fix: 5-pin JTAG connector on RFFE2 board, flash via OpenOCD. Over-current fault: TX_OVERCURRENT register set to wrong value (default 0xFF = no protection). Correct per-band spec in register. See B3/B1 overcurrent discrepancy found by Dileep.
+</div>
+
 
 <h4>Lab measurement practice — bench setup, instrument connections, test checklist</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
@@ -5234,6 +5402,20 @@ When RuAuto reports a failure, it includes Group-ID and Test-ID. Group_TX_POWER 
   <text x="400" y="175" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">At low traffic load: 50-60% of symbols empty → 50-60% PA power saved</text>
   <text x="400" y="190" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Wake-up sequence: Sleep → Bias ramp (2μs) → DPD settle (3μs) → Active | Test: EVM must pass on symbol 0</text>
 </svg>
+<h4>RU features — uSleep, PA protection, RSSI, IQ playback, DPD</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">uSleep — low power idle mode:</b><br>
+uSleep suspends RF chain when no UEs are scheduled. PA bias switches off → power consumption drops ~70%. Wakeup latency: <1 ms (fast enough for any LTE subframe). Trigger: scheduler indicates no DL allocations for N consecutive subframes. Config: USLEEP_THRESHOLD_N in RU config. During RCT: uSleep must be disabled or the EXM injection during "idle" subframes will not be received. Check: USLEEP_ENABLE = 0 in test mode.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">PA protection — thermal, VSWR, over-current:</b><br>
+<b>Thermal</b>: TJ sensor monitors PA junction temp. Warning at 80°C, shutdown at 95°C. Recovery: auto when temp drops 10°C below threshold. <b>VSWR</b>: reflected power detector triggers if VSWR > 3.0 (10% reflected). Reduces power to protect PA from load mismatch. <b>Over-current</b>: PA drain current monitored. If > OVERCURRENT_THRESHOLD register: immediate PA disable. Default register 0xFF = no protection — set correct value per band per PA spec.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">IQ playback — what it is and when to use:</b><br>
+IQ playback captures raw ADC samples (IQ data) from the RX chain and stores them in memory. Used to: replay a received signal for offline processing, debug PRACH detection algorithm without live UE, verify RX chain IQ integrity. CLI: iq_capture --band B1 --duration 10ms → saves IQ.bin. Replay with iq_playback command. Useful for debugging intermittent PRACH detection failures — capture the signal around the failure event and replay at leisure.
+</div>
+
 
 <!-- Power saving bar chart SVG -->
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:16px">
@@ -6634,6 +6816,20 @@ Flow:
 
   <text x="400" y="205" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Dynamic range = DANL to max safe input · Increase atten to protect input · Decrease atten for better DANL · Use preamp for weak signal measurements</text>
 </svg>
+<h4>RF and RCT glossary — every term defined</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Signal quality terms:</b><br>
+<b>EVM</b>: Error Vector Magnitude — constellation accuracy (%). <b>ACLR</b>: Adjacent Channel Leakage Ratio (dBc). <b>SEM</b>: Spectrum Emission Mask — wideband spectral purity. <b>BLER</b>: Block Error Rate — percentage of transport blocks decoded incorrectly. <b>SINR</b>: Signal to Interference+Noise Ratio (dB). <b>RSRP</b>: Reference Signal Received Power (dBm per RE). <b>RSRQ</b>: Reference Signal Received Quality (dB).
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">RCT framework terms:</b><br>
+<b>DSA</b>: Dynamic Sensitivity Adjustment — per-band injection power offset. <b>FRC</b>: Fixed Reference Channel — 3GPP test signal spec. <b>ETM</b>: Embedded Test Mode — RU self-test without full DU. <b>RuAuto</b>: PW test automation framework. <b>tc_cadence</b>: test configuration JSON. <b>ADC_ADJUST</b>: RSSI calibration constant (dBm/dBFS offset). <b>BOB SMA</b>: Break-Out Board SMA — coupler output port for measurement.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Hardware terms:</b><br>
+<b>midBRD</b>: Mid-band board — digital processing for B1/B3/B41. <b>RFFE</b>: Radio Frequency Front End — analog RF per column. <b>FHGW</b>: Fronthaul Gateway — Low-PHY processor. <b>PE44820DS</b>: Digital phase shifter IC per column. <b>ORX</b>: Observation Receiver — DPD feedback ADC. <b>BFP</b>: Block Floating Point — IQ compression for eCPRI. <b>MRC</b>: Maximum Ratio Combining — optimal multi-antenna combining.
+</div>
+
 <h4>Expert RF topics — PLL/LO, mixers, filters in depth</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">PLL/LO — how the carrier frequency is generated:</b><br>
