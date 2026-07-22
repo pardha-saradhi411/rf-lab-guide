@@ -246,6 +246,7 @@ footer span{color:var(--text2)}
   <span class="nav-brand">⬡ PARDHA RF</span>
   <div class="nav-links">
     <a href="#instruments">Instruments</a>
+    <a href="#sensitivity_dsa" style="color:#00d4a0;font-weight:700">★ Start Here</a>
     <a href="#rct">RCT Tests</a>
     <a href="#ota">OTA Tests</a>
     <a href="#testconfig">Test Config</a>
@@ -273,7 +274,7 @@ footer span{color:var(--text2)}
 <div class="hero">
   <div class="eyebrow">Complete RF engineering reference</div>
   <h1>One site.<br><em>Everything.</em></h1>
-  <p class="hero-sub">Instruments · LTE RCT · NR OTA (TS 38.141-2) · Test configs · RF fundamentals course — from day one basics to 25+ years of field knowledge. Built for B1/B3/B8/B28/B41 multi-band radio validation.</p>
+  <p class="hero-sub">Instruments · LTE RCT · NR OTA (TS 38.141-2) · Test configs · RF fundamentals course — from day one basics to 25+ years of field knowledge. Built for B1/B3/B8/B28/B41 multi-band radio validation. <b style="color:#00d4a0">Zero RF knowledge? Start with the green section below.</b></p>
   <div class="chip-row">
     <span class="chip g">EXM E6640A</span>
     <span class="chip g">EXA N9010B</span>
@@ -283,6 +284,261 @@ footer span{color:var(--text2)}
     <span class="chip b">RF Fundamentals Course</span>
   </div>
 </div>
+
+
+<!-- ═══════════════ BEGINNER START HERE ═══════════════ -->
+<div style="background:linear-gradient(135deg,#0a1628 0%,#0d1f0d 100%);border-top:3px solid #00d4a0;border-bottom:3px solid #5bc4ef;padding:48px 24px;margin:0">
+<div style="max-width:960px;margin:0 auto">
+
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+    <span style="background:#00d4a0;color:#000;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px">START HERE</span>
+    <span style="background:#5bc4ef;color:#000;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px">ZERO RF KNOWLEDGE NEEDED</span>
+  </div>
+
+  <h2 style="color:#00d4a0;font-size:28px;margin:12px 0 8px">New to RF? Read this first.</h2>
+  <p style="color:#8892b0;font-size:16px;max-width:700px;line-height:1.7;margin-bottom:32px">
+    RF engineering sounds intimidating. It is not. It is physics + electronics + measurement — all with a consistent set of ideas that repeat everywhere. This section builds those ideas from zero, in the order that makes sense. Read these 8 concepts and the rest of this guide will make sense.
+  </p>
+
+  <!-- 8 beginner concept cards in a grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:40px">
+
+    <!-- Card 1: What is RF -->
+    <div style="background:#0d1f1a;border:1px solid #00d4a0;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">📡</div>
+      <h3 style="color:#00d4a0;font-size:16px;margin:0 0 10px">1. What is RF?</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        RF = Radio Frequency. Signals that travel through air as electromagnetic waves. Your phone sends a tiny RF signal to a tower. The tower sends a large RF signal back. RF engineering is about generating, transmitting, receiving, and measuring these signals without errors.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#0a1a14;border-radius:6px">
+        <span style="color:#00d4a0;font-size:12px;font-weight:700">In your lab: </span>
+        <span style="color:#6a8070;font-size:12px">EXM generates RF signals. EXA measures them. The RU (Radio Unit) is the hardware you test.</span>
+      </div>
+    </div>
+
+    <!-- Card 2: dB and dBm -->
+    <div style="background:#1a1a0d;border:1px solid #c8b800;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">📊</div>
+      <h3 style="color:#c8b800;font-size:16px;margin:0 0 10px">2. dB and dBm — RF's number language</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        RF signals span from 20 watts (+43 dBm) down to 0.000000001 milliwatts (−99 dBm). Working with those tiny numbers is impossible. dB compresses them: every time power doubles, add 3 dB. Every time it multiplies by 10, add 10 dB.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#1a1a00;border-radius:6px">
+        <span style="color:#c8b800;font-size:12px;font-weight:700">Memorise: </span>
+        <span style="color:#6a7a30;font-size:12px">+3 dB = ×2 power · +10 dB = ×10 · 0 dBm = 1 mW · +30 dBm = 1 W · −99 dBm = sensitivity floor</span>
+      </div>
+    </div>
+
+    <!-- Card 3: TX and RX -->
+    <div style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">↕️</div>
+      <h3 style="color:#5bc4ef;font-size:16px;margin:0 0 10px">3. TX and RX — two separate paths</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        Every radio has two jobs: transmit (TX) and receive (RX). TX: takes data, amplifies it to high power, sends it out the antenna. RX: catches a tiny signal from the antenna, amplifies it carefully without adding noise, decodes the data. They are completely separate chains inside the radio hardware.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#0a1420;border-radius:6px">
+        <span style="color:#5bc4ef;font-size:12px;font-weight:700">In your tests: </span>
+        <span style="color:#405060;font-size:12px">TX test = measure power and ACLR at BOB SMA with EXA. RX test = inject known signal from EXM, check the radio hears it correctly.</span>
+      </div>
+    </div>
+
+    <!-- Card 4: Noise -->
+    <div style="background:#1a0d0d;border:1px solid #ff6b6b;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">🔊</div>
+      <h3 style="color:#ff6b6b;font-size:16px;margin:0 0 10px">4. Noise — the invisible enemy</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        Every electronic component generates a tiny random noise signal just from being warm. This noise mixes with the signal you are trying to receive. If the signal is weaker than the noise, you cannot decode it. The "sensitivity" of a receiver is the minimum signal power it can still hear above its own noise.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#1a0000;border-radius:6px">
+        <span style="color:#ff6b6b;font-size:12px;font-weight:700">Key insight: </span>
+        <span style="color:#604040;font-size:12px">Your RU adds 5.75 dB of noise (Noise Figure). This is why your sensitivity is −99 dBm, not the physics limit of −104 dBm.</span>
+      </div>
+    </div>
+
+    <!-- Card 5: Sensitivity -->
+    <div style="background:#001a00;border:1px solid #00d4a0;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">👂</div>
+      <h3 style="color:#00d4a0;font-size:16px;margin:0 0 10px">5. Sensitivity — how well the radio "hears"</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        Sensitivity is the weakest signal the radio can still decode correctly. Think of it like a whisper test — how quiet can someone whisper and you still understand them? Better sensitivity = longer range = more coverage. A phone at the edge of a cell is sending the weakest possible signal — the base station must be sensitive enough to hear it.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#002000;border-radius:6px">
+        <span style="color:#00d4a0;font-size:12px;font-weight:700">Formula: </span>
+        <span style="color:#406040;font-size:12px">Sensitivity = −174 (physics) + 70 (10MHz channel) + 5.75 (noise added) + (−1) (coding) = −99.25 dBm</span>
+      </div>
+    </div>
+
+    <!-- Card 6: Frequency bands -->
+    <div style="background:#1a0d1a;border:1px solid #9b8cf8;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">🎚️</div>
+      <h3 style="color:#9b8cf8;font-size:16px;margin:0 0 10px">6. Frequency bands — why different frequencies?</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        Low frequencies (700–900 MHz, B8/B28) travel further and go through walls better. High frequencies (2100–2600 MHz, B1/B3/B41) carry more data but shorter range. A 5-band radio like your AAU uses all five simultaneously — coverage from low bands, capacity from high bands.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#150a1a;border-radius:6px">
+        <span style="color:#9b8cf8;font-size:12px;font-weight:700">Your AAU: </span>
+        <span style="color:#504060;font-size:12px">B1(2140) · B3(1843) · B8(942) · B28(758) MHz + B41(2545) TDD — all active simultaneously</span>
+      </div>
+    </div>
+
+    <!-- Card 7: ACLR -->
+    <div style="background:#1a1a0d;border:1px solid #f5a623;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">📻</div>
+      <h3 style="color:#f5a623;font-size:16px;margin:0 0 10px">7. ACLR — staying in your lane</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        When a radio transmits, it should only use its assigned frequency channel. ACLR (Adjacent Channel Leakage Ratio) measures how much signal accidentally leaks into the neighbouring channel. Like a car that should stay in lane — if it drifts into adjacent lanes, it causes problems for other road users. Limit: −45 dBc (leakage must be 45 dB weaker than the main signal).
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#1a1500;border-radius:6px">
+        <span style="color:#f5a623;font-size:12px;font-weight:700">Cause of failure: </span>
+        <span style="color:#605030;font-size:12px">PA nonlinearity. Fixed by DPD (Digital Pre-Distortion) — which must converge for 60 seconds after power-on.</span>
+      </div>
+    </div>
+
+    <!-- Card 8: The test job -->
+    <div style="background:#0d0d1a;border:1px solid #9b8cf8;border-radius:12px;padding:20px">
+      <div style="font-size:24px;margin-bottom:8px">🔬</div>
+      <h3 style="color:#9b8cf8;font-size:16px;margin:0 0 10px">8. What an RF test engineer actually does</h3>
+      <p style="color:#8892b0;font-size:13px;line-height:1.6;margin:0">
+        You set up a lab bench with three instruments: a signal generator (EXM), a spectrum analyser (EXA), and a network analyser (VNA). You connect them to the radio hardware. You run automated tests that check: does the radio transmit at the right power? Does it hear weak signals correctly? Does it stay in its frequency lane? You investigate failures and find root causes.
+      </p>
+      <div style="margin-top:12px;padding:8px;background:#080818;border-radius:6px">
+        <span style="color:#9b8cf8;font-size:12px;font-weight:700">Daily reality: </span>
+        <span style="color:#404060;font-size:12px">Run RuAuto → check results → investigate failures → fix config or escalate hardware → document findings.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Reading path -->
+  <div style="background:#0a1a14;border:1px solid #00d4a0;border-radius:12px;padding:24px;margin-bottom:24px">
+    <h3 style="color:#00d4a0;margin:0 0 16px;font-size:18px">📚 Recommended reading order for zero-background learners</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+      <div style="padding:12px;background:#0d2018;border-radius:8px;border-left:3px solid #00d4a0">
+        <div style="color:#00d4a0;font-size:11px;font-weight:700;margin-bottom:4px">WEEK 1 — Foundations</div>
+        <div style="color:#6a9070;font-size:12px">M01 (dB/dBm) → M02 (50Ω) → M03 (RF chain) → L0 (electronics) → L1 (digital comms)</div>
+      </div>
+      <div style="padding:12px;background:#0d2018;border-radius:8px;border-left:3px solid #5bc4ef">
+        <div style="color:#5bc4ef;font-size:11px;font-weight:700;margin-bottom:4px">WEEK 2 — TX side</div>
+        <div style="color:#406070;font-size:12px">A05 (TX chain) → M06 (DPD/CFR) → M07 (ACLR) → M11 (PA efficiency) → EXP3 (PA classes)</div>
+      </div>
+      <div style="padding:12px;background:#0d2018;border-radius:8px;border-left:3px solid #f5a623">
+        <div style="color:#f5a623;font-size:11px;font-weight:700;margin-bottom:4px">WEEK 3 — RX side</div>
+        <div style="color:#607030;font-size:12px">A06 (RX chain) → NCH (noise chain) → DSA (sensitivity + thresholds) → RSSI (calibration)</div>
+      </div>
+      <div style="padding:12px;background:#0d2018;border-radius:8px;border-left:3px solid #ff6b6b">
+        <div style="color:#ff6b6b;font-size:11px;font-weight:700;margin-bottom:4px">WEEK 4 — Instruments</div>
+        <div style="color:#604040;font-size:12px">EXA (spectrum analyser) → EXP2 (SCPI automation) → VNA2 (calibration) → SET1 (bench setup)</div>
+      </div>
+      <div style="padding:12px;background:#0d2018;border-radius:8px;border-left:3px solid #9b8cf8">
+        <div style="color:#9b8cf8;font-size:11px;font-weight:700;margin-bottom:4px">WEEK 5 — System view</div>
+        <div style="color:#504070;font-size:12px">A15 (O-RAN) → M09 (AAU arch) → A11 (link budget) → A07 (beamforming) → L22 (BF deep)</div>
+      </div>
+      <div style="padding:12px;background:#0d2018;border-radius:8px;border-left:3px solid #c8b800">
+        <div style="color:#c8b800;font-size:11px;font-weight:700;margin-bottom:4px">WEEK 6 — Job ready</div>
+        <div style="color:#606020;font-size:12px">A10 (troubleshooting) → M12 (RCT config) → A09 (automation) → Interview Q&A section</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interview Q&A preview -->
+  <div style="background:#1a0d0d;border:1px solid #ff6b6b;border-radius:12px;padding:24px">
+    <h3 style="color:#ff6b6b;margin:0 0 16px;font-size:18px">🎯 Top 10 RF test engineer interview questions — with answers</h3>
+    <div style="display:grid;gap:12px">
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q1: What is sensitivity and how is it calculated?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> Sensitivity is the minimum signal power at the receiver input at which the system can still decode data correctly — specifically where BLER (Block Error Rate) reaches 5% (3GPP threshold).<br><br>
+          Formula: <b>Sensitivity = −174 + 10·log(BW_Hz) + NF + SNR_required</b><br><br>
+          Where: −174 dBm/Hz is the thermal noise floor (kTB at 290K), 10·log(BW) adds the noise over the channel bandwidth (+70 dB for 10 MHz), NF is the receiver noise figure (e.g. 5.75 dB for our system), and SNR_required is the minimum SNR needed for the modulation (−1 dB for QPSK 1/3).<br><br>
+          Example: B1, 10 MHz, QPSK 1/3: −174 + 70 + 5.75 + (−1) = <b>−99.25 dBm</b>
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q2: What is ACLR and why does it matter?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> ACLR (Adjacent Channel Leakage Ratio) measures the ratio of power in an adjacent channel to the power in the wanted channel, in dBc. The 3GPP limit is −45 dBc for LTE base stations.<br><br>
+          It matters because if your transmitter leaks power into neighbouring frequency channels, it interferes with other operators' users. Regulators can fine carriers for ACLR violations.<br><br>
+          Main cause of ACLR failure: PA nonlinearity generating spectral regrowth. Main fix: DPD (Digital Pre-Distortion), which pre-distorts the input signal with the inverse of the PA's nonlinearity. DPD needs 60 seconds to converge — always wait before measuring ACLR.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q3: What is Noise Figure and why does the LNA dominate it?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> Noise Figure (NF) is how many dB of SNR degradation a device adds to the signal passing through it. A perfect device has NF = 0 dB. Every real component adds some noise.<br><br>
+          The LNA dominates because of the Friis formula: NF_total = NF1 + (NF2−1)/G1 + (NF3−1)/(G1×G2) + ... Every component BEFORE the LNA adds its full NF penalty. Every component AFTER the LNA has its NF divided by the LNA's linear gain (×100 for +20 dB LNA). So a 7 dB NF mixer after the LNA only contributes 0.07 dB to system NF — completely negligible. But a 0.5 dB duplexer before the LNA adds the full 0.5 dB.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q4: What is EVM and what causes it to fail?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> EVM (Error Vector Magnitude) measures how accurately each transmitted symbol matches its ideal position in the IQ constellation, as a percentage. Lower EVM = better signal quality. Limits: QPSK &lt; 17.5%, 16QAM &lt; 12.5%, 64QAM &lt; 8%.<br><br>
+          Causes of EVM failure: (1) Phase noise from the LO — sets an irreducible EVM floor, (2) IQ imbalance — amplitude or phase mismatch between I and Q paths, (3) PA compression — operating too close to P1dB without DPD, (4) DPD failure — coefficients not converged or diverged.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q5: Walk me through setting up a TX power measurement.</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> 1. Enable RF on the target band and column. Wait 60 seconds for DPD convergence.<br>
+          2. Connect BOB SMA output → 30 dB attenuator pad → SMA cable → EXA input.<br>
+          3. On EXA: set centre freq = DL band centre (e.g. 2140 MHz for B1), attenuation = 10 dB (total = 40 dB), preamp OFF, mode = power meter or ACLR LTE.<br>
+          4. Read power. Compare to rated target: B1 = −16.7 dBm at BOB SMA (corresponds to +43 dBm at antenna after coupler ratio).<br>
+          5. Pass criterion: within ±1 dB of target.<br>
+          6. If low: check tx_calibration_eeprom.json present, TX_GAIN register value, DPD convergence.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q6: What is DSA and why is it needed?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> DSA (Dynamic Sensitivity Adjustment) is a per-band offset that ensures each frequency band is tested at its own correct sensitivity threshold, not a single one-size-fits-all threshold.<br><br>
+          Each band has a different receiver noise figure (B8 NF = 3.15 dB, B3 NF = 2.40 dB) which gives a different sensitivity. DSA = Sensitivity_band − Sensitivity_B3 (B3 is the reference baseline). This offset is added to the EXM injection power so each band's PRACH sensitivity test injects the right signal level — not too strong (test too easy) and not too weak (test too hard).
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q7: What is RSSI calibration and how do you run it?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> RSSI calibration (= RX gain calibration) finds the ADC_ADJUST constant that converts raw ADC readings (dBFS) into accurate power readings (dBm) at the RU antenna port.<br><br>
+          Procedure: (1) Measure cable loss with VNA. (2) Set EXM to inject a known power (e.g. −95 dBm). (3) EXM_power − cable_loss = power at RU port (e.g. −97.5 dBm). (4) Read get_rssi N from CLI (returns dBFS, e.g. −12.5 dBFS). (5) ADC_ADJUST = −97.5 − (−12.5) = −85. (6) Write to hardware.json. (7) Verify: all three sources (EXM, CLI, DU RSSI) agree within ±2 dB.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q8: What is VSWR and why do you care about impedance matching?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> VSWR (Voltage Standing Wave Ratio) measures impedance mismatch between connected RF components. All RF components are designed for 50 Ω. If source and load impedances differ, some signal power reflects back instead of being transmitted. VSWR = 1.0 is perfect (no reflection). VSWR = 2.0 means ~11% power reflected.<br><br>
+          In practice: a poorly torqued SMA connector can have VSWR > 2.0, costing 0.5 dB of sensitivity in an RX test. We measure VSWR using VNA S11 measurements. Target: S11 &lt; −20 dB for all test connections. This is why connector inspection and torque specs exist.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q9: What is beamforming and what does phase calibration verify?</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> Beamforming steers the antenna's signal in a specific direction by applying precise phase shifts to each antenna column. If Column A transmits at 0°, Column B at 20°, Column C at 40°, Column D at 60°, the signals add constructively in one direction and cancel in others — forming a focused beam. Beam angle θ = arcsin(λ × Δφ / (2π × d)).<br><br>
+          Phase calibration (using VNA) verifies that the actual phase of each column's TX path matches what's programmed. If Column C's actual phase is 6° off due to a longer cable or connector variation, the beam will point in the wrong direction. VNA measures S21 phase per column and we correct the PE44820DS phase shifter register to compensate.
+        </div>
+      </details>
+
+      <details style="background:#0d0808;border-radius:8px;padding:14px;cursor:pointer">
+        <summary style="color:#c8c8d8;font-size:14px;font-weight:600;list-style:none">Q10: TX power is 3 dB low. Walk me through your debug approach.</summary>
+        <div style="color:#8892b0;font-size:13px;margin-top:10px;line-height:1.7">
+          <b style="color:#00d4a0">Answer:</b> I use the 5-Why method to find root cause, not just swap components.<br><br>
+          Check in this order: (1) Is the measurement valid? — verify EXA attenuation correct, preamp OFF, cable and pad connected properly, DPD converged (waited 60s)? Many "failures" are measurement errors. (2) Check tx_calibration_eeprom.json — missing file causes ~6 dB deficit (fault 12). (3) Check TX_GAIN register — wrong value from bad firmware or corrupt cal file. (4) Check PA bias voltage — wrong supply makes PA operate inefficiently. (5) Check for PA over-temperature protection reducing power. (6) Swap BOB SMA cable to rule out cable fault.<br><br>
+          Document every check and the result before changing anything. Change one variable at a time.
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+</div>
+</div>
+<!-- ═══════════════ END BEGINNER SECTION ═══════════════ -->
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- INSTRUMENTS -->
@@ -1534,6 +1790,11 @@ Benefits: flat fading per subcarrier (simple equalisation), flexible resource al
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#5bc4ef">TX chain in one sentence:</b> The transmit chain takes a tiny digital signal from the computer and amplifies it up to a powerful radio wave that shoots out the antenna. Like a whisper going into a microphone, through an amplifier, and out a loudspeaker — except the "loudspeaker" is a 20-watt radio wave.
+</div>
+
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -1664,6 +1925,11 @@ ACLR (Adjacent Channel Leakage Ratio) measures how much of the TX signal power s
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#00d4a0">RX chain in one sentence:</b> The receive chain catches a faint radio signal from a distant phone (weaker than a whisper) and carefully amplifies it without adding too much noise — so the computer can understand what the phone said. The LNA (Low Noise Amplifier) is the most critical part: it is the first thing that touches the signal and its quality determines everything that follows.
+</div>
+
 
 <svg width="100%" viewBox="0 0 800 195" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="195" fill="#0d0f14" rx="8"/>
@@ -2103,6 +2369,11 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d0d;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#ff6b6b">Troubleshooting in one sentence:</b> Never replace hardware until you have found the root cause. Use the 5-Why method: ask "why did this fail?" five times until you reach the actual cause (not the symptom). In RF, 3 out of 4 "failures" are measurement setup errors — wrong attenuation, DPD not converged, cable not calibrated — not hardware faults.
+</div>
+
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -2248,6 +2519,11 @@ Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct co
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#5bc4ef">Link budget in one sentence:</b> A link budget is simply an accounting exercise — start with transmit power, subtract all the losses along the way (distance, walls, rain), and check what is left at the receiver is above the sensitivity threshold. If it is: coverage. If not: no signal. The uplink (phone to tower) is always the weaker direction because the phone has much less power than the tower.
+</div>
+
 
 <svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="240" fill="#0d0f14" rx="8"/>
@@ -3172,6 +3448,11 @@ BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are w
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#f5a623">RSSI calibration in one sentence:</b> RSSI cal is the same as RX gain calibration — inject known power from EXM, read what the ADC reports in dBFS, compute the difference (ADC_ADJUST), save it. From then on, the radio can convert any ADC reading into an accurate power in dBm. The test passes when all three sources (EXM, CLI, DU) agree within ±2 dB.
+</div>
+
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 RSSI cal and RX gain cal are the same procedure. It finds ADC_ADJUST: inject known power from EXM, read dBFS from ADC, compute offset. Once calibrated, the RU can report accurate dBm for any received signal level.<br>
@@ -4036,6 +4317,11 @@ DPD adapts its pre-distortion polynomial coefficients by comparing the PA output
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #c8b800;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#c8b800;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#c8b800">ACLR in one sentence:</b> When you transmit, your signal should stay neatly inside your assigned frequency channel. ACLR measures how much leaks into the neighbouring channel. Think of it as "staying in your lane" — the 3GPP limit says your leakage must be 45 dB weaker than your main signal. Failure means your PA is nonlinear and DPD is not fixing it properly.
+</div>
+
 
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
@@ -8994,6 +9280,11 @@ Freq range: single point or narrow span (±10 MHz) around band centre. IFBW: 1 k
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#9b8cf8">VNA calibration in one sentence:</b> Before you can trust any VNA measurement, you must remove the errors introduced by the cables and connectors between the VNA and your device. SOLT calibration (Short-Open-Load-Through) does this in 12 steps. Skip it and your S21 phase measurement includes the cable electrical length — meaningless for comparing column-to-column phase.
+</div>
+
 
 <!-- VNA2 SVG: SOLT Calibration Flowchart -->
 <svg width="100%" viewBox="0 0 800 580" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:16px">
@@ -9902,6 +10193,11 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d0d;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#ff6b6b">Thermal noise in one sentence:</b> Any object above −273°C (absolute zero) has electrons randomly moving around — that random movement creates a tiny electrical noise. In your RU, every resistive component (cable, duplexer, LNA input) generates this noise. The LNA then amplifies it along with the wanted signal. This is why you cannot build a perfectly silent receiver.
+</div>
+
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 Thermal noise (kTB) sets the absolute noise floor. NF1 explains the physics. The full sensitivity formula using kTB + NF + SNR → DSA offset is in the DSA card.<br>
@@ -10297,6 +10593,11 @@ If your sensitivity test fails by X dB, and you have confirmed cable loss and EX
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#5bc4ef">NF calibration in one sentence:</b> This is how you measure whether your LNA and RX chain are generating as little noise as expected. You inject two known noise levels (hot and cold) and measure how much noise the chain adds — that added noise is the Noise Figure. It tells you if the hardware is healthy, but it does not write any correction values.
+</div>
+
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 NF calibration uses the Y-factor method to measure actual system NF. This confirms whether NF matches the values used in the sensitivity formula. It does not write any correction — it only validates hardware health.<br>
@@ -10405,6 +10706,11 @@ If measured NF > spec by more than 1 dB: (1) Check cable loss — every 0.1 dB e
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#00d4a0">Gain calibration in one sentence:</b> This is how you teach the radio to report accurate power readings. You inject a signal of exactly known power, see what the radio reports, and find the offset between them. That offset (ADC_ADJUST) is saved so future readings are accurate. RX gain cal = RSSI cal — they are the same procedure called by two different names.
+</div>
+
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 Gain cal (= RSSI cal for RX, power trim for TX) corrects the difference between theoretical and actual chain gain. ADC_ADJUST from RSSI cal absorbs all RX chain gain uncertainty into one offset number per band per ADC channel.<br>
@@ -10673,6 +10979,11 @@ QPSK has only 4 constellation points — they are spread far apart in the IQ pla
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#00d4a0">DSA in one sentence:</b> Because each frequency band (B1, B3, B8, B28, B41) has slightly different hardware quality, they each have a slightly different "hearing ability" (sensitivity). DSA is the lookup table that tells the test instrument exactly how loud to play the test signal for each band — so every band gets a fair test at its own correct threshold, not someone else's.
+</div>
+
 
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
@@ -10928,6 +11239,11 @@ MRC (Maximum Ratio Combining) does not simply add signals — it weights each ch
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#9b8cf8">kTB in one sentence:</b> −174 dBm/Hz is the absolute minimum noise any radio can have — it comes from the random jiggling of electrons in any warm object. You cannot engineer away from this limit. Every sensitivity calculation starts here.
+</div>
+
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 kTB = −174 dBm/Hz is the first term in the sensitivity formula. This card derives it from first principles. The full chain showing how kTB feeds into sensitivity and then DSA is in the DSA card.<br>
@@ -11003,6 +11319,11 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#f5a623">Noise chain in one sentence:</b> Every component between the antenna and the ADC adds a tiny amount of its own noise. This card shows exactly how much each component contributes, why the LNA dominates, and why a longer cable on the bench will directly worsen your sensitivity measurement.
+</div>
+
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 The noise chain shows how system NF (5.75 dB) is built up from each component. This NF is the third term in the sensitivity formula. Full sensitivity → DSA calculation is in the DSA card.<br>
