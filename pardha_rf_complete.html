@@ -238,6 +238,81 @@ footer span{color:var(--text2)}
 .qcard-text{font-size:11px;color:#8892b0;line-height:1.7}
 .qcard-text span{color:#e4eaf8}
 /* ══════════════════════════════════════════════════ */
+
+/* ── Search bar ── */
+#card-search-wrap {
+  position: sticky; top: 56px; z-index: 90;
+  background: #0a0c10; border-bottom: 1px solid #1e2535;
+  padding: 10px 24px; display: flex; gap: 12px; align-items: center;
+}
+#card-search {
+  flex: 1; max-width: 520px;
+  background: #141720; border: 1px solid #2a3050;
+  border-radius: 8px; padding: 9px 16px;
+  color: #c8c8d8; font-size: 14px; outline: none;
+}
+#card-search:focus { border-color: #5bc4ef; }
+#card-search::placeholder { color: #4a5470; }
+#search-count { color: #4a5470; font-size: 13px; min-width: 80px; }
+#clear-search {
+  background: none; border: 1px solid #2a3050; border-radius: 6px;
+  color: #4a5470; padding: 6px 12px; cursor: pointer; font-size: 12px;
+}
+#clear-search:hover { border-color: #5bc4ef; color: #5bc4ef; }
+.search-hidden { display: none !important; }
+.search-highlight { background: #c8b80033; border-radius: 2px; }
+
+
+/* ── Light mode ── */
+body.light-mode {
+  background: #f0f2f8 !important;
+  color: #1a1a2e !important;
+}
+body.light-mode .module-card {
+  background: #ffffff !important;
+  border-color: #d0d8f0 !important;
+}
+body.light-mode .module-hdr {
+  background: #eef0f8 !important;
+  border-color: #d0d8f0 !important;
+}
+body.light-mode nav, body.light-mode #card-search-wrap {
+  background: #e8eaf6 !important;
+  border-color: #c0c8e0 !important;
+}
+body.light-mode #card-search {
+  background: #ffffff !important;
+  border-color: #b0b8d0 !important;
+  color: #1a1a2e !important;
+}
+body.light-mode .sec-hdr {
+  background: linear-gradient(90deg, #5bc4ef22, transparent) !important;
+  color: #1a3a5c !important;
+}
+#theme-toggle {
+  background: #141720; border: 1px solid #2a3050; border-radius: 6px;
+  color: #c8c8d8; padding: 5px 12px; cursor: pointer; font-size: 13px;
+  margin-left: 8px;
+}
+#theme-toggle:hover { border-color: #5bc4ef; }
+
+
+/* ── Print styles ── */
+@media print {
+  nav, #card-search-wrap, .chevron, .mod-status,
+  .module-hdr, #theme-toggle { display: none !important; }
+  body { background: white !important; color: black !important; font-size: 11pt; }
+  .module-body { display: block !important; }
+  .module-card { break-inside: avoid; border: 1px solid #ccc !important;
+    margin: 8px 0 !important; background: white !important; }
+  svg { max-width: 100% !important; }
+  h4 { color: #003366 !important; }
+  .sec-hdr { background: #003366 !important; color: white !important; }
+  a { color: #003366 !important; }
+  /* Cheat sheet prints first */
+  #cheatsheet { page-break-after: always; }
+}
+
 </style>
 </head>
 <body>
@@ -268,7 +343,18 @@ footer span{color:var(--text2)}
     <a href="#expertvideos">Videos &amp; Channels</a>
     <a href="#careermap">Career Roadmap</a>
   </div>
+<button id="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
 </nav>
+
+<!-- ── Live card search ── -->
+<div id="card-search-wrap">
+  <span style="color:#5bc4ef;font-size:18px">🔍</span>
+  <input id="card-search" type="text" placeholder="Search cards… e.g. ACLR, sensitivity, DPD, LNA, beamforming" oninput="filterCards(this.value)">
+  <span id="search-count"></span>
+  <button id="clear-search" onclick="clearSearch()">✕ Clear</button>
+  <span style="color:#4a5470;font-size:12px;margin-left:8px">126 cards</span>
+</div>
+
 
 <!-- HERO -->
 <div class="hero">
@@ -539,6 +625,138 @@ footer span{color:var(--text2)}
 </div>
 </div>
 <!-- ═══════════════ END BEGINNER SECTION ═══════════════ -->
+
+
+
+<!-- ══ CHEAT SHEET ══ -->
+<div id="cheatsheet" style="background:#0a0c10;border:2px solid #f5a623;border-radius:12px;padding:24px;margin:16px 0 24px">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <span style="background:#f5a623;color:#000;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">QUICK REFERENCE</span>
+    <h2 style="color:#f5a623;margin:0;font-size:20px">RF Lab Cheat Sheet — Print &amp; Pin to Bench</h2>
+    <button onclick="window.print()" style="margin-left:auto;background:#f5a623;color:#000;border:none;border-radius:6px;padding:7px 16px;cursor:pointer;font-weight:700;font-size:13px">🖨️ Print</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+
+    <!-- Sensitivity formula -->
+    <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px">
+      <div style="color:#00d4a0;font-size:11px;font-weight:700;margin-bottom:8px">SENSITIVITY FORMULA</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        S = −174 + 10·log(BW) + NF + SNR_req<br>
+        B1 10MHz QPSK: −174+70+5.75−1 = <b style="color:#00d4a0">−99.25 dBm</b><br>
+        B3 10MHz QPSK: −174+70+2.40−1 = <b style="color:#00d4a0">−102.6 dBm</b><br>
+        B8 10MHz QPSK: −174+70+3.15−1 = <b style="color:#00d4a0">−101.85 dBm</b><br>
+        B28 10MHz QPSK: −174+70+3.70−1 = <b style="color:#00d4a0">−101.3 dBm</b><br>
+        B41 10MHz QPSK: −174+70+2.75−1 = <b style="color:#00d4a0">−102.25 dBm</b>
+      </code>
+    </div>
+
+    <!-- Rated power targets -->
+    <div style="background:#1a1a0d;border:1px solid #c8b800;border-radius:8px;padding:14px">
+      <div style="color:#c8b800;font-size:11px;font-weight:700;margin-bottom:8px">RATED POWER AT BOB SMA</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        B1  (2140 MHz): <b style="color:#c8b800">−16.7 dBm</b><br>
+        B3  (1843 MHz): <b style="color:#c8b800">−15.7 dBm</b><br>
+        B8  ( 942 MHz): <b style="color:#c8b800">−18.0 dBm</b><br>
+        B28 ( 758 MHz): <b style="color:#c8b800">−27.3 dBm</b><br>
+        B41 (2545 MHz): <b style="color:#c8b800">−23.0 dBm</b><br>
+        <span style="color:#4a5470;font-size:11px">BOB SMA = antenna − 30 dB coupler</span>
+      </code>
+    </div>
+
+    <!-- ADC channel map -->
+    <div style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px">
+      <div style="color:#5bc4ef;font-size:11px;font-weight:700;margin-bottom:8px">ADC CHANNEL MAP (get_rssi N)</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        B1 Col A → ADC 0 &nbsp; B1 Col B → ADC 1<br>
+        B1 Col C → ADC 4 &nbsp; B1 Col D → ADC 5<br>
+        B3 Col A → ADC 2 &nbsp; B3 Col B → ADC 3<br>
+        B3 Col C → ADC 6 &nbsp; B3 Col D → ADC 7<br>
+        <span style="color:#4a5470;font-size:11px">B8/B28: 2 paths only (A+B)</span>
+      </code>
+    </div>
+
+    <!-- dB quick maths -->
+    <div style="background:#1a0d0d;border:1px solid #ff6b6b;border-radius:8px;padding:14px">
+      <div style="color:#ff6b6b;font-size:11px;font-weight:700;margin-bottom:8px">dB MENTAL MATHS</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        +3 dB = ×2 power &nbsp;&nbsp; −3 dB = ÷2<br>
+        +10 dB = ×10 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; −10 dB = ÷10<br>
+        +6 dB = ×4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; +20 dB = ×100<br>
+        0 dBm = 1mW &nbsp; +30 dBm = 1W &nbsp; +43 dBm = 20W<br>
+        −99 dBm = sensitivity floor (B1 10MHz)
+      </code>
+    </div>
+
+    <!-- Test limits -->
+    <div style="background:#1a0d1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px">
+      <div style="color:#9b8cf8;font-size:11px;font-weight:700;margin-bottom:8px">KEY TEST LIMITS (3GPP TS 36.141)</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        ACLR adjacent: <b style="color:#ff6b6b">&lt; −45 dBc</b><br>
+        ACLR alternate: <b style="color:#ff6b6b">&lt; −50 dBc</b><br>
+        EVM 64QAM: <b style="color:#ff6b6b">&lt; 8%</b> &nbsp; QPSK: &lt;17.5%<br>
+        TX power: <b style="color:#ff6b6b">±1 dB</b> of rated target<br>
+        RSSI accuracy: <b style="color:#ff6b6b">±2 dB</b> CLI vs EXM<br>
+        PRACH detect: <b style="color:#ff6b6b">≥99/100</b> attempts
+      </code>
+    </div>
+
+    <!-- Instrument settings -->
+    <div style="background:#0d1a0d;border:1px solid #00d4a0;border-radius:8px;padding:14px">
+      <div style="color:#00d4a0;font-size:11px;font-weight:700;margin-bottom:8px">INSTRUMENT QUICK SETTINGS</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        EXA IP: 10.62.2.135 &nbsp; SN: MY59070653<br>
+        ACLR: atten 20dB · preamp OFF · LTE mode<br>
+        RX check: atten 0dB · preamp ON<br>
+        BOB→EXA: always add 30dB pad<br>
+        VNA SOLT: IFBW 1kHz · warm-up 30min<br>
+        SMA torque: <b style="color:#00d4a0">0.9 N·m</b>
+      </code>
+    </div>
+
+    <!-- Pre-test checklist -->
+    <div style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px">
+      <div style="color:#5bc4ef;font-size:11px;font-weight:700;margin-bottom:8px">PRE-TEST CHECKLIST</div>
+      <div style="color:#c8c8d8;font-size:12px;line-height:1.8">
+        ☐ VNA cable loss measured &amp; noted<br>
+        ☐ EXM output verified with EXA (±0.5dB)<br>
+        ☐ RU fully booted, all bands ENABLED<br>
+        ☐ DPD converged — waited 60s after TX ON<br>
+        ☐ GPS/PTP locked (B41 TDD mandatory)<br>
+        ☐ EXA preamp OFF for TX measurements<br>
+        ☐ 30dB pad between BOB SMA and EXA<br>
+        ☐ SMA torque wrench used (0.9 N·m)
+      </div>
+    </div>
+
+    <!-- Noise chain -->
+    <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px">
+      <div style="color:#00d4a0;font-size:11px;font-weight:700;margin-bottom:8px">SYSTEM NOISE FIGURE (B1)</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        Cable:    <b style="color:#ff6b6b">+2.5 dB</b> (adds full NF before LNA)<br>
+        Duplexer: <b style="color:#f5a623">+0.5 dB</b><br>
+        Pre-BPF:  <b style="color:#f5a623">+0.3 dB</b><br>
+        LNA: <b style="color:#00d4a0">+2.0 dB</b> ← dominates (G=+20dB)<br>
+        Post-LNA: <b style="color:#4a5470">≈0 dB</b> (÷100 by LNA gain)<br>
+        Total NF: <b style="color:#00d4a0">5.75 dB</b>
+      </code>
+    </div>
+
+    <!-- Freq reference -->
+    <div style="background:#1a1a0d;border:1px solid #c8b800;border-radius:8px;padding:14px">
+      <div style="color:#c8b800;font-size:11px;font-weight:700;margin-bottom:8px">BAND FREQUENCY REFERENCE</div>
+      <code style="color:#c8c8d8;font-size:13px;line-height:1.9;display:block">
+        B1:  DL 2110-2170 · UL 1920-1980 MHz<br>
+        B3:  DL 1805-1880 · UL 1710-1785 MHz<br>
+        B8:  DL  925-960  · UL  880-915  MHz<br>
+        B28: DL  758-803  · UL  703-748  MHz<br>
+        B41: TDD 2496-2690 MHz (shared DL/UL)<br>
+        <span style="color:#4a5470;font-size:11px">FDD: separate freq · TDD: shared freq, time-split</span>
+      </code>
+    </div>
+
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- INSTRUMENTS -->
@@ -1563,6 +1781,8 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">S-parameters in one sentence:</b> S-parameters are the VNA's way of measuring how a component handles RF — S11 tells you how much signal bounces back (is the impedance matched?), and S21 tells you how much gets through (what is the gain or loss?).</div>
+
 
 <svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="180" fill="#0d0f14" rx="8"/>
@@ -1674,6 +1894,8 @@ S11 (cable/connector quality): both ports, check S11 < −20 dB at band frequenc
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">LTE air interface in one sentence:</b> LTE divides the channel into thousands of tiny 15 kHz subcarriers (OFDM), assigns groups of them to each user (resource blocks), and switches between FDD (separate frequencies for up/down) or TDD (same frequency, different time slots) depending on the band.</div>
+
 
 <svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="180" fill="#0d0f14" rx="8"/>
@@ -2049,6 +2271,8 @@ The 12-bit ADC samples the analog baseband IQ signal at 122.88 MSPS (mega sample
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">Beamforming in one sentence:</b> By applying a slightly different timing (phase shift) to each of the four antenna columns, the signals add up strongly in one direction and cancel out in others — like four people clapping in sync to make the sound louder in one spot.</div>
+
 <svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="150" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Beamforming — Phase Shift per Column → Steered Beam Direction</text>
@@ -2148,6 +2372,8 @@ Each column's TX path (from digital beamformer output to antenna element) has sl
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #c8b800;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#c8b800;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#c8b800">Channel models in one sentence:</b> In your lab, the cable gives a perfect connection (AWGN) — but in the real world, signals bounce off buildings and arrive at different times (multipath), which is what EPA/EVA/ETU channel models simulate to test how the RU handles messy real conditions.</div>
+
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -2276,6 +2502,8 @@ PropSim is a hardware channel emulator that sits between EXM and RU. It applies 
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">Test automation in one sentence:</b> RuAuto reads your test configuration (tc_cadence.json), tells EXM to inject the right signal, tells EXA to measure the right things, waits for DPD to converge, reads the RU's response, and writes PASS or FAIL — all without you touching anything.</div>
+
 <svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="130" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RuAuto Framework — 3-Layer Architecture</text>
@@ -2715,6 +2943,8 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">5G beam management in one sentence:</b> The gNB sweeps a beam across 64 directions (SSB), the UE picks the strongest one and says "that one", then finer beams (CSI-RS) narrow it down further — and for TDD like B41, the gNB can also use the UE's uplink signal (SRS) to figure out the best direction without the UE having to report anything.</div>
+
 
 <svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="180" fill="#0d0f14" rx="8"/>
@@ -2822,6 +3052,8 @@ SRS (Sounding Reference Signal) is transmitted by the UE and received by the gNB
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
   <div class="module-body">
+<div style="background:#1a0d0d;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#ff6b6b">Connectors in one sentence:</b> An SMA connector that is not torqued to exactly 0.9 N·m (or has a bent pin, or contamination) can add VSWR that degrades your sensitivity measurement by 0.5 dB — making a passing RU look like a failing one, or vice versa.</div>
+
 
 <svg width="100%" viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="170" fill="#0d0f14" rx="8"/>
@@ -4200,6 +4432,8 @@ If the I and Q paths have amplitude or phase mismatch, the constellation rotates
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">DL TX chain in one sentence:</b> CFR clips the signal peaks so the PA does not have to handle massive spikes, then DPD pre-distorts the signal so the PA's natural nonlinearity is cancelled out — together they let you run the PA close to full power while still meeting the ACLR limit.</div>
+
 
 <svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="280" fill="#0d0f14" rx="8"/>
@@ -4415,6 +4649,8 @@ B41 is TDD — the PA transmits only during DL subframes. EXA must be gated to m
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">PRACH in one sentence:</b> When a phone wants to join the network, it shouts a special code (Zadoff-Chu preamble) — the base station must hear this code even when the phone is at the cell edge, which is exactly what your sensitivity test verifies.</div>
+
 
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
@@ -4505,6 +4741,8 @@ When a PRACH is detected, the RU measures the arrival time of the correlation pe
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">AAU architecture in one sentence:</b> Your Metro AAU has two boards — a digital board (midBRD) that processes the signal and a radio board (RFFE) that amplifies and transmits it — and four columns (A/B/C/D) each doing this independently so they can steer the beam.</div>
+
 
 <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="300" fill="#0d0f14" rx="8"/>
@@ -5143,6 +5381,8 @@ EVM is shown as a percentage. Lower = better. Limits: QPSK &lt; 17.5%, 16QAM &lt
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">Lab practice in one sentence:</b> Before every test session, you verify three things — that your cable loss is measured, your EXM output is accurate, and your DPD has converged — because 3 out of 4 test failures are caused by setup errors, not hardware faults.</div>
+
 
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
@@ -5291,6 +5531,8 @@ All Keysight instruments listen on TCP port 5025 for SCPI commands. Connect via 
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#f5a623">PA efficiency in one sentence:</b> The PA converts DC electricity into RF — but only 35% becomes useful signal; the rest becomes heat. Dynamic Vdd reduces this heat by lowering the supply voltage when the signal is quiet, just like dimming a light when you don't need full brightness.</div>
+
 
 <svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="240" fill="#0d0f14" rx="8"/>
@@ -5393,6 +5635,8 @@ GaN PA junction temperature limit: typically 150–200°C. At 20W output and 35%
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #c8b800;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#c8b800;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#c8b800">tc_cadence.json in one sentence:</b> This is the master test script — it tells RuAuto what band to test, what power to inject, what limits to check, and what to measure, so every test runs the same way every time without manual setup.</div>
+
 
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
@@ -5524,6 +5768,8 @@ When RuAuto reports a failure, it includes Group-ID and Test-ID. Group_TX_POWER 
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">RU features in one sentence:</b> uSleep turns the PA off when no users are connected (saves 70% power), PA protection shuts it down if it gets too hot, and IQ playback records what the RU received so you can replay it later for debugging.</div>
+
 
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- TOPIC 1: uSleep -->
@@ -6306,6 +6552,8 @@ IQ playback captures raw ADC samples (IQ data) from the RX chain and stores them
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">RSSI in one sentence:</b> RSSI is the radio's report of how strong a signal it received — but the raw number is in ADC counts (dBFS), and you need a calibration constant (ADC_ADJUST) to convert it to the real-world power in dBm that you can compare to your EXM injection.</div>
+
 
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
@@ -6409,6 +6657,8 @@ All three (EXM, CLI, DU) off → EXM not calibrated, or cable loss not subtracte
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">UL RCT in one sentence:</b> The uplink RCT test injects a known signal from the EXM into the RU receive port and checks that the RU correctly reports the signal power — if it reports wrong, something is wrong with the receive chain or calibration.</div>
+
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -6518,6 +6768,8 @@ ul-rct-test 10 a34 0                   # → BLER 0.00%  SNR 24.6 dB</div>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
 <div class="module-body">
+<div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#f5a623">TDD in one sentence:</b> Band 41 cannot transmit and receive at the same time — it takes turns, transmitting in some time slots and receiving in others, which means your EXA measurements must be gated to only the transmit slots, otherwise the results will be wrong.</div>
+
 
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
@@ -12319,7 +12571,9 @@ V=IR, P=VI=V²/R=I²R in DC circuits. In RF, impedance Z replaces resistance R a
 Learn these rules cold: +3dB=×2 power, +10dB=×10. 0dBm=1mW, +30dBm=1W, −30dBm=1μW. Every RF calculation uses dB because gain and loss simply add. Chain gain = sum of all block gains in dB. This is the single most important concept to internalise — you use it 50× per day in RF work.
 </div>
 
-<div class="mod-p">Master these before touching RF equipment. Every RF measurement is built on these foundations — Ohm's law for power calculations, dBm for every instrument reading, VSWR for every antenna match check, S-parameters for every VNA measurement.</div>
+<div class="mod-p">Master these before touching RF equipment. Every RF measurement is built on these foundations — Ohm's law for power calculations, dBm for every instrument reading, VSWR for every antenna match check, S-parameters for every VNA measurement.
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Build the foundation all RF theory rests on</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">No foundation = no understanding of WHY anything in RF works</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">None — pure knowledge foundation</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">No spec — prerequisite knowledge</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Not testable — assessed in interviews</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Understanding, not a test</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Skipping basics → confused by dB calculations later</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Go back to M01 (dB) → M03 (chain) → A01 (fundamentals)</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Convert 20W to dBm. What is the sensitivity formula?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Engineer gives wrong answers because basics are wrong</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -12410,7 +12664,9 @@ Digital comms: bits → symbol mapping (QAM) → pulse shaping → carrier modul
 OFDM converts a wideband channel into many narrow subchannels (15 kHz each). Each subchannel experiences flat fading (not frequency-selective). Frequency-domain equalization becomes trivial — one complex multiply per subcarrier. Guard bands (cyclic prefix) eliminate inter-symbol interference from multipath. The price: high PAPR (10–12 dB) requiring DPD and CFR.
 </div>
 
-<div class="mod-p">LTE downlink uses OFDMA with QAM modulation on each subcarrier. Uplink uses SC-FDMA (single carrier) to keep UE PAPR low (battery saving). Your RU receives SC-FDMA from UE and transmits OFDMA to UE.</div>
+<div class="mod-p">LTE downlink uses OFDMA with QAM modulation on each subcarrier. Uplink uses SC-FDMA (single carrier) to keep UE PAPR low (battery saving). Your RU receives SC-FDMA from UE and transmits OFDMA to UE.
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Digital comms is what the RF chain is carrying</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Without this, RF tests are just numbers with no meaning</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Baseband processor, FEC encoder, modulator</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.211 (physical channels)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">EVM, BLER, MCS — all digital comms metrics</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">EVM < 8% for 64QAM, BLER < 5% at sensitivity</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">High BLER with good RF → baseband issue, not RF</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check modulation, coding rate, channel model</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What is the relationship between SNR and BLER?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Users getting low throughput despite good coverage</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -12503,7 +12759,9 @@ OFDM converts a wideband channel into many narrow subchannels (15 kHz each). Eac
 SEM verifies TX spectral purity across a wide frequency range — not just the adjacent channel (ACLR) but spurious emissions 10s of MHz away. 3GPP defines limits at multiple offset frequencies. EXA measures this in one sweep using the SEM measurement function. Failures outside the main ACLR range usually indicate harmonics (PA operating at wrong Vdd) or spurious oscillations.
 </div>
 
-<div class="mod-p">This is where you live as an RF engineer. Every instrument reading, every test result, every pass/fail decision maps to this level. The goal is not just to measure but to understand WHY a measurement fails and trace it to the exact root cause in the hardware or software chain.</div>
+<div class="mod-p">This is where you live as an RF engineer. Every instrument reading, every test result, every pass/fail decision maps to this level. The goal is not just to measure but to understand WHY a measurement fails and trace it to the exact root cause in the hardware or software chain.
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">These are the 5 measurements you run every day</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Without them you cannot validate an RU</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">EXA (ACLR/EVM/power), EXM (injection), VNA (phase)</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.141 (all limits defined here)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">EXA ACLR mode, EXM RSSI injection, VNA S21</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">ACLR < −45dBc, EVM < 8%, RSSI ±2dB</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Measurement setup error — most common failure</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check attenuation, preamp, DPD convergence first</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Set up an ACLR measurement for LTE B1 10MHz</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Cannot demonstrate RU meets spec — no revenue</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -12644,6 +12902,8 @@ BBU/DU (IQ data) → FHGW (IFFT, BFP, CFR, DPD) → DAC → upconverter (mixer+L
 Antenna → duplexer/T-R switch → pre-BPF → LNA → post-BPF → mixer → VGA/AGC → ADC → FHGW (FFT, BFP compress) → eCPRI → DU. NF is set by the first components: cable+duplexer+LNA. LNA gain divides all subsequent NF contributions. See NCH card for full Friis calculation. See DSA card for how NF drives sensitivity and test thresholds.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Know every block you are validating end to end</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Black-box testing misses the root cause every time</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Every block from BBU to antenna</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.104 (BS radio requirements)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Per-block: power meter, EXA, VNA as applicable</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All blocks pass their own spec → chain passes</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">One bad block fails the whole chain</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Isolate which block fails by measuring at its output</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Walk me through the complete TX signal path</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Failure found too late → expensive rework</span></div></div></div>
 </div>
 </div>
 
@@ -12733,7 +12993,9 @@ TDD requires all gNBs in a network to switch from DL to UL at exactly the same t
 <tr><td>Variable Load DPD</td><td>ACLR maintained across all traffic loads</td><td>ETM1-5 with RuAuto</td><td>ACLR &gt;45dBc at all loads</td></tr>
 <tr><td>uSleep</td><td>PA sleeps on empty symbols</td><td>test_Tx_uSleep — EVM on symbol 0</td><td>EVM passes on first symbol after wake</td></tr>
 <tr><td>Carrier Activation</td><td>Enable/disable carrier via NETCONF</td><td>activate/deactivate NETCONF call</td><td>TX starts/stops &lt;100ms</td></tr>
-</table></div>
+</table>
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">O-RAN is what makes your RU commercially viable</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Vendor lock-in was the old model — O-RAN is the new</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">O-RU, O-DU, O-CU, FHGW, eCPRI switch</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">O-RAN Alliance WG4 fronthaul specification</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">NETCONF M-plane, eCPRI latency, PTP timing</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All WG4 interface requirements met</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">NETCONF session failure, eCPRI latency exceeded</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">tcpdump port 830/5025, ping latency test</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What is the 7.2x functional split?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Operator cannot integrate RU with their DU vendor</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -12814,6 +13076,8 @@ TDD requires all gNBs in a network to switch from DL to UL at exactly the same t
 ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp OFF, power meter mode. EVM: EXA, VSA mode or EVM function. RSSI cal: EXM inject known power, EXA verify EXM accuracy first. Phase cal: VNA, SOLT cal first, IFBW 1kHz, single frequency at band centre.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Instruments are your hands — you need to know them cold</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Wrong instrument setup = wrong measurement = wrong decision</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">EXA N9010B, EXM E6640A, VNA E5071C</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">Keysight instrument manuals + IEEE standards</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Hands-on — set up, measure, read, interpret</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Correct result for known input signal</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Wrong attenuation, preamp state, not waiting for settle</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Reset to defaults, re-read quick reference card</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What EXA settings for ACLR measurement of B1 LTE?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Wrong measurement leads to wrong pass/fail decision</span></div></div></div>
 </div>
 </div>
 
@@ -12898,6 +13162,8 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
 1. Check cable loss with VNA. Subtract from EXM output → is injected power at RU port correct? 2. Run RSSI cal check: inject −95 dBm, read get_rssi → within ±2 dB of expected? 3. If RSSI cal off: re-run cal, update ADC_ADJUST. 4. If RSSI cal correct but PRACH detection rate low: LNA NF degraded (measure NF with EXA). 5. One column fails: physical inspection of that column cable and connector. 6. All columns fail equally: DSA value wrong in tc_cadence.json.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Systematic debug saves hours vs random hardware swapping</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Random swapping = expensive, slow, often wrong</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware involved in the failing test</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">All 3GPP conformance specs</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Reproduce → isolate → 5-Why → fix → verify</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Root cause found, fix verified, test passes</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Jumping to hardware swap before checking procedure</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Measurement valid? → Which block? → 5-Why</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">TX power is 3dB low. Walk me through your debug.</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Field failure unresolved → site offline → revenue loss</span></div></div></div>
 </div>
 </div>
 
@@ -12936,7 +13202,9 @@ RF knowledge is secondary — they want to see: (1) Do you think systematically?
 <tr><td>Smith Chart</td><td>Load point is at right edge of Smith Chart. What is it?</td><td>Right edge = pure resistance, no reactance. If at rightmost point (R=∞) = open circuit, Γ=+1, VSWR=∞. For matching network design, you navigate Smith Chart with L/C/transmission line segments to reach centre (50Ω).</td></tr>
 <tr><td>uSleep</td><td>uSleep test fails — EVM spike on symbol 0. Root cause?</td><td>PA bias (Vgg) ramp-up is too slow. Bias not settled by start of first active symbol. Check RENESAS bias controller timing registers. Should be settled within &lt;5μs before symbol start.</td></tr>
 <tr><td>Beamforming</td><td>B1 ACLR passes per-column but fails combined. Why?</td><td>Cross-column phase alignment issue. When columns combine, their signals add coherently in main lobe direction but intermodulation products from slight phase mismatch create spectral regrowth. Check IQ calibration per column, verify DPD observation covers all columns.</td></tr>
-</table></div>
+</table>
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Interviews are the gate to the job</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Knowing RF but not being able to explain it = no job</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">No hardware — communication skill</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">No standard — performance assessment</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Mock interviews, structured answers using WHY framework</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Clear systematic answers to all common questions</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Vague answers, jumping to hardware without checking setup</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Practice STAR format, use WHY framework for every answer</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Walk me through debugging an ACLR failure</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Cannot get the RF engineer job despite having the knowledge</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -13060,7 +13328,9 @@ Core (AMF/SMF/UPF) ↔ gNB (O-CU ↔ O-DU ↔ FHGW ↔ O-RU/AAU) ↔ UE. Your wo
 gNB TX: +43 dBm (20W) per column at antenna port. Free space loss at 1km, 2140MHz: −99.6 dB. UE receive: +43 − 99.6 = −56.6 dBm. UE sensitivity: ~−105 dBm. DL margin: 48.4 dB. UE TX: +23 dBm. Free space loss: −99.6 dB. gNB receive: +23 − 99.6 = −76.6 dBm. gNB sensitivity: −99.25 dBm. UL margin: 22.6 dB. UL is the limiting direction — this is always why coverage is UL-limited.
 </div>
 
-<div class="mod-p">Know every block's purpose, failure mode, and impact on the signal. For each block ask: What does it do? What happens to the signal? What can go wrong? How does a failure manifest at the measurement point (EXA/EXM)? The complete chain from L2 bits to radiated RF and back is your mental model for all debugging.</div>
+<div class="mod-p">Know every block's purpose, failure mode, and impact on the signal. For each block ask: What does it do? What happens to the signal? What can go wrong? How does a failure manifest at the measurement point (EXA/EXM)? The complete chain from L2 bits to radiated RF and back is your mental model for all debugging.
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">System view prevents tunnel vision on one component</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Component-level thinking misses system interactions</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Entire chain: core → O-CU → O-DU → FHGW → O-RU → UE</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.300 (overall architecture)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">End-to-end: KPI measurement, link budget</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All KPIs meet SLA at system level</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Fixing one component degrades another</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Follow the chain: alarm → log → protocol → RF → hardware</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Draw the complete architecture from UE to core</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Fixing the RU but missing the backhaul issue causing the KPI fail</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -13159,6 +13429,8 @@ If the LO signal leaks to the output, it appears as a large carrier at the centr
 As input power approaches P1dB, PA gain drops. In the constellation: all points compress inward toward origin (amplitude compression). In spectrum: ACLR increases (spectral regrowth). EVM worsens. DPD is designed to operate right at P1dB and compensate, but if DPD model is wrong or not converged, compression shows through.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Impairments degrade every real RF system</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Ideal components don't exist — impairments are unavoidable</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">DAC/ADC IQ paths, LO, PA, mixer</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP EVM and spectrum mask specifications</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">EXA constellation display, EVM measurement</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">EVM within limits, no visible impairment artifacts</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">IQ imbalance → asymmetric constellation, LO leakage → DC spike</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Read constellation shape → identify impairment → trace to block</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What causes IQ imbalance and how does it appear on EXA?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Poor EVM forces lower MCS → throughput loss</span></div></div></div>
 </div>
 </div>
 
@@ -13236,7 +13508,9 @@ G.8275.1: full on-path support (all switches must be PTP-aware). Achieves ±100 
 No PTP lock → DU operates in freerun → TDD frame timing is arbitrary → DL/UL collision in your own cell → EXM injection during UL window hits the RU while PA is transmitting → LNA overloaded → sensitivity measurement completely wrong → all B41 RX tests fail with no apparent hardware fault. Always verify PTP lock (DU status: ptp_state = LOCKED) before any B41 test.
 </div>
 
-<div class="tip">TDD bands (B41) are critically dependent on phase synchronisation. If PTP sync is lost and RU enters holdover, clock drift will eventually cause TDD DL/UL switching misalignment → interference → throughput collapse. Alarm: GPS Loss or PTP Loss triggers holdover mode.</div>
+<div class="tip">TDD bands (B41) are critically dependent on phase synchronisation. If PTP sync is lost and RU enters holdover, clock drift will eventually cause TDD DL/UL switching misalignment → interference → throughput collapse. Alarm: GPS Loss or PTP Loss triggers holdover mode.
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">TDD B41 cannot work without timing sync</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Unsynchronised TDD = DL/UL collision = LNA damage</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">GPS receiver, PTP grandmaster, FHGW, RU PTP client</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.133, IEEE 1588-2008, G.8275.1</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">DU PTP status: LOCKED/HOLDOVER, PTP offset stats</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">PTP offset < ±1.5 μs continuously</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">GPS loss → holdover → drift beyond ±1.5μs → B41 failure</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Check GPS antenna, PTP config, holdover spec</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Why is PTP synchronisation critical for TDD?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">B41 cell off-air whenever GPS signal degrades</span></div></div></div>
+</div>
 </div>
 </div>
 
@@ -13337,6 +13611,8 @@ Maximum Ratio Combining weights each column's received signal by its own SNR qua
 Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 dBi over isotropic per column = +6 dB EIRP improvement. With 4 columns transmitting coherently: total EIRP = single_column_power + 4_column_BF_gain = +43 dBm + 6 dB = +49 dBm EIRP (excluding antenna element gain). Antenna element gain adds another 8–12 dBi. Total EIRP can reach +60 dBm for a 4T4R AAU with panel antenna.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Beamforming is what makes your 4T4R AAU valuable</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Single-antenna = no coverage shaping, no MRC gain</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">4 PAs, 4 LNAs, PE44820DS phase shifters, ADC 4 channels</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 36.211, O-RAN beamforming specs</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">VNA S21 phase per column, OTA if available</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All columns within ±2° phase error</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Dead column → 1.5-2dB MRC loss, beam direction error</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">VNA phase cal → identify which column offset → correct register</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">How does beamforming steer a beam direction?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Coverage holes at specific angles if beam points wrong</span></div></div></div>
 </div>
 </div>
 
@@ -13422,6 +13698,8 @@ Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 
 TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong → phase cal. EVM degraded → IQ cal. Measurements drift with temperature → temp comp cal. All cals drifted after drop/shock → full factory recal. After firmware update changes DAC or ADC settings → TX gain cal + RSSI cal.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Calibration is what makes measurements meaningful</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Uncalibrated RU gives wrong numbers → wrong decisions</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All RF hardware + calibration equipment</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">IEC 17025 (calibration lab standard)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Inject known power, measure response, compute offset</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">ADC_ADJUST accurate to ±1dB, TX power ±0.5dB of target</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Forgetting to recal after hardware change or temp shift</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Which cal? TX power wrong→TX gain cal, RSSI off→RSSI cal</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What is the difference between NF cal and RSSI cal?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Field RU gives wrong RSSI readings → wrong coverage prediction</span></div></div></div>
 </div>
 </div>
 
@@ -13495,6 +13773,8 @@ Trigger: reflected power > threshold (VSWR > 3.0 typically). Action: PA power re
 This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU boots, reads tx_calibration_eeprom.json for TX gain register values. If file missing or corrupted: RU uses default register values (typically lower than calibrated), resulting in TX power 3–8 dB below target. Symptom: TX power consistently low across all columns for that band, no other faults, DPD functioning normally. Fix: flash correct tx_calibration_eeprom.json. Always verify with EXA immediately after flash before signing off.
 </div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Faults tell you what is wrong — you must interpret them</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Unread faults → problems compound and cause outages</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">PA thermal, VSWR detector, GPS receiver, power monitor</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">O-RAN fault management, 3GPP TS 28.545</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">NETCONF alarm notification, journalctl fault log</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All alarms correctly map to root cause, clear after fix</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Ignoring fault 12 (missing cal file) → TX power wrong</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Read fault → identify component → check that component first</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">PA over-temperature fires every summer. Why?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Repeated PA protection = PA degradation → site offline</span></div></div></div>
 </div>
 </div>
 
@@ -13575,6 +13855,8 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">EVM → MCS → throughput:</b><br>High EVM (e.g. 6% for 64QAM limit 8%) → CQI reported by UE is lower → scheduler uses lower MCS → 25% throughput reduction. EVM is the TX quality metric that most directly affects user throughput. This is why operators set tight EVM specs and treat EVM failure as a revenue impact, not just a technical inconvenience.</div>
 <div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#ff6b6b">Sensitivity → coverage → PRACH success rate:</b><br>Sensitivity 3 dB worse than spec → cell coverage radius shrinks 30% → cell edge UEs cannot attach → PRACH failure rate increases → Random Access success rate KPI degrades → operator "network availability" KPI fails. Your DSA sensitivity test directly predicts this coverage outcome.</div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">KPIs are what the operator actually cares about</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">RF people who don't know KPIs cannot talk to operators</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Full network: RU, DU, UE, SON system</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">3GPP TS 32.425 (KPI definitions)</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Drive test, CQI reports, PM counters</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">All KPIs within contracted SLA thresholds</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">ACLR fail → SINR drop → throughput degradation</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Trace: ACLR → interference → SINR → MCS → throughput</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">How does ACLR failure affect end-user throughput?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Operator SLA penalty for low throughput KPI</span></div></div></div>
 </div>
 </div>
 
@@ -13673,6 +13955,8 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">Tools at each layer:</b><br>Alarm: NMS dashboard, NETCONF notification. Log: journalctl, dmesg, rct_results.json. Protocol: Wireshark (eCPRI), tcpdump (NETCONF), ping (connectivity). RF: EXA (spectrum/power/ACLR), EXM (inject known signal), VNA (cable/VSWR/phase). Hardware: multimeter (bias voltages), thermal camera, oscilloscope (power rails). Root cause: 5-Why — change ONE variable at a time.</div>
 <div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#ff6b6b">Most common E2E mistake:</b><br>Jumping to hardware replacement before exhausting software and configuration checks. Typical field failure split: 40% configuration/firmware, 30% installation (cable/connector), 20% transport/network, 10% actual hardware. Always follow the chain top-down before opening the enclosure.</div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">E2E troubleshooting finds root cause across all layers</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Layer-only thinking misses cross-layer root causes</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">All layers: network, transport, RF, hardware</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">All specs across all layers</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Each layer's own measurement tool (Wireshark, EXA, etc.)</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Root cause identified at correct layer</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Stopping at the wrong layer → wrong fix → recurrence</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Top-down: alarm → log → protocol → RF → hardware</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">Walk me through debugging a field carrier failure</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Field RU stays broken because wrong layer was fixed</span></div></div></div>
 </div>
 </div>
 
@@ -13733,6 +14017,8 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">AI fault prediction — proactive vs reactive maintenance:</b><br>Train model on historical temperature trends, RSSI variation, ACLR history. Model predicts: "this PA likely to fail within 2 weeks." Operator dispatches maintenance before failure → no outage. Your RCT measurement data (RSSI, ACLR, temperature over time) is the training data for these models. Collecting and archiving your test data properly has value beyond just pass/fail.</div>
 <div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">AI beam optimisation — replacing manual tuning:</b><br>Traditional: operators manually tune antenna tilt/power/weights site by site. AI: train on KPI data across thousands of sites, automatically optimise per site. Estimated improvement: 5-15% throughput with no hardware change. Nokia AVA and Ericsson AI-based SON already commercially deployed. Understanding how your RF measurements feed AI models makes you a more forward-looking engineer.</div>
 
+
+<div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">AI is rapidly changing how RF systems are optimised</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Manual DPD, manual tuning, manual fault prediction is slow</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">FPGA/DSP running neural networks, ML training servers</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">IEEE 802.11bf, 3GPP SI on AI/ML for NG-RAN</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">AI DPD: ACLR improvement vs polynomial baseline</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">AI DPD: 1-3dB better ACLR, AI fault: predict before failure</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Overfitting → poor ACLR in non-training conditions</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Retrain with current PA data, check training distribution</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What is AI-based DPD and why is it better than polynomial?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Products without AI features fall behind commercially</span></div></div></div>
 </div>
 </div>
 
@@ -14708,6 +14994,73 @@ document.addEventListener('DOMContentLoaded', function() {
     if (body) body.style.display = 'none';
   });
 });
+
+// ── Card search / filter ──────────────────────────────────
+function filterCards(query) {
+  const q = query.trim().toLowerCase();
+  const cards = document.querySelectorAll('.module-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    if (!q || text.includes(q)) {
+      card.classList.remove('search-hidden');
+      visible++;
+      // Auto-expand if search active and card matches
+      if (q) {
+        const body = card.querySelector('.module-body');
+        if (body) body.style.display = 'block';
+      }
+    } else {
+      card.classList.add('search-hidden');
+    }
+  });
+  const count = document.getElementById('search-count');
+  if (count) count.textContent = q ? visible + ' found' : '';
+  // Hide section headers with no visible cards
+  document.querySelectorAll('.sec-hdr').forEach(hdr => {
+    let sib = hdr.nextElementSibling;
+    let hasVisible = false;
+    while (sib && !sib.classList.contains('sec-hdr')) {
+      if (sib.classList.contains('module-card') && !sib.classList.contains('search-hidden')) {
+        hasVisible = true; break;
+      }
+      sib = sib.nextElementSibling;
+    }
+    hdr.style.display = (!q || hasVisible) ? '' : 'none';
+  });
+}
+function clearSearch() {
+  const inp = document.getElementById('card-search');
+  if (inp) { inp.value = ''; filterCards(''); }
+  // Collapse all cards back
+  document.querySelectorAll('.module-body').forEach(b => b.style.display = '');
+}
+// Keyboard shortcut: Ctrl+K or / to focus search
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+    e.preventDefault();
+    const inp = document.getElementById('card-search');
+    if (inp) inp.focus();
+  }
+  if (e.key === 'Escape') clearSearch();
+});
+
+
+// ── Dark / Light mode toggle ──────────────────────────────
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const btn = document.getElementById('theme-toggle');
+  const isLight = document.body.classList.contains('light-mode');
+  if (btn) btn.textContent = isLight ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+// Restore saved theme
+(function() {
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+})();
+
 </script>
 
 </body>
