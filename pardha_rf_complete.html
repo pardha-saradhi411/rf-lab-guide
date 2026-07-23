@@ -350,7 +350,7 @@ body.light-mode .sec-hdr {
 <!-- ── Live card search ── -->
 <div id="card-search-wrap">
   <span style="color:#5bc4ef;font-size:18px">🔍</span>
-  <input id="card-search" type="text" placeholder="Search cards… e.g. ACLR, sensitivity, DPD, LNA, beamforming" oninput="filterCards(this.value)">
+  <input id="card-search" type="text" placeholder="Search cards… e.g. DSA, ACLR, DPD, sensitivity, LNA — scrolls to first match" oninput="filterCards(this.value)" oninput="filterCards(this.value)">
   <span id="search-count"></span>
   <button id="clear-search" onclick="clearSearch()">✕ Clear</button>
   <span style="color:#4a5470;font-size:12px;margin-left:8px">126 cards</span>
@@ -15967,12 +15967,17 @@ function toggleModule(el) {
   const body = el.nextElementSibling;
   const chevron = el.querySelector('.chevron');
   const status = el.querySelector('.mod-status');
-  if (body.style.display === 'block') {
+  // Use inline style as single source of truth (works with both CSS class and search override)
+  const isOpen = body.style.display === 'block' || 
+                 (body.style.display === '' && body.classList.contains('open'));
+  if (isOpen) {
     body.style.display = 'none';
+    body.classList.remove('open');
     if (chevron) chevron.textContent = '▾';
     if (status) status.textContent = 'click to expand';
   } else {
     body.style.display = 'block';
+    body.classList.add('open');
     if (chevron) chevron.textContent = '▴';
     if (status) status.textContent = 'expanded';
   }
@@ -15989,52 +15994,100 @@ document.addEventListener('DOMContentLoaded', function() {
 function filterCards(query) {
   const q = query.trim().toLowerCase();
   const cards = document.querySelectorAll('.module-card');
+  let firstMatch = null;
   let visible = 0;
+
   cards.forEach(card => {
     const text = card.textContent.toLowerCase();
-    if (!q || text.includes(q)) {
+    const matches = !q || text.includes(q);
+    const body = card.querySelector('.module-body');
+
+    if (matches) {
       card.classList.remove('search-hidden');
       visible++;
-      // Auto-expand if search active and card matches
-      if (q) {
-        const body = card.querySelector('.module-body');
-        if (body) body.style.display = 'block';
+      if (q && body) {
+        body.style.display = 'block'; // expand matching cards
+        body.classList.add('open');
+        const chevron = card.querySelector('.chevron');
+        const status  = card.querySelector('.mod-status');
+        if (chevron) chevron.textContent = '▴';
+        if (status)  status.textContent  = 'expanded';
       }
+      if (!firstMatch) firstMatch = card;
     } else {
       card.classList.add('search-hidden');
+      // Collapse non-matching to save space
+      if (body && body.style.display === 'block') {
+        body.style.display = 'none';
+      }
     }
   });
+
   const count = document.getElementById('search-count');
   if (count) count.textContent = q ? visible + ' found' : '';
-  // Hide section headers with no visible cards
+
+  // Hide section headers with no visible cards under them
   document.querySelectorAll('.sec-hdr').forEach(hdr => {
     let sib = hdr.nextElementSibling;
     let hasVisible = false;
     while (sib && !sib.classList.contains('sec-hdr')) {
-      if (sib.classList.contains('module-card') && !sib.classList.contains('search-hidden')) {
-        hasVisible = true; break;
-      }
+      if (sib.classList.contains('module-card') && !sib.classList.contains('search-hidden'))
+        { hasVisible = true; break; }
       sib = sib.nextElementSibling;
     }
     hdr.style.display = (!q || hasVisible) ? '' : 'none';
   });
+
+  // Scroll smoothly to first match
+  if (firstMatch && q) {
+    setTimeout(() => {
+      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Blue flash highlight
+      firstMatch.style.outline = '2px solid #5bc4ef';
+      firstMatch.style.outlineOffset = '4px';
+      setTimeout(() => { firstMatch.style.outline=''; firstMatch.style.outlineOffset=''; }, 1800);
+    }, 80);
+  }
 }
+
 function clearSearch() {
   const inp = document.getElementById('card-search');
-  if (inp) { inp.value = ''; filterCards(''); }
-  // Collapse all cards back
-  document.querySelectorAll('.module-body').forEach(b => b.style.display = '');
+  if (inp) inp.value = '';
+
+  document.querySelectorAll('.module-card').forEach(card => {
+    card.classList.remove('search-hidden');
+    card.style.outline = '';
+    // Only collapse cards that were opened BY the search (not by user click)
+    // Simplest: collapse all cards and let user re-open what they want
+    const body = card.querySelector('.module-body');
+    if (body) {
+      body.style.display = 'none';
+      body.classList.remove('open');
+      const chevron = card.querySelector('.chevron');
+      const status  = card.querySelector('.mod-status');
+      if (chevron) chevron.textContent = '▾';
+      if (status)  status.textContent  = 'click to expand';
+    }
+  });
+
+  document.querySelectorAll('.sec-hdr').forEach(hdr => hdr.style.display = '');
+  const count = document.getElementById('search-count');
+  if (count) count.textContent = '';
 }
-// Keyboard shortcut: Ctrl+K or / to focus search
+
+// Keyboard: Ctrl+K or / to focus, Escape to clear
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
     e.preventDefault();
     const inp = document.getElementById('card-search');
-    if (inp) inp.focus();
+    if (inp) { inp.focus(); inp.select(); }
   }
-  if (e.key === 'Escape') clearSearch();
+  if (e.key === 'Escape') {
+    clearSearch();
+    const inp = document.getElementById('card-search');
+    if (inp) inp.blur();
+  }
 });
-
 
 // ── Dark / Light mode toggle ──────────────────────────────
 function toggleTheme() {
