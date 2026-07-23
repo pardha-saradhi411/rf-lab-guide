@@ -341,6 +341,7 @@ body.light-mode .sec-hdr {
     <a href="#rf_fundamentals">RF Fundamentals</a>
     <a href="#sensitivity_dsa">Sensitivity &amp; DSA</a>
     <a href="#expertvideos">Videos &amp; Channels</a>
+    <a href="#phy_tests">PHY Tests</a>
     <a href="#careermap">Career Roadmap</a>
   </div>
 <button id="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
@@ -16611,6 +16612,18 @@ function show(inst, key) {
   all.forEach(b => b.style.outline = '');
   // Find the clicked button
   event && event.target && (event.target.style.outline = `2px solid ${def.color}`);
+}
+
+
+function phyTab(mode) {
+  document.getElementById('phy-fdd').style.display = mode==='fdd' ? 'block' : 'none';
+  document.getElementById('phy-tdd').style.display = mode==='tdd' ? 'block' : 'none';
+  document.getElementById('phy-tab-fdd').style.cssText = mode==='fdd'
+    ? 'background:#0d1a2a;border:2px solid #5bc4ef;color:#5bc4ef;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
+    : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
+  document.getElementById('phy-tab-tdd').style.cssText = mode==='tdd'
+    ? 'background:#1a1a0d;border:2px solid #c8b800;color:#c8b800;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
+    : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
 }
 
 </script>
