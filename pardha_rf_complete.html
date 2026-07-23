@@ -904,113 +904,186 @@ body.light-mode .sec-hdr {
   </div>
 
   <!-- ═══ EXM PANEL ═══ -->
-  <div class="inst-panel" id="panel-exm">
-    <div class="diagram-side">
-      <div class="hint">Click any button below →</div>
+  <div class="inst-panel" <div class="inst-panel" id="panel-exm">
+  <div class="diagram-side">
+    <div class="hint">Click any button — explanation appears below</div>
 
-      <div style="margin-bottom:12px;border-radius:8px;overflow:hidden;border:1px solid #232840">
-        <img src="https://www.keysight.com/us/en/assets/3120-01313/photos/E6640A-3.png"
-          alt="Keysight EXM E6640A Wireless Test Set"
-          style="width:100%;display:block;background:#1a1e2c"
-          onerror="this.style.display='none';document.getElementById('exm-img-fallback').style.display='block'">
-        <div id="exm-img-fallback" style="display:none;background:#141720;padding:10px;font-size:11px;color:#4a5470;text-align:center">
-          Image loads when online — keysight.com/E6640A
-        </div>
+    <!-- Front panel image from screenshot -->
+    <div style="margin-bottom:10px;border-radius:8px;overflow:hidden;border:1px solid #232840;background:#c8c8c0;padding:6px">
+      <div style="font-size:10px;color:#333;text-align:center;margin-bottom:4px;font-weight:700">TRX2 — EXM E6640A Front Panel (your lab)</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;font-size:9px;font-family:sans-serif">
+        <!-- Row 1 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('freq_ch')">FREQ<br>Channel</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('input_output')">Input/<br>Output</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('auto_couple')">Auto<br>Couple</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('marker')">Marker</div>
+        <div style="background:#00aa00;color:#fff;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('mode_preset')">Mode<br>Preset</div>
+        <!-- Row 2 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('span_xscale')">SPAN<br>X Scale</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('view_display')">View/<br>Display</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('bw')">BW</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('peak_search')">Peak<br>Search</div>
+        <div style="background:#ffffaa;border:1px solid #cc9900;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('user_preset')"><b>User<br>Preset</b></div>
+        <!-- Row 3 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('amptd_yscale')">AMPTD<br>Y Scale</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('trace_detector')">Trace/<br>Detector</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('source')">Source</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('marker_arrow')">Marker ›</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('save')">Save</div>
+        <!-- Row 4 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('mode')">Mode</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('mode_setup')">Mode<br>Setup</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('trigger')">Trigger</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('marker_fn')">Marker<br>Function</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('recall')">Recall</div>
+        <!-- Row 5 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('meas')">Meas</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('meas_setup')">Meas<br>Setup</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('sweep_control')">Sweep/<br>Control</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('restart')">Restart</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('single')">Single</div>
       </div>
-      <div style="font-size:11px;color:#4a5470;margin-bottom:8px">
-        ↑ Keysight EXM E6640A &nbsp;·&nbsp;
-        <strong style="color:#9b8cf870">Click the buttons below</strong> to learn each key
-      </div>
-      <div class="device-graphic">
-        <div class="device-brand">KEYSIGHT EXM E6640A &nbsp; Wireless Test Set</div>
-        <div class="device-screen" style="min-height:100px">
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;font-size:9px">
-            <div style="border:1px solid #003300;padding:4px;border-radius:2px">
-              <div style="color:#9b8cf8">B3 FDD Window</div>
-              <div>1842.5 MHz · 10MHz</div>
-              <div style="color:#00d4a0">ACLR: -46.2 dBc ✓</div>
-              <div style="color:#00d4a0">EVM: 2.1% ✓</div>
+      <div style="font-size:9px;color:#666;text-align:center;margin-top:4px">Click any key above for explanation</div>
+    </div>
+
+    <!-- Explanation panel — shows on click -->
+    <div id="explain-exm" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px;min-height:80px;font-size:13px;line-height:1.6">
+      <span style="color:#4a5470">Click any front panel key above — full explanation for your lab work appears here.</span>
+    </div>
+
+  </div>
+
+  <!-- Right side: Quick reference -->
+  <div class="info-panel" id="info-exm">
+    <div style="font-size:12px">
+
+      <!-- FDD vs TDD quick setup -->
+      <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px;margin-bottom:12px">
+        <div style="color:#00d4a0;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">FDD vs TDD SETUP — KEY DIFFERENCES</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:#0d1a0d;padding:10px;border-radius:6px;border-left:3px solid #5bc4ef">
+            <div style="color:#5bc4ef;font-weight:700;font-size:12px;margin-bottom:6px">FDD (B1/B3/B8/B28)</div>
+            <div style="color:#8892b0;line-height:1.8;font-size:11px">
+              <b style="color:#c8c8d8">FREQ Channel:</b> set DL freq<br>
+              <b style="color:#c8c8d8">Mode:</b> FDD LTE (e.g. B3)<br>
+              <b style="color:#c8c8d8">Mode Setup:</b> DL or UL direction<br>
+              <b style="color:#c8c8d8">Source → Freq:</b> set UL freq<br>
+              <b style="color:#c8c8d8">Trigger polarity:</b> Positive<br>
+              <b style="color:#ff6b6b">Trigger delay:</b> OFF<br>
+              <div style="margin-top:6px;padding:6px;background:#0a2010;border-radius:4px;color:#4a5470;font-size:10px">DL and UL are different frequencies → no timing dependency between them</div>
             </div>
-            <div style="border:1px solid #003300;padding:4px;border-radius:2px">
-              <div style="color:#9b8cf8">B1 FDD Window</div>
-              <div>2140 MHz · 20MHz</div>
-              <div style="color:#f5a623">ACLR: -44.8 dBc ⚠</div>
-              <div style="color:#00d4a0">EVM: 1.9% ✓</div>
-            </div>
-            <div style="border:1px solid #440000;padding:4px;border-radius:2px">
-              <div style="color:#ff6b6b">B41 TDD Window</div>
-              <div>2545 MHz · 10MHz</div>
-              <div style="color:#ff6b6b">⚠ No Frame Trig</div>
-              <div style="color:#ff6b6b">Results invalid!</div>
+          </div>
+          <div style="background:#1a1a0d;padding:10px;border-radius:6px;border-left:3px solid #f5a623">
+            <div style="color:#f5a623;font-weight:700;font-size:12px;margin-bottom:6px">TDD (B41)</div>
+            <div style="color:#8892b0;line-height:1.8;font-size:11px">
+              <b style="color:#c8c8d8">FREQ Channel:</b> same freq DL/UL<br>
+              <b style="color:#c8c8d8">Mode:</b> TDD LTE (B41)<br>
+              <b style="color:#c8c8d8">Mode Setup:</b> TDD pattern (e.g. 2,6 or 3,8)<br>
+              <b style="color:#c8c8d8">Source → Freq:</b> same as DL<br>
+              <b style="color:#c8c8d8">Trigger polarity:</b> Positive<br>
+              <b style="color:#f5a623">Trigger delay:</b> ON → <b style="color:#ff6b6b">9.965 ms</b><br>
+              <div style="margin-top:6px;padding:6px;background:#1a1500;border-radius:4px;color:#f5a623;font-size:10px">DL and UL share same freq → delay aligns injection to correct UL subframe window</div>
             </div>
           </div>
         </div>
-        <div class="port-row">
-          <div class="port" style="border-color:#f5a623;color:#f5a623">TRX<br>1</div>
-          <div class="port" style="border-color:#f5a623;color:#f5a623">TRX<br>2</div>
-          <div class="port" style="border-color:#363d5a;color:#4a5470">TRX<br>3</div>
-          <div class="port" style="border-color:#363d5a;color:#4a5470">TRX<br>4</div>
-          <span style="font-size:10px;color:#4a5470;margin-left:4px">Active ports shown in amber</span>
+      </div>
+
+      <!-- Source setup -->
+      <div style="background:#1a0d2a;border:1px solid #9b8cf8;border-radius:8px;padding:12px;margin-bottom:12px">
+        <div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">SOURCE SETUP — STEP BY STEP</div>
+        <div style="color:#8892b0;font-size:11px;line-height:2;font-family:monospace">
+          <span style="color:#9b8cf8">1.</span> Source → RF Output: <span style="color:#ff6b6b">OFF</span> (before connecting cable)<br>
+          <span style="color:#9b8cf8">2.</span> Source → Amplitude: set injection power (e.g. <span style="color:#f5a623">−95 dBm</span>)<br>
+          <span style="color:#9b8cf8">3.</span> Source → Frequency: set UL band centre<br>
+          <span style="color:#9b8cf8">4.</span> Source → Modulation: <span style="color:#00d4a0">ON</span><br>
+          <span style="color:#9b8cf8">5.</span> Modulation Setup → <span style="color:#00d4a0">ARB</span><br>
+          <span style="color:#9b8cf8">6.</span> ARB → <span style="color:#00d4a0">ON</span><br>
+          <span style="color:#9b8cf8">7.</span> ARB → Select ARB → choose <span style="color:#c8b800">.bin file</span><br>
+          <span style="color:#9b8cf8">8.</span> ARB → Sample Rate: match BW<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;5 MHz→7.68 MHz · 10→15.36 · 15→23.04 · 20→30.72<br>
+          <span style="color:#9b8cf8">9.</span> Verify output with EXA (±0.5 dB)<br>
+          <span style="color:#9b8cf8">10.</span> Source → RF Output: <span style="color:#00d4a0">ON</span>
         </div>
       </div>
 
-      <div class="key-group">
-        <div class="group-label" style="background:#9b8cf820;color:#9b8cf8">SIGNAL SETUP</div>
-        <div class="keys">
-          <button class="kbtn gm-freq" onclick="show('exm','freq')">Frequency</button>
-          <button class="kbtn gm-freq" onclick="show('exm','io')">I/O Port ⚠</button>
-          <button class="kbtn gm-freq" onclick="show('exm','reflvl')">Ref Level</button>
+      <!-- ARB bin file reference -->
+      <div style="background:#141720;border:1px solid #4a5470;border-radius:8px;padding:12px;margin-bottom:12px">
+        <div style="color:#c8b800;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">ARB BIN FILE → SIGNAL MAPPING</div>
+        <table style="width:100%;font-size:11px;border-collapse:collapse">
+          <tr style="border-bottom:1px solid #2a3050">
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Bin file</th>
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Signal</th>
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">BW</th>
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Mode</th>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_off_25_49_BW10_FDD_RNTI_0</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 offset 25</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW20_FDD_RNTI_0.bin</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">20 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A2-3_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#5bc4ef;padding:3px 6px">A2-3 (16QAM 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A5-5_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#f5a623;padding:3px 6px">A5-5 (64QAM 4/5)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">PRACH_Bw10[Mhz]_PID32_FreqOffset35_ZCZ8_1UEs.bin</td>
+            <td style="color:#9b8cf8;padding:3px 6px">PRACH ZCZ8</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#f5a623;padding:3px 6px">TDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#f5a623;padding:3px 6px">TDD</td>
+          </tr>
+        </table>
+        <div style="color:#4a5470;font-size:10px;margin-top:6px">Full bin file list → see PHY Tests card (3rd-party test list)</div>
+      </div>
+
+      <!-- Input/Output ports -->
+      <div style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:12px">
+        <div style="color:#5bc4ef;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">INPUT/OUTPUT PORT REFERENCE</div>
+        <div style="display:grid;gap:6px;font-size:11px">
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #ff6b6b">
+            <b style="color:#ff6b6b">RF Input</b> — signal coming IN from the RU (DL measurement). Connect RU BOB SMA → 30 dB pad → EXM RF Input. Used when EXM is measuring RU TX signal.
+          </div>
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #00d4a0">
+            <b style="color:#00d4a0">RF Output</b> — signal going OUT to RU (UL injection). Connect EXM RF Output → cable → RU BOB SMA. Used for RSSI cal and sensitivity tests. Verify power with EXA before connecting.
+          </div>
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #c8b800">
+            <b style="color:#c8b800">External Gain (BTS setting)</b> — for LTE, select <b>BTS</b> here. This applies the correct gain reference for base station measurements. Sets the measurement context so EXM knows it is measuring a BTS (base station transmitter) rather than a UE.
+          </div>
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #9b8cf8">
+            <b style="color:#9b8cf8">Test Set Config → RF Port</b> — select RF Port here to route signal to the front panel RF connector. Required before any injection or measurement.
+          </div>
         </div>
       </div>
 
-      <div class="key-group">
-        <div class="group-label" style="background:#ff6b6b20;color:#ff6b6b">LTE MEASUREMENTS</div>
-<div id="explain-exa" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:16px;margin-top:12px;display:none;min-height:60px">Click any button above to see what it does and how to set it for your RF tests.</div>
-
-        <div class="keys">
-          <button class="kbtn gm-meas" onclick="show('exm','chpwr')">Channel Power</button>
-          <button class="kbtn gm-meas" onclick="show('exm','aclr')">ACLR ⚠</button>
-          <button class="kbtn gm-meas" onclick="show('exm','evm')">EVM ⚠</button>
-          <button class="kbtn gm-meas" onclick="show('exm','obw')">OBW</button>
-          <button class="kbtn gm-meas" onclick="show('exm','sem')">SEM</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#f5a62320;color:#f5a623">CELL CONFIG — must match RU exactly</div>
-        <div class="keys">
-          <button class="kbtn gm-cfg" onclick="show('exm','earfcn')">EARFCN ⚠</button>
-          <button class="kbtn gm-cfg" onclick="show('exm','chbw')">Channel BW</button>
-          <button class="kbtn gm-cfg" onclick="show('exm','uldl')">UL / DL ⚠</button>
-          <button class="kbtn gm-cfg" onclick="show('exm','cellid')">Cell ID (PCI) ⚠</button>
-          <button class="kbtn gm-cfg" onclick="show('exm','etm')">ETM</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#ff6b6b30;color:#ff8888">TRIGGER — critical for B41</div>
-        <div class="keys">
-          <button class="kbtn gm-trig" onclick="show('exm','trig')">Trigger ⚠</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#00d4a020;color:#00d4a0">DISPLAY</div>
-        <div class="keys">
-          <button class="kbtn gm-disp" onclick="show('exm','multilayout')">Multi-Layout</button>
-          <button class="kbtn gm-disp" onclick="show('exm','rbmap')">RB Map View</button>
-          <button class="kbtn gm-disp" onclick="show('exm','limits')">Limit Lines</button>
-          <button class="kbtn gm-disp" onclick="show('exm','savestate')">Save State</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-panel" id="info-exm">
-      <div class="info-empty">← Click any button on the left</div>
     </div>
   </div>
-
-  <!-- ═══ VNA PANEL ═══ -->
+</div>
   <div class="inst-panel" id="panel-vna">
     <div class="diagram-side">
       <div class="hint">Click any button below →</div>
@@ -16229,156 +16302,236 @@ Recall before any test session to guarantee correct settings. This eliminates se
 
 // ══════════════════════════════════════════════════════════
 exm: {
-  freq: {
-    title: 'Frequency',
+  freq_ch: {
+    title: 'FREQ Channel — set downlink frequency',
     color: '#00d4a0',
-    body: `Sets the carrier frequency of the generated signal. For UL injection:<br>
-<b>B1 UL:</b> 1950 MHz &nbsp;|&nbsp; <b>B3 UL:</b> 1747.5 MHz &nbsp;|&nbsp; <b>B8 UL:</b> 897.5 MHz<br>
-<b>B28 UL:</b> 728 MHz &nbsp;|&nbsp; <b>B41 TDD:</b> 2545 MHz (same as DL)<br>
-<b>SCPI:</b> <code>:FREQ:CENT 1.95e9</code><br>
-<b>Always verify:</b> check EXM output with EXA before injecting into RU.`
+    body: `This is where you set the <b>downlink (DL) frequency</b> — the frequency the RU is transmitting on that you want to receive or measure.<br><br>
+<b>Your band DL frequencies:</b><br>
+B1: <b style="color:#f5a623">2140 MHz</b> &nbsp;|&nbsp; B3: <b style="color:#f5a623">1842.5 MHz</b> &nbsp;|&nbsp; B8: <b style="color:#f5a623">942.5 MHz</b><br>
+B28: <b style="color:#f5a623">758 MHz</b> &nbsp;|&nbsp; B41: <b style="color:#f5a623">2545 MHz</b> (TDD — same as UL)<br><br>
+<b>How to set:</b> Press FREQ Channel → type frequency → press MHz softkey.<br>
+<b>Note:</b> For TDD (B41) DL and UL are the same frequency — you set it once here.`
   },
-  chbw: {
-    title: 'Channel BW',
-    color: '#00d4a0',
-    body: `Sets the LTE channel bandwidth for the generated waveform.<br>
-<b>Your standard test:</b> 10 MHz (50 RBs)<br>
-<b>Other options:</b> 1.4 / 3 / 5 / 15 / 20 MHz<br>
-Must match the RU's configured channel BW — mismatch causes RSSI and BLER errors.<br>
-<b>SCPI:</b> <code>:SOUR:CHBW 10MHZ</code>`
+  input_output: {
+    title: 'Input/Output — RF ports, External Gain, Test Set Config',
+    color: '#5bc4ef',
+    body: `This menu controls which physical port the signal uses and the measurement context.<br><br>
+<b style="color:#ff6b6b">RF Input:</b> Signal coming IN from the RU (for DL measurement). Connect: RU BOB SMA → 30 dB pad → EXM RF Input.<br><br>
+<b style="color:#00d4a0">RF Output:</b> Signal going OUT to RU (for UL injection — RSSI cal, sensitivity). Connect: EXM RF Output → measured cable → RU BOB SMA. Always verify power with EXA before connecting to RU.<br><br>
+<b style="color:#c8b800">External Gain → BTS:</b> For LTE base station testing, always select BTS here. This tells EXM the measurement context is a base station transmitter (not a UE), applying the correct reference gain assumptions.<br><br>
+<b style="color:#9b8cf8">Test Set Config → RF Port:</b> Select RF Port to route the signal to the front panel connector. Must be set before any test.`
   },
-  earfcn: {
-    title: 'EARFCN',
-    color: '#00d4a0',
-    body: `E-UTRA Absolute Radio Frequency Channel Number — LTE's channel numbering system.<br>
-<b>B1 UL centre (1950 MHz):</b> EARFCN = 18600<br>
-<b>B3 UL centre (1747.5 MHz):</b> EARFCN = 17400<br>
-<b>B8 UL centre (897.5 MHz):</b> EARFCN = 3450<br>
-EXM can accept EARFCN directly instead of frequency — they are equivalent.<br>
-<b>Formula:</b> f_UL = f_UL_offset + 0.1 × (EARFCN − N_offset)`
+  source: {
+    title: 'Source — the main UL signal generator (most important key)',
+    color: '#ff6b6b',
+    body: `<b style="color:#ff6b6b">This is the main section for UL injection setup.</b> Complete step-by-step:<br><br>
+<b>1. RF Output:</b> Start with OFF. Turn ON only after everything else is configured and cable is connected to RU.<br><br>
+<b>2. Amplitude:</b> Set injection power. Example: <span style="color:#f5a623">−95 dBm</span> for RSSI cal. Subtract cable loss to get power at RU port.<br><br>
+<b>3. Frequency:</b> Set UL band centre frequency.<br>
+&nbsp;&nbsp;B1 UL: 1950 MHz · B3 UL: 1747.5 MHz · B8 UL: 897.5 MHz · B28 UL: 728 MHz · B41: 2545 MHz<br><br>
+<b>4. Modulation → ON:</b> Must be enabled for waveform injection.<br><br>
+<b>5. Modulation Setup → ARB:</b> Select ARB (Arbitrary Waveform) mode. This plays back the pre-loaded .bin waveform file.<br><br>
+<b>6. ARB → ON:</b> Enable the ARB player.<br><br>
+<b>7. ARB → Select ARB:</b> Browse to and load the correct .bin file for your test. File names tell you the signal, BW, and offset.<br><br>
+<b>8. ARB → Sample Rate:</b> Must match the channel BW:<br>
+&nbsp;&nbsp;5 MHz → 7.68 MSPS · 10 MHz → 15.36 MSPS · 15 MHz → 23.04 MSPS · 20 MHz → 30.72 MSPS<br><br>
+<b>9. Source → RF Output → ON:</b> Only after verifying all above.`
   },
-  reflvl: {
-    title: 'Reference Level / Output Power',
+  mode: {
+    title: 'Mode — select FDD band or TDD (B41)',
+    color: '#9b8cf8',
+    body: `Selects the LTE band mode. This automatically configures many parameters for the selected band.<br><br>
+<b style="color:#5bc4ef">FDD modes (separate DL/UL frequencies):</b><br>
+<b>B1</b> — 2110/1920 MHz band &nbsp;|&nbsp; <b>B3</b> — 1805/1710 MHz band<br>
+<b>B8</b> — 925/880 MHz band &nbsp;|&nbsp; <b>B20</b> — 791/832 MHz band<br><br>
+<b style="color:#f5a623">TDD mode (shared DL/UL frequency):</b><br>
+<b>B41</b> — 2496–2690 MHz band. Select this for B41 TDD tests.<br><br>
+<b style="color:#ff6b6b">Key difference:</b> FDD modes automatically know DL and UL are different frequencies. TDD mode knows they are the same frequency and enables TDD pattern configuration in Mode Setup.<br><br>
+After selecting mode, go to <b>Mode Setup</b> to configure direction (DL/UL) and bandwidth.`
+  },
+  mode_setup: {
+    title: 'Mode Setup — direction (DL/UL), BW, TDD pattern',
+    color: '#9b8cf8',
+    body: `<b>Most important configuration step after selecting Mode.</b><br><br>
+<b style="color:#5bc4ef">Direction:</b> Uplink (UL) or Downlink (DL).<br>
+→ UL: EXM injects signal into RU receive port. Used for RSSI cal, sensitivity, PRACH tests.<br>
+→ DL: EXM receives/measures signal from RU transmit port. Used for power, ACLR, EVM measurements.<br><br>
+<b style="color:#00d4a0">Preset to Standard:</b> Loads the 3GPP standard configuration for the selected band and BW. Always press this first after changing mode — it sets correct carrier frequency, RB allocation, and test model.<br><br>
+<b style="color:#c8b800">Bandwidth:</b> Select 5 / 10 / 15 / 20 MHz. Must match what the RU is configured for.<br><br>
+<b style="color:#f5a623">TDD Pattern (only for B41):</b><br>
+Config format: X,Y where X = DL-to-UL config number, Y = special subframe config.<br>
+<b>Config 2,6:</b> DSUUUDSUUU — your standard config (2 DL, 6 UL per frame)<br>
+<b>Config 3,8:</b> DSUUDDSUUD — alternate config<br>
+Must exactly match the TDD configuration set in the DU. Mismatch = EXM injects in wrong subframes = 0% detection rate.`
+  },
+  meas: {
+    title: 'Meas — ACP (ACLR + channel power) and Modulation Analysis (EVM)',
+    color: '#5bc4ef',
+    body: `Selects the measurement type. <b>You use two mainly:</b><br><br>
+<b style="color:#00d4a0">ACP (Adjacent Channel Power):</b><br>
+Shows Channel Power and ACLR together. Channel Power = total power in your channel bandwidth. ACLR = power in adjacent channel relative to your channel. This is your primary DL measurement for verifying the RU is transmitting correctly and within spec (ACLR < −45 dBc).<br><br>
+<b style="color:#f5a623">Modulation Analysis:</b><br>
+Shows EVM (Error Vector Magnitude) — how accurately each symbol matches its ideal constellation point. Good result: EVM < 8% for 64QAM. Constellation display shows the IQ diagram — you can diagnose PA compression, IQ imbalance, phase noise from the constellation shape.<br><br>
+<b>Other available:</b> SEM (Spectrum Emission Mask), OBW (Occupied BW), but ACP and Modulation Analysis are your daily ones.`
+  },
+  amptd_yscale: {
+    title: 'AMPTD Y Scale — reference level and range',
     color: '#f5a623',
-    body: `Sets the output power level of the generated signal.<br>
-<b>For RSSI calibration:</b> set to a known level (e.g. −95 dBm). Add cable loss to get power at RU port.<br>
-<b>For sensitivity test:</b> set to (sensitivity_threshold + cable_loss). E.g. B1: −99.25 + 2.5 = −96.75 dBm.<br>
-<b>Verify with EXA</b> before injection — EXM output accuracy ±0.5 dB.<br>
-<b>SCPI:</b> <code>:POW:AMPL -95</code>`
+    body: `Controls the vertical scale of the measurement display.<br><br>
+<b>Reference Level:</b> The amplitude at the top of the display (dBm). Set so your signal peak is 5–10 dB below the reference level. If signal clips the top: reference level too low → increase it. If signal is a tiny blip at the bottom: reference level too high → decrease it.<br><br>
+<b>Range:</b> The total vertical span of the display. <b>Mandatory to adjust to avoid clipping.</b> If range is too small and signal clips, the measurement is wrong. Set range wide enough that the main signal and adjacent channels are both visible with headroom.<br><br>
+<b>Practical setting for DL measurement (RU TX):</b><br>
+Reference level: −10 dBm (signal at BOB SMA after 30 dB pad ≈ −17 dBm → sits 7 dB below reference)<br>
+Range: 100 dB (shows main channel and noise floor together)<br><br>
+<b>You can set manually</b> via softkeys, or use Auto Scale to let EXM choose — but always verify after Auto Scale that nothing is clipping.`
   },
-  io: {
-    title: 'RF Output ON/OFF',
+  trigger: {
+    title: 'Trigger — Trigger Source, Polarity, and the critical TDD delay',
     color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">RF output on/off — always confirm before connecting to RU.</b><br>
-<b>Before connecting cable to RU:</b> RF must be OFF.<br>
-<b>Before injecting:</b> verify power level, frequency, and waveform first, then turn ON.<br>
-<b>After injection:</b> turn OFF before disconnecting cable.<br>
-<b>SCPI:</b> <code>:OUTP ON</code> &nbsp; <code>:OUTP OFF</code>`
+    body: `<b style="color:#ff6b6b">This is the most important difference between FDD and TDD setup.</b><br><br>
+<b>Sweep/Control → Trigger → Trigger Source:</b><br>
+Always set to <b style="color:#f5a623">External</b>. The trigger comes from an external device (the DU or a timing source). This synchronises EXM sweeps and injections to the LTE frame timing.<br><br>
+<b>Trigger Polarity:</b> Set to <b style="color:#00d4a0">Positive</b> for both FDD and TDD.<br><br>
+<b style="color:#5bc4ef">FDD (B1/B3/B8/B28) — External Trigger Delay: OFF</b><br>
+DL and UL are on different frequencies so they are independent. No delay is needed — EXM can inject UL or measure DL at any time without timing dependency.<br><br>
+<b style="color:#f5a623">TDD (B41) — External Trigger Delay: ON → 9.965 ms</b><br>
+DL and UL share the same frequency. EXM must inject in UL subframes only — not during DL subframes (RU is transmitting then). The 9.965 ms delay shifts the injection window to align with the UL portion of the TDD frame. Without this delay: EXM injects during DL period → RU cannot receive it → 0% PRACH detection → all UL tests fail.<br><br>
+<b>Why 9.965 ms specifically?</b> The LTE TDD frame is 10 ms. The 9.965 ms delay positions the injection at the start of the UL subframe window accounting for frame processing overhead.`
   },
-  chpwr: {
-    title: 'Channel Power',
-    color: '#5bc4ef',
-    body: `Displays the total power in the configured channel bandwidth.<br>
-Use this as a quick sanity check: does EXM output match what you configured?<br>
-<b>EXM channel power reading</b> should equal the configured output power ±0.5 dB.<br>
-If it differs by more: check cable connection, ALC loop status, or re-calibrate EXM.`
-  },
-  aclr: {
-    title: 'ACLR Measurement',
-    color: '#5bc4ef',
-    body: `EXM can measure ACLR of its own output and of received signals.<br>
-<b>For verifying EXM waveform quality:</b> EXM output ACLR should be < −50 dBc (better than RU limit).<br>
-<b>Important:</b> use EXA to measure RU TX ACLR — EXM is for UL injection, EXA for DL measurement.<br>
-<b>SCPI:</b> <code>:FETC:ACLR?</code>`
-  },
-  evm: {
-    title: 'EVM Measurement',
-    color: '#5bc4ef',
-    body: `Measures Error Vector Magnitude of the generated or received signal.<br>
-<b>Verify EXM waveform:</b> EXM own EVM should be < 1% (it generates a near-perfect signal).<br>
-<b>For RU TX EVM:</b> use EXA in VSA mode — EXM cannot measure the RU's TX output.<br>
-<b>SCPI:</b> <code>:FETC:EVM?</code>`
-  },
-  sem: {
-    title: 'Spectrum Emission Mask',
-    color: '#5bc4ef',
-    body: `Checks if the signal spectrum stays within the 3GPP SEM limits.<br>
-<b>For EXM waveform verification:</b> confirm EXM output is spectrally clean before injecting into RU.<br>
-<b>For RU TX SEM:</b> use EXA with SEM measurement mode — measures much wider than ACLR.<br>
-<b>SCPI:</b> <code>:CONF:SEM</code>`
-  },
-  obw: {
-    title: 'Occupied Bandwidth (OBW)',
-    color: '#9b8cf8',
-    body: `Measures the bandwidth containing 99% of the total signal power.<br>
-<b>Expected:</b> OBW ≈ configured channel BW (e.g. 9.0 MHz for a 10 MHz channel).<br>
-<b>If OBW is too wide:</b> signal has excessive spectral spreading — check CFR settings.<br>
-<b>SCPI:</b> <code>:FETC:OBW?</code>`
-  },
-  uldl: {
-    title: 'UL/DL Configuration (TDD)',
+  marker: {
+    title: 'Marker — mark a specific frequency on the display',
     color: '#c8b800',
-    body: `For B41 TDD: configures the DL/UL subframe ratio and special subframe format.<br>
-<b>Match your DU TDD config exactly</b> — mismatch causes EXM injection during DL subframes → RU can't detect it as UL.<br>
-<b>Default Config 2:</b> DSUUUDSUUU (2 DL, 2 Special, 6 UL per 10ms)<br>
-<b>EXM must be triggered</b> to transmit only in UL subframes — check trigger setup.`
+    body: `Places a marker on the trace at a specific frequency.<br><br>
+<b>Normal marker:</b> Click on the display to place — reads frequency and amplitude at that point.<br>
+<b>Peak marker:</b> jumps to highest amplitude on the trace.<br>
+<b>Use for:</b> verifying carrier is at the correct frequency, reading adjacent channel levels manually, confirming marker is on the correct signal before taking ACLR reading.<br><br>
+<b>Practical use:</b> after setting up FREQ Channel, place a marker on the carrier peak. If it reads the expected DL frequency → setup is correct. If it reads a different frequency → check FREQ Channel setting.`
   },
-  trig: {
-    title: 'Trigger',
-    color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">For B41 TDD — trigger is mandatory.</b><br>
-EXM must sync to DU frame timing so injection lands in the correct UL subframes.<br>
-<b>Setup:</b> External trigger from DU sync output → configure UL subframe offset in EXM.<br>
-<b>For FDD bands:</b> free-run trigger is fine — no frame timing dependency.<br>
-<b>Without trigger for B41:</b> EXM injects in random subframes → low PRACH detection rate → false sensitivity failure.`
+  span_xscale: {
+    title: 'SPAN X Scale — set frequency span of display',
+    color: '#00d4a0',
+    body: `Sets how many MHz the horizontal axis covers.<br><br>
+<b>For ACP/ACLR measurement:</b> set span ≥ 5× channel BW. For 10 MHz channel: span = 50 MHz minimum, to show main channel plus two adjacent channels clearly.<br><br>
+<b>For wideband view:</b> wide span (200 MHz+) to see spurs and harmonics outside the main channel.<br><br>
+<b>For tight power check:</b> narrow span (1–5 MHz) centred on carrier for accurate channel power.<br><br>
+Adjusting span changes horizontal zoom only — does not affect the measurement limits.`
   },
-  cellid: {
-    title: 'Cell ID',
-    color: '#4a5470',
-    body: `Physical Cell ID (PCI) — must match the RU's configured cell ID.<br>
-<b>PCI = 3×NID1 + NID2</b> (range 0–503)<br>
-EXM generates PRACH preambles using the PRACH root sequence derived from PCI.<br>
-<b>Wrong Cell ID:</b> EXM preambles don't match what RU is listening for → 0% PRACH detection.<br>
-Check tc_cadence.json for the configured PCI for your test session.`
+  bw: {
+    title: 'BW — Resolution and Video Bandwidth',
+    color: '#00d4a0',
+    body: `Controls the filter bandwidth for the measurement.<br><br>
+<b>RBW (Resolution Bandwidth):</b> determines frequency resolution. For ACLR: 100 kHz RBW (3GPP standard). Narrower RBW = finer resolution but slower sweep.<br><br>
+<b>VBW (Video Bandwidth):</b> controls trace smoothing. Set VBW ≥ RBW for signal measurements. Narrow VBW smooths the trace (good for noise floor viewing).<br><br>
+<b>Auto Couple:</b> lets EXM choose RBW and VBW automatically based on span — usually fine for standard measurements.`
   },
-  rbmap: {
-    title: 'Resource Block Map',
-    color: '#4a5470',
-    body: `Configures which resource blocks (subcarriers) are active in the generated waveform.<br>
-<b>Full allocation (default):</b> all 50 RBs active for 10 MHz — standard for RCT.<br>
-<b>Partial allocation:</b> used for specific test cases (FRC A3 uses partial RB allocation).<br>
-RB map must match the FRC configuration in tc_cadence.json.`
+  meas_setup: {
+    title: 'Meas Setup — configure ACP offsets or EVM settings',
+    color: '#5bc4ef',
+    body: `Configures the active measurement in detail.<br><br>
+<b>For ACP (ACLR):</b><br>
+Standard: LTE — sets correct channel BW, offset frequencies, and RRC filter as per 3GPP.<br>
+Offset frequencies: automatically set to ±channel BW (adjacent) and ±2×channel BW (alternate).<br>
+<b>Always use LTE preset</b> — do not set offsets manually.<br><br>
+<b>For Modulation Analysis (EVM):</b><br>
+Demodulation format: LTE UL or LTE DL depending on what you are measuring.<br>
+Subframe: select which subframe to analyse.<br>
+EVM limits: set to 3GPP spec (8% for 64QAM, 17.5% for QPSK).`
   },
-  limits: {
-    title: 'Limits',
-    color: '#4a5470',
-    body: `Sets pass/fail limits for EXM's own measurements (ACLR, EVM, OBW).<br>
-<b>For EXM output verification:</b> set tight limits (ACLR < −50 dBc) to confirm EXM itself is clean.<br>
-<b>RU limits</b> are set in tc_cadence.json and evaluated by RuAuto — not in EXM.`
+  mode_preset: {
+    title: 'Mode Preset — reset all settings for current mode',
+    color: '#00aa00',
+    body: `<b style="color:#00aa00">Mode Preset</b> resets all measurement settings to factory defaults for the currently selected mode.<br><br>
+<b>Use when:</b> settings got changed during debugging and you want to start fresh. Much faster than manually resetting each parameter.<br><br>
+<b>User Preset (yellow button):</b> Loads YOUR saved preset — the settings you previously saved as User Preset. <b>Set up and save a User Preset for each band</b> (B1, B3, B8, B28, B41) so you can restore a known-good setup in 2 seconds. Save via: File → Save → User Preset.`
   },
-  etm: {
-    title: 'ETM (Embedded Test Mode)',
+  user_preset: {
+    title: 'User Preset — load your saved per-band configuration',
+    color: '#cc9900',
+    body: `Loads the User Preset you previously saved — restores all your customised settings for the current measurement.<br><br>
+<b>Best practice:</b> Save one User Preset per band and test type:<br>
+"B1_FDD_DL_ACLR" — all settings for B1 DL ACLR measurement<br>
+"B3_FDD_UL_RSSI" — all settings for B3 UL injection<br>
+"B41_TDD_UL" — B41 with trigger delay 9.965 ms configured<br><br>
+<b>How to save:</b> Configure everything correctly → File → Save → User Preset → name it.<br>
+<b>How to load:</b> Press User Preset → select from list.<br><br>
+This eliminates setup errors — the most common cause of wrong measurements.`
+  },
+  auto_couple: {
+    title: 'Auto Couple — let EXM choose RBW, VBW, sweep time',
+    color: '#8892b0',
+    body: `Auto Couple sets RBW, VBW, and sweep time automatically based on the span setting.<br><br>
+Good for: quick checks, standard measurements where defaults are acceptable.<br>
+Avoid when: you need specific RBW for 3GPP measurements (use 100 kHz for ACLR) — Auto Couple may choose a different value.`
+  },
+  view_display: {
+    title: 'View/Display — multi-window layout',
+    color: '#8892b0',
+    body: `Controls how many measurement windows are displayed simultaneously.<br><br>
+<b>Single window:</b> full screen for one measurement (ACP or Modulation Analysis).<br>
+<b>Multi-window:</b> show ACP + Modulation Analysis + spectrum simultaneously — see channel power, ACLR, and EVM on one screen. Very useful for DL verification — you see all TX quality metrics at once without switching modes.`
+  },
+  sweep_control: {
+    title: 'Sweep/Control — continuous vs single sweep, trigger press-run',
     color: '#9b8cf8',
-    body: `Embedded Test Mode — runs tests without a full DU connection.<br>
-<b>EXM + ETM:</b> EXM acts as both signal source and PRACH responder, simulating the network side.<br>
-<b>Use for:</b> quick RX sensitivity checks, initial hardware bring-up without DU.<br>
-<b>Does NOT test:</b> full PRACH detection chain (needs DU decoder), real BLER measurement.<br>
-<b>ETM is for smoke testing — full RCT requires DU connection.</b>`
+    body: `Controls sweep mode and trigger.<br><br>
+<b>Continuous:</b> EXM sweeps repeatedly, updating measurement continuously.<br>
+<b>Single:</b> takes one sweep then holds. Use for stable ACLR reading.<br><br>
+<b>Trigger → Press Run:</b> This is the mode you use for both DL and UL at the same time. In Press Run mode, pressing the Run key triggers both the measurement (what EXM is measuring) and the injection (what EXM is transmitting) simultaneously — both DL and UL are active together. This is the correct mode for combined DL+UL tests.<br><br>
+<b>External trigger:</b> EXM waits for trigger from external source (DU frame sync) before sweeping. Correct for TDD gating.`
   },
-  multilayout: {
-    title: 'Multi-Layout Display',
-    color: '#4a5470',
-    body: `Shows multiple measurement windows simultaneously on the EXM screen.<br>
-<b>Useful layout:</b> spectrum + ACLR + EVM on one screen → complete TX quality view at a glance.<br>
-<b>For waveform verification:</b> show spectrum + constellation simultaneously to see both power distribution and IQ quality.`
+  peak_search: {
+    title: 'Peak Search — jump marker to highest point',
+    color: '#8892b0',
+    body: `Moves the active marker to the frequency with the highest amplitude on the trace.<br><br>
+<b>Use for:</b> quickly finding the carrier peak after changing frequency. If Peak Search lands somewhere unexpected, the FREQ Channel is set wrong or there is an interference signal.`
   },
-  savestate: {
-    title: 'Save/Recall State',
+  trace_detector: {
+    title: 'Trace/Detector — trace type and detection method',
+    color: '#8892b0',
+    body: `Trace: Normal, Average, Max Hold, Min Hold.<br>
+<b>Average:</b> use for ACLR — averages multiple sweeps for a stable reading.<br>
+<b>Max Hold:</b> captures the worst case over time — useful for spotting intermittent spurs.<br><br>
+Detector: Peak, Sample, RMS. Use <b>RMS</b> detector for power measurements on OFDM signals — gives correct average power. Peak detector overestimates OFDM power due to high PAPR.`
+  },
+  marker_arrow: {
+    title: 'Marker › — marker functions',
+    color: '#c8b800',
+    body: `Accesses additional marker functions:<br>
+<b>Marker → Centre Freq:</b> sets display centre to the marker frequency — useful when you found a signal and want to zoom into it.<br>
+<b>Marker → Reference Level:</b> sets reference level to match marker amplitude — automatic Y-scale adjustment.<br>
+<b>Delta marker:</b> measures frequency and amplitude difference between two markers.`
+  },
+  save: {
+    title: 'Save — save state, trace, or screen',
     color: '#4a5470',
-    body: `Saves/loads the complete EXM configuration (freq, power, waveform, limits).<br>
-<b>Best practice:</b> save one state file per band: "EXM_B1_RSSI_cal.sta", "EXM_B3_sensitivity.sta".<br>
-<b>Recall before any test session</b> to restore known-good setup in 2 seconds.<br>
-Eliminates frequency/power setup errors — the #1 source of wrong calibration results.`
+    body: `<b>Save State:</b> saves all current settings. Save one state per band/test type and reload it at the start of each session — eliminates setup errors.<br>
+<b>Save Trace:</b> exports amplitude vs frequency data as CSV.<br>
+<b>Save Screen:</b> PNG screenshot for documentation/reports.`
+  },
+  recall: {
+    title: 'Recall — load saved state',
+    color: '#4a5470',
+    body: `Loads a previously saved EXM state. Restores all settings (frequency, mode, trigger, source, etc.) to a known configuration.<br><br>
+<b>Recommended workflow:</b> at start of each test session, Recall the saved state for the current test. Never start a session by manually setting everything from scratch — too many opportunities for errors.`
+  },
+  restart: {
+    title: 'Restart — restart current measurement',
+    color: '#4a5470',
+    body: `Restarts the current measurement from the beginning — clears averaging, resets sweep.<br><br>
+<b>Use when:</b> you changed a setting (power, frequency, trigger) and want the measurement to restart fresh without old data from before the change.`
+  },
+  single: {
+    title: 'Single — take one measurement sweep',
+    color: '#4a5470',
+    body: `Takes a single sweep and holds. Use when you want a stable snapshot for reading and recording results.<br><br>
+For ACLR: set averaging to 10, press Single — EXM takes 10 averaged sweeps and holds the result. Read the ACLR value. This is the correct procedure for recording official test results.`
+  },
+  marker_fn: {
+    title: 'Marker Function — marker math and analysis',
+    color: '#c8b800',
+    body: `Applies mathematical functions to marker readings:<br>
+<b>Band Power:</b> integrates total power between two marker frequencies — for manual channel power measurement.<br>
+<b>Noise marker:</b> measures noise density at the marker point (dBm/Hz) — for noise floor characterisation.`
   },
 },
 
@@ -16624,6 +16777,22 @@ function phyTab(mode) {
   document.getElementById('phy-tab-tdd').style.cssText = mode==='tdd'
     ? 'background:#1a1a0d;border:2px solid #c8b800;color:#c8b800;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
     : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
+}
+
+
+function exmBtn(key) {
+  const def = INST_DEFS.exm && INST_DEFS.exm[key];
+  const panel = document.getElementById('explain-exm');
+  if (!panel) return;
+  if (!def) {
+    panel.innerHTML = '<b style="color:#4a5470">' + key + '</b><br><span style="color:#4a5470">Click the front panel buttons on the left — this panel will show what each key does for your RF tests.</span>';
+    return;
+  }
+  panel.innerHTML = '<div style="color:' + def.color + ';font-size:15px;font-weight:700;margin-bottom:8px">' + def.title + '</div>'
+    + '<div style="color:#c8c8d8;font-size:13px;line-height:1.7">' + def.body + '</div>';
+  // Highlight active button
+  document.querySelectorAll('#panel-exm [onclick]').forEach(b => b.style.outline = '');
+  if (event && event.target) event.target.style.outline = '2px solid ' + def.color;
 }
 
 </script>
