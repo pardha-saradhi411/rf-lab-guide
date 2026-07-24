@@ -1928,9 +1928,8 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
 <div style="background:#1a0d1a;border:1px solid #9b8cf8;border-radius:8px;padding:12px;margin:10px 0">
 <b style="color:#9b8cf8">🎯 Analogy: kTB is the sound of the universe itself</b>
 <p style="color:#8892b0;font-size:13px;margin:8px 0">Imagine you are in a quiet room trying to hear someone whisper. Even if the room is completely soundproofed, you still hear a faint hiss — the hiss of air molecules randomly vibrating against your eardrum. That is thermal noise. In electronics: electrons in any resistor randomly jiggle because they have thermal energy (k×T). This jiggling creates tiny random voltages — the noise you can never eliminate unless you cool the component to absolute zero (−273°C). At 290K (room temp), this noise is exactly −174 dBm per Hz of bandwidth. <b style="color:#9b8cf8">Every RF receiver starts its noise calculation from this floor — it cannot do better.</b></p>
-</div>
-</div>
-</div>
+
+
 
 <div class="mod-section-title">Yes — −174 dBm/Hz is the minimum noise at room temperature</div>
 <div class="mod-p">You said it exactly right. kTB = −174 dBm/Hz is the minimum possible noise at room temperature. It is not something you can engineer away. As long as your receiver is at 290 K (room temperature), every 1 Hz of bandwidth will contain at least −174 dBm of thermal noise power. The only way to go below this is to physically cool the receiver (cryogenic LNAs used in radio telescopes operate at 4–20 K and achieve noise floors approaching −190 dBm/Hz).</div>
@@ -1944,8 +1943,9 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
 <!-- NOISE CHAIN VISUAL CARD -->
 
 <div class="div-line"></div>
-<div class="sec-hdr" id="course_beginner" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📗</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">Course — Beginner</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">M01–M08</span></div><div style="font-size:12px;color:#4a5470">M01–M08 · Decibel · 50-Ohm · RF Chain · Metrics · Modulation · DL TX · ACLR · PRACH</div></div></div>
-<div class="module-card">
+</div>
+</div>
+</div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M01</span>
   <span class="mod-title">The Decibel & RF Power — dB, dBm, dBc, dBFS, link budget</span>
@@ -3415,15 +3415,16 @@ The directional coupler taps a fixed fraction of the main TX signal (−30 dB = 
 
 <div class="mod-section-title">Connection to your real test work</div>
 <div class="mod-p">When you run <code style="background:#0d0f14;border:1px solid #232840;padding:1px 6px;border-radius:3px">test_Tx_BS_Output_Power</code> on the B1 port — you are measuring the signal at TX_A after it has passed through ALL the stages above: Phase shifter → BPF → V ATT → Pre-driver → PA → Coupler → Circulator → B1 filter → Diplexer → Final filter → TX_A. Any one of those stages can cause the test to fail. The block diagram is your fault-isolation roadmap.</div>
-<div class="tip">The power budget through the RFFE: enter at ~−16.7 dBm (FHGW BOB) → phase shifter ~0 dB → BPF ~−0.5 dB → V ATT ~−3 dB (variable) → pre-driver ~+18 dB → PA ~+40 dB → coupler ~−0.2 dB → circulator ~−0.3 dB → TX filter ~−0.5 dB → diplexer ~−0.5 dB → TX_A ≈ +37 to +42 dBm. That is your TRP/EIRP starting point before beamforming gain.</div>
-</div>
-</div>
+<div class="tip">The power budget through the RFFE: enter at ~−16.7 dBm (FHGW BOB) → phase shifter ~0 dB → BPF ~−0.5 dB → V ATT ~−3 dB (variable) → pre-driver ~+18 dB → PA ~+40 dB → coupler ~−0.2 dB → circulator ~−0.3 dB → TX filter ~−0.5 dB → diplexer ~−0.5 dB → TX_A ≈ +37 to +42 dBm. That is your TRP/EIRP starting point before beamforming gain.
+
 
 
 
 <div id="m09c_anchor"></div>
 <!-- ───── M09c FHGW DL Chain Diagram ───── -->
-<div class="module-card">
+</div>
+</div>
+</div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09c</span>
   <span class="mod-title">FHGW DL Chain — LowPHY → DFE → DAC with real register values and power taps</span>
@@ -13978,9 +13979,8 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px;margin:10px 0">
 <b style="color:#00d4a0;font-size:13px">🎯 Analogy: the Friis formula is like a telephone game</b>
 <p style="color:#8892b0;font-size:13px;margin:8px 0">Imagine passing a message (your signal) through a line of people. The first person in line can mishear the message and corrupt it — and everyone after will repeat the corrupted version louder. The second person can also mishear, but their error gets divided by how loudly the first person spoke (the LNA gain). By the time you get to the 10th person, their individual errors are completely drowned out by the first person's mistake. <b style="color:#00d4a0">This is why the LNA (first active component) dominates the system NF — and why every millimetre of cable before the LNA directly costs you sensitivity.</b></p>
-</div>
-</div>
-</div>
+
+
 
 <!-- NF accumulation tree -->
 <div class="mod-section-title">NF accumulation — every stage with real numbers</div>
@@ -14142,31 +14142,9 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 
 <!-- ═══════════════ RF FUNDAMENTALS Q&A ═══════════════ -->
 <div class="div-line"></div>
-<div id="pwcourse_hidden" style="display:none">
-  <div class="sec-hdr">
-    <div class="badge g">PW</div>
-    <div class="sec-hdr-txt">
-      <h2 style="color:#7fffd0">Parallel Wireless RF Course — All 16 Modules (from D:\Learning\RCT)</h2>
-      <p>Your actual study guide, fully embedded · Modules 1–16 · Reference docs · RuAuto framework · 4G RCT Catalog · All from your D:\Learning\RCT folder</p>
-    </div>
-  </div>
-
-  <div style="background:#0d1a2a;border:2px solid #f5a623;border-radius:10px;padding:14px 18px;margin-bottom:20px">
-  <div style="font-size:12px;font-weight:700;color:#f5a623;margin-bottom:8px">📍 Quick Jump — Diagrams &amp; Lab Screenshots</div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap">
-    <a href="#m09b_anchor" style="background:#1a1a0d;border:1px solid #f5a623;border-radius:6px;padding:6px 14px;font-size:12px;color:#f5a623;text-decoration:none">📐 M09b — RFFE TX Block Diagram (B7/B1/B3)</a>
-    <a href="#m09c_anchor" style="background:#0d1a0d;border:1px solid #00d4a0;border-radius:6px;padding:6px 14px;font-size:12px;color:#00d4a0;text-decoration:none">⛓ M09c — FHGW DL Chain (LowPHY→DFE→DAC)</a>
-    <a href="#m09d_anchor" style="background:#1a0d0d;border:1px solid #ff6b6b;border-radius:6px;padding:6px 14px;font-size:12px;color:#ff6b6b;text-decoration:none">📸 M09d — Real Lab Screenshots (EXM/TRX1 B28)</a>
-  </div>
 </div>
-
-<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
-    <button onclick="expandAll()" style="padding:7px 18px;border-radius:7px;border:1px solid #1D9E75;background:#00d4a015;color:#00d4a0;font-size:12px;font-weight:600;cursor:pointer">▼ Expand All Modules</button>
-    <button onclick="collapseAll()" style="padding:7px 18px;border-radius:7px;border:1px solid #232840;background:transparent;color:#8892b0;font-size:12px;cursor:pointer">▲ Collapse All</button>
-  </div>
-
-<!-- ───── M01 ───── -->
-<div class="module-card">
+</div>
+</div><div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">RSSI</span>
     <span class="mod-title">Sensitivity + dynamic range test: manual steps and automation blueprint</span>
