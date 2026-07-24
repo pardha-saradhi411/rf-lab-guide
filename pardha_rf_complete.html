@@ -170,7 +170,13 @@ footer span{color:var(--text2)}
 .itab:not(.sel):hover{opacity:.85}
 
 /* INSTRUMENT PANEL */
+
+/* Instrument panel two-column layout */
 .inst-panel{display:none}
+.inst-panel.active-panel{display:flex;gap:24px;align-items:flex-start;max-width:1200px;margin:0 auto;padding:0 24px}
+.diagram-side{flex:0 0 55%;min-width:0}
+.info-panel{flex:1;background:#141720;border:1px solid #232840;border-radius:10px;padding:20px;min-height:320px;position:sticky;top:60px}
+
 .inst-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
 @media(max-width:700px){.inst-panel.active{grid-template-columns:1fr}}
 
@@ -6869,7 +6875,8 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
   <div class="topic"><span><b>Integrated sensing and communication (ISAC):</b> The gNB simultaneously communicates with UEs and senses the environment (radar mode). New RF tests: radar range resolution, velocity resolution, interference between comm and sensing waveforms.</span></div>
   
 
-</div>
+
+
 
 
 <!-- ═══════════════ RF SIGNAL CHAIN M16 ═══════════════ -->
@@ -6976,6 +6983,7 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
 <span style="color:#9b8cf8">M-plane:</span> NETCONF/YANG on TCP port 830<br>
 <span style="color:#4a5470">Both share same 10GbE port as U/C-plane</span><br>
 <span style="color:#ff6b6b">QoS must prioritise S-plane &gt; C-plane &gt; U-plane &gt; M-plane</span>
+</div>
 </div>
 </div>
 </div>
@@ -15632,9 +15640,15 @@ function switchTab(tab) {
     if (!btn || !panel) return;
     const active = t === tab;
     btn.classList.toggle('sel', active);
-    panel.style.display = active ? 'block' : 'none';
+    panel.style.display = active ? 'flex' : 'none';
+    if (active) {
+      panel.classList.add('active-panel');
+    } else {
+      panel.classList.remove('active-panel');
+    }
   });
 }
+
 
 // ── EXA info panels ────────────────────────────────────────────────────────
 function show(inst, key) {
