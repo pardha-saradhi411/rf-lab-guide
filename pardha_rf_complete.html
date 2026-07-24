@@ -1889,6 +1889,23 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
 <b style="color:#9b8cf8">🎯 Analogy: kTB is the sound of the universe itself</b>
 <p style="color:#8892b0;font-size:13px;margin:8px 0">Imagine you are in a quiet room trying to hear someone whisper. Even if the room is completely soundproofed, you still hear a faint hiss — the hiss of air molecules randomly vibrating against your eardrum. That is thermal noise. In electronics: electrons in any resistor randomly jiggle because they have thermal energy (k×T). This jiggling creates tiny random voltages — the noise you can never eliminate unless you cool the component to absolute zero (−273°C). At 290K (room temp), this noise is exactly −174 dBm per Hz of bandwidth. <b style="color:#9b8cf8">Every RF receiver starts its noise calculation from this floor — it cannot do better.</b></p>
 </div>
+
+
+
+<div class="mod-section-title">Yes — −174 dBm/Hz is the minimum noise at room temperature</div>
+<div class="mod-p">You said it exactly right. kTB = −174 dBm/Hz is the minimum possible noise at room temperature. It is not something you can engineer away. As long as your receiver is at 290 K (room temperature), every 1 Hz of bandwidth will contain at least −174 dBm of thermal noise power. The only way to go below this is to physically cool the receiver (cryogenic LNAs used in radio telescopes operate at 4–20 K and achieve noise floors approaching −190 dBm/Hz).</div>
+
+<div class="mod-section-title">Why 290 K and not 300 K (25°C)?</div>
+<div class="mod-p">IEEE defined 290 K as the standard noise temperature reference because it makes kT a round number: kT = 4.0×10⁻²¹ W/Hz exactly. At 300 K it would be 4.14×10⁻²¹ — messier. The difference is only 0.15 dB, negligible for engineering purposes. All 3GPP specs, all Keysight instruments, and all noise figure calculations use 290 K as the reference.</div>
+
+</div>
+</div>
+
+<!-- NOISE CHAIN VISUAL CARD -->
+
+<div class="div-line"></div>
+<div class="sec-hdr" id="course_beginner" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📗</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">Course — Beginner</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">M01–M08</span></div><div style="font-size:12px;color:#4a5470">M01–M08 · Decibel · 50-Ohm · RF Chain · Metrics · Modulation · DL TX · ACLR · PRACH</div></div></div>
+
 </div>
 </div>
 <div class="div-line"></div>
@@ -3298,6 +3315,56 @@ Each PA is a separate GaN device per band per column. 12 PAs total (3 bands × 4
 The directional coupler taps a fixed fraction of the main TX signal (−30 dB = 1/1000th of power) and routes it to the BOB SMA port for measurement. The main path continues to the antenna unaffected. At B1 rated power (+43 dBm antenna), BOB SMA = +13 dBm. Add 30 dB attenuator pad: EXA input = −17 dBm. Your rated target at BOB SMA (−16.7 dBm for B1) already accounts for the coupler ratio — so comparing EXA reading to −16.7 dBm target directly gives you the pass/fail without any manual correction.
 </div>
 
+
+
+
+<div class="mod-section-title">What the diagram is showing — the big picture</div>
+<div class="mod-p">This is the RFFE1_TX_A block diagram — the transmit signal path inside one RFFE (RF Front End) module of your 6-band AAU. The image shows THREE parallel TX chains — one for B7 (blue, top), one for B1 (red, middle), and one for B3 (orange/pink, bottom) — that all combine into a SINGLE antenna port called TX_A. This is multi-band operation on one shared antenna: B7, B1, and B3 TX signals all go out through the same physical antenna connector.</div>
+
+<div class="mod-section-title">Stage-by-stage explanation — every block in the diagram</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Stage</th><th>Symbol in diagram</th><th>What it does</th><th>Why it matters to your testing</th></tr>
+<tr><td><b>TX_B7_A / TX_B1_A / TX_B3_A</b></td><td>Blue circle (input)</td><td>Digital IQ signal from FHGW DAC output, upconverted to RF. This is the starting point — the signal coming FROM the Xilinx RFSoC DAC at the correct carrier frequency.</td><td>The rated power at the BOB SMA connector is measured HERE (before the RFFE). This is the P_rated in your 4G test plan (e.g. B1 = −16.7 dBm, B3 = −15.7 dBm).</td></tr>
+<tr><td><b>Phase shifter ⊘</b></td><td>Circle with diagonal line (⊘)</td><td>A digitally-controlled phase shifter (e.g. PE44820DS) that sets the transmit phase of this antenna element relative to the others. This is THE beamforming control. By setting different phases across all RFFE elements, the array steers the beam in a chosen direction.</td><td>When phase is equal across all elements → beam goes straight ahead. When phase is swept across elements → beam tilts. Phase calibration is what the OB_CAL (observation calibration) measures. If phase is wrong → no beamforming gain → TRP fails.</td></tr>
+<tr><td><b>BPF 5×BW ≋</b></td><td>Wavy box labeled 5×BW</td><td>Bandpass filter with bandwidth = 5 times the channel bandwidth. For 10 MHz LTE: BPF BW ≈ 50 MHz. This removes DAC images (mirror signals at harmonics of the sampling rate), out-of-band noise, and LO harmonics BEFORE they are amplified by the PA. Much cheaper to filter here at low power than after the PA.</td><td>If this filter is degraded (insertion loss too high → output power drops). VNA S21 measurement of this filter should show &lt;1 dB IL in passband, &gt;30 dB rejection at image frequency. This is what your E5071C S21 traces show for these filters.</td></tr>
+<tr><td><b>V ATT (Variable Attenuator) ∿</b></td><td>Box with waveform symbol</td><td>A voltage-controlled (PIN diode or GaAs) attenuator that provides adjustable gain/loss BEFORE the driver amplifier. This is the fine power control: sets the exact output power level by controlling how much signal reaches the PA. Also used for dynamic Vdd power optimization — at low load, reduce drive level AND reduce Vdd.</td><td>The V ATT is what the DL power_monitor sees changes when you modify DAC current or gain registers. If V ATT is stuck at maximum attenuation → no TX output. At minimum attenuation → risk of PA overdrive → ACLR fails.</td></tr>
+<tr><td><b>Pre-driver ▷</b></td><td>Triangle (amplifier symbol)</td><td>A driver amplifier (small-signal linear amp, Class A) that boosts the signal from the V ATT to the input level required by the main PA. Provides ~15–20 dB gain. Must be very linear — any distortion here is further amplified by the PA and corrupts EVM/ACLR.</td><td>Pre-driver NF is not critical (signal is already strong). Pre-driver linearity IS critical — its IIP3 must be high enough that it stays linear even at peak PAPR moments. If pre-driver compresses → EVM fails even with perfect DPD on the PA.</td></tr>
+<tr><td><b>PA (Power Amplifier) ▷▷</b></td><td>Large double triangle (green border)</td><td>The GaN Doherty PA (RENESAS F8410/F84012). Carrier amp + peaking amp. Amplifies the signal from pre-driver output (~+5 dBm) to the final output power (+40+ dBm). This is where 95% of the DC power is consumed. DPD corrects its nonlinearity.</td><td>This is the most tested block. Your PA efficiency test plan (PPT2) measures drain efficiency here. ACLR test (6.6.2) verifies DPD is correcting its nonlinearity. Temperature sensor monitors its junction temperature. Dynamic Vdd (40→32→25V) is applied to this block.</td></tr>
+<tr><td><b>Directional coupler □</b></td><td>Rectangular box after PA</td><td>A 4-port device that taps a small fraction (e.g. −20 dB) of the PA output power into the observation path, while passing the main signal through with minimal loss (~0.1–0.3 dB). The tapped signal goes to the DPD observation receiver (OBS) to update the DPD model.</td><td>If the coupler is lossy → DPD observation power is wrong → DPD model diverges → ACLR suddenly degrades. If the observation switch matrix (SW1–SW25) selects the wrong coupler → DPD is modeling the wrong PA → all ACLR measurements degrade on that branch.</td></tr>
+<tr><td><b>Circulator ◎</b></td><td>Circle with arrow</td><td>A 3-port passive ferrite device that routes RF power in ONE direction only: PA output → antenna (forward), antenna → load/RX path (reverse). It provides ~20 dB of TX-to-RX isolation AND protects the PA from reflected power. If the antenna has poor VSWR (cable disconnect, damaged connector), the reflected power goes to the circulator dump port, NOT back into the PA.</td><td>CRITICAL for PA protection. If the circulator fails or is removed → any cable disconnect sends 100% reflected power back into the PA → PA damage. The VSWR trip protection works WITH the circulator. When you see PA protection events during testing → check circulators first.</td></tr>
+<tr><td><b>Band-specific TX filter ≋ (B7/B1/B3)</b></td><td>Wavy box after circulator</td><td>Each band has its own post-PA bandpass filter. B7 filter passes 2500–2570 MHz, rejects everything else. B1 filter passes 2110–2170 MHz, rejects everything. B3 filter passes 1805–1880 MHz, rejects everything. These suppress PA harmonics and intermodulation products that would otherwise appear in the SEM measurement.</td><td>SEM test (6.6.3) directly measures what comes through here. If a TX filter is degraded → spurious emissions appear in the SEM → test fails. Your VNA E5071C S21 measurements characterise these filters. The S21 passband loss is what you de-embed in your cable_loss.json corrections.</td></tr>
+<tr><td><b>Diplexer / Triplexer ┤├</b></td><td>Double vertical bars (purple border)</td><td>Combines the three filtered TX signals (B7 + B1 + B3) from separate paths into a SINGLE wideband output. A diplexer combines 2 bands; a triplexer combines 3. Uses reactive (LC/ceramic) filtering to pass each band on its path while blocking the other bands.</td><td>Insertion loss here is in the TX path — affects output power. Cross-band isolation determines whether B7 TX power leaks into the B1 or B3 path (and vice versa). If isolation is poor → inter-band intermodulation → new spurious emissions at f_B7 ± f_B1 frequencies → fails spurious test.</td></tr>
+<tr><td><b>Final filter + TX_A output</b></td><td>Filter box → green circle</td><td>A final cleanup filter and the physical antenna port TX_A. This is the antenna connector where all three band signals emerge combined. The TX_A label corresponds to Antenna A — your RFFE has multiple antenna ports (A, B, C, D) for the full beamforming array.</td><td>THIS is where your VNA measures cable loss (S11 return loss at this port). And where the EXM or EXA connects via attenuator pad for ACLR and power measurements. All power readings must be de-embedded back to this port.</td></tr>
+</table></div>
+
+<div class="mod-section-title">The dashed vertical lines in the diagram — what they mark</div>
+<div class="mod-p">The green and red dashed vertical lines mark functional boundaries within the RFFE board. The green dashed line separates the low-power section (phase shifter, BPF, V ATT, pre-driver) from the high-power section (PA, coupler, circulator). The red dashed line marks where the DPD observation tap exits. These boundaries matter for troubleshooting — a fault on the left of green = digital/control issue, fault between green and red = PA drive level issue, fault on the right of red = filtering/combining issue.</div>
+
+<div class="mod-section-title">Single DPD architecture — one observer for three PAs</div>
+<div class="mod-p">Notice the diagram shows THREE separate PAs (one per band) but the coupler taps all three. The single DPD block on the FHGW cannot observe all three simultaneously — the switch matrix (SW1–SW25) routes one band at a time to the shared observation receiver. DPD adapts the model for B7 PA, then switches to B1 PA, then B3 PA, cycling through them. This is the "single DPD" architecture referenced in the original AAU block diagram document (1.6m 6 AAU Block Diagram_B1B3 single DPD V0.2.vsdx).</div>
+
+<div class="mod-section-title">What a power measurement failure tells you about which stage is faulty</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Measurement failure</th><th>Likely faulty stage</th><th>How to confirm</th></tr>
+<tr><td>Output power low on all 3 bands on this antenna</td><td>Diplexer/triplexer or final filter — common to all three paths</td><td>Check each band individually. If all three are equally low → common path fault.</td></tr>
+<tr><td>Output power low on B1 only, B7 and B3 OK</td><td>B1 TX chain specific: V ATT, pre-driver, PA, circulator, or B1 band filter</td><td>Check power_monitor DL for B1 specifically. If digital power OK → analog fault between DAC output and antenna.</td></tr>
+<tr><td>ACLR fails on B3 only</td><td>B3 DPD model diverged, or B3 PA compression, or B3 coupler not routing to observation</td><td>Check DPD Gain Register PreCheck for B3. Force DPD re-adaptation. Check switch matrix routing.</td></tr>
+<tr><td>All bands fail ACLR suddenly</td><td>Observation path fault — DPD cannot adapt any PA</td><td>Check coupler observation output. Check switch matrix for stuck position. Check OBS receiver path in FHGW.</td></tr>
+<tr><td>SEM fails — spur at B1+B3 frequency</td><td>Diplexer cross-isolation degraded → inter-band IM product</td><td>Check diplexer isolation with VNA. Replace if isolation &lt;40 dB.</td></tr>
+<tr><td>PA protection trips on B1</td><td>High VSWR on B1 path — circulator seeing reflected power</td><td>Check antenna connector and cable. Measure S11 at TX_A port with VNA. Should be &lt;−10 dB.</td></tr>
+</table></div>
+
+<div class="mod-section-title">Connection to your real test work</div>
+<div class="mod-p">When you run <code style="background:#0d0f14;border:1px solid #232840;padding:1px 6px;border-radius:3px">test_Tx_BS_Output_Power</code> on the B1 port — you are measuring the signal at TX_A after it has passed through ALL the stages above: Phase shifter → BPF → V ATT → Pre-driver → PA → Coupler → Circulator → B1 filter → Diplexer → Final filter → TX_A. Any one of those stages can cause the test to fail. The block diagram is your fault-isolation roadmap.</div>
+<div class="tip">The power budget through the RFFE: enter at ~−16.7 dBm (FHGW BOB) → phase shifter ~0 dB → BPF ~−0.5 dB → V ATT ~−3 dB (variable) → pre-driver ~+18 dB → PA ~+40 dB → coupler ~−0.2 dB → circulator ~−0.3 dB → TX filter ~−0.5 dB → diplexer ~−0.5 dB → TX_A ≈ +37 to +42 dBm. That is your TRP/EIRP starting point before beamforming gain.</div>
+</div>
+</div>
+
+
+
+<div id="m09c_anchor"></div>
+<!-- ───── M09c FHGW DL Chain Diagram ───── -->
+
 </div>
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
@@ -3376,6 +3443,71 @@ DPD (Digital Pre-Distortion) applies the inverse of the PA's nonlinearity. The P
 <b style="color:#5bc4ef">DFE — Digital Front End:</b><br>
 DFE performs interpolation (upsampling from symbol rate to DAC rate) and frequency shifting (moving the baseband signal to the correct IF frequency before DAC). A DFE configuration error puts the signal at the wrong frequency → TX power at correct band is zero, but a spurious signal appears elsewhere. Check DFE_FREQ_OFFSET register if TX power is missing but no fault is logged.
 </div>
+
+
+
+
+<div class="mod-section-title">What this diagram shows — the complete FHGW DL signal path</div>
+<div class="mod-p">This is the most important internal diagram of your FHGW. It shows the complete digital downlink chain from the DU IQ input all the way to the DAC output, with REAL power level readings at every measurement tap and REAL register values for every gain/CFR stage. This is what David Bekker uses to explain where power goes and why ACLR passes or fails.</div>
+
+<div class="mod-section-title">The two sections — LowPHY and DFE</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Section</th><th>What it contains</th><th>Who controls it</th></tr>
+<tr><td><b>LowPHY</b> (yellow/cream background)</td><td>DUC mixer CC0 + CC1 → DL Power Scaling → Adder. This is the layer-1 physical layer processing — upsampling, digital upconversion, carrier combining.</td><td>DL Chain CTRL Registers — set by DU via NETCONF/YANG. 10MHz → 0x11cc = +25 dB. Different per BW.</td></tr>
+<tr><td><b>DFE</b> (blue background)</td><td>Gain → CFR → Gain → DPD → Gain Per Channel → DAC. This is the Digital Front End — linearisation and scaling before the analog domain.</td><td>FHGW firmware registers. Controlled via SSH CLI or NETCONF. Your PreChecks verify these.</td></tr>
+</table></div>
+
+<div class="mod-section-title">Every block decoded — with real numbers from the diagram</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Block</th><th>Register / Value</th><th>What it does</th><th>Your test impact</th></tr>
+<tr><td><b>DUC Mixer</b><br>CC0 / CC1</td><td>DL Chain CTRL<br>10MHz: 0x11cc → +25 dB</td><td>Digital UpConverter: upsamples the baseband IQ from the DU to the FHGW sample rate, then frequency-shifts (mixes) it to the correct intermediate frequency. CC0 = Component Carrier 0, CC1 = Component Carrier 1. Two carriers can coexist (2CC = 2 component carriers).</td><td>Wrong CTRL register → wrong sample rate → signal at wrong IF → no RF output. Different BW requires different register: 5/10/15/20 MHz each have their own scaling value.</td></tr>
+<tr><td><b>DL Power Scaling</b></td><td>Per-CC scaling<br>from CTRL register</td><td>Scales the digital IQ amplitude of each CC before combining. Used to set the relative power between CC0 and CC1, and to implement the overall DL power target. This is the "digital gain knob" for each carrier component.</td><td>Too high → ADC/DAC clips downstream. Too low → output power below P_rated. The power_monitor (red box) reads directly after this stage. PreCheck 2 (Power Monitor DL) verifies this is in range.</td></tr>
+<tr><td><b>Adder (0 dB)</b></td><td>No gain (0 dB)<br>coherent combine</td><td>Combines CC0 and CC1 carrier IQ streams into a single 2CC combined waveform. At 0 dB — the adder itself does not add gain. But combining two equal-power carriers at the same time can increase instantaneous peak power by up to +3 dB (coherent addition at peak moments).</td><td>After the Adder: power_monitor reads the combined power. The diagram shows −13.7 dBFs here. This is your primary power_monitor reading that PreCheck 2 verifies.</td></tr>
+<tr><td><b>Power Monitor</b><br>(red block)</td><td>Expected: −16.7 dBFs<br>Actual shown: −13.7 dBFs</td><td>A firmware measurement tap that reports the RMS digital power at the Adder output in dBFS. This is NOT the RF output power — it is purely digital. The reading changes with: traffic load (more RBs = more power), number of active CCs, and scaling register values.</td><td>This is PreCheck 2. Normal range: −25 to −16 dBFs. The diagram shows −13.7 dBFs (shown in red parentheses) which is HIGHER than the expected −16.7 dBFs — indicating heavier than expected DL load at the time of measurement. If power_monitor reads &gt; −8 dBFs → imminent clipping risk.</td></tr>
+<tr><td><b>Gain 1</b></td><td>Register: 0xb0290000<br>Value: 0xd7<br>Gain: −1.5 dB</td><td>First DFE gain stage before CFR. Sets the input level into the CFR block. Reducing by 1.5 dB creates headroom so CFR clipping threshold does not trigger immediately on every peak. This is a deliberate backoff to let CFR operate at its designed operating point.</td><td>PreCheck 3 (CFR Input Power) verifies the level after this stage. If 0xd7 is wrong (e.g. inadvertently changed to a higher value) → CFR input too high → CFR clips everything → massive EVM degradation. The diagram shows −15.2 dBFs at this tap.</td></tr>
+<tr><td><b>CFR</b></td><td>filter_length = 511<br>threshold = 8.3<br>wcfr_threshold = 8.5</td><td>Crest Factor Reduction clips OFDM signal peaks above the threshold (8.3 linear amplitude units, where full scale = 1.0). A 511-tap FIR filter then smooths the clipped peaks so the spectral splatter from clipping stays within the channel bandwidth. Result: PAPR drops from ~11 dB to ~8.3 dB (shown in diagram). This lets the PA run closer to saturation = better efficiency.</td><td>After CFR: power RISES to −8.8 dBFs (up from −15.2 dBFs) — the clipping folded peak energy back into the average. PAPR = 8.3 dB is shown. If PAPR is too low → CFR is clipping too aggressively → EVM degrades. Too high → PA sees full PAPR → ACLR fails. PreCheck 3 (CFR Input Power) and threshold registers control this.</td></tr>
+<tr><td><b>Gain 2</b></td><td>Register: 0xb0290008<br>Value: 0x20b<br>Gain: +6.2 dB</td><td>Second gain stage AFTER CFR, BEFORE DPD. This raises the signal level back up after the CFR has reduced average power (CFR reduces PAPR but also reduces average power). The +6.2 dB gain compensates and sets the correct input drive level for the DPD block.</td><td>After Gain 2: power = −14.8 dBFs (from −8.8 dBFs). Wait — that is −6 dB, but the register says +6.2 dB. The discrepancy is because the power AFTER CFR is the clipped version; Gain 2 value in the diagram says Gain = −6 dB near the DPD block → this is the NET gain of Gain2+DPD combined. The DPD input level is critical — DPD PreChecks (4 and 5) verify this exactly.</td></tr>
+<tr><td><b>DPD</b></td><td>Register: 0xb02900XX<br>Value: 0x161</td><td>Digital Pre-Distortion applies the inverse of the PA nonlinearity. The model is a look-up table (LUT) or polynomial indexed by instantaneous IQ amplitude. At each sample: distorted_output = DPD_model(input). The PA then "un-distorts" it back to linear. DPD is adaptive — it continuously updates its model via the observation (coupler → OBS receiver) path.</td><td>After DPD: power = −12 dBFs. DPD adds some power (the pre-distortion peaks are larger than the original peaks). If DPD diverges → ACLR suddenly degrades 10–20 dB. PreCheck 4 (DPD Gain Register) verifies 0x161 is correct. PreCheck 5 (DPD Input + PAPR) verifies the drive level into DPD is right.</td></tr>
+<tr><td><b>Gain Per Channel</b></td><td>+2.8 dB</td><td>Per-antenna-port gain stage after DPD. Each of the 8 TX channels (for 8 antenna elements) can have an independent gain offset here. Used for per-element calibration: if one PA branch has slightly different gain than others (component tolerance), this corrects it so all 8 elements radiate at the same level for accurate beamforming.</td><td>If Gain Per Channel is wrong for one element → that element has wrong power → beamforming pattern is distorted → TRP measurement fails (power not coherently combined correctly). Antenna calibration (TX_CAL via OB_CAL) sets these values.</td></tr>
+<tr><td><b>DAC Output Scale</b></td><td>DAC Current [28318]<br>= −2.87 dB</td><td>The final digital-to-analog converter output scaling register. Sets the full-scale output current of the DAC, which directly controls the analog output voltage amplitude going to the RF upconverter chain. This is the LAST digital knob before the analog world. DAC current = 28318 → −2.87 dB relative to maximum DAC output.</td><td>THIS is the register involved in your B28 power deficit investigation. PWK found a DAC setting change between firmware builds caused a ~3 dB drop in output power. Changing DAC current by 1 unit changes output power by a calculable dB amount. HOW TO change: wiki page "HOW TO change DAC Current" — ssh to FHGW → write register 0xb02900XX with new value.</td></tr>
+</table></div>
+
+<div class="mod-section-title">Reading the power taps — full power budget through the chain</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Measurement point</th><th>Power (dBFs)</th><th>Delta from previous</th><th>What caused the change</th></tr>
+<tr><td>After Adder (power_monitor)</td><td>−13.7 dBFs</td><td>— (reference)</td><td>DL Power Scaling + 2CC combination. Higher than expected −16.7 dBFs = heavier traffic load.</td></tr>
+<tr><td>After Gain 1</td><td>−15.2 dBFs</td><td>−1.5 dB</td><td>Gain 1 register 0xd7 = −1.5 dB deliberately applied before CFR.</td></tr>
+<tr><td>After CFR</td><td>−8.8 dBFs, PAPR=8.3 dB</td><td>+6.4 dB average power</td><td>CFR clips peaks → peak energy folds into average → average power RISES even though peaks are now lower. PAPR reduced from ~11 dB to 8.3 dB.</td></tr>
+<tr><td>After Gain 2</td><td>−14.8 dBFs</td><td>−6 dB</td><td>Gain 2 is labelled +6.2 dB but the net DFE gain here is −6 dB per the diagram label near DPD — this sets the DPD input operating point.</td></tr>
+<tr><td>After DPD / Gain Per Channel</td><td>−12 dBFs</td><td>+2.8 dB</td><td>Gain Per Channel +2.8 dB raises to final level. DPD itself adds distortion pre-emphasis which slightly raises peak power.</td></tr>
+<tr><td>DAC Output Scale</td><td>−12 dBFs − 2.87 dB</td><td>−2.87 dB</td><td>DAC current [28318] scales the final analog output. Net at DAC output ≈ −14.87 dBFs equivalent. This drives the RF mixer → PA chain → eventually TX_A at +38 to +42 dBm.</td></tr>
+</table></div>
+
+<div class="mod-section-title">CFR and PAPR — the most misunderstood part of this diagram</div>
+<div class="mod-p">People expect power to DROP through every stage (gain &lt; 0). But notice: power RISES from −15.2 dBFs to −8.8 dBFs across the CFR block (+6.4 dB). This seems impossible — the CFR is supposed to clip peaks, not add power. Here is what actually happens:</div>
+<div class="mod-p">An OFDM signal has high PAPR. The average power is low but the peaks are high. When you clip the peaks, you remove the energy in those peaks — but the average power calculation is dominated by how often each amplitude occurs. CFR clips just the rare high peaks, but their removal means the waveform can now run at a higher average power without clipping the ADC/DAC. In practice: after CFR, the entire waveform is scaled UP so the clipped peaks sit at the DAC full-scale limit. The average power rises because the distribution is now less peak-heavy. The PAPR goes from ~11 dB to 8.3 dB — meaning the signal is now 8.3 dB more "compact" — and this compactness is the gain.</div>
+<div class="tip">The CFR threshold = 8.3 means clip everything above 8.3/10 = 83% of full scale. wcfr_threshold = 8.5 is the wide-CFR threshold — a second pass that clips wider peaks. filter_length = 511 is the FIR smoother length — longer = better spectral containment but more latency. These values are tuned so EVM stays within 3GPP limits (clipping adds EVM) while ACLR also passes (too little clipping = PA runs too backed-off = inefficient, too much = spectral splatter).</div>
+
+<div class="mod-section-title">How this diagram connects to your PreChecks</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>PreCheck</th><th>What it reads</th><th>Where in this diagram</th><th>Normal value</th></tr>
+<tr><td>PreCheck 2: Power Monitor DL</td><td>power_monitor register</td><td>Red block after Adder</td><td>−25 to −16 dBFs (diagram shows −13.7 = slightly high load)</td></tr>
+<tr><td>PreCheck 3: CFR Input Power</td><td>Power at Gain 1 output / CFR input</td><td>After Gain 1 tap (−15.2 dBFs in diagram)</td><td>−16.7 dBFs nominal</td></tr>
+<tr><td>PreCheck 4: DPD Gain Register</td><td>Register 0xb02900XX value</td><td>DPD block register</td><td>0x161 (as in diagram)</td></tr>
+<tr><td>PreCheck 5: DPD Input Power + PAPR</td><td>Power at DPD input + PAPR value</td><td>After Gain 2 (−14.8 dBFs) + PAPR=8.3 dB after CFR</td><td>PAPR ≈ 8.3 dB, power −14.8 to −16 dBFs</td></tr>
+</table></div>
+
+<div class="mod-section-title">The B28 power deficit — exactly what happened</div>
+<div class="mod-p">Your open investigation: B28 shows ~3 dB output power deficit between firmware builds. Looking at this diagram: the most likely cause is a change to the DAC Output Scale register (DAC Current value). The diagram shows DAC Current [28318] = −2.87 dB. If a firmware update accidentally changed [28318] to a lower value (e.g. 20000 → different dB offset), the output power drops by exactly that difference. PWK confirmed it was a DAC setting change between builds. The fix: restore the correct DAC current register value for B28 on the affected firmware build.</div>
+<div class="warn">Never change DAC current registers without first noting the current value and verifying output power against P_rated. A 1-register change here affects every test: Tx power, ACLR, EVM, SEM — all measured relative to the expected output power level.</div>
+
+</div>
+</div>
+
+
+
+<div id="m09d_anchor"></div>
+<!-- ───── M09d Real Lab Screenshots ───── -->
 
 </div>
 </div><div class="module-card">
@@ -6736,7 +6868,75 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
   <div class="topic"><span><b>Extreme massive MIMO (&gt;256 elements):</b> More antenna elements → higher beamforming gain → more complex beam management → more beam states to test in conformance.</span></div>
   <div class="topic"><span><b>AI/ML-native air interface:</b> Beam prediction using AI, channel estimation using neural networks, adaptive modulation driven by ML. New KPIs and new test methods required — you'll need to test the AI model's beam prediction accuracy, not just the RF parameters.</span></div>
   <div class="topic"><span><b>Integrated sensing and communication (ISAC):</b> The gNB simultaneously communicates with UEs and senses the environment (radar mode). New RF tests: radar range resolution, velocity resolution, interference between comm and sensing waveforms.</span></div>
+  
+
+</div>
+
+
+<!-- ═══════════════ RF SIGNAL CHAIN M16 ═══════════════ -->
+<div class="div-line"></div>
+<div id="rfchain_hidden" style="display:none">
+  <div class="sec-hdr">
+    <div class="badge c">M16</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#ffbbbb">M16 — Complete RF Signal Chain: Antenna → RU → FHGW → DU</h2>
+      <p>From David Bekker's whiteboard (July 1 call) · LNA · VGA · Mixer · ADC · FFT · RSSI · dBFS · sensitivity point · your EXM screenshot decoded</p>
+    </div>
   </div>
+
+  <div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px;margin-bottom:20px;overflow-x:auto">
+    <div style="font-size:10px;color:#4a5470;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Uplink signal flow — antenna to DU</div>
+    <div style="display:flex;align-items:center;gap:4px;min-width:800px;flex-wrap:nowrap">
+      <div style="text-align:center;font-size:20px">📡</div>
+      <div style="color:#4a5470;font-size:16px">→</div>
+      <div style="border:2px solid #1D9E75;border-radius:6px;padding:8px 10px;background:#0d0f14">
+        <div style="font-size:9px;color:#00d4a0;font-weight:700;margin-bottom:6px">RF PATH (O-RU)</div>
+        <div style="display:flex;gap:4px;align-items:center;font-size:9px">
+          <span style="background:#00d4a015;border:1px solid #00d4a0;border-radius:3px;padding:2px 5px;color:#00d4a0">Duplexer</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#00d4a015;border:1px solid #00d4a0;border-radius:3px;padding:2px 5px;color:#00d4a0">BPF</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#00d4a030;border:1px solid #00d4a0;border-radius:3px;padding:3px 6px;color:#00d4a0;font-weight:700">LNA</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#00d4a015;border:1px solid #00d4a0;border-radius:3px;padding:2px 5px;color:#00d4a0">VGA/AGC</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#00d4a015;border:1px solid #00d4a0;border-radius:3px;padding:2px 5px;color:#00d4a0">Mixer+LO</span>
+        </div>
+      </div>
+      <div style="color:#4a5470;font-size:16px">→</div>
+      <div style="border:2px solid #9b8cf8;border-radius:6px;padding:8px 10px;background:#0d0f14">
+        <div style="font-size:9px;color:#9b8cf8;font-weight:700;margin-bottom:6px">FHGW / O-RU Digital</div>
+        <div style="display:flex;gap:4px;align-items:center;font-size:9px">
+          <span style="background:#9b8cf820;border:1px solid #9b8cf8;border-radius:3px;padding:3px 6px;color:#9b8cf8;font-weight:700">ADC<br>11-12 bit</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#9b8cf820;border:1px solid #9b8cf8;border-radius:3px;padding:3px 6px;color:#9b8cf8;font-weight:700">FFT</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#9b8cf815;border:1px solid #9b8cf8;border-radius:3px;padding:2px 5px;color:#9b8cf8">BFP Compress</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#f5a62320;border:1px solid #f5a623;border-radius:3px;padding:2px 5px;color:#f5a623;font-weight:700">RSSI① dBFS</span>
+        </div>
+      </div>
+      <div style="color:#4a5470;font-size:16px">→</div>
+      <div style="text-align:center;font-size:9px;color:#4a5470">eCPRI<br>fronthaul</div>
+      <div style="color:#4a5470;font-size:16px">→</div>
+      <div style="border:2px solid #5bc4ef;border-radius:6px;padding:8px 10px;background:#0d0f14">
+        <div style="font-size:9px;color:#5bc4ef;font-weight:700;margin-bottom:6px">DU (O-DU)</div>
+        <div style="display:flex;gap:4px;align-items:center;font-size:9px">
+          <span style="background:#5bc4ef20;border:1px solid #5bc4ef;border-radius:3px;padding:2px 5px;color:#5bc4ef">PHY / FEC</span>
+          <span style="color:#4a5470">→</span>
+          <span style="background:#f5a62320;border:1px solid #f5a623;border-radius:3px;padding:2px 5px;color:#f5a623;font-weight:700">RSSI② dBm</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:#4a5470">
+      ① <span style="color:#f5a623">get_rssi CLI</span> = ADC output power in dBFS (before FFT) &nbsp;·&nbsp;
+      ② <span style="color:#5bc4ef">DU RSSI</span> = calculated from IQ samples in dBm &nbsp;·&nbsp;
+      <span style="color:#ff6b6b">Task: both must agree within ±2 dB</span>
+    </div>
+  </div>
+
+  
+</div>
   
 <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px;margin:14px 0">
 <b style="color:#00d4a0;font-size:13px">📊 O-RAN 7.2x data flow — what actually travels over eCPRI</b>
@@ -11672,6 +11872,33 @@ The gap is the sum of all real-world imperfections the formula cannot predict: c
 MRC (Maximum Ratio Combining) does not simply add signals — it weights each chain by its own SNR quality before summing. A chain with strong, clean signal gets high weight. A chain with a degraded LNA gets low weight automatically. The combined SNR in linear scale = sum of all individual SNRs. For 4 equal chains each at SNR = S: combined = 4S = 10·log(4) = +6 dB. In practice chains are slightly unequal so you get +5 to 5.5 dB. For 2 paths (LB): +3 dB. For 3 paths: +4.8 dB.
 </div>
 
+
+
+
+<div class="mod-section-title">Your real numbers — everything connected</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Parameter</th><th>B1</th><th>B3</th><th>B8</th><th>B41</th></tr>
+<tr><td>UL centre freq</td><td>1950 MHz</td><td>1747.5 MHz</td><td>897.5 MHz</td><td>2545 MHz TDD</td></tr>
+<tr><td>Thermal floor (10 MHz)</td><td>−104 dBm</td><td>−104 dBm</td><td>−104 dBm</td><td>−104 dBm</td></tr>
+<tr><td>Estimated system NF</td><td>~3 dB</td><td>~2.8 dB</td><td>~2.5 dB</td><td>~4 dB (TDD sw)</td></tr>
+<tr><td>Theoretical sensitivity (QPSK 1/3)</td><td>~−102 dBm</td><td>~−102 dBm</td><td>~−103 dBm</td><td>~−101 dBm</td></tr>
+<tr><td>RSSI 2dB margin point (your data)</td><td>−95.5 dBm</td><td>−93.5 dBm</td><td>—</td><td>—</td></tr>
+<tr><td>base_dbm (PRACH KPI reference)</td><td>−87 dBm</td><td>−87 dBm</td><td>−87 dBm</td><td>−87 dBm</td></tr>
+<tr><td>DSA offset (derived)</td><td>~−2 dB</td><td>~−1.5 dB</td><td>~−4 dB</td><td>~+1.5 dB</td></tr>
+<tr><td>Effective PRACH threshold</td><td>~−89 dBm</td><td>~−88.5 dBm</td><td>~−91 dBm</td><td>~−85.5 dBm</td></tr>
+</table></div>
+
+<div class="mod-section-title">Key takeaway — what you should remember</div>
+<div class="mbullet"><b>Sensitivity</b> = minimum power (at RU port, cable-loss corrected) for successful decode. Set by physics (kTB) + your hardware (NF) + your modulation (required SNR).</div>
+<div class="mbullet"><b>NF dominates</b> = LNA is first in chain → Friis formula → LNA NF is system NF. Every other stage is negligible.</div>
+<div class="mbullet"><b>Cable loss = NF penalty</b> = your 2 dB test cable before the LNA makes the system 2 dB worse. This is why you always subtract cable loss when reporting sensitivity — you are removing the noise penalty your test setup added.</div>
+<div class="mbullet"><b>DSA</b> = the measured per-band sensitivity offset from a common reference. Derived experimentally. Stored in config. Used so the PRACH test threshold matches real hardware capability per band.</div>
+<div class="mbullet"><b>Modulation changes sensitivity by 17+ dB</b> = QPSK 1/3 (A1, −102 dBm) vs 64QAM 3/4 (A5, −85 dBm). Same radio, same hardware, completely different sensitivity number. This is why your ul-rct-test results show different sensitivity per FRC scenario.</div>
+</div>
+</div>
+
+<!-- KTB DEEP DIVE CARD -->
+
 </div>
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
@@ -11828,6 +12055,194 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 <b style="color:#00d4a0;font-size:13px">🎯 Analogy: the Friis formula is like a telephone game</b>
 <p style="color:#8892b0;font-size:13px;margin:8px 0">Imagine passing a message (your signal) through a line of people. The first person in line can mishear the message and corrupt it — and everyone after will repeat the corrupted version louder. The second person can also mishear, but their error gets divided by how loudly the first person spoke (the LNA gain). By the time you get to the 10th person, their individual errors are completely drowned out by the first person's mistake. <b style="color:#00d4a0">This is why the LNA (first active component) dominates the system NF — and why every millimetre of cable before the LNA directly costs you sensitivity.</b></p>
 </div>
+
+
+
+<!-- NF accumulation tree -->
+<div class="mod-section-title">NF accumulation — every stage with real numbers</div>
+<div style="background:#0d0f14;border:1px solid #232840;border-radius:10px;padding:16px;margin-bottom:16px;overflow-x:auto">
+  <div style="font-size:10px;color:#4a5470;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">How system NF builds up — each stage, its contribution, cumulative total</div>
+  <table style="width:100%;border-collapse:collapse;font-size:11px">
+    <tr style="background:#141720">
+      <th style="padding:8px;text-align:left;color:#8892b0;border-bottom:1px solid #232840">Stage</th>
+      <th style="padding:8px;text-align:center;color:#8892b0;border-bottom:1px solid #232840">Location</th>
+      <th style="padding:8px;text-align:center;color:#8892b0;border-bottom:1px solid #232840">Own NF</th>
+      <th style="padding:8px;text-align:center;color:#8892b0;border-bottom:1px solid #232840">Divisor (Friis)</th>
+      <th style="padding:8px;text-align:center;color:#8892b0;border-bottom:1px solid #232840">Contribution to system NF</th>
+      <th style="padding:8px;text-align:center;color:#8892b0;border-bottom:1px solid #232840">Cumulative NF</th>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e">
+      <td style="padding:8px;color:#c8b800">EXM cable (SF141)</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b">Before RU port</td>
+      <td style="padding:8px;text-align:center;color:#f5c842;font-family:monospace">2.5 dB</td>
+      <td style="padding:8px;text-align:center;color:#8892b0">÷1 (no gain yet)</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b;font-weight:700">+2.5 dB full</td>
+      <td style="padding:8px;text-align:center;color:#f5a623;font-weight:700">2.5 dB</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e;background:#0e1018">
+      <td style="padding:8px;color:#c8b800">Connectors (×2)</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b">Before RU port</td>
+      <td style="padding:8px;text-align:center;color:#f5c842;font-family:monospace">0.3 dB</td>
+      <td style="padding:8px;text-align:center;color:#8892b0">÷1</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b;font-weight:700">+0.3 dB full</td>
+      <td style="padding:8px;text-align:center;color:#f5a623;font-weight:700">2.8 dB</td>
+    </tr>
+    <tr style="border-bottom:2px solid #00d4a0">
+      <td colspan="6" style="padding:4px 8px;background:#001a10;font-size:9px;color:#00d4a0;text-align:center">
+        ─── RU ANTENNA PORT — sensitivity measured here — subtract cable/connector above to get TRUE RU sensitivity ───
+      </td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e">
+      <td style="padding:8px;color:#00d4a0">Duplexer / T-R switch</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b">Before LNA</td>
+      <td style="padding:8px;text-align:center;color:#f5c842;font-family:monospace">0.5 dB</td>
+      <td style="padding:8px;text-align:center;color:#8892b0">÷1 (still no gain)</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b;font-weight:700">+0.5 dB full</td>
+      <td style="padding:8px;text-align:center;color:#f5a623;font-weight:700">3.3 dB</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e;background:#0e1018">
+      <td style="padding:8px;color:#00d4a0">Pre-LNA BPF</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b">Before LNA</td>
+      <td style="padding:8px;text-align:center;color:#f5c842;font-family:monospace">0.3 dB</td>
+      <td style="padding:8px;text-align:center;color:#8892b0">÷1</td>
+      <td style="padding:8px;text-align:center;color:#ff6b6b;font-weight:700">+0.3 dB full</td>
+      <td style="padding:8px;text-align:center;color:#f5a623;font-weight:700">3.6 dB</td>
+    </tr>
+    <tr style="border-bottom:2px solid #00d4a0;background:#002a10">
+      <td style="padding:8px;color:#00d4a0;font-weight:700">⭐ LNA (2 dB NF, 20 dB gain)</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0">FIRST AMP</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-family:monospace;font-weight:700">2.0 dB</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">÷1 (but gain=×100 OUT)</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">+2.0 dB → SETS SYSTEM NF</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">~3.6 dB total</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e">
+      <td style="padding:8px;color:#5bc4ef">Post-LNA BPF</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">After LNA</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef;font-family:monospace">1.0 dB</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">÷100 (LNA gain!)</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">+0.01 dB</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">3.61 dB</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e;background:#0e1018">
+      <td style="padding:8px;color:#5bc4ef">Mixer (7 dB NF)</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">After LNA</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef;font-family:monospace">7.0 dB</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">÷100</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">+0.05 dB</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">3.66 dB</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e">
+      <td style="padding:8px;color:#5bc4ef">VGA / AGC</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">After LNA</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef;font-family:monospace">10 dB</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">÷100</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">+0.09 dB</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">3.75 dB</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1f2e;background:#0e1018">
+      <td style="padding:8px;color:#5bc4ef">ADC (12-bit)</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">Digital</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef;font-family:monospace">~3 dB eff.</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700">÷100+</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">~0.02 dB</td>
+      <td style="padding:8px;text-align:center;color:#5bc4ef">3.77 dB</td>
+    </tr>
+    <tr style="background:#001a10">
+      <td colspan="5" style="padding:8px;color:#00d4a0;font-weight:700">System NF at RU antenna port (test cable excluded):</td>
+      <td style="padding:8px;text-align:center;color:#00d4a0;font-weight:700;font-size:13px">~3.2 dB</td>
+    </tr>
+    <tr style="background:#1a0d00">
+      <td colspan="5" style="padding:8px;color:#f5a623;font-weight:700">System NF including test cable + connectors:</td>
+      <td style="padding:8px;text-align:center;color:#f5a623;font-weight:700;font-size:13px">~6.0 dB</td>
+    </tr>
+  </table>
+</div>
+
+<div class="mod-section-title">Why each stage matters differently — the Friis insight visualised</div>
+<div style="background:#0d0f14;border:1px solid #232840;border-radius:10px;padding:14px;margin-bottom:14px">
+  <div style="font-size:10px;color:#4a5470;margin-bottom:10px">Each bar = that stage contribution to total system NF. After LNA, contributions become invisible.</div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div>
+      <div style="font-size:10px;color:#c8b800;margin-bottom:3px">Cable (2.5 dB loss before RU port)</div>
+      <div style="height:16px;background:linear-gradient(90deg,#ff6b6b,#ff4444);width:41%;border-radius:3px;display:flex;align-items:center;padding:0 6px">
+        <span style="font-size:9px;color:#fff;font-weight:700">2.5 dB — FULL PENALTY</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;color:#00d4a0;margin-bottom:3px">Duplexer (0.5 dB, before LNA)</div>
+      <div style="height:16px;background:linear-gradient(90deg,#ff8844,#ff6620);width:8%;border-radius:3px;display:flex;align-items:center;padding:0 6px">
+        <span style="font-size:9px;color:#fff;font-weight:700">0.5</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;color:#00d4a0;margin-bottom:3px">⭐ LNA (2 dB NF, 20 dB gain — FIRST AMP)</div>
+      <div style="height:16px;background:linear-gradient(90deg,#00d4a0,#00a070);width:33%;border-radius:3px;display:flex;align-items:center;padding:0 6px">
+        <span style="font-size:9px;color:#000;font-weight:700">2.0 dB — DOMINATES EVERYTHING AFTER</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;color:#5bc4ef;margin-bottom:3px">Mixer (7 dB NF, but after LNA ÷100)</div>
+      <div style="height:16px;background:linear-gradient(90deg,#5bc4ef,#3a90b0);width:0.8%;border-radius:3px;min-width:40px;display:flex;align-items:center;padding:0 6px">
+        <span style="font-size:9px;color:#fff;font-weight:700">0.05</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:10px;color:#5bc4ef;margin-bottom:3px">ADC, VGA, FFT, everything else after LNA</div>
+      <div style="height:16px;background:#232840;width:0.3%;border-radius:3px;min-width:35px;display:flex;align-items:center;padding:0 6px">
+        <span style="font-size:9px;color:#5bc4ef;font-weight:700">&lt;0.1</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mod-section-title">The single most important rule from all of this</div>
+<div style="background:#001a0d;border:2px solid #00d4a0;border-radius:8px;padding:14px">
+  <div style="font-size:13px;font-weight:700;color:#00d4a0;margin-bottom:8px">Everything before the LNA costs you sensitivity. Everything after the LNA is free.</div>
+  <div style="font-size:12px;color:#8892b0;line-height:1.8">
+    → Your <b style="color:#ff6b6b">test cable</b> before the LNA: every dB of loss = 1 dB worse sensitivity<br>
+    → Your <b style="color:#ff6b6b">duplexer</b> before the LNA: every dB of insertion loss = 1 dB worse sensitivity<br>
+    → Your <b style="color:#ff6b6b">connector quality</b> before the LNA: loose connector = worse sensitivity<br>
+    → Your <b style="color:#00d4a0">LNA itself</b>: its NF determines the system. 1 dB better LNA = 1 dB better sensitivity<br>
+    → Your <b style="color:#5bc4ef">mixer NF</b>: irrelevant — divided by LNA gain (×100)<br>
+    → Your <b style="color:#5bc4ef">ADC</b>: irrelevant for sensitivity — quantisation noise is far below thermal noise<br>
+    → Your <b style="color:#5bc4ef">DU / software</b>: irrelevant for NF — only affects required SNR (which depends on modulation)
+  </div>
+</div>
+
+</div>
+</div>
+
+
+</div><!-- end sensitivity_dsa section -->
+
+<!-- ═══════════════ RF FUNDAMENTALS Q&A ═══════════════ -->
+<div class="div-line"></div>
+<div id="pwcourse_hidden" style="display:none">
+  <div class="sec-hdr">
+    <div class="badge g">PW</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#7fffd0">Parallel Wireless RF Course — All 16 Modules (from D:\Learning\RCT)</h2>
+      <p>Your actual study guide, fully embedded · Modules 1–16 · Reference docs · RuAuto framework · 4G RCT Catalog · All from your D:\Learning\RCT folder</p>
+    </div>
+  </div>
+
+  <div style="background:#0d1a2a;border:2px solid #f5a623;border-radius:10px;padding:14px 18px;margin-bottom:20px">
+  <div style="font-size:12px;font-weight:700;color:#f5a623;margin-bottom:8px">📍 Quick Jump — Diagrams &amp; Lab Screenshots</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <a href="#m09b_anchor" style="background:#1a1a0d;border:1px solid #f5a623;border-radius:6px;padding:6px 14px;font-size:12px;color:#f5a623;text-decoration:none">📐 M09b — RFFE TX Block Diagram (B7/B1/B3)</a>
+    <a href="#m09c_anchor" style="background:#0d1a0d;border:1px solid #00d4a0;border-radius:6px;padding:6px 14px;font-size:12px;color:#00d4a0;text-decoration:none">⛓ M09c — FHGW DL Chain (LowPHY→DFE→DAC)</a>
+    <a href="#m09d_anchor" style="background:#1a0d0d;border:1px solid #ff6b6b;border-radius:6px;padding:6px 14px;font-size:12px;color:#ff6b6b;text-decoration:none">📸 M09d — Real Lab Screenshots (EXM/TRX1 B28)</a>
+  </div>
+</div>
+
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+    <button onclick="expandAll()" style="padding:7px 18px;border-radius:7px;border:1px solid #1D9E75;background:#00d4a015;color:#00d4a0;font-size:12px;font-weight:600;cursor:pointer">▼ Expand All Modules</button>
+    <button onclick="collapseAll()" style="padding:7px 18px;border-radius:7px;border:1px solid #232840;background:transparent;color:#8892b0;font-size:12px;cursor:pointer">▲ Collapse All</button>
+  </div>
+
+<!-- ───── M01 ───── -->
+
 </div>
 </div><div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
@@ -14977,7 +15392,100 @@ Converting dBFS → dBm:
   </div>
 
   
-<script>
+<script>const infoData = {
+  exa: {
+    freq: "<b>FREQ key</b> — Sets the center frequency of the analyzer. For B1 TX: set to 2140.0 MHz (DL). For B3: 1842.5 MHz. For B8: 942.5 MHz. For B28: 758 MHz. For B41 TDD: 2545 MHz.<br><br><code>:SENS:FREQ:CENT 2140e6</code>",
+    span: "<b>SPAN key</b> — Sets the frequency span around center. For ACLR: span = 5×BW. For EVM/modulation: set to channel BW (5/10/15/20 MHz). Narrow span = better frequency resolution but slower sweep.<br><br><code>:SENS:FREQ:SPAN 50e6</code>",
+    start_stop: "<b>START/STOP keys</b> — Alternative to center+span. Set explicit start and stop frequencies. Useful for SEM measurements where you need precise band-edge control.",
+    amptd: "<b>AMPTD key</b> — Sets reference level (top of display). Set ~10 dB above expected signal. For P_rated B1 = -16.7 dBm at SMA: set ref level to -5 dBm. Auto-scale available.",
+    attn: "<b>ATTN key</b> — Mechanical input attenuator (0–30 dB in 5 dB steps). Higher attn = better IP3, worse noise figure. For weak signals: 0 dB. For strong TX signals: 10–20 dB.",
+    preamp: "<b>Preamp key</b> — Internal LNA (~20 dB gain). Use for RX sensitivity measurements (weak signals). Disable for TX measurements to avoid gain compression.",
+    extgain: "<b>Ext Gain key</b> — Compensates for cable loss. Enter your cable loss as positive value (e.g. +2.5 dB) so EXA subtracts it from displayed power. Makes readings cable-loss-corrected.",
+    bw: "<b>BW key</b> — Resolution Bandwidth (RBW) and Video Bandwidth (VBW). For ACLR: RBW = 30 kHz. For channel power: RBW = auto. Narrower RBW = better frequency resolution, slower sweep.",
+    sweep: "<b>Sweep key</b> — Sweep time and type. Auto sweep: EXA picks optimal. Manual: set longer for noisy measurements. Single sweep mode: use for TDD gated measurements (B41).",
+    avg: "<b>Avg key</b> — Averaging reduces noise floor. Use 10–100 averages for ACLR/EVM. RMS averaging for power. Log averaging for noise. Video averaging for spectrum displays.",
+    trig: "<b>Trig key</b> — Trigger source. For TDD B41: use External trigger at 9.9765 ms delay. Free run for FDD. Video trigger for burst detection.",
+    meas: "<b>Meas key</b> — Select measurement type. Options: Channel Power, ACLR/ACP, EVM (modulation analysis), OBW, SEM, Spurious, Phase Noise.",
+    meas_setup: "<b>Meas Setup key</b> — Configure measurement parameters after selecting Meas type. For ACLR: set offsets, integration BW. For EVM: set standard (LTE), ETM.",
+    mode: "<b>Mode key</b> — Select analyzer mode. LTE-FDD (used for RCT), LTE-TDD (B41), Basic SA, IQ Analyzer. Each mode has its own measurement palette.",
+    mode_setup: "<b>Mode Setup key</b> — Configure the current mode parameters. For LTE-FDD mode: set bandwidth, link direction, reference signal settings.",
+    marker: "<b>Marker key</b> — Place frequency/amplitude markers. Marker→Peak finds highest point. Delta marker measures relative power. Useful for quick ACLR eyeballing.",
+    peak: "<b>Peak key</b> — Marker→Peak shortcut. Immediately jumps marker to highest point on display. Use to verify you are measuring the wanted carrier.",
+    delta: "<b>Delta key</b> — Creates a delta marker relative to current marker position. Measure ACLR manually: place marker on carrier, delta on adjacent channel offset.",
+    mkr_to: "<b>Mkr→key</b> — Marker to Center/Reference Level. Sets center frequency or reference level to the current marker position. Quick way to tune to a signal.",
+    input: "<b>Input key</b> — Select input port (RF, IQ) and impedance (50Ω). Always verify 50Ω selected for RF measurements. IQ input used for baseband analysis.",
+    save: "<b>Save key</b> — Save state, trace data, screen. Save State saves all settings. Save Trace saves measurement data as CSV. Use before changing configuration.",
+    recall: "<b>Recall key</b> — Recall saved state or trace. Load RCT measurement state to restore exact ACLR/EVM configuration between sessions.",
+    knob: "<b>Knob</b> — Rotary encoder for fine adjustment of active parameter. Click knob = toggles between coarse/fine steps. Used after setting a value with numeric.",
+    numeric: "<b>Numeric keypad</b> — Enter values directly. After pressing a key (FREQ, SPAN etc), type the value and select the unit (MHz, dBm, kHz).",
+    units: "<b>Units keys</b> — GHz/dBm, MHz/dB, kHz/mV, Hz/μV etc. Press after numeric entry. Completes the entry and sets the parameter.",
+    system: "<b>System key</b> — Access LAN settings (IP address for SCPI remote), calibration, alignment, factory preset. Find EXA IP: System → Show → System."
+  },
+  exm: {
+    freq_ch: "<b>FREQ Channel key</b> — Sets center frequency. For EXM used as signal generator: sets the output RF frequency. For SA mode: sets the center analysis frequency.<br><br><code>:FREQ:CENT 2140e6</code>",
+    input_output: "<b>Input/Output key</b> — Select RF port routing. Critical for EXM: routes signal to the correct front-panel RF connector (Port 1 for SA, Port 2 for SG). Must select before measurement.",
+    auto_couple: "<b>Auto Couple key</b> — Automatically sets RBW, VBW, and sweep time for optimal measurement. Use as starting point, then fine-tune manually if needed.",
+    marker: "<b>Marker key</b> — Place markers on trace for reading frequency/amplitude. Marker→Peak on EXM used for signal identification and ACLR cursor placement.",
+    mode_preset: "<b>Mode Preset (green key)</b> — Resets current mode to factory defaults. Use to recover from unknown state. Green = safe recovery key. Does NOT change mode, only resets mode parameters.",
+    span_xscale: "<b>SPAN / X Scale key</b> — Set frequency span for SA mode, or X-axis range for time-domain displays. For LTE RCT: span = 3× channel BW minimum.",
+    view_display: "<b>View/Display key</b> — Toggle between measurement views (spectrum, waterfall, IQ). For EVM analysis: switch between constellation, EVM vs subcarrier, and summary views.",
+    bw: "<b>BW key</b> — RBW/VBW settings. Narrower RBW increases dynamic range for adjacent channel measurements. EXM auto-couples BW to span by default (ratio 1:100).",
+    peak_search: "<b>Peak Search key</b> — Moves marker to highest amplitude point. After transmission starts: Peak Search confirms the carrier is at expected frequency.",
+    user_preset: "<b>User Preset key</b> — Recalls a user-saved preset state. Save your RCT measurement configuration as user preset for quick recall between tests.",
+    amptd_yscale: "<b>AMPTD / Y Scale key</b> — Reference level and vertical scale. Set reference level ~10 dB above expected signal power. Log scale: 10 dB/div standard.",
+    trace_detector: "<b>Trace/Detector key</b> — Choose trace type (clear/write, max hold, average) and detector (sample, peak, RMS). For ACLR: use RMS detector.",
+    source: "<b>Source key</b> — EXM has an internal signal generator (TRX module). Source key accesses SG settings: frequency, power, modulation. Used for injecting test signals.",
+    marker_arrow: "<b>Marker → keys</b> — Move marker to specific positions (Next Peak, Peak Left, Peak Right, Min). Useful for characterizing spurious emission levels.",
+    save: "<b>Save key</b> — Save instrument state, measurement results, or screen captures. For RCT: save state after configuring each test (ACLR, EVM) for reproducibility.",
+    mode: "<b>Mode key</b> — Select operating mode: SA (spectrum analyzer), LTE-FDD, LTE-TDD, Vector Signal Analyzer, SG (signal generator). Each mode reconfigures the hardware.",
+    mode_setup: "<b>Mode Setup key</b> — Configure mode-specific parameters after selecting mode. For LTE-FDD: set BW, DL/UL, cell ID, reference signal power.",
+    trigger: "<b>Trigger key</b> — Set trigger source for synchronized measurements. External trigger: sync to BBU frame clock. For B41 TDD: trigger delay = 9.9765 ms.",
+    marker_fn: "<b>Marker Function key</b> — Advanced marker operations: band power, noise marker, delta pair. Band Power marker: integrate power over a frequency range (useful for manual ACLR).",
+    recall: "<b>Recall key</b> — Load saved instrument state. Recall user preset or state file to restore exact measurement configuration. Essential for repeatable RCT.",
+    meas: "<b>Meas key</b> — Select active measurement: Channel Power, ACP/ACLR, EVM, OBW, SEM, Spurious, Phase Noise. After selecting: press Meas Setup to configure parameters.",
+    meas_setup: "<b>Meas Setup key</b> — Configure measurement: For ACP/ACLR: set offset frequencies (±5/10 MHz for LTE), integration bandwidth. For EVM: select LTE standard, ETM.",
+    sweep_control: "<b>Sweep Control key</b> — Sweep type (continuous, single, gate). Sweep time auto or manual. For TDD gating: select Gated Sweep and configure gate parameters here.",
+    restart: "<b>Restart key</b> — Restarts current sweep/measurement from beginning. Use after changing settings to get a clean measurement without previous data contamination.",
+    single: "<b>Single key</b> — Takes one sweep then stops. Use for repeatable single-shot measurements. Follow with *OPC? in SCPI to wait for completion before reading results."
+  },
+  vna: {
+    meas: "<b>Meas key</b> — Select S-parameter to measure: S11 (reflection), S21 (transmission/insertion loss), S12, S22. For cable loss: S21 (through measurement). For antenna: S11 (return loss).",
+    format: "<b>Format key</b> — Display format: Log Magnitude (dB), Phase (degrees), Smith Chart, Polar, Real, Imaginary, SWR. For cable loss: Log Mag. For phase calibration: Phase.",
+    scale: "<b>Scale key</b> — Set Y-axis scale: dB/division, reference level, reference position. For cable loss: 0 dB reference at top, 1–5 dB/div. Auto-scale available.",
+    display: "<b>Display key</b> — Multi-trace layout. Up to 4 traces. Show S11+S21 simultaneously. Split screen. Useful for comparing reflection vs transmission of a DUT.",
+    avg: "<b>Avg key</b> — Averaging: reduces noise floor. Use 16–64 averages for precise cable loss. Restart averaging after connecting DUT for clean data.",
+    cal: "<b>Cal key</b> — Access calibration menu. Choose calibration type: SOLT (1-port), Full 2-port, Response. Start here for every VNA session after warmup.",
+    solt: "<b>SOLT Calibration</b> — Short-Open-Load-Thru. Connect Short to port → measure. Connect Open → measure. Connect Load (50Ω termination) → measure. Connect Thru → measure. VNA corrects for cable, connector losses.",
+    calrecall: "<b>Cal Recall key</b> — Load a previously saved calibration. Valid calibration for the frequency range and port configuration. Always verify cal date/temperature match current conditions.",
+    start: "<b>Start key</b> — Set start frequency of sweep. For AAU band measurement B1: start = 1710 MHz (UL) or 2110 MHz (DL). For full band sweep: start = 100 MHz.",
+    stop: "<b>Stop key</b> — Set stop frequency of sweep. Match to your band of interest. Narrower span = more points per MHz = better frequency resolution for same point count.",
+    center: "<b>Center key</b> — Set center frequency. Alternative to Start+Stop. For B1 center: 1950 MHz UL / 2140 MHz DL. Quick way to zoom into a band.",
+    span: "<b>Span key</b> — Frequency span around center. For per-band: 200 MHz span. For cable loss (wideband): 3 GHz span. More span = sparser frequency grid.",
+    points: "<b>Points key</b> — Number of frequency points (101 to 100001). More points = higher resolution + slower sweep. For phase calibration: 1601+ points recommended.",
+    power: "<b>Power key</b> — Output power of VNA test signal (-50 to 0 dBm typical). Use -10 dBm for passive DUT. Use -30 dBm if DUT has amplifiers to avoid compression.",
+    ifbw: "<b>IF BW key</b> — Intermediate Frequency bandwidth. Narrow IF BW (100 Hz) = low noise floor, very slow. Wide IF BW (10 kHz) = fast sweep, noisier. Start with 1 kHz.",
+    marker: "<b>Marker key</b> — Place frequency markers. For cable loss: marker at band center shows loss at that frequency. Marker table shows all values simultaneously.",
+    search: "<b>Search key</b> — Marker search: Min/Max/Target. For filter characterization: Search→Min finds minimum insertion loss. For cable: Max finds worst loss point.",
+    bwsearch: "<b>BW Search key</b> — Bandwidth search around a resonance or filter passband. Reports -3dB bandwidth, Q factor, insertion loss. Useful for antenna resonance analysis.",
+    timedomain: "<b>Time Domain key</b> — Converts frequency response to time-domain (IFFT). Shows reflections vs. distance. Useful for finding cable faults or connector reflections.",
+    memtrace: "<b>Mem/Trace key</b> — Store current trace to memory. Compare live measurement with stored reference. Use to see changes after connector re-seating or cable dressing.",
+    knob: "<b>Rotary Knob</b> — Fine adjustment of active field. After pressing a key, rotate for continuous adjustment. Click for coarse/fine toggle.",
+    numeric: "<b>Numeric Entry</b> — Direct value entry. Press key (Start, Stop, etc) → enter numbers → select unit key to complete entry.",
+    units: "<b>Units keys</b> — GHz, MHz, kHz, dB, dBm etc. Completes numeric entry and applies the unit. Always verify unit matches expected (GHz vs MHz).",
+    chtr: "<b>CH/TR key</b> — Channel and Trace management. Create new channels (independent calibrations), new traces (different S-params in same channel). Up to 4 channels on E5071C."
+  }
+};
+
+function exmBtn(key) {
+  const panel = document.getElementById('explain-exm');
+  if (!panel) return;
+  const info = infoData['exm'] && infoData['exm'][key];
+  panel.innerHTML = info
+    ? '<b style="color:#f5a623">' + key.replace(/_/g,' ').toUpperCase() + '</b><br>' + info
+    : '<span style="color:#4a5470">No info for key: ' + key + '</span>';
+}
+
+
 // ── Card toggle ────────────────────────────────────────────────────────────
 function toggleModule(el) {
   const body = el.nextElementSibling;
