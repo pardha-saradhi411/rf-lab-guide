@@ -340,17 +340,6 @@ body.light-mode .sec-hdr {
   </div>
 </nav>
 
-
-<!-- ── Live card search ── -->
-<div id="card-search-wrap">
-  <span style="color:#5bc4ef;font-size:18px">🔍</span>
-  <input id="card-search" type="text" placeholder="Search cards… e.g. DSA, ACLR, DPD, sensitivity, LNA — scrolls to first match" oninput="filterCards(this.value)" oninput="filterCards(this.value)">
-  <span id="search-count"></span>
-  <button id="clear-search" onclick="clearSearch()">✕ Clear</button>
-  <span style="color:#4a5470;font-size:12px;margin-left:8px">126 cards</span>
-</div>
-
-
 <!-- HERO -->
 <div class="hero">
   <div class="eyebrow">Complete RF engineering reference</div>
@@ -14970,3 +14959,898 @@ Converting dBFS → dBm:
   </div>
 
   
+<script>
+function toggleModule(el) {
+  const body = el.nextElementSibling;
+  const chevron = el.querySelector('.chevron');
+  const status = el.querySelector('.mod-status');
+  // Use inline style as single source of truth (works with both CSS class and search override)
+  const isOpen = body.style.display === 'block' || 
+                 (body.style.display === '' && body.classList.contains('open'));
+  if (isOpen) {
+    body.style.display = 'none';
+    body.classList.remove('open');
+    if (chevron) chevron.textContent = '▾';
+    if (status) status.textContent = 'click to expand';
+  } else {
+    body.style.display = 'block';
+    body.classList.add('open');
+    if (chevron) chevron.textContent = '▴';
+    if (status) status.textContent = 'expanded';
+  }
+}
+// Auto-expand first module in each section on load
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.module-hdr').forEach(function(hdr) {
+    const body = hdr.nextElementSibling;
+    if (body) body.style.display = 'none';
+  });
+});
+
+// ── Card search / filter ──────────────────────────────────
+function filterCards(query) {
+  const q = query.trim().toLowerCase();
+  const cards = document.querySelectorAll('.module-card');
+  let firstMatch = null;
+  let visible = 0;
+
+  cards.forEach(card => {
+    const text = card.textContent.toLowerCase();
+    const matches = !q || text.includes(q);
+    const body = card.querySelector('.module-body');
+
+    if (matches) {
+      card.classList.remove('search-hidden');
+      visible++;
+      if (q && body) {
+        body.style.display = 'block'; // expand matching cards
+        body.classList.add('open');
+        const chevron = card.querySelector('.chevron');
+        const status  = card.querySelector('.mod-status');
+        if (chevron) chevron.textContent = '▴';
+        if (status)  status.textContent  = 'expanded';
+      }
+      if (!firstMatch) firstMatch = card;
+    } else {
+      card.classList.add('search-hidden');
+      // Collapse non-matching to save space
+      if (body && body.style.display === 'block') {
+        body.style.display = 'none';
+      }
+    }
+  });
+
+  const count = document.getElementById('search-count');
+  if (count) count.textContent = q ? visible + ' found' : '';
+
+  // Hide section headers with no visible cards under them
+  document.querySelectorAll('.sec-hdr').forEach(hdr => {
+    let sib = hdr.nextElementSibling;
+    let hasVisible = false;
+    while (sib && !sib.classList.contains('sec-hdr')) {
+      if (sib.classList.contains('module-card') && !sib.classList.contains('search-hidden'))
+        { hasVisible = true; break; }
+      sib = sib.nextElementSibling;
+    }
+    hdr.style.display = (!q || hasVisible) ? '' : 'none';
+  });
+
+  // Scroll smoothly to first match
+  if (firstMatch && q) {
+    setTimeout(() => {
+      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Blue flash highlight
+      firstMatch.style.outline = '2px solid #5bc4ef';
+      firstMatch.style.outlineOffset = '4px';
+      setTimeout(() => { firstMatch.style.outline=''; firstMatch.style.outlineOffset=''; }, 1800);
+    }, 80);
+  }
+}
+
+function clearSearch() {
+  const inp = document.getElementById('card-search');
+  if (inp) inp.value = '';
+
+  document.querySelectorAll('.module-card').forEach(card => {
+    card.classList.remove('search-hidden');
+    card.style.outline = '';
+    // Only collapse cards that were opened BY the search (not by user click)
+    // Simplest: collapse all cards and let user re-open what they want
+    const body = card.querySelector('.module-body');
+    if (body) {
+      body.style.display = 'none';
+      body.classList.remove('open');
+      const chevron = card.querySelector('.chevron');
+      const status  = card.querySelector('.mod-status');
+      if (chevron) chevron.textContent = '▾';
+      if (status)  status.textContent  = 'click to expand';
+    }
+  });
+
+  document.querySelectorAll('.sec-hdr').forEach(hdr => hdr.style.display = '');
+  const count = document.getElementById('search-count');
+  if (count) count.textContent = '';
+}
+
+// Keyboard: Ctrl+K or / to focus, Escape to clear
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+    e.preventDefault();
+    const inp = document.getElementById('card-search');
+    if (inp) { inp.focus(); inp.select(); }
+  }
+  if (e.key === 'Escape') {
+    clearSearch();
+    const inp = document.getElementById('card-search');
+    if (inp) inp.blur();
+  }
+});
+
+// ── Dark / Light mode toggle ──────────────────────────────
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const btn = document.getElementById('theme-toggle');
+  const isLight = document.body.classList.contains('light-mode');
+  if (btn) btn.textContent = isLight ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+// Restore saved theme
+(function() {
+  if (localStorage.getItem('theme') === 'light') {
+    document.body.classList.add('light-mode');
+  }
+})();
+
+
+// ══════════════════════════════════════════════════════════════
+// INSTRUMENT PANEL — switchTab + show() definitions
+// ══════════════════════════════════════════════════════════════
+
+// ── Tab switching ──────────────────────────────────────────
+function switchTab(inst) {
+  document.querySelectorAll('.itab').forEach(b => b.classList.remove('sel'));
+  document.querySelectorAll('.inst-panel').forEach(p => p.classList.remove('active'));
+  const tab = document.getElementById('tab-' + inst);
+  const panel = document.getElementById('panel-' + inst);
+  if (tab)   tab.classList.add('sel');
+  if (panel) panel.classList.add('active');
+}
+
+// ── Button content definitions ─────────────────────────────
+const INST_DEFS = {
+
+exa: {
+  freq: {
+    title: 'Frequency (Freq)',
+    color: '#00d4a0',
+    body: `Sets the centre frequency of the display. For your work:<br>
+<b>B1 DL:</b> 2140 MHz &nbsp;|&nbsp; <b>B3 DL:</b> 1842.5 MHz &nbsp;|&nbsp; <b>B8 DL:</b> 942.5 MHz<br>
+<b>B28 DL:</b> 758 MHz &nbsp;|&nbsp; <b>B41 TDD:</b> 2545 MHz<br>
+<b>SCPI:</b> <code>:FREQ:CENT 2.14e9</code><br>
+<b>Tip:</b> Always set centre freq before changing span — span is symmetric around centre.`
+  },
+  span: {
+    title: 'Span',
+    color: '#00d4a0',
+    body: `Sets the frequency range displayed (centre ± span/2).<br>
+<b>ACLR measurement:</b> span = 5× channel BW minimum. For 10 MHz LTE: set 50 MHz.<br>
+<b>Spectrum overview:</b> set wide (200 MHz) to see all spurs.<br>
+<b>Power measurement:</b> narrow span (1 MHz) centred on carrier.<br>
+<b>SCPI:</b> <code>:FREQ:SPAN 50e6</code>`
+  },
+  start_stop: {
+    title: 'Start / Stop',
+    color: '#00d4a0',
+    body: `Alternative to centre+span — sets explicit start and stop frequencies.<br>
+Use when you want to compare two specific bands on one display.<br>
+Example: Start 900 MHz, Stop 2700 MHz → see B8, B3, B1, B41 simultaneously.<br>
+<b>SCPI:</b> <code>:FREQ:STAR 900e6</code> &nbsp; <code>:FREQ:STOP 2.7e9</code>`
+  },
+  amptd: {
+    title: 'AMPTD (Reference Level)',
+    color: '#f5a623',
+    body: `Sets the top of the Y-axis (reference level) in dBm. Signal should be 5–10 dB below the reference level for accurate measurement.<br>
+<b>For TX power (BOB SMA + 30dB pad):</b> set RefLvl = −10 dBm (signal ≈ −17 dBm)<br>
+<b>For noise floor check:</b> set RefLvl = −80 dBm<br>
+<b>SCPI:</b> <code>:DISP:WIND:TRAC:Y:RLEV -10</code>`
+  },
+  attn: {
+    title: 'Attenuation (Attn)',
+    color: '#f5a623',
+    body: `<b style="color:#ff6b6b">CRITICAL — wrong attenuation = wrong measurement.</b><br>
+<b>TX measurement (BOB SMA + 30dB pad):</b> set Attn = 10–20 dB. Total = 40–50 dB.<br>
+<b>RX noise floor:</b> Attn = 0 dB + Preamp ON.<br>
+<b>Never set Attn = 0 with TX signal</b> → input mixer overload → ACLR reads 10 dB better than reality (false pass).<br>
+<b>SCPI:</b> <code>:POW:ATT 20</code>`
+  },
+  preamp: {
+    title: 'Preamplifier (Preamp)',
+    color: '#f5a623',
+    body: `Internal low-noise preamplifier. Reduces DANL by ~10 dB.<br>
+<b>Preamp OFF:</b> for TX measurements (BOB SMA + pad). Signal is strong — preamp causes compression.<br>
+<b>Preamp ON:</b> for noise floor, NF measurement, weak signal checks. DANL ≈ −130 dBm/Hz.<br>
+<b style="color:#ff6b6b">Never use Preamp ON with strong TX signals.</b><br>
+<b>SCPI:</b> <code>:POW:GAIN:STAT ON</code>`
+  },
+  extgain: {
+    title: 'External Gain ⚠',
+    color: '#ff6b6b',
+    body: `<b style="color:#ff6b6b">WARNING: this corrects readings for an external amplifier or loss.</b><br>
+If you enter −30 here to account for your coupler: EXA will ADD 30 dB to all readings.<br>
+<b>Risk:</b> if set incorrectly, all power readings are wrong by the entered amount.<br>
+<b>Best practice:</b> leave Ext Gain = 0 dB. Correct for cable/coupler/pad manually.<br>
+Enter the actual measured BOB SMA coupler ratio only if you are certain of it.`
+  },
+  bw: {
+    title: 'Resolution Bandwidth (RBW)',
+    color: '#9b8cf8',
+    body: `RBW is the width of the IF filter — sets frequency resolution.<br>
+<b>Narrow RBW (1 kHz):</b> fine resolution, slow sweep, lower noise floor. Use for VNA-type checks.<br>
+<b>100 kHz RBW:</b> standard for LTE ACLR measurement (3GPP spec).<br>
+<b>1 MHz RBW:</b> fast, for rough power checks.<br>
+<b>Rule:</b> RBW ≤ signal BW / 100 for accurate spectrum shape.<br>
+<b>SCPI:</b> <code>:BWID 100e3</code>`
+  },
+  sweep: {
+    title: 'Sweep',
+    color: '#9b8cf8',
+    body: `Controls sweep time and mode.<br>
+<b>Single sweep (SGL):</b> takes one sweep then holds. Use for ACLR — ensure DPD is converged first.<br>
+<b>Continuous sweep (CONT):</b> sweeps repeatedly. Use for monitoring.<br>
+<b>Sweep time:</b> EXA sets automatically based on RBW. Narrow RBW = slower sweep.<br>
+<b>For ACLR:</b> average 10+ sweeps for stable result.<br>
+<b>SCPI:</b> <code>:INIT:CONT OFF</code> then <code>:INIT</code> for single.`
+  },
+  avg: {
+    title: 'Average',
+    color: '#9b8cf8',
+    body: `Averages multiple sweeps to reduce noise on the trace.<br>
+<b>For ACLR:</b> set average = 10–20. Result stabilises after averaging count reached.<br>
+<b>Power measurement:</b> average = 5 is sufficient.<br>
+<b>Log power average:</b> averages in dB domain (good for noise-like signals).<br>
+<b>Voltage average:</b> for coherent signals.<br>
+<b>SCPI:</b> <code>:AVER:COUN 10</code> &nbsp; <code>:AVER:STAT ON</code>`
+  },
+  trig: {
+    title: 'Trigger ⚠ (TDD gating)',
+    color: '#ff6b6b',
+    body: `<b style="color:#ff6b6b">CRITICAL for B41 TDD — must gate to DL subframes only.</b><br>
+Without gating: noise floor during UL silent periods included → ACLR appears 5–10 dB better than reality → <b>false pass</b>.<br>
+<b>Setup:</b> External trigger from DU frame sync → Gate ON = DL subframe start, Gate length = DL subframe duration.<br>
+<b>For FDD bands (B1/B3/B8/B28):</b> free-run trigger is fine — PA always on.<br>
+<b>SCPI:</b> <code>:TRIG:SOUR EXT</code>`
+  },
+  meas: {
+    title: 'Measurement Mode (Meas)',
+    color: '#5bc4ef',
+    body: `Selects measurement type. <b>Most important for your work:</b><br>
+<b>• Spectrum Monitor:</b> standard spectrum display<br>
+<b>• ACLR:</b> adjacent channel power ratio — use this for ACLR tests (not manual integration)<br>
+<b>• EVM:</b> error vector magnitude for modulation quality<br>
+<b>• SEM:</b> spectrum emission mask<br>
+<b>• Noise Figure:</b> with noise source connected<br>
+<b>SCPI:</b> <code>:CONF:ACLR</code> &nbsp; <code>:CONF:EVM</code>`
+  },
+  meas_setup: {
+    title: 'Measurement Setup',
+    color: '#5bc4ef',
+    body: `Configures the active measurement. For LTE ACLR:<br>
+<b>Standard:</b> select LTE (sets correct channel BW, offsets, RRC filter)<br>
+<b>Channel BW:</b> match your LTE BW (5/10/15/20 MHz)<br>
+<b>Number of offsets:</b> adjacent + alternate channels<br>
+<b>Always use the LTE preset</b> — do not manually set offsets. The LTE measurement uses the correct RRC filter as specified in 3GPP TS 36.141.<br>
+<b>SCPI:</b> <code>:ACLR:STAN:PRES LTE</code>`
+  },
+  mode: {
+    title: 'Mode',
+    color: '#5bc4ef',
+    body: `Switches between application modes: Signal Analyzer, VSA (Vector Signal Analyzer), Noise Figure, Phase Noise, etc.<br>
+<b>For ACLR/power/SEM:</b> stay in Signal Analyzer mode.<br>
+<b>For EVM/constellation:</b> switch to VSA mode.<br>
+<b>For NF measurement:</b> switch to Noise Figure mode.<br>
+<b>Mode switch resets all measurement settings</b> — always re-configure after switching.`
+  },
+  mode_setup: {
+    title: 'Mode Setup',
+    color: '#5bc4ef',
+    body: `Global settings for the current mode: input port, trigger routing, I/Q output.<br>
+<b>Input port:</b> always RF Input (50Ω SMA front panel). Never use AUX.<br>
+<b>Ext ref:</b> can lock EXA 10 MHz reference to external GPS-locked reference for very precise frequency measurements.<br>
+<b>Max input power reminder:</b> +30 dBm absolute max, +20 dBm recommended safe limit.`
+  },
+  marker: {
+    title: 'Marker',
+    color: '#c8b800',
+    body: `Places a frequency/amplitude marker on the trace.<br>
+<b>Normal marker:</b> reads freq + amplitude at a point. Use to verify centre freq is correct.<br>
+<b>Δ marker:</b> measures difference between two frequencies (e.g. carrier to adjacent channel offset).<br>
+<b>Peak marker:</b> jumps to the highest point on the trace.<br>
+<b>For ACLR manual check:</b> place markers on main channel and adjacent channel, read the difference.<br>
+<b>SCPI:</b> <code>:CALC:MARK1:X 2.14e9</code> &nbsp; <code>:CALC:MARK1:Y?</code>`
+  },
+  delta: {
+    title: 'Δ Delta Marker',
+    color: '#c8b800',
+    body: `Measures frequency and amplitude difference between two markers.<br>
+<b>Use case:</b> measure harmonic distance (carrier to 2nd harmonic), or verify adjacent channel offset is correct (should be exactly ±channel BW).<br>
+<b>Tip:</b> set Marker 1 on carrier peak, enable Delta marker, move it to the adjacent channel → read dBc value. This is a manual ACLR check.`
+  },
+  peak: {
+    title: 'Peak Search',
+    color: '#c8b800',
+    body: `Moves marker to the highest amplitude point on the trace.<br>
+<b>Use:</b> after setting centre freq, verify the peak is where you expect it. If peak is off-centre, the carrier frequency is wrong.<br>
+<b>Next peak:</b> finds the next highest point — useful for identifying spurs.<br>
+<b>SCPI:</b> <code>:CALC:MARK:MAX</code>`
+  },
+  mkr_to: {
+    title: 'Marker → (Marker To)',
+    color: '#c8b800',
+    body: `Moves the display to centre on the current marker frequency, or sets centre freq/reference level from the marker.<br>
+<b>Most useful:</b> "Marker → Centre Freq" — if you see a signal on screen, place a marker on it and use this to make it the exact centre of the display.<br>
+<b>Marker → Reference Level:</b> sets the reference level to match the current marker amplitude — automatic scaling.`
+  },
+  input: {
+    title: 'Input',
+    color: '#4a5470',
+    body: `Configures the input port and impedance.<br>
+<b>RF Input:</b> front panel SMA, 50Ω — always use this.<br>
+<b>Max safe input:</b> +20 dBm continuous. +30 dBm maximum (will damage mixer above this).<br>
+<b>With 30 dB pad:</b> BOB SMA at +13 dBm → EXA input = −17 dBm → safe.<br>
+<b>Input coupling:</b> always AC for RF measurements. DC coupling only for low-frequency baseband work.`
+  },
+  save: {
+    title: 'Save',
+    color: '#4a5470',
+    body: `Saves traces, states, or screen captures.<br>
+<b>Save State:</b> saves all EXA settings (freq, span, mode, attn, etc.) to a file. Use this before starting a test session — reload to restore known-good settings.<br>
+<b>Save Trace:</b> saves the amplitude vs frequency data as CSV for offline analysis.<br>
+<b>Save Screen:</b> PNG screenshot for reports.<br>
+<b>Tip:</b> save a "B1_ACLR_setup" state and a "B1_Power_setup" state — reload in 2 seconds instead of manually re-configuring.`
+  },
+  recall: {
+    title: 'Recall',
+    color: '#4a5470',
+    body: `Loads a previously saved EXA state.<br>
+<b>Best practice:</b> save one state file per measurement type per band. e.g. "EXA_B1_ACLR.sta", "EXA_B3_Power.sta".<br>
+Recall before any test session to guarantee correct settings. This eliminates setup errors.`
+  },
+  system: {
+    title: 'System',
+    color: '#4a5470',
+    body: `System settings: IP address, LAN configuration, firmware version, calibration date.<br>
+<b>Your EXA:</b> IP = 10.62.2.135 &nbsp;|&nbsp; SN = MY59070653<br>
+<b>LAN/IP:</b> Menu → System → LAN. Set static IP on 10.62.2.x subnet.<br>
+<b>Calibration status:</b> System → Calibration. Check last calibration date — if > 1 year, accuracy degrades.<br>
+<b>Align Now:</b> runs internal self-alignment. Do this after warmup if accuracy is critical.`
+  },
+  knob: {
+    title: 'Data Entry Knob',
+    color: '#4a5470',
+    body: `The front-panel rotary knob for fast numeric entry and scrolling.<br>
+<b>Frequency:</b> turn to step by current step size. Faster than entering digits for nearby frequencies.<br>
+<b>Reference level:</b> turn to adjust in 10 dB steps.<br>
+<b>Knob step size:</b> can be changed via softkey when in frequency entry mode.<br>
+<b>Tip:</b> for fine tuning, hold CTRL while turning for finer steps.`
+  },
+  units: {
+    title: 'Units',
+    color: '#4a5470',
+    body: `Switches Y-axis units between dBm, dBmV, dBμV, Watts, Volts.<br>
+<b>Always use dBm</b> for RF power measurements. Other units are for video/audio engineers.<br>
+<b>dBc mode:</b> available in Marker settings — shows relative amplitude vs the marker reference. Use for manual ACLR checks.`
+  },
+  numeric: {
+    title: 'Numeric Keypad',
+    color: '#4a5470',
+    body: `Enters exact numeric values. Always faster than the knob for specific frequencies.<br>
+<b>Workflow:</b> press Freq → press numeric key → type "2.14" → press GHz.<br>
+<b>Units keys:</b> after typing a number, the softkeys show GHz/MHz/kHz/Hz — press the appropriate one.<br>
+<b>Tip:</b> type the value with decimal point in the display before pressing the unit key.`
+  },
+},
+
+// ══════════════════════════════════════════════════════════
+exm: {
+  freq_ch: {
+    title: 'FREQ Channel — set downlink frequency',
+    color: '#00d4a0',
+    body: `This is where you set the <b>downlink (DL) frequency</b> — the frequency the RU is transmitting on that you want to receive or measure.<br><br>
+<b>Your band DL frequencies:</b><br>
+B1: <b style="color:#f5a623">2140 MHz</b> &nbsp;|&nbsp; B3: <b style="color:#f5a623">1842.5 MHz</b> &nbsp;|&nbsp; B8: <b style="color:#f5a623">942.5 MHz</b><br>
+B28: <b style="color:#f5a623">758 MHz</b> &nbsp;|&nbsp; B41: <b style="color:#f5a623">2545 MHz</b> (TDD — same as UL)<br><br>
+<b>How to set:</b> Press FREQ Channel → type frequency → press MHz softkey.<br>
+<b>Note:</b> For TDD (B41) DL and UL are the same frequency — you set it once here.`
+  },
+  input_output: {
+    title: 'Input/Output — RF ports, External Gain, Test Set Config',
+    color: '#5bc4ef',
+    body: `This menu controls which physical port the signal uses and the measurement context.<br><br>
+<b style="color:#ff6b6b">RF Input:</b> Signal coming IN from the RU (for DL measurement). Connect: RU BOB SMA → 30 dB pad → EXM RF Input.<br><br>
+<b style="color:#00d4a0">RF Output:</b> Signal going OUT to RU (for UL injection — RSSI cal, sensitivity). Connect: EXM RF Output → measured cable → RU BOB SMA. Always verify power with EXA before connecting to RU.<br><br>
+<b style="color:#c8b800">External Gain → BTS:</b> For LTE base station testing, always select BTS here. This tells EXM the measurement context is a base station transmitter (not a UE), applying the correct reference gain assumptions.<br><br>
+<b style="color:#9b8cf8">Test Set Config → RF Port:</b> Select RF Port to route the signal to the front panel connector. Must be set before any test.`
+  },
+  source: {
+    title: 'Source — the main UL signal generator (most important key)',
+    color: '#ff6b6b',
+    body: `<b style="color:#ff6b6b">This is the main section for UL injection setup.</b> Complete step-by-step:<br><br>
+<b>1. RF Output:</b> Start with OFF. Turn ON only after everything else is configured and cable is connected to RU.<br><br>
+<b>2. Amplitude:</b> Set injection power. Example: <span style="color:#f5a623">−95 dBm</span> for RSSI cal. Subtract cable loss to get power at RU port.<br><br>
+<b>3. Frequency:</b> Set UL band centre frequency.<br>
+&nbsp;&nbsp;B1 UL: 1950 MHz · B3 UL: 1747.5 MHz · B8 UL: 897.5 MHz · B28 UL: 728 MHz · B41: 2545 MHz<br><br>
+<b>4. Modulation → ON:</b> Must be enabled for waveform injection.<br><br>
+<b>5. Modulation Setup → ARB:</b> Select ARB (Arbitrary Waveform) mode. This plays back the pre-loaded .bin waveform file.<br><br>
+<b>6. ARB → ON:</b> Enable the ARB player.<br><br>
+<b>7. ARB → Select ARB:</b> Browse to and load the correct .bin file for your test. File names tell you the signal, BW, and offset.<br><br>
+<b>8. ARB → Sample Rate:</b> Must match the channel BW:<br>
+&nbsp;&nbsp;5 MHz → 7.68 MSPS · 10 MHz → 15.36 MSPS · 15 MHz → 23.04 MSPS · 20 MHz → 30.72 MSPS<br><br>
+<b>9. Source → RF Output → ON:</b> Only after verifying all above.`
+  },
+  mode: {
+    title: 'Mode — select FDD band or TDD (B41)',
+    color: '#9b8cf8',
+    body: `Selects the LTE band mode. This automatically configures many parameters for the selected band.<br><br>
+<b style="color:#5bc4ef">FDD modes (separate DL/UL frequencies):</b><br>
+<b>B1</b> — 2110/1920 MHz band &nbsp;|&nbsp; <b>B3</b> — 1805/1710 MHz band<br>
+<b>B8</b> — 925/880 MHz band &nbsp;|&nbsp; <b>B20</b> — 791/832 MHz band<br><br>
+<b style="color:#f5a623">TDD mode (shared DL/UL frequency):</b><br>
+<b>B41</b> — 2496–2690 MHz band. Select this for B41 TDD tests.<br><br>
+<b style="color:#ff6b6b">Key difference:</b> FDD modes automatically know DL and UL are different frequencies. TDD mode knows they are the same frequency and enables TDD pattern configuration in Mode Setup.<br><br>
+After selecting mode, go to <b>Mode Setup</b> to configure direction (DL/UL) and bandwidth.`
+  },
+  mode_setup: {
+    title: 'Mode Setup — direction (DL/UL), BW, TDD pattern',
+    color: '#9b8cf8',
+    body: `<b>Most important configuration step after selecting Mode.</b><br><br>
+<b style="color:#5bc4ef">Direction:</b> Uplink (UL) or Downlink (DL).<br>
+→ UL: EXM injects signal into RU receive port. Used for RSSI cal, sensitivity, PRACH tests.<br>
+→ DL: EXM receives/measures signal from RU transmit port. Used for power, ACLR, EVM measurements.<br><br>
+<b style="color:#00d4a0">Preset to Standard:</b> Loads the 3GPP standard configuration for the selected band and BW. Always press this first after changing mode — it sets correct carrier frequency, RB allocation, and test model.<br><br>
+<b style="color:#c8b800">Bandwidth:</b> Select 5 / 10 / 15 / 20 MHz. Must match what the RU is configured for.<br><br>
+<b style="color:#f5a623">TDD Pattern (only for B41):</b><br>
+Config format: X,Y where X = DL-to-UL config number, Y = special subframe config.<br>
+<b>Config 2,6:</b> DSUUUDSUUU — your standard config (2 DL, 6 UL per frame)<br>
+<b>Config 3,8:</b> DSUUDDSUUD — alternate config<br>
+Must exactly match the TDD configuration set in the DU. Mismatch = EXM injects in wrong subframes = 0% detection rate.`
+  },
+  meas: {
+    title: 'Meas — ACP (ACLR + channel power) and Modulation Analysis (EVM)',
+    color: '#5bc4ef',
+    body: `Selects the measurement type. <b>You use two mainly:</b><br><br>
+<b style="color:#00d4a0">ACP (Adjacent Channel Power):</b><br>
+Shows Channel Power and ACLR together. Channel Power = total power in your channel bandwidth. ACLR = power in adjacent channel relative to your channel. This is your primary DL measurement for verifying the RU is transmitting correctly and within spec (ACLR < −45 dBc).<br><br>
+<b style="color:#f5a623">Modulation Analysis:</b><br>
+Shows EVM (Error Vector Magnitude) — how accurately each symbol matches its ideal constellation point. Good result: EVM < 8% for 64QAM. Constellation display shows the IQ diagram — you can diagnose PA compression, IQ imbalance, phase noise from the constellation shape.<br><br>
+<b>Other available:</b> SEM (Spectrum Emission Mask), OBW (Occupied BW), but ACP and Modulation Analysis are your daily ones.`
+  },
+  amptd_yscale: {
+    title: 'AMPTD Y Scale — reference level and range',
+    color: '#f5a623',
+    body: `Controls the vertical scale of the measurement display.<br><br>
+<b>Reference Level:</b> The amplitude at the top of the display (dBm). Set so your signal peak is 5–10 dB below the reference level. If signal clips the top: reference level too low → increase it. If signal is a tiny blip at the bottom: reference level too high → decrease it.<br><br>
+<b>Range:</b> The total vertical span of the display. <b>Mandatory to adjust to avoid clipping.</b> If range is too small and signal clips, the measurement is wrong. Set range wide enough that the main signal and adjacent channels are both visible with headroom.<br><br>
+<b>Practical setting for DL measurement (RU TX):</b><br>
+Reference level: −10 dBm (signal at BOB SMA after 30 dB pad ≈ −17 dBm → sits 7 dB below reference)<br>
+Range: 100 dB (shows main channel and noise floor together)<br><br>
+<b>You can set manually</b> via softkeys, or use Auto Scale to let EXM choose — but always verify after Auto Scale that nothing is clipping.`
+  },
+  trigger: {
+    title: 'ARB Trigger — Source (External 2), Polarity (Pos), Ext Trig Delay',
+    color: '#ff6b6b',
+    body: `<b style="color:#ff6b6b">Most critical difference between FDD and TDD setup — and the root cause of B41 sensitivity failures.</b><br><br>
+
+<b style="color:#5bc4ef">Trigger Source → External 2</b><br>
+Always External 2. This comes from the DU or external timing source and fires once per LTE frame (every 10 ms). Without external trigger, EXM is free-running — injection is randomly timed and most UL bursts land in DL subframes.<br><br>
+
+<b style="color:#00d4a0">Ext Trig Polarity → Pos</b><br>
+Positive for both FDD and TDD. No change needed.<br><br>
+
+<b style="color:#5bc4ef">FDD (B1/B3/B8/B28) — Ext Trig Delay: OFF</b><br>
+DL and UL are on separate frequencies — completely independent. Trigger delay OFF because there is no frame alignment needed. EXM can inject UL at any time.<br><br>
+
+<b style="color:#f5a623">TDD (B41) — Ext Trig Delay: ON → 9.9765 ms</b><br>
+DL and UL share the same 2545 MHz frequency — separated only in time. EXM must inject UL waveform ONLY during UL subframes (subframes 2 and 7 in TDD Config 2). If delay is OFF or wrong value: injection lands in DL subframes or guard period → RU only captures fraction of UL burst → high BLER at given power → reports worse sensitivity than radio actually has.<br><br>
+
+<b style="color:#ff6b6b">This was the exact cause of the B41 ~5 dB sensitivity deficit</b> seen on units 26050508/26050509 — B1/B3/B8/B28 all FDD, all fine. B41 only TDD band, only one reading 5 dB behind theory and behind FDD peers. See the dedicated card: <b>TDD Trigger Delay</b>.<br><br>
+
+<b>From your screenshot:</b> Trigger Source = External 2 ✓, Ext Trig Polarity = Pos ✓, Ext Trig Delay = 9.976500 ms, state = Off ← <b style="color:#ff6b6b">must be ON for B41 tests</b>`
+  },
+  marker: {
+    title: 'Marker — mark a specific frequency on the display',
+    color: '#c8b800',
+    body: `Places a marker on the trace at a specific frequency.<br><br>
+<b>Normal marker:</b> Click on the display to place — reads frequency and amplitude at that point.<br>
+<b>Peak marker:</b> jumps to highest amplitude on the trace.<br>
+<b>Use for:</b> verifying carrier is at the correct frequency, reading adjacent channel levels manually, confirming marker is on the correct signal before taking ACLR reading.<br><br>
+<b>Practical use:</b> after setting up FREQ Channel, place a marker on the carrier peak. If it reads the expected DL frequency → setup is correct. If it reads a different frequency → check FREQ Channel setting.`
+  },
+  span_xscale: {
+    title: 'SPAN X Scale — set frequency span of display',
+    color: '#00d4a0',
+    body: `Sets how many MHz the horizontal axis covers.<br><br>
+<b>For ACP/ACLR measurement:</b> set span ≥ 5× channel BW. For 10 MHz channel: span = 50 MHz minimum, to show main channel plus two adjacent channels clearly.<br><br>
+<b>For wideband view:</b> wide span (200 MHz+) to see spurs and harmonics outside the main channel.<br><br>
+<b>For tight power check:</b> narrow span (1–5 MHz) centred on carrier for accurate channel power.<br><br>
+Adjusting span changes horizontal zoom only — does not affect the measurement limits.`
+  },
+  bw: {
+    title: 'BW — Resolution and Video Bandwidth',
+    color: '#00d4a0',
+    body: `Controls the filter bandwidth for the measurement.<br><br>
+<b>RBW (Resolution Bandwidth):</b> determines frequency resolution. For ACLR: 100 kHz RBW (3GPP standard). Narrower RBW = finer resolution but slower sweep.<br><br>
+<b>VBW (Video Bandwidth):</b> controls trace smoothing. Set VBW ≥ RBW for signal measurements. Narrow VBW smooths the trace (good for noise floor viewing).<br><br>
+<b>Auto Couple:</b> lets EXM choose RBW and VBW automatically based on span — usually fine for standard measurements.`
+  },
+  meas_setup: {
+    title: 'Meas Setup — configure ACP offsets or EVM settings',
+    color: '#5bc4ef',
+    body: `Configures the active measurement in detail.<br><br>
+<b>For ACP (ACLR):</b><br>
+Standard: LTE — sets correct channel BW, offset frequencies, and RRC filter as per 3GPP.<br>
+Offset frequencies: automatically set to ±channel BW (adjacent) and ±2×channel BW (alternate).<br>
+<b>Always use LTE preset</b> — do not set offsets manually.<br><br>
+<b>For Modulation Analysis (EVM):</b><br>
+Demodulation format: LTE UL or LTE DL depending on what you are measuring.<br>
+Subframe: select which subframe to analyse.<br>
+EVM limits: set to 3GPP spec (8% for 64QAM, 17.5% for QPSK).`
+  },
+  mode_preset: {
+    title: 'Mode Preset — reset all settings for current mode',
+    color: '#00aa00',
+    body: `<b style="color:#00aa00">Mode Preset</b> resets all measurement settings to factory defaults for the currently selected mode.<br><br>
+<b>Use when:</b> settings got changed during debugging and you want to start fresh. Much faster than manually resetting each parameter.<br><br>
+<b>User Preset (yellow button):</b> Loads YOUR saved preset — the settings you previously saved as User Preset. <b>Set up and save a User Preset for each band</b> (B1, B3, B8, B28, B41) so you can restore a known-good setup in 2 seconds. Save via: File → Save → User Preset.`
+  },
+  user_preset: {
+    title: 'User Preset — load your saved per-band configuration',
+    color: '#cc9900',
+    body: `Loads the User Preset you previously saved — restores all your customised settings for the current measurement.<br><br>
+<b>Best practice:</b> Save one User Preset per band and test type:<br>
+"B1_FDD_DL_ACLR" — all settings for B1 DL ACLR measurement<br>
+"B3_FDD_UL_RSSI" — all settings for B3 UL injection<br>
+"B41_TDD_UL" — B41 with trigger delay 9.965 ms configured<br><br>
+<b>How to save:</b> Configure everything correctly → File → Save → User Preset → name it.<br>
+<b>How to load:</b> Press User Preset → select from list.<br><br>
+This eliminates setup errors — the most common cause of wrong measurements.`
+  },
+  auto_couple: {
+    title: 'Auto Couple — let EXM choose RBW, VBW, sweep time',
+    color: '#8892b0',
+    body: `Auto Couple sets RBW, VBW, and sweep time automatically based on the span setting.<br><br>
+Good for: quick checks, standard measurements where defaults are acceptable.<br>
+Avoid when: you need specific RBW for 3GPP measurements (use 100 kHz for ACLR) — Auto Couple may choose a different value.`
+  },
+  view_display: {
+    title: 'View/Display — multi-window layout',
+    color: '#8892b0',
+    body: `Controls how many measurement windows are displayed simultaneously.<br><br>
+<b>Single window:</b> full screen for one measurement (ACP or Modulation Analysis).<br>
+<b>Multi-window:</b> show ACP + Modulation Analysis + spectrum simultaneously — see channel power, ACLR, and EVM on one screen. Very useful for DL verification — you see all TX quality metrics at once without switching modes.`
+  },
+  sweep_control: {
+    title: 'Sweep/Control — continuous vs single sweep, trigger press-run',
+    color: '#9b8cf8',
+    body: `Controls sweep mode and trigger.<br><br>
+<b>Continuous:</b> EXM sweeps repeatedly, updating measurement continuously.<br>
+<b>Single:</b> takes one sweep then holds. Use for stable ACLR reading.<br><br>
+<b>Trigger → Press Run:</b> This is the mode you use for both DL and UL at the same time. In Press Run mode, pressing the Run key triggers both the measurement (what EXM is measuring) and the injection (what EXM is transmitting) simultaneously — both DL and UL are active together. This is the correct mode for combined DL+UL tests.<br><br>
+<b>External trigger:</b> EXM waits for trigger from external source (DU frame sync) before sweeping. Correct for TDD gating.`
+  },
+  peak_search: {
+    title: 'Peak Search — jump marker to highest point',
+    color: '#8892b0',
+    body: `Moves the active marker to the frequency with the highest amplitude on the trace.<br><br>
+<b>Use for:</b> quickly finding the carrier peak after changing frequency. If Peak Search lands somewhere unexpected, the FREQ Channel is set wrong or there is an interference signal.`
+  },
+  trace_detector: {
+    title: 'Trace/Detector — trace type and detection method',
+    color: '#8892b0',
+    body: `Trace: Normal, Average, Max Hold, Min Hold.<br>
+<b>Average:</b> use for ACLR — averages multiple sweeps for a stable reading.<br>
+<b>Max Hold:</b> captures the worst case over time — useful for spotting intermittent spurs.<br><br>
+Detector: Peak, Sample, RMS. Use <b>RMS</b> detector for power measurements on OFDM signals — gives correct average power. Peak detector overestimates OFDM power due to high PAPR.`
+  },
+  marker_arrow: {
+    title: 'Marker › — marker functions',
+    color: '#c8b800',
+    body: `Accesses additional marker functions:<br>
+<b>Marker → Centre Freq:</b> sets display centre to the marker frequency — useful when you found a signal and want to zoom into it.<br>
+<b>Marker → Reference Level:</b> sets reference level to match marker amplitude — automatic Y-scale adjustment.<br>
+<b>Delta marker:</b> measures frequency and amplitude difference between two markers.`
+  },
+  save: {
+    title: 'Save — save state, trace, or screen',
+    color: '#4a5470',
+    body: `<b>Save State:</b> saves all current settings. Save one state per band/test type and reload it at the start of each session — eliminates setup errors.<br>
+<b>Save Trace:</b> exports amplitude vs frequency data as CSV.<br>
+<b>Save Screen:</b> PNG screenshot for documentation/reports.`
+  },
+  recall: {
+    title: 'Recall — load saved state',
+    color: '#4a5470',
+    body: `Loads a previously saved EXM state. Restores all settings (frequency, mode, trigger, source, etc.) to a known configuration.<br><br>
+<b>Recommended workflow:</b> at start of each test session, Recall the saved state for the current test. Never start a session by manually setting everything from scratch — too many opportunities for errors.`
+  },
+  restart: {
+    title: 'Restart — restart current measurement',
+    color: '#4a5470',
+    body: `Restarts the current measurement from the beginning — clears averaging, resets sweep.<br><br>
+<b>Use when:</b> you changed a setting (power, frequency, trigger) and want the measurement to restart fresh without old data from before the change.`
+  },
+  single: {
+    title: 'Single — take one measurement sweep',
+    color: '#4a5470',
+    body: `Takes a single sweep and holds. Use when you want a stable snapshot for reading and recording results.<br><br>
+For ACLR: set averaging to 10, press Single — EXM takes 10 averaged sweeps and holds the result. Read the ACLR value. This is the correct procedure for recording official test results.`
+  },
+  marker_fn: {
+    title: 'Marker Function — marker math and analysis',
+    color: '#c8b800',
+    body: `Applies mathematical functions to marker readings:<br>
+<b>Band Power:</b> integrates total power between two marker frequencies — for manual channel power measurement.<br>
+<b>Noise marker:</b> measures noise density at the marker point (dBm/Hz) — for noise floor characterisation.`
+  },
+},
+
+// ══════════════════════════════════════════════════════════
+vna: {
+  meas: {
+    title: 'Measurement Parameter (S-param)',
+    color: '#00d4a0',
+    body: `Selects which S-parameter to measure.<br>
+<b>S11 (Port 1 reflection):</b> input match, VSWR. Use to check cables and connectors.<br>
+<b>S21 (Port 1 → Port 2 transmission):</b> gain, insertion loss, phase. Use for cable loss and phase cal.<br>
+<b>S12 (Port 2 → Port 1):</b> reverse transmission — use for duplexer isolation measurement.<br>
+<b>S22 (Port 2 reflection):</b> output match.<br>
+<b>SCPI:</b> <code>:CALC1:PAR1:DEF S21</code>`
+  },
+  cal: {
+    title: 'Calibration',
+    color: '#ff6b6b',
+    body: `<b style="color:#ff6b6b">Always calibrate before measuring — without cal, results are meaningless.</b><br>
+<b>Cal wizard:</b> guides you through Short → Open → Load → Through (SOLT).<br>
+<b>With cables attached:</b> always calibrate with measurement cables connected — cal removes their effect.<br>
+<b>Cal invalidated by:</b> bending cables, changing adapters, temperature change > 10°C.<br>
+<b>After cal:</b> verify by measuring a LOAD — S11 should be < −40 dB.`
+  },
+  solt: {
+    title: 'SOLT Calibration',
+    color: '#ff6b6b',
+    body: `Short-Open-Load-Through calibration — the standard 2-port VNA calibration method.<br>
+<b>Step-by-step:</b><br>
+1. Set frequency range and IFBW = 1 kHz<br>
+2. Port 1: connect SHORT → press Measure Short<br>
+3. Port 1: connect OPEN → press Measure Open<br>
+4. Port 1: connect LOAD (50Ω) → press Measure Load<br>
+5. Repeat SHORT/OPEN/LOAD for Port 2<br>
+6. Connect THROUGH between ports → press Measure Through<br>
+7. Press Apply → calibration complete<br>
+8. Verify: measure LOAD on Port 1 → S11 < −40 dB ✓`
+  },
+  format: {
+    title: 'Format (Display Type)',
+    color: '#5bc4ef',
+    body: `Selects how the measurement is displayed.<br>
+<b>Log Magnitude (dB):</b> S21 amplitude in dB. Use for cable loss and gain.<br>
+<b>Phase (degrees):</b> S21 phase at the measurement frequency. Use for phase calibration per column.<br>
+<b>Group Delay:</b> rate of phase change vs frequency. Flat = constant delay = good.<br>
+<b>Smith Chart:</b> impedance matching visualisation.<br>
+<b>Polar:</b> phase + magnitude together.<br>
+<b>SCPI:</b> <code>:CALC:FORM PHAS</code> for phase.`
+  },
+  ifbw: {
+    title: 'IF Bandwidth (IFBW)',
+    color: '#5bc4ef',
+    body: `Controls measurement noise and sweep speed trade-off.<br>
+<b>1 kHz IFBW:</b> slow, very accurate, low noise floor. Use for phase calibration (±0.1° accuracy).<br>
+<b>100 kHz IFBW:</b> fast, adequate for cable loss measurement.<br>
+<b>1 MHz IFBW:</b> very fast, noisy. Use only for quick checks.<br>
+<b style="color:#ff6b6b">For phase calibration: always use 1 kHz IFBW.</b><br>
+<b>SCPI:</b> <code>:SENS:BWID 1000</code>`
+  },
+  scale: {
+    title: 'Scale',
+    color: '#5bc4ef',
+    body: `Sets the Y-axis scale (dB/division or degrees/division).<br>
+<b>For cable loss (S21 dB):</b> scale = 1 dB/div, reference at 0 dB. Cable loss will appear as a negative value (e.g. −2.5 dB).<br>
+<b>For phase calibration:</b> scale = 5°/div to see column-to-column differences clearly.<br>
+<b>Auto Scale:</b> automatically fits the trace to the display — useful after first measurement.`
+  },
+  power: {
+    title: 'Source Power',
+    color: '#f5a623',
+    body: `Sets the VNA output power for the measurement signal.<br>
+<b>Default: −10 dBm</b> — appropriate for cables, connectors, passive components.<br>
+<b>For RU phase cal:</b> keep at −10 dBm to stay in the RU's linear range. Too high may engage limiter diodes.<br>
+<b>Never exceed 0 dBm</b> for measurements involving active RU ports.<br>
+<b>SCPI:</b> <code>:SOUR:POW -10</code>`
+  },
+  center: {
+    title: 'Centre Frequency',
+    color: '#00d4a0',
+    body: `Sets the centre of the frequency sweep.<br>
+<b>For phase cal (single frequency):</b> set centre = band DL frequency. Set span = 0 Hz for single-point measurement.<br>
+<b>For cable loss over a band:</b> centre = band centre, span = band width + 20%.<br>
+<b>Phase varies with frequency</b> — always measure cable loss and phase at the exact frequency you will use.`
+  },
+  start: {
+    title: 'Start Frequency',
+    color: '#00d4a0',
+    body: `Sets the lower end of the frequency sweep.<br>
+<b>For B1 cable loss:</b> Start = 2110 MHz (DL band edge). Stop = 2170 MHz.<br>
+<b>For all 5 bands at once:</b> Start = 700 MHz, Stop = 2700 MHz (wide view, less resolution).<br>
+<b>For single-frequency phase cal:</b> Start = Stop = band centre frequency.`
+  },
+  stop: {
+    title: 'Stop Frequency',
+    color: '#00d4a0',
+    body: `Sets the upper end of the frequency sweep. See Start for full examples.<br>
+<b>B3 range (DL):</b> 1805 to 1880 MHz → stop = 1880 MHz<br>
+<b>B8 range (DL):</b> 925 to 960 MHz → stop = 960 MHz<br>
+<b>Always measure phase at the exact DL/UL centre frequency</b> for each band.`
+  },
+  span: {
+    title: 'Span',
+    color: '#00d4a0',
+    body: `Sets the frequency range of the sweep (centre ± span/2).<br>
+<b>Span = 0:</b> single-frequency CW measurement. Best for phase cal — no frequency variation.<br>
+<b>Narrow span (±20 MHz):</b> detailed view of one band's cable loss.<br>
+<b>Wide span (700–2700 MHz):</b> all bands at once, for quick cable check.<br>
+<b>SCPI:</b> <code>:SENS:FREQ:SPAN 0</code> for single-point.`
+  },
+  points: {
+    title: 'Number of Points',
+    color: '#9b8cf8',
+    body: `Sets frequency resolution of the sweep.<br>
+<b>201 points:</b> standard. Good for cable loss and phase cal over one band.<br>
+<b>801 points:</b> high resolution for detecting fine-frequency ripple in filters.<br>
+<b>Single point (span=0):</b> points setting irrelevant — only one measurement made.<br>
+More points = slower sweep. For phase cal at a single frequency, use span=0 instead of many points.`
+  },
+  avg: {
+    title: 'Averaging',
+    color: '#9b8cf8',
+    body: `Averages multiple sweeps to reduce noise.<br>
+<b>For phase cal:</b> set averaging = 10 at 1 kHz IFBW for ±0.1° phase accuracy.<br>
+<b>For cable loss:</b> averaging = 5 is sufficient.<br>
+<b>SCPI:</b> <code>:SENS:AVER:COUN 10</code> &nbsp; <code>:SENS:AVER:STAT ON</code>`
+  },
+  marker: {
+    title: 'Marker',
+    color: '#c8b800',
+    body: `Places a marker on the trace to read amplitude/phase at a specific frequency.<br>
+<b>For cable loss:</b> place marker at band centre frequency → read S21 in dB = cable loss.<br>
+<b>For phase cal:</b> place markers at band centre on each column's trace → read phase values → compute difference.<br>
+<b>Marker coupling:</b> when multiple traces active, coupling moves all markers together.`
+  },
+  search: {
+    title: 'Marker Search',
+    color: '#c8b800',
+    body: `Finds specific features on the trace automatically.<br>
+<b>Minimum search:</b> finds the frequency with lowest S21 (most loss) — useful for finding connector resonance.<br>
+<b>Maximum search:</b> finds peak transmission.<br>
+<b>Target search:</b> finds where the trace crosses a specific amplitude value — use to find the −3 dB point of a filter.`
+  },
+  bwsearch: {
+    title: 'Bandwidth Search',
+    color: '#c8b800',
+    body: `Automatically measures the 3 dB bandwidth of a filter or resonance.<br>
+<b>For bandpass filter characterisation:</b> measures the passband BW and insertion loss automatically.<br>
+<b>For duplexer:</b> verify TX passband (should pass your TX band) and RX passband separately.`
+  },
+  display: {
+    title: 'Display / Layout',
+    color: '#4a5470',
+    body: `Controls how many traces and windows are shown.<br>
+<b>Dual trace:</b> show S11 and S21 simultaneously — see both reflection and transmission of the same device.<br>
+<b>Multi-window:</b> show phase on one window and magnitude on another for cable characterisation.<br>
+<b>Overlay traces:</b> show all 4 column phase measurements on the same display to compare them visually.`
+  },
+  memtrace: {
+    title: 'Memory Trace',
+    color: '#4a5470',
+    body: `Stores the current trace in memory and displays it as a reference.<br>
+<b>Phase cal workflow:</b> measure Column A → store to memory → measure Column B → display both → read the difference directly.<br>
+<b>Before/after comparison:</b> store the trace before making a connector change → compare after to see the effect.`
+  },
+  chtr: {
+    title: 'Channel / Trace Setup',
+    color: '#4a5470',
+    body: `Configures multiple measurement channels (separate stimulus/response pairs).<br>
+<b>4-channel setup for phase cal:</b> one channel per column (A/B/C/D), all measuring S21 phase simultaneously with a switch matrix.<br>
+<b>Without switch matrix:</b> use 1 channel, measure one column at a time, save each to memory for comparison.`
+  },
+  calrecall: {
+    title: 'Calibration Recall',
+    color: '#ff6b6b',
+    body: `Loads a previously saved calibration.<br>
+<b>Save cal after SOLT</b> with the cables attached. Next day, reload the cal — valid if cables were not moved and temperature is stable (< 5°C change).<br>
+<b style="color:#ff6b6b">If in doubt: redo the cal. A 5-minute recal beats a wasted morning of wrong measurements.</b>`
+  },
+  timedomain: {
+    title: 'Time Domain (TDR)',
+    color: '#9b8cf8',
+    body: `Time Domain Reflectometry — converts S11 frequency data to time domain.<br>
+<b>Shows reflections vs time (distance):</b> each connector and impedance discontinuity appears as a spike at its physical distance from Port 1.<br>
+<b>Use for:</b> finding where a cable fault is located, verifying connector quality at each point in a cable assembly.<br>
+<b>Distance resolution:</b> depends on frequency range — wider span = better distance resolution.`
+  },
+  units: {
+    title: 'Units',
+    color: '#4a5470',
+    body: `Switches between dB (log magnitude), degrees (phase), seconds (group delay), and others.<br>
+<b>For cable loss:</b> dB<br>
+<b>For phase cal:</b> degrees<br>
+<b>For group delay:</b> nanoseconds — use to check for dispersion in filters.<br>
+<b>SCPI:</b> format and units are set together with <code>:CALC:FORM PHAS</code>`
+  },
+  numeric: {
+    title: 'Numeric Keypad',
+    color: '#4a5470',
+    body: `Direct numeric entry for frequency, power, and scale values.<br>
+<b>Workflow:</b> press Start → type 2.11 → press GHz → Start freq set to 2110 MHz.<br>
+<b>Tip:</b> for single-frequency phase cal, type the exact frequency in Start, press Enter, then type same value in Stop and press Enter. Span = 0 automatically.`
+  },
+  knob: {
+    title: 'Data Entry Knob',
+    color: '#4a5470',
+    body: `Rotary knob for step adjustments.<br>
+<b>Frequency sweep:</b> move marker along trace to read phase/amplitude at each frequency.<br>
+<b>Scale adjustment:</b> fine-tune display scale while observing the trace.<br>
+<b>Knob step size</b> depends on current parameter and display range.`
+  },
+},
+
+}; // end INST_DEFS
+
+// ── show() — display button explanation ────────────────────
+function show(inst, key) {
+  const def = INST_DEFS[inst] && INST_DEFS[inst][key];
+  const panel = document.getElementById('explain-' + inst);
+  if (!panel) return;
+  if (!def) {
+    panel.innerHTML = `<b style="color:#4a5470">${key}</b><br><span style="color:#4a5470">No detail available yet.</span>`;
+    panel.style.display = 'block';
+    return;
+  }
+  panel.innerHTML = `
+    <div style="color:${def.color};font-size:15px;font-weight:700;margin-bottom:8px">${def.title}</div>
+    <div style="color:#c8c8d8;font-size:13px;line-height:1.7">${def.body}</div>`;
+  panel.style.display = 'block';
+  // Highlight active button
+  const all = document.querySelectorAll(`#panel-${inst} .kbtn`);
+  all.forEach(b => b.style.outline = '');
+  // Find the clicked button
+  event && event.target && (event.target.style.outline = `2px solid ${def.color}`);
+}
+
+
+function phyTab(mode) {
+  document.getElementById('phy-fdd').style.display = mode==='fdd' ? 'block' : 'none';
+  document.getElementById('phy-tdd').style.display = mode==='tdd' ? 'block' : 'none';
+  document.getElementById('phy-tab-fdd').style.cssText = mode==='fdd'
+    ? 'background:#0d1a2a;border:2px solid #5bc4ef;color:#5bc4ef;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
+    : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
+  document.getElementById('phy-tab-tdd').style.cssText = mode==='tdd'
+    ? 'background:#1a1a0d;border:2px solid #c8b800;color:#c8b800;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
+    : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
+}
+
+
+function exmBtn(key) {
+  const def = INST_DEFS.exm && INST_DEFS.exm[key];
+  const panel = document.getElementById('explain-exm');
+  if (!panel) return;
+  if (!def) {
+    panel.innerHTML = '<b style="color:#4a5470">' + key + '</b><br><span style="color:#4a5470">Click the front panel buttons on the left — this panel will show what each key does for your RF tests.</span>';
+    return;
+  }
+  panel.innerHTML = '<div style="color:' + def.color + ';font-size:15px;font-weight:700;margin-bottom:8px">' + def.title + '</div>'
+    + '<div style="color:#c8c8d8;font-size:13px;line-height:1.7">' + def.body + '</div>';
+  // Highlight active button
+  document.querySelectorAll('#panel-exm [onclick]').forEach(b => b.style.outline = '');
+  if (event && event.target) event.target.style.outline = '2px solid ' + def.color;
+}
+
+</script>
