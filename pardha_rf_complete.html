@@ -748,6 +748,8 @@ body.light-mode .sec-hdr {
 
 <div class="div-line"></div>
 <div class="sec-hdr" id="start_here" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">★</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">Start Here</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">READ FIRST</span></div><div style="font-size:12px;color:#4a5470">What is RF · How to use this guide · Reading order</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('start_here')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('start_here')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="div-line"></div>
 <div id="rf_fundamentals" class="sec">
   <div class="sec-hdr">
@@ -1451,6 +1453,8 @@ body.light-mode .sec-hdr {
 
 <div class="div-line"></div>
 <div class="sec-hdr" id="foundation" style="background:linear-gradient(90deg,#9b8cf811,transparent);border-left:4px solid #9b8cf8;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔧</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#9b8cf8">RF Foundation</span><span style="background:#9b8cf822;color:#9b8cf8;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">BASICS FIRST</span></div><div style="font-size:12px;color:#4a5470">Basic definitions · TX/RX chain · ADC · RSSI · NF · DSA · KTB</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('foundation')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('foundation')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16a</span>
@@ -1458,7 +1462,7 @@ body.light-mode .sec-hdr {
     <span class="mod-level beg">Beginner–Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -1560,7 +1564,7 @@ LNA dead → sensitivity fails, all columns for that band. LNA compressed (block
     <span class="mod-level mid">Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -1633,7 +1637,7 @@ SQNR = 6.02 × N + 1.76 dB
     <span class="mod-level mid">Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -1714,7 +1718,7 @@ CLI accurate, DU off by 2–3 dB → FHGW BFP decompression issue or eCPRI timin
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -1801,7 +1805,7 @@ BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are w
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#9b8cf8">kTB in one sentence:</b> −174 dBm/Hz is the absolute minimum noise any radio can have — it comes from the random jiggling of electrons in any warm object. You cannot engineer away from this limit. Every sensitivity calculation starts here.
@@ -1889,6 +1893,8 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="course_beginner" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📗</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">Course — Beginner</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">M01–M08</span></div><div style="font-size:12px;color:#4a5470">M01–M08 · Decibel · 50-Ohm · RF Chain · Metrics · Modulation · DL TX · ACLR · PRACH</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('course_beginner')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('course_beginner')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M01</span>
@@ -1896,7 +1902,7 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="340" fill="#0d0f14" rx="8"/>
@@ -2087,7 +2093,7 @@ RF signals span 13 orders of magnitude in power — from a 20W PA (+43 dBm) to a
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="300" fill="#0d0f14" rx="8"/>
@@ -2262,7 +2268,7 @@ VSWR = (1 + |Γ|) / (1 − |Γ|)           ← near 1 is better</div>
   <span class="mod-level beg">Beginner–Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -2401,7 +2407,7 @@ Sensitivity = −174 + 10×log₁₀(BW_Hz) + NF + required_SNR</div>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -2495,7 +2501,7 @@ TRP = EIRP integrated over the full sphere</div>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
@@ -2748,7 +2754,7 @@ If the I and Q paths have amplitude or phase mismatch, the constellation rotates
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">DL TX chain in one sentence:</b> CFR clips the signal peaks so the PA does not have to handle massive spikes, then DPD pre-distorts the signal so the PA's natural nonlinearity is cancelled out — together they let you run the PA close to full power while still meeting the ACLR limit.</div>
 
 
@@ -2864,7 +2870,7 @@ DPD adapts its pre-distortion polynomial coefficients by comparing the PA output
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #c8b800;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#c8b800;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#c8b800">ACLR in one sentence:</b> When you transmit, your signal should stay neatly inside your assigned frequency channel. ACLR measures how much leaks into the neighbouring channel. Think of it as "staying in your lane" — the 3GPP limit says your leakage must be 45 dB weaker than your main signal. Failure means your PA is nonlinear and DPD is not fixing it properly.
@@ -2959,7 +2965,7 @@ B41 is TDD — the PA transmits only during DL subframes. EXA must be gated to m
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">PRACH in one sentence:</b> When a phone wants to join the network, it shouts a special code (Zadoff-Chu preamble) — the base station must hear this code even when the phone is at the cell edge, which is exactly what your sensitivity test verifies.</div>
 
 
@@ -3044,6 +3050,8 @@ When a PRACH is detected, the RU measures the arrival time of the correlation pe
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="course_intermediate" style="background:linear-gradient(90deg,#5bc4ef11,transparent);border-left:4px solid #5bc4ef;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📘</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#5bc4ef">Course — Intermediate</span><span style="background:#5bc4ef22;color:#5bc4ef;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">M09–M13</span></div><div style="font-size:12px;color:#4a5470">M09–M13 · AAU Architecture · RFFE Diagram · FHGW · Lab Practice · PA Efficiency · RCT Config · RU Features</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('course_intermediate')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('course_intermediate')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09</span>
@@ -3051,7 +3059,7 @@ When a PRACH is detected, the RU measures the arrival time of the correlation pe
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">AAU architecture in one sentence:</b> Your Metro AAU has two boards — a digital board (midBRD) that processes the signal and a radio board (RFFE) that amplifies and transmits it — and four columns (A/B/C/D) each doing this independently so they can steer the beam.</div>
 
 
@@ -3204,7 +3212,7 @@ DPD needs to observe the PA output to adapt. A single observation receiver (ORX)
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -3298,7 +3306,7 @@ The directional coupler taps a fixed fraction of the main TX signal (−30 dB = 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="180" fill="#0d0f14" rx="8"/>
@@ -3377,7 +3385,7 @@ DFE performs interpolation (upsampling from symbol rate to DAC rate) and frequen
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Reading real lab screenshots — EXM ACP and Modulation Analysis</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">EXA ACP display — field by field:</b><br>
@@ -3571,7 +3579,7 @@ EVM is shown as a percentage. Lower = better. Limits: QPSK &lt; 17.5%, 16QAM &lt
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">Lab practice in one sentence:</b> Before every test session, you verify three things — that your cable loss is measured, your EXM output is accurate, and your DPD has converged — because 3 out of 4 test failures are caused by setup errors, not hardware faults.</div>
 
 
@@ -3718,7 +3726,7 @@ All Keysight instruments listen on TCP port 5025 for SCPI commands. Connect via 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#f5a623">PA efficiency in one sentence:</b> The PA converts DC electricity into RF — but only 35% becomes useful signal; the rest becomes heat. Dynamic Vdd reduces this heat by lowering the supply voltage when the signal is quiet, just like dimming a light when you don't need full brightness.</div>
 
 
@@ -3819,7 +3827,7 @@ GaN PA junction temperature limit: typically 150–200°C. At 20W output and 35%
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #c8b800;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#c8b800;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#c8b800">tc_cadence.json in one sentence:</b> This is the master test script — it tells RuAuto what band to test, what power to inject, what limits to check, and what to measure, so every test runs the same way every time without manual setup.</div>
 
 
@@ -3949,7 +3957,7 @@ When RuAuto reports a failure, it includes Group-ID and Test-ID. Group_TX_POWER 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">RU features in one sentence:</b> uSleep turns the PA off when no users are connected (saves 70% power), PA protection shuts it down if it gets too hot, and IQ playback records what the RU received so you can replay it later for debugging.</div>
 
 
@@ -4726,6 +4734,8 @@ IQ playback captures raw ADC samples (IQ data) from the RX chain and stores them
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="course_expert" style="background:linear-gradient(90deg,#f5a62311,transparent);border-left:4px solid #f5a623;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📕</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#f5a623">Course — Expert</span><span style="background:#f5a62322;color:#f5a623;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">M14–M16 + A + L-SERIES</span></div><div style="font-size:12px;color:#4a5470">M14–M16 · A01–A15 · EXP series · L-series · WHY · PATH</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('course_expert')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('course_expert')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M14</span>
@@ -4733,7 +4743,7 @@ IQ playback captures raw ADC samples (IQ data) from the RX chain and stores them
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">RSSI in one sentence:</b> RSSI is the radio's report of how strong a signal it received — but the raw number is in ADC counts (dBFS), and you need a calibration constant (ADC_ADJUST) to convert it to the real-world power in dBm that you can compare to your EXM injection.</div>
 
 
@@ -4835,7 +4845,7 @@ All three (EXM, CLI, DU) off → EXM not calibrated, or cable loss not subtracte
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">UL RCT in one sentence:</b> The uplink RCT test injects a known signal from the EXM into the RU receive port and checks that the RU correctly reports the signal power — if it reports wrong, something is wrong with the receive chain or calibration.</div>
 
 
@@ -4943,7 +4953,7 @@ ul-rct-test 10 a34 0                   # → BLER 0.00%  SNR 24.6 dB</div>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#f5a623">TDD in one sentence:</b> Band 41 cannot transmit and receive at the same time — it takes turns, transmitting in some time slots and receiving in others, which means your EXA measurements must be gated to only the transmit slots, otherwise the results will be wrong.</div>
 
 
@@ -5117,7 +5127,7 @@ B41 ACLR must be measured with EXA gating on DL subframes only. PRACH arrives in
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -5234,7 +5244,7 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
   <span class="mod-level beg">Beginner–Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <div class="mod-section-title">2.1 Thermal noise — the fundamental floor</div>
 <div class="mod-p">Every resistor at temperature T generates random voltage fluctuations due to thermal agitation of electrons. This is Johnson-Nyquist noise. The available noise power is:</div>
@@ -5281,7 +5291,7 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
   <span class="mod-level beg">Beginner–Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">S-parameters in one sentence:</b> S-parameters are the VNA's way of measuring how a component handles RF — S11 tells you how much signal bounces back (is the impedance matched?), and S21 tells you how much gets through (what is the gain or loss?).</div>
 
 
@@ -5391,7 +5401,7 @@ S11 (cable/connector quality): both ports, check S11 < −20 dB at band frequenc
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#00d4a0">LTE air interface in one sentence:</b> LTE divides the channel into thousands of tiny 15 kHz subcarriers (OFDM), assigns groups of them to each user (resource blocks), and switches between FDD (separate frequencies for up/down) or TDD (same frequency, different time slots) depending on the band.</div>
 
 
@@ -5506,7 +5516,7 @@ Benefits: flat fading per subcarrier (simple equalisation), flexible resource al
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#5bc4ef">TX chain in one sentence:</b> The transmit chain takes a tiny digital signal from the computer and amplifies it up to a powerful radio wave that shoots out the antenna. Like a whisper going into a microphone, through an amplifier, and out a loudspeaker — except the "loudspeaker" is a 20-watt radio wave.
@@ -5685,7 +5695,7 @@ ACLR (Adjacent Channel Leakage Ratio) measures how much of the TX signal power s
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#00d4a0">RX chain in one sentence:</b> The receive chain catches a faint radio signal from a distant phone (weaker than a whisper) and carefully amplifies it without adding too much noise — so the computer can understand what the phone said. The LNA (Low Noise Amplifier) is the most critical part: it is the first thing that touches the signal and its quality determines everything that follows.
@@ -5843,7 +5853,7 @@ The 12-bit ADC samples the analog baseband IQ signal at 122.88 MSPS (mega sample
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">Beamforming in one sentence:</b> By applying a slightly different timing (phase shift) to each of the four antenna columns, the signals add up strongly in one direction and cancel out in others — like four people clapping in sync to make the sound louder in one spot.</div>
 
 <svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
@@ -5941,7 +5951,7 @@ Each column's TX path (from digital beamformer output to antenna element) has sl
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #c8b800;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#c8b800;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#c8b800">Channel models in one sentence:</b> In your lab, the cable gives a perfect connection (AWGN) — but in the real world, signals bounce off buildings and arrive at different times (multipath), which is what EPA/EVA/ETU channel models simulate to test how the RU handles messy real conditions.</div>
 
 
@@ -6068,7 +6078,7 @@ PropSim is a hardware channel emulator that sits between EXM and RU. It applies 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#5bc4ef">Test automation in one sentence:</b> RuAuto reads your test configuration (tc_cadence.json), tells EXM to inject the right signal, tells EXA to measure the right things, waits for DPD to converge, reads the RU's response, and writes PASS or FAIL — all without you touching anything.</div>
 
 <svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
@@ -6160,7 +6170,7 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d0d;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#ff6b6b">Troubleshooting in one sentence:</b> Never replace hardware until you have found the root cause. Use the 5-Why method: ask "why did this fail?" five times until you reach the actual cause (not the symptom). In RF, 3 out of 4 "failures" are measurement setup errors — wrong attenuation, DPD not converged, cable not calibrated — not hardware faults.
@@ -6286,7 +6296,7 @@ Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct co
     <span class="mod-level mid">Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#5bc4ef">Link budget in one sentence:</b> A link budget is simply an accounting exercise — start with transmit power, subtract all the losses along the way (distance, walls, rain), and check what is left at the receiver is above the sensitivity threshold. If it is: coverage. If not: no signal. The uplink (phone to tower) is always the weaker direction because the phone has much less power than the tower.
@@ -6423,7 +6433,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 
   <div class="mod-section-title">12.1 What phase noise actually is</div>
   <div class="mod-p">An ideal oscillator produces a perfect sine wave at exactly frequency f₀. Real oscillators produce a signal whose frequency wanders slightly from moment to moment, and whose phase drifts randomly. This random phase jitter is phase noise. On a spectrum analyzer, instead of a perfect single spike at f₀, you see a skirt of energy spreading out from the carrier on both sides — the "noise floor" rises as you approach the carrier frequency.</div>
@@ -6454,7 +6464,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#9b8cf8">5G beam management in one sentence:</b> The gNB sweeps a beam across 64 directions (SSB), the UE picks the strongest one and says "that one", then finer beams (CSI-RS) narrow it down further — and for TDD like B41, the gNB can also use the UE's uplink signal (SRS) to figure out the best direction without the UE having to report anything.</div>
 
 
@@ -6549,7 +6559,7 @@ SRS (Sounding Reference Signal) is transmitted by the UE and received by the gNB
     <span class="mod-level beg">Beginner–Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <div style="background:#1a0d0d;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7"><span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span><b style="color:#ff6b6b">Connectors in one sentence:</b> An SMA connector that is not torqued to exactly 0.9 N·m (or has a bent pin, or contamination) can add VSWR that degrades your sensitivity measurement by 0.5 dB — making a passing RU look like a failing one, or vice versa.</div>
 
 
@@ -6637,7 +6647,7 @@ RG316 (flexible, your lab cables): 2.5 dB/m @ 2 GHz. A 1m cable = −2.5 dB. LMR
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="140" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">O-RAN Architecture — O-RU / O-DU / O-CU Split (7.2x)</text>
@@ -6778,7 +6788,7 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
@@ -6955,7 +6965,7 @@ Real ADCs: SFDR typically 3–10 dB below theoretical due to harmonics, clock ji
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
@@ -7220,7 +7230,7 @@ else:
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <!-- EXP3 SVG 1: Conduction Angle Circle -->
 <svg width="100%" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
@@ -7450,7 +7460,7 @@ Class AB PA efficiency is highest at peak power and drops at lower power levels.
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -7623,7 +7633,7 @@ For B1 10 MHz:
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -7750,7 +7760,7 @@ UE then transmits that much earlier so signal arrives aligned at eNB</div>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -7856,7 +7866,7 @@ If hardware.json is wrong (offset not calibrated for your unit):
   <span class="mod-level beg">Foundation</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">L0 Electronics Foundation — Concepts You Must Know Before RF</text>
@@ -7956,7 +7966,7 @@ Learn these rules cold: +3dB=×2 power, +10dB=×10. 0dBm=1mW, +30dBm=1W, −30dB
   <span class="mod-level beg">Level 1</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="280" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">L1 Digital Communications — Modulation Comparison</text>
@@ -8046,7 +8056,7 @@ OFDM converts a wideband channel into many narrow subchannels (15 kHz each). Eac
   <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="320" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#f5a623" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">L3 RF Measurements — Complete Map (Your Daily Work)</text>
@@ -8138,7 +8148,7 @@ SEM verifies TX spectral purity across a wide frequency range — not just the a
   <span class="mod-level mid">Level 4</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="240" fill="#0d0f14" rx="8"/>
   <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">L4 RF Signal Chain — TX (top) and RX (bottom)</text>
@@ -8277,7 +8287,7 @@ Antenna → duplexer/T-R switch → pre-BPF → LNA → post-BPF → mixer → V
   <span class="mod-level adv">Your Work ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="300" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#f5a623" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">O-RAN Architecture — Your Daily Environment</text>
@@ -8366,7 +8376,7 @@ TDD requires all gNBs in a network to switch from DL to UL at exactly the same t
   <span class="mod-level adv">Daily Tools ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="240" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Test Equipment — Your Lab Arsenal</text>
@@ -8445,7 +8455,7 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="300" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">TX Power Failure — Debug Decision Tree</text>
@@ -8528,7 +8538,7 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
   <span class="mod-level adv">Interview ⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Interview preparation — what RF test engineer interviews actually ask</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">The 5 questions every RF test engineer interview includes:</b><br>
@@ -8566,7 +8576,7 @@ RF knowledge is secondary — they want to see: (1) Do you think systematically?
   <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="380" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Complete RF System Architecture — TX + RX + Every Block Purpose</text>
@@ -8684,7 +8694,7 @@ gNB TX: +43 dBm (20W) per column at antenna port. Free space loss at 1km, 2140MH
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="300" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Impairments — Source, Effect on Signal, How to Measure</text>
@@ -8781,7 +8791,7 @@ As input power approaches P1dB, PA gain drops. In the constellation: all points 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Synchronisation Hierarchy — GPS → Network → RU</text>
@@ -8858,7 +8868,7 @@ No PTP lock → DU operates in freerun → TDD frame timing is arbitrary → DL/
   <span class="mod-level adv">L21</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="130" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Timing Advance — Propagation Delay Compensation</text>
@@ -8887,7 +8897,7 @@ No PTP lock → DU operates in freerun → TDD frame timing is arbitrary → DL/
   <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="280" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Beamforming Types — Analog vs Digital vs Hybrid</text>
@@ -8986,7 +8996,7 @@ Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 
   <span class="mod-level adv">L23 ⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="150" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">MIMO Evolution — SISO → 2x2 → 4T4R → 64T64R → MU-MIMO</text>
@@ -9035,7 +9045,7 @@ Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="240" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Calibration Types — What, When, Why</text>
@@ -9119,7 +9129,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
   <span class="mod-level adv">L25 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="130" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Temperature Effects — RF Performance Across Operating Range</text>
@@ -9162,7 +9172,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
   <span class="mod-level adv">L26 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Environmental Tests — Making the RU Survive the Real World</text>
@@ -9206,7 +9216,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
   <span class="mod-level adv">L27 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Power Supply Testing — Sequencing, Inrush, Ripple, Brownout</text>
@@ -9245,7 +9255,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="260" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Fault Management — Alarm → Root Cause → Action</text>
@@ -9317,7 +9327,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L29 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">O-RAN M-Plane — NETCONF/YANG over O1 Interface</text>
@@ -9359,7 +9369,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L30 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Transport — eCPRI Fronthaul to Core Backhaul</text>
@@ -9404,7 +9414,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L31 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Linux Commands — Daily Essentials for RF Engineers</text>
@@ -9441,7 +9451,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L32 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="110" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RF Test Automation Stack</text>
@@ -9480,7 +9490,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L33 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="110" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RF Safety — Human Exposure, EMC, EIRP Limits</text>
@@ -9519,7 +9529,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L34 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="110" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Standards Bodies — Who Sets the RF Rules</text>
@@ -9563,7 +9573,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L35 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="110" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Manufacturing Flow — PCB to Shipped Product</text>
@@ -9611,7 +9621,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L36 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="100" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Certification Path — Lab to Market</text>
@@ -9654,7 +9664,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L37 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="100" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Customer Acceptance — Lab to Live Network</text>
@@ -9697,7 +9707,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="240" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">KPI Correlation — How RF Failures Become Customer Complaints</text>
@@ -9776,7 +9786,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="300" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">End-to-End Troubleshooting Framework</text>
@@ -9873,7 +9883,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L40 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="110" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Product Lifecycle — Where RF Validation Fits</text>
@@ -9922,7 +9932,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L41 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Telecom Business — Why RF Quality Has Financial Consequences</text>
@@ -9959,7 +9969,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">Future ⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="220" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">AI for RF — Current and Near-Future Applications</text>
@@ -10018,7 +10028,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
   <span class="mod-level adv">L43 ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="100" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Interview Scenarios — Systematic Debug Method</text>
@@ -10081,7 +10091,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
   <span class="mod-level adv">L44 ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Lab Instrument Mastery — Every RF Engineer Must Know These</text>
@@ -10191,7 +10201,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
   <span class="mod-level adv">L45 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="120" fill="#0d0f14" rx="8"/>
   <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Company Focus Areas — Tailor Your Preparation</text>
@@ -10234,7 +10244,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
   <span class="mod-level adv">Master Framework</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="280" fill="#0d0f14" rx="8"/>
   <text x="400" y="22" fill="#f5a623" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">The "Why?" Framework — Applied to Every Topic</text>
@@ -10336,7 +10346,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
   <span class="mod-level beg">All Levels</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Complete RF mastery path — all channels, videos, reading order</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">Recommended study order for your role:</b><br>
@@ -10396,6 +10406,8 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="features" style="background:linear-gradient(90deg,#ff6b6b11,transparent);border-left:4px solid #ff6b6b;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">⚙️</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#ff6b6b">Features</span><span style="background:#ff6b6b22;color:#ff6b6b;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">RCT FEATURES</span></div><div style="font-size:12px;color:#4a5470">All RCT features in-depth · PA Protection · RSSI · NF · DSA · TDD Trigger · Cadence Groups</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('features')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('features')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">FC01</span>
@@ -10636,7 +10648,7 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d0d;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#ff6b6b">Thermal noise in one sentence:</b> Any object above −273°C (absolute zero) has electrons randomly moving around — that random movement creates a tiny electrical noise. In your RU, every resistive component (cable, duplexer, LNA input) generates this noise. The LNA then amplifies it along with the wanted signal. This is why you cannot build a perfectly silent receiver.
@@ -10737,7 +10749,7 @@ Noise voltage Vn = √(4kTBR). For a 50Ω system at 290K in 1MHz bandwidth: Vn =
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 NF is the SNR degradation caused by your RX chain. It is the third term in the sensitivity formula after kTB+BW. Your system NF = 5.75 dB built up from the Friis chain — see NCH card. Full sensitivity derivation is in DSA card.<br>
@@ -10781,7 +10793,7 @@ EXM injects at sensitivity threshold. Sensitivity = kTB_floor + NF + SNR_req. If
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 Friis cascade formula explains how your 5.75 dB system NF is built from individual component NFs. This NF feeds directly into the sensitivity formula. See DSA card for full chain, NCH card for numerical calculation.<br>
@@ -10833,7 +10845,7 @@ The duplexer and pre-BPF are fixed inside the RFFE — you cannot change them. T
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 Passive devices add NF equal to their loss — this directly worsens system NF and therefore sensitivity. Every 0.1 dB extra cable loss before the LNA = 0.1 dB worse sensitivity.<br>
@@ -10904,7 +10916,7 @@ A single SMA connector in good condition has approximately 0.1–0.15 dB inserti
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 5 noise types exist. Thermal noise (kTB) is what the sensitivity formula is based on. Phase noise limits EVM. Quantisation noise limits ADC dynamic range. All three affect your daily measurements.<br>
@@ -10983,7 +10995,7 @@ Every ADC rounds the analog signal to the nearest discrete level. With 12 bits, 
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 NF in practice: the EXA preamp lowers the analyser NF for measuring weak signals. Per-band NF differences (B1=2.44, B8=3.15 dB) are what drive the different DSA offsets in the test table.<br>
@@ -11043,7 +11055,7 @@ If your sensitivity test fails by X dB, and you have confirmed cable loss and EX
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:4px solid #5bc4ef;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#5bc4ef;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#5bc4ef">NF calibration in one sentence:</b> This is how you measure whether your LNA and RX chain are generating as little noise as expected. You inject two known noise levels (hot and cold) and measure how much noise the chain adds — that added noise is the Noise Figure. It tells you if the hardware is healthy, but it does not write any correction values.
@@ -11153,7 +11165,7 @@ If measured NF > spec by more than 1 dB: (1) Check cable loss — every 0.1 dB e
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#00d4a0">Gain calibration in one sentence:</b> This is how you teach the radio to report accurate power readings. You inject a signal of exactly known power, see what the radio reports, and find the offset between them. That offset (ADC_ADJUST) is saved so future readings are accurate. RX gain cal = RSSI cal — they are the same procedure called by two different names.
@@ -11289,7 +11301,7 @@ They are the same operation from opposite ends of the RX chain. RSSI cal (ADC_AD
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 Sensitivity = kTB + 10·log(BW) + NF + SNR_req. This card explains what sensitivity <i>means</i> physically. For the full derivation including per-band DSA calculation, see DSA card.<br>
@@ -11341,7 +11353,7 @@ A wider channel (wider bandwidth) collects more thermal noise — like a wider b
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 SNR_required is the last term in the sensitivity formula. This card explains what drives it: modulation order and coding rate. QPSK 1/3 gives the best (lowest) sensitivity — this is why FRC A1 is the standard sensitivity test.<br>
@@ -11402,7 +11414,7 @@ QPSK has only 4 constellation points — they are spread far apart in the IQ pla
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#00d4a0">DSA in one sentence:</b> Because each frequency band (B1, B3, B8, B28, B41) has slightly different hardware quality, they each have a slightly different "hearing ability" (sensitivity). DSA is the lookup table that tells the test instrument exactly how loud to play the test signal for each band — so every band gets a fair test at its own correct threshold, not someone else's.
@@ -11575,7 +11587,7 @@ B1 at RU port: −91.65 − 2.5 = −94.15 dBm → compare to sensitivity −99.
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
 <b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
 This card explains every column in the DSA measurement table in detail. For the full chain (kTB → NF → Sensitivity → DSA offset calculation), see DSA card.<br>
@@ -11668,7 +11680,7 @@ MRC (Maximum Ratio Combining) does not simply add signals — it weights each ch
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#f5a623">Noise chain in one sentence:</b> Every component between the antenna and the ADC adds a tiny amount of its own noise. This card shows exactly how much each component contributes, why the LNA dominates, and why a longer cable on the bench will directly worsen your sensitivity measurement.
@@ -11824,7 +11836,7 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <div style="background:#1a1a0d;border-left:4px solid #f5a623;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#f5a623;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#f5a623">RSSI calibration in one sentence:</b> RSSI cal is the same as RX gain calibration — inject known power from EXM, read what the ADC reports in dBFS, compute the difference (ADC_ADJUST), save it. From then on, the radio can convert any ADC reading into an accurate power in dBm. The test passes when all three sources (EXM, CLI, DU) agree within ±2 dB.
@@ -11977,7 +11989,7 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
   <span class="mod-level adv">⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <div style="background:#1a0000;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST — real lab finding</span>
@@ -12163,7 +12175,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
   <span class="mod-level beg">Reference</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 140" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
   <rect width="800" height="140" fill="#0d0f14" rx="8"/>
@@ -12227,6 +12239,8 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="instruments" style="background:linear-gradient(90deg,#5bc4ef11,transparent);border-left:4px solid #5bc4ef;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔬</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#5bc4ef">Instruments</span><span style="background:#5bc4ef22;color:#5bc4ef;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">KEYSIGHT</span></div><div style="font-size:12px;color:#4a5470">EXM E6640A · EXA N9010B · VNA E5071C · Live EXA · VNA Phase Cal · RCT Bench Setup</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('instruments')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('instruments')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="div-line"></div>
 <div style="max-width:960px;margin:0 auto;padding:48px 24px">
   <div class="sec-hdr" style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)">
@@ -12671,7 +12685,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
   <span class="mod-level mid">Reference</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="280" fill="#0d0f14" rx="8"/>
@@ -12832,7 +12846,7 @@ Preamp ON with TX signal → input compression → ACLR reads 10–15 dB better 
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -12917,7 +12931,7 @@ Freq range: single point or narrow span (±10 MHz) around band centre. IFBW: 1 k
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
 <span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
 <b style="color:#9b8cf8">VNA calibration in one sentence:</b> Before you can trust any VNA measurement, you must remove the errors introduced by the cables and connectors between the VNA and your device. SOLT calibration (Short-Open-Load-Through) does this in 12 steps. Skip it and your S21 phase measurement includes the cable electrical length — meaningless for comparing column-to-column phase.
@@ -13054,7 +13068,7 @@ Procedure:
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="180" fill="#0d0f14" rx="8"/>
@@ -13174,7 +13188,7 @@ So Cable B is 0.91 mm longer than Cable A. Trim 0.91 mm off Cable B to match.</d
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -13286,7 +13300,7 @@ Col A: −125.4° (ref). Col B: −127.1° → Δ = −1.7° (within ±2° ✓).
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -13404,7 +13418,7 @@ Your B1/B3 4-column array (12 elements):
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -13519,7 +13533,7 @@ Full recal: whenever you change cable, add/remove adapter, or temperature change
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 
 <svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
   <rect width="800" height="200" fill="#0d0f14" rx="8"/>
@@ -13648,7 +13662,7 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>RCT bench setup — connections, instruments, pre-test checklist</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">Complete connection map:</b><br>
@@ -13802,6 +13816,8 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
 
 <div class="div-line"></div>
 <div class="sec-hdr" id="test_configurations" style="background:linear-gradient(90deg,#c8b80011,transparent);border-left:4px solid #c8b800;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🧪</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#c8b800">Test Configurations</span><span style="background:#c8b80022;color:#c8b800;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">RCT + OTA + CONFIG</span></div><div style="font-size:12px;color:#4a5470">RCT Tests · OTA Tests · Test Config JSON · All test procedures</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('test_configurations')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('test_configurations')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="div-line"></div>
 <div id="testconfig" class="sec">
   <div class="sec-hdr">
@@ -14283,6 +14299,8 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
 
 <div class="div-line"></div>
 <div class="sec-hdr" id="docs_videos" style="background:linear-gradient(90deg,#4a547011,transparent);border-left:4px solid #4a5470;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📁</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#4a5470">Docs & Videos</span><span style="background:#4a547022;color:#4a5470;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">REFERENCE</span></div><div style="font-size:12px;color:#4a5470">PPT/Docs · Operations guides · Expert video series · Channels</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('docs_videos')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('docs_videos')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT1</span>
@@ -14290,7 +14308,7 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>RSSI ADC calibration results — actual data from your units</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">What this document contains:</b><br>
@@ -14341,7 +14359,7 @@ XSA: vvdn_dbru_4cc_top.bit</div>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>PA efficiency test plan — 5-band AAU, Dynamic Vdd</h4>
 <div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#c8b800">PA efficiency test method:</b><br>
@@ -14396,7 +14414,7 @@ Pre-CFR Gain register 0xb0290000:
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>FHGW embedded RCT — standalone UL test, CLI commands</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">FHGW standalone mode:</b><br>
@@ -14454,7 +14472,7 @@ Debug: per-stage timing + full PHY logs + constellation output</div>
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>4G test plan — band mapping, rated power, antenna ports</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">Band to BOB SMA port mapping:</b><br>
@@ -14535,7 +14553,7 @@ tail -f /var/log/synctimingptp2.log  # should show synchronized + errors &lt;10 
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Validation team handbook — Agile, CI/CD, PreChecks</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">Pre-check before any test session:</b><br>
@@ -14589,7 +14607,7 @@ Flow:
     <span class="mod-level mid">All Levels</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <h4>Week-by-week learning plan</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">How to use this plan:</b><br>
@@ -14623,7 +14641,7 @@ DSA (sensitivity and test thresholds), A05 (TX chain), A06 (RX chain), NCH (nois
     <span class="mod-level beg">Reference</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
-  <div class="module-body">
+  <div class="module-body" style="display:none">
 <h4>Top channels and videos — RF learning resources</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">Best YouTube channels for RF:</b><br>
@@ -14684,7 +14702,7 @@ How DPD works (Keysight application notes). VNA calibration procedure (Keysight 
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Constellation diagram diagnosis — reading IQ impairments</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">Constellation shape → root cause:</b><br>
@@ -14741,7 +14759,7 @@ If you see EVM > 1% with everything calibrated → DPD or PA issue.</div>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Spectrum analyser ACLR measurement — step by step setup</h4>
 <div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#00d4a0">EXA ACLR setup procedure:</b><br>
@@ -14805,7 +14823,7 @@ verdict = 'PASS' if min(abs(result[1]), abs(result[2])) >= aclr_kpi else 'FAIL'<
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>Spectrum analyser deep dive — FFT, RBW, VBW, dynamic range</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">RBW — Resolution Bandwidth:</b><br>
@@ -14883,7 +14901,7 @@ For REFSENS test (−69 dBm in 10 MHz):
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
-<div class="module-body">
+<div class="module-body" style="display:none">
 <h4>RF engineering topics — signal chain, IQ, mixers</h4>
 <div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
 <b style="color:#5bc4ef">Signal chain mental model:</b><br>
@@ -14960,897 +14978,192 @@ Converting dBFS → dBm:
 
   
 <script>
+// ── Card toggle ────────────────────────────────────────────────────────────
 function toggleModule(el) {
   const body = el.nextElementSibling;
   const chevron = el.querySelector('.chevron');
-  const status = el.querySelector('.mod-status');
-  // Use inline style as single source of truth (works with both CSS class and search override)
-  const isOpen = body.style.display === 'block' || 
-                 (body.style.display === '' && body.classList.contains('open'));
-  if (isOpen) {
-    body.style.display = 'none';
-    body.classList.remove('open');
-    if (chevron) chevron.textContent = '▾';
-    if (status) status.textContent = 'click to expand';
-  } else {
-    body.style.display = 'block';
-    body.classList.add('open');
-    if (chevron) chevron.textContent = '▴';
-    if (status) status.textContent = 'expanded';
+  const status = el.querySelector('.mod-status, .mod-expand, .mod-status');
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (chevron) chevron.textContent = isOpen ? '▾' : '▴';
+  if (status)  status.textContent  = isOpen ? 'click to expand' : 'expanded';
+}
+
+// ── Section expand / collapse ──────────────────────────────────────────────
+function expandSection(sectionId) {
+  const hdr = document.getElementById(sectionId);
+  if (!hdr) return;
+  // Find all cards until next section header
+  let el = hdr.nextElementSibling;
+  while (el) {
+    if (el.classList && el.classList.contains('sec-hdr') && el !== hdr) break;
+    if (el.classList && el.classList.contains('module-card')) {
+      const body = el.querySelector('.module-body');
+      const chevron = el.querySelector('.chevron');
+      const status = el.querySelector('.mod-status, .mod-expand');
+      if (body) body.style.display = 'block';
+      if (chevron) chevron.textContent = '▴';
+      if (status) status.textContent = 'expanded';
+    }
+    el = el.nextElementSibling;
   }
 }
-// Auto-expand first module in each section on load
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.module-hdr').forEach(function(hdr) {
-    const body = hdr.nextElementSibling;
-    if (body) body.style.display = 'none';
-  });
-});
 
-// ── Card search / filter ──────────────────────────────────
+function collapseSection(sectionId) {
+  const hdr = document.getElementById(sectionId);
+  if (!hdr) return;
+  let el = hdr.nextElementSibling;
+  while (el) {
+    if (el.classList && el.classList.contains('sec-hdr') && el !== hdr) break;
+    if (el.classList && el.classList.contains('module-card')) {
+      const body = el.querySelector('.module-body');
+      const chevron = el.querySelector('.chevron');
+      const status = el.querySelector('.mod-status, .mod-expand');
+      if (body) body.style.display = 'none';
+      if (chevron) chevron.textContent = '▾';
+      if (status) status.textContent = 'click to expand';
+    }
+    el = el.nextElementSibling;
+  }
+}
+
+// ── Search: dropdown results, click-to-jump (no auto-expand) ──────────────
+let searchDropdown = null;
+
 function filterCards(query) {
   const q = query.trim().toLowerCase();
-  const cards = document.querySelectorAll('.module-card');
-  let firstMatch = null;
-  let visible = 0;
+  // Remove existing dropdown
+  if (searchDropdown) { searchDropdown.remove(); searchDropdown = null; }
+  const countEl = document.getElementById('search-count');
+  if (!q) {
+    if (countEl) countEl.textContent = '';
+    return;
+  }
 
+  const cards = document.querySelectorAll('.module-card');
+  const results = [];
   cards.forEach(card => {
     const text = card.textContent.toLowerCase();
-    const matches = !q || text.includes(q);
-    const body = card.querySelector('.module-body');
-
-    if (matches) {
-      card.classList.remove('search-hidden');
-      visible++;
-      if (q && body) {
-        body.style.display = 'block'; // expand matching cards
-        body.classList.add('open');
-        const chevron = card.querySelector('.chevron');
-        const status  = card.querySelector('.mod-status');
-        if (chevron) chevron.textContent = '▴';
-        if (status)  status.textContent  = 'expanded';
-      }
-      if (!firstMatch) firstMatch = card;
-    } else {
-      card.classList.add('search-hidden');
-      // Collapse non-matching to save space
-      if (body && body.style.display === 'block') {
-        body.style.display = 'none';
-      }
+    if (text.includes(q)) {
+      const numEl = card.querySelector('.mod-num');
+      const titleEl = card.querySelector('.mod-title');
+      const num = numEl ? numEl.textContent.trim() : '';
+      const title = titleEl ? titleEl.textContent.trim() : '';
+      results.push({ card, num, title });
     }
   });
 
-  const count = document.getElementById('search-count');
-  if (count) count.textContent = q ? visible + ' found' : '';
+  if (countEl) countEl.textContent = results.length + ' found';
 
-  // Hide section headers with no visible cards under them
-  document.querySelectorAll('.sec-hdr').forEach(hdr => {
-    let sib = hdr.nextElementSibling;
-    let hasVisible = false;
-    while (sib && !sib.classList.contains('sec-hdr')) {
-      if (sib.classList.contains('module-card') && !sib.classList.contains('search-hidden'))
-        { hasVisible = true; break; }
-      sib = sib.nextElementSibling;
-    }
-    hdr.style.display = (!q || hasVisible) ? '' : 'none';
+  if (!results.length) return;
+
+  // Build dropdown
+  searchDropdown = document.createElement('div');
+  searchDropdown.id = 'search-dropdown';
+  searchDropdown.style.cssText = [
+    'position:fixed','top:56px','left:50%','transform:translateX(-50%)',
+    'width:min(600px,90vw)','max-height:60vh','overflow-y:auto',
+    'background:#0d0f14','border:1px solid #2a3050','border-radius:10px',
+    'box-shadow:0 8px 32px #000a','z-index:9999','padding:8px 0'
+  ].join(';');
+
+  results.slice(0, 40).forEach(({ card, num, title }) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'padding:10px 16px;cursor:pointer;border-bottom:1px solid #1e2535;display:flex;align-items:center;gap:10px';
+    row.innerHTML = '<span style="color:#5bc4ef;font-weight:700;font-size:12px;min-width:44px">' + num + '</span>' +
+                    '<span style="color:#c8c8d8;font-size:13px">' + title.slice(0,70) + '</span>';
+    row.onmouseenter = () => row.style.background = '#1e2535';
+    row.onmouseleave = () => row.style.background = '';
+    row.onclick = () => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Expand the card
+      const body = card.querySelector('.module-body');
+      const chevron = card.querySelector('.chevron');
+      const status = card.querySelector('.mod-status, .mod-expand');
+      if (body) body.style.display = 'block';
+      if (chevron) chevron.textContent = '▴';
+      if (status) status.textContent = 'expanded';
+      searchDropdown.remove(); searchDropdown = null;
+    };
+    searchDropdown.appendChild(row);
   });
 
-  // Scroll smoothly to first match
-  if (firstMatch && q) {
-    setTimeout(() => {
-      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Blue flash highlight
-      firstMatch.style.outline = '2px solid #5bc4ef';
-      firstMatch.style.outlineOffset = '4px';
-      setTimeout(() => { firstMatch.style.outline=''; firstMatch.style.outlineOffset=''; }, 1800);
-    }, 80);
+  if (results.length > 40) {
+    const more = document.createElement('div');
+    more.style.cssText = 'padding:8px 16px;color:#4a5470;font-size:12px;text-align:center';
+    more.textContent = '... and ' + (results.length - 40) + ' more. Refine your search.';
+    searchDropdown.appendChild(more);
   }
+
+  document.body.appendChild(searchDropdown);
+
+  // Click outside to close
+  setTimeout(() => {
+    document.addEventListener('click', function closeDD(e) {
+      if (searchDropdown && !searchDropdown.contains(e.target)) {
+        searchDropdown.remove(); searchDropdown = null;
+      }
+      document.removeEventListener('click', closeDD);
+    });
+  }, 100);
 }
 
 function clearSearch() {
   const inp = document.getElementById('card-search');
   if (inp) inp.value = '';
-
-  document.querySelectorAll('.module-card').forEach(card => {
-    card.classList.remove('search-hidden');
-    card.style.outline = '';
-    // Only collapse cards that were opened BY the search (not by user click)
-    // Simplest: collapse all cards and let user re-open what they want
-    const body = card.querySelector('.module-body');
-    if (body) {
-      body.style.display = 'none';
-      body.classList.remove('open');
-      const chevron = card.querySelector('.chevron');
-      const status  = card.querySelector('.mod-status');
-      if (chevron) chevron.textContent = '▾';
-      if (status)  status.textContent  = 'click to expand';
-    }
-  });
-
-  document.querySelectorAll('.sec-hdr').forEach(hdr => hdr.style.display = '');
-  const count = document.getElementById('search-count');
-  if (count) count.textContent = '';
+  if (searchDropdown) { searchDropdown.remove(); searchDropdown = null; }
+  const countEl = document.getElementById('search-count');
+  if (countEl) countEl.textContent = '';
 }
 
-// Keyboard: Ctrl+K or / to focus, Escape to clear
-document.addEventListener('keydown', e => {
-  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
-    e.preventDefault();
-    const inp = document.getElementById('card-search');
-    if (inp) { inp.focus(); inp.select(); }
-  }
-  if (e.key === 'Escape') {
-    clearSearch();
-    const inp = document.getElementById('card-search');
-    if (inp) inp.blur();
-  }
-});
-
-// ── Dark / Light mode toggle ──────────────────────────────
+// ── Theme toggle ───────────────────────────────────────────────────────────
 function toggleTheme() {
   document.body.classList.toggle('light-mode');
-  const btn = document.getElementById('theme-toggle');
-  const isLight = document.body.classList.contains('light-mode');
-  if (btn) btn.textContent = isLight ? '🌙 Dark' : '☀️ Light';
-  localStorage.setItem('theme', isLight ? 'light' : 'dark');
-}
-// Restore saved theme
-(function() {
-  if (localStorage.getItem('theme') === 'light') {
-    document.body.classList.add('light-mode');
-  }
-})();
-
-
-// ══════════════════════════════════════════════════════════════
-// INSTRUMENT PANEL — switchTab + show() definitions
-// ══════════════════════════════════════════════════════════════
-
-// ── Tab switching ──────────────────────────────────────────
-function switchTab(inst) {
-  document.querySelectorAll('.itab').forEach(b => b.classList.remove('sel'));
-  document.querySelectorAll('.inst-panel').forEach(p => p.classList.remove('active'));
-  const tab = document.getElementById('tab-' + inst);
-  const panel = document.getElementById('panel-' + inst);
-  if (tab)   tab.classList.add('sel');
-  if (panel) panel.classList.add('active');
 }
 
-// ── Button content definitions ─────────────────────────────
-const INST_DEFS = {
+// ── Instrument tabs ────────────────────────────────────────────────────────
+function switchTab(tab) {
+  ['exa','exm','vna'].forEach(t => {
+    const btn   = document.getElementById('tab-' + t);
+    const panel = document.getElementById('panel-' + t);
+    if (!btn || !panel) return;
+    const active = t === tab;
+    btn.classList.toggle('sel', active);
+    panel.style.display = active ? 'block' : 'none';
+  });
+}
 
-exa: {
-  freq: {
-    title: 'Frequency (Freq)',
-    color: '#00d4a0',
-    body: `Sets the centre frequency of the display. For your work:<br>
-<b>B1 DL:</b> 2140 MHz &nbsp;|&nbsp; <b>B3 DL:</b> 1842.5 MHz &nbsp;|&nbsp; <b>B8 DL:</b> 942.5 MHz<br>
-<b>B28 DL:</b> 758 MHz &nbsp;|&nbsp; <b>B41 TDD:</b> 2545 MHz<br>
-<b>SCPI:</b> <code>:FREQ:CENT 2.14e9</code><br>
-<b>Tip:</b> Always set centre freq before changing span — span is symmetric around centre.`
-  },
-  span: {
-    title: 'Span',
-    color: '#00d4a0',
-    body: `Sets the frequency range displayed (centre ± span/2).<br>
-<b>ACLR measurement:</b> span = 5× channel BW minimum. For 10 MHz LTE: set 50 MHz.<br>
-<b>Spectrum overview:</b> set wide (200 MHz) to see all spurs.<br>
-<b>Power measurement:</b> narrow span (1 MHz) centred on carrier.<br>
-<b>SCPI:</b> <code>:FREQ:SPAN 50e6</code>`
-  },
-  start_stop: {
-    title: 'Start / Stop',
-    color: '#00d4a0',
-    body: `Alternative to centre+span — sets explicit start and stop frequencies.<br>
-Use when you want to compare two specific bands on one display.<br>
-Example: Start 900 MHz, Stop 2700 MHz → see B8, B3, B1, B41 simultaneously.<br>
-<b>SCPI:</b> <code>:FREQ:STAR 900e6</code> &nbsp; <code>:FREQ:STOP 2.7e9</code>`
-  },
-  amptd: {
-    title: 'AMPTD (Reference Level)',
-    color: '#f5a623',
-    body: `Sets the top of the Y-axis (reference level) in dBm. Signal should be 5–10 dB below the reference level for accurate measurement.<br>
-<b>For TX power (BOB SMA + 30dB pad):</b> set RefLvl = −10 dBm (signal ≈ −17 dBm)<br>
-<b>For noise floor check:</b> set RefLvl = −80 dBm<br>
-<b>SCPI:</b> <code>:DISP:WIND:TRAC:Y:RLEV -10</code>`
-  },
-  attn: {
-    title: 'Attenuation (Attn)',
-    color: '#f5a623',
-    body: `<b style="color:#ff6b6b">CRITICAL — wrong attenuation = wrong measurement.</b><br>
-<b>TX measurement (BOB SMA + 30dB pad):</b> set Attn = 10–20 dB. Total = 40–50 dB.<br>
-<b>RX noise floor:</b> Attn = 0 dB + Preamp ON.<br>
-<b>Never set Attn = 0 with TX signal</b> → input mixer overload → ACLR reads 10 dB better than reality (false pass).<br>
-<b>SCPI:</b> <code>:POW:ATT 20</code>`
-  },
-  preamp: {
-    title: 'Preamplifier (Preamp)',
-    color: '#f5a623',
-    body: `Internal low-noise preamplifier. Reduces DANL by ~10 dB.<br>
-<b>Preamp OFF:</b> for TX measurements (BOB SMA + pad). Signal is strong — preamp causes compression.<br>
-<b>Preamp ON:</b> for noise floor, NF measurement, weak signal checks. DANL ≈ −130 dBm/Hz.<br>
-<b style="color:#ff6b6b">Never use Preamp ON with strong TX signals.</b><br>
-<b>SCPI:</b> <code>:POW:GAIN:STAT ON</code>`
-  },
-  extgain: {
-    title: 'External Gain ⚠',
-    color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">WARNING: this corrects readings for an external amplifier or loss.</b><br>
-If you enter −30 here to account for your coupler: EXA will ADD 30 dB to all readings.<br>
-<b>Risk:</b> if set incorrectly, all power readings are wrong by the entered amount.<br>
-<b>Best practice:</b> leave Ext Gain = 0 dB. Correct for cable/coupler/pad manually.<br>
-Enter the actual measured BOB SMA coupler ratio only if you are certain of it.`
-  },
-  bw: {
-    title: 'Resolution Bandwidth (RBW)',
-    color: '#9b8cf8',
-    body: `RBW is the width of the IF filter — sets frequency resolution.<br>
-<b>Narrow RBW (1 kHz):</b> fine resolution, slow sweep, lower noise floor. Use for VNA-type checks.<br>
-<b>100 kHz RBW:</b> standard for LTE ACLR measurement (3GPP spec).<br>
-<b>1 MHz RBW:</b> fast, for rough power checks.<br>
-<b>Rule:</b> RBW ≤ signal BW / 100 for accurate spectrum shape.<br>
-<b>SCPI:</b> <code>:BWID 100e3</code>`
-  },
-  sweep: {
-    title: 'Sweep',
-    color: '#9b8cf8',
-    body: `Controls sweep time and mode.<br>
-<b>Single sweep (SGL):</b> takes one sweep then holds. Use for ACLR — ensure DPD is converged first.<br>
-<b>Continuous sweep (CONT):</b> sweeps repeatedly. Use for monitoring.<br>
-<b>Sweep time:</b> EXA sets automatically based on RBW. Narrow RBW = slower sweep.<br>
-<b>For ACLR:</b> average 10+ sweeps for stable result.<br>
-<b>SCPI:</b> <code>:INIT:CONT OFF</code> then <code>:INIT</code> for single.`
-  },
-  avg: {
-    title: 'Average',
-    color: '#9b8cf8',
-    body: `Averages multiple sweeps to reduce noise on the trace.<br>
-<b>For ACLR:</b> set average = 10–20. Result stabilises after averaging count reached.<br>
-<b>Power measurement:</b> average = 5 is sufficient.<br>
-<b>Log power average:</b> averages in dB domain (good for noise-like signals).<br>
-<b>Voltage average:</b> for coherent signals.<br>
-<b>SCPI:</b> <code>:AVER:COUN 10</code> &nbsp; <code>:AVER:STAT ON</code>`
-  },
-  trig: {
-    title: 'Trigger ⚠ (TDD gating)',
-    color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">CRITICAL for B41 TDD — must gate to DL subframes only.</b><br>
-Without gating: noise floor during UL silent periods included → ACLR appears 5–10 dB better than reality → <b>false pass</b>.<br>
-<b>Setup:</b> External trigger from DU frame sync → Gate ON = DL subframe start, Gate length = DL subframe duration.<br>
-<b>For FDD bands (B1/B3/B8/B28):</b> free-run trigger is fine — PA always on.<br>
-<b>SCPI:</b> <code>:TRIG:SOUR EXT</code>`
-  },
-  meas: {
-    title: 'Measurement Mode (Meas)',
-    color: '#5bc4ef',
-    body: `Selects measurement type. <b>Most important for your work:</b><br>
-<b>• Spectrum Monitor:</b> standard spectrum display<br>
-<b>• ACLR:</b> adjacent channel power ratio — use this for ACLR tests (not manual integration)<br>
-<b>• EVM:</b> error vector magnitude for modulation quality<br>
-<b>• SEM:</b> spectrum emission mask<br>
-<b>• Noise Figure:</b> with noise source connected<br>
-<b>SCPI:</b> <code>:CONF:ACLR</code> &nbsp; <code>:CONF:EVM</code>`
-  },
-  meas_setup: {
-    title: 'Measurement Setup',
-    color: '#5bc4ef',
-    body: `Configures the active measurement. For LTE ACLR:<br>
-<b>Standard:</b> select LTE (sets correct channel BW, offsets, RRC filter)<br>
-<b>Channel BW:</b> match your LTE BW (5/10/15/20 MHz)<br>
-<b>Number of offsets:</b> adjacent + alternate channels<br>
-<b>Always use the LTE preset</b> — do not manually set offsets. The LTE measurement uses the correct RRC filter as specified in 3GPP TS 36.141.<br>
-<b>SCPI:</b> <code>:ACLR:STAN:PRES LTE</code>`
-  },
-  mode: {
-    title: 'Mode',
-    color: '#5bc4ef',
-    body: `Switches between application modes: Signal Analyzer, VSA (Vector Signal Analyzer), Noise Figure, Phase Noise, etc.<br>
-<b>For ACLR/power/SEM:</b> stay in Signal Analyzer mode.<br>
-<b>For EVM/constellation:</b> switch to VSA mode.<br>
-<b>For NF measurement:</b> switch to Noise Figure mode.<br>
-<b>Mode switch resets all measurement settings</b> — always re-configure after switching.`
-  },
-  mode_setup: {
-    title: 'Mode Setup',
-    color: '#5bc4ef',
-    body: `Global settings for the current mode: input port, trigger routing, I/Q output.<br>
-<b>Input port:</b> always RF Input (50Ω SMA front panel). Never use AUX.<br>
-<b>Ext ref:</b> can lock EXA 10 MHz reference to external GPS-locked reference for very precise frequency measurements.<br>
-<b>Max input power reminder:</b> +30 dBm absolute max, +20 dBm recommended safe limit.`
-  },
-  marker: {
-    title: 'Marker',
-    color: '#c8b800',
-    body: `Places a frequency/amplitude marker on the trace.<br>
-<b>Normal marker:</b> reads freq + amplitude at a point. Use to verify centre freq is correct.<br>
-<b>Δ marker:</b> measures difference between two frequencies (e.g. carrier to adjacent channel offset).<br>
-<b>Peak marker:</b> jumps to the highest point on the trace.<br>
-<b>For ACLR manual check:</b> place markers on main channel and adjacent channel, read the difference.<br>
-<b>SCPI:</b> <code>:CALC:MARK1:X 2.14e9</code> &nbsp; <code>:CALC:MARK1:Y?</code>`
-  },
-  delta: {
-    title: 'Δ Delta Marker',
-    color: '#c8b800',
-    body: `Measures frequency and amplitude difference between two markers.<br>
-<b>Use case:</b> measure harmonic distance (carrier to 2nd harmonic), or verify adjacent channel offset is correct (should be exactly ±channel BW).<br>
-<b>Tip:</b> set Marker 1 on carrier peak, enable Delta marker, move it to the adjacent channel → read dBc value. This is a manual ACLR check.`
-  },
-  peak: {
-    title: 'Peak Search',
-    color: '#c8b800',
-    body: `Moves marker to the highest amplitude point on the trace.<br>
-<b>Use:</b> after setting centre freq, verify the peak is where you expect it. If peak is off-centre, the carrier frequency is wrong.<br>
-<b>Next peak:</b> finds the next highest point — useful for identifying spurs.<br>
-<b>SCPI:</b> <code>:CALC:MARK:MAX</code>`
-  },
-  mkr_to: {
-    title: 'Marker → (Marker To)',
-    color: '#c8b800',
-    body: `Moves the display to centre on the current marker frequency, or sets centre freq/reference level from the marker.<br>
-<b>Most useful:</b> "Marker → Centre Freq" — if you see a signal on screen, place a marker on it and use this to make it the exact centre of the display.<br>
-<b>Marker → Reference Level:</b> sets the reference level to match the current marker amplitude — automatic scaling.`
-  },
-  input: {
-    title: 'Input',
-    color: '#4a5470',
-    body: `Configures the input port and impedance.<br>
-<b>RF Input:</b> front panel SMA, 50Ω — always use this.<br>
-<b>Max safe input:</b> +20 dBm continuous. +30 dBm maximum (will damage mixer above this).<br>
-<b>With 30 dB pad:</b> BOB SMA at +13 dBm → EXA input = −17 dBm → safe.<br>
-<b>Input coupling:</b> always AC for RF measurements. DC coupling only for low-frequency baseband work.`
-  },
-  save: {
-    title: 'Save',
-    color: '#4a5470',
-    body: `Saves traces, states, or screen captures.<br>
-<b>Save State:</b> saves all EXA settings (freq, span, mode, attn, etc.) to a file. Use this before starting a test session — reload to restore known-good settings.<br>
-<b>Save Trace:</b> saves the amplitude vs frequency data as CSV for offline analysis.<br>
-<b>Save Screen:</b> PNG screenshot for reports.<br>
-<b>Tip:</b> save a "B1_ACLR_setup" state and a "B1_Power_setup" state — reload in 2 seconds instead of manually re-configuring.`
-  },
-  recall: {
-    title: 'Recall',
-    color: '#4a5470',
-    body: `Loads a previously saved EXA state.<br>
-<b>Best practice:</b> save one state file per measurement type per band. e.g. "EXA_B1_ACLR.sta", "EXA_B3_Power.sta".<br>
-Recall before any test session to guarantee correct settings. This eliminates setup errors.`
-  },
-  system: {
-    title: 'System',
-    color: '#4a5470',
-    body: `System settings: IP address, LAN configuration, firmware version, calibration date.<br>
-<b>Your EXA:</b> IP = 10.62.2.135 &nbsp;|&nbsp; SN = MY59070653<br>
-<b>LAN/IP:</b> Menu → System → LAN. Set static IP on 10.62.2.x subnet.<br>
-<b>Calibration status:</b> System → Calibration. Check last calibration date — if > 1 year, accuracy degrades.<br>
-<b>Align Now:</b> runs internal self-alignment. Do this after warmup if accuracy is critical.`
-  },
-  knob: {
-    title: 'Data Entry Knob',
-    color: '#4a5470',
-    body: `The front-panel rotary knob for fast numeric entry and scrolling.<br>
-<b>Frequency:</b> turn to step by current step size. Faster than entering digits for nearby frequencies.<br>
-<b>Reference level:</b> turn to adjust in 10 dB steps.<br>
-<b>Knob step size:</b> can be changed via softkey when in frequency entry mode.<br>
-<b>Tip:</b> for fine tuning, hold CTRL while turning for finer steps.`
-  },
-  units: {
-    title: 'Units',
-    color: '#4a5470',
-    body: `Switches Y-axis units between dBm, dBmV, dBμV, Watts, Volts.<br>
-<b>Always use dBm</b> for RF power measurements. Other units are for video/audio engineers.<br>
-<b>dBc mode:</b> available in Marker settings — shows relative amplitude vs the marker reference. Use for manual ACLR checks.`
-  },
-  numeric: {
-    title: 'Numeric Keypad',
-    color: '#4a5470',
-    body: `Enters exact numeric values. Always faster than the knob for specific frequencies.<br>
-<b>Workflow:</b> press Freq → press numeric key → type "2.14" → press GHz.<br>
-<b>Units keys:</b> after typing a number, the softkeys show GHz/MHz/kHz/Hz — press the appropriate one.<br>
-<b>Tip:</b> type the value with decimal point in the display before pressing the unit key.`
-  },
-},
-
-// ══════════════════════════════════════════════════════════
-exm: {
-  freq_ch: {
-    title: 'FREQ Channel — set downlink frequency',
-    color: '#00d4a0',
-    body: `This is where you set the <b>downlink (DL) frequency</b> — the frequency the RU is transmitting on that you want to receive or measure.<br><br>
-<b>Your band DL frequencies:</b><br>
-B1: <b style="color:#f5a623">2140 MHz</b> &nbsp;|&nbsp; B3: <b style="color:#f5a623">1842.5 MHz</b> &nbsp;|&nbsp; B8: <b style="color:#f5a623">942.5 MHz</b><br>
-B28: <b style="color:#f5a623">758 MHz</b> &nbsp;|&nbsp; B41: <b style="color:#f5a623">2545 MHz</b> (TDD — same as UL)<br><br>
-<b>How to set:</b> Press FREQ Channel → type frequency → press MHz softkey.<br>
-<b>Note:</b> For TDD (B41) DL and UL are the same frequency — you set it once here.`
-  },
-  input_output: {
-    title: 'Input/Output — RF ports, External Gain, Test Set Config',
-    color: '#5bc4ef',
-    body: `This menu controls which physical port the signal uses and the measurement context.<br><br>
-<b style="color:#ff6b6b">RF Input:</b> Signal coming IN from the RU (for DL measurement). Connect: RU BOB SMA → 30 dB pad → EXM RF Input.<br><br>
-<b style="color:#00d4a0">RF Output:</b> Signal going OUT to RU (for UL injection — RSSI cal, sensitivity). Connect: EXM RF Output → measured cable → RU BOB SMA. Always verify power with EXA before connecting to RU.<br><br>
-<b style="color:#c8b800">External Gain → BTS:</b> For LTE base station testing, always select BTS here. This tells EXM the measurement context is a base station transmitter (not a UE), applying the correct reference gain assumptions.<br><br>
-<b style="color:#9b8cf8">Test Set Config → RF Port:</b> Select RF Port to route the signal to the front panel connector. Must be set before any test.`
-  },
-  source: {
-    title: 'Source — the main UL signal generator (most important key)',
-    color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">This is the main section for UL injection setup.</b> Complete step-by-step:<br><br>
-<b>1. RF Output:</b> Start with OFF. Turn ON only after everything else is configured and cable is connected to RU.<br><br>
-<b>2. Amplitude:</b> Set injection power. Example: <span style="color:#f5a623">−95 dBm</span> for RSSI cal. Subtract cable loss to get power at RU port.<br><br>
-<b>3. Frequency:</b> Set UL band centre frequency.<br>
-&nbsp;&nbsp;B1 UL: 1950 MHz · B3 UL: 1747.5 MHz · B8 UL: 897.5 MHz · B28 UL: 728 MHz · B41: 2545 MHz<br><br>
-<b>4. Modulation → ON:</b> Must be enabled for waveform injection.<br><br>
-<b>5. Modulation Setup → ARB:</b> Select ARB (Arbitrary Waveform) mode. This plays back the pre-loaded .bin waveform file.<br><br>
-<b>6. ARB → ON:</b> Enable the ARB player.<br><br>
-<b>7. ARB → Select ARB:</b> Browse to and load the correct .bin file for your test. File names tell you the signal, BW, and offset.<br><br>
-<b>8. ARB → Sample Rate:</b> Must match the channel BW:<br>
-&nbsp;&nbsp;5 MHz → 7.68 MSPS · 10 MHz → 15.36 MSPS · 15 MHz → 23.04 MSPS · 20 MHz → 30.72 MSPS<br><br>
-<b>9. Source → RF Output → ON:</b> Only after verifying all above.`
-  },
-  mode: {
-    title: 'Mode — select FDD band or TDD (B41)',
-    color: '#9b8cf8',
-    body: `Selects the LTE band mode. This automatically configures many parameters for the selected band.<br><br>
-<b style="color:#5bc4ef">FDD modes (separate DL/UL frequencies):</b><br>
-<b>B1</b> — 2110/1920 MHz band &nbsp;|&nbsp; <b>B3</b> — 1805/1710 MHz band<br>
-<b>B8</b> — 925/880 MHz band &nbsp;|&nbsp; <b>B20</b> — 791/832 MHz band<br><br>
-<b style="color:#f5a623">TDD mode (shared DL/UL frequency):</b><br>
-<b>B41</b> — 2496–2690 MHz band. Select this for B41 TDD tests.<br><br>
-<b style="color:#ff6b6b">Key difference:</b> FDD modes automatically know DL and UL are different frequencies. TDD mode knows they are the same frequency and enables TDD pattern configuration in Mode Setup.<br><br>
-After selecting mode, go to <b>Mode Setup</b> to configure direction (DL/UL) and bandwidth.`
-  },
-  mode_setup: {
-    title: 'Mode Setup — direction (DL/UL), BW, TDD pattern',
-    color: '#9b8cf8',
-    body: `<b>Most important configuration step after selecting Mode.</b><br><br>
-<b style="color:#5bc4ef">Direction:</b> Uplink (UL) or Downlink (DL).<br>
-→ UL: EXM injects signal into RU receive port. Used for RSSI cal, sensitivity, PRACH tests.<br>
-→ DL: EXM receives/measures signal from RU transmit port. Used for power, ACLR, EVM measurements.<br><br>
-<b style="color:#00d4a0">Preset to Standard:</b> Loads the 3GPP standard configuration for the selected band and BW. Always press this first after changing mode — it sets correct carrier frequency, RB allocation, and test model.<br><br>
-<b style="color:#c8b800">Bandwidth:</b> Select 5 / 10 / 15 / 20 MHz. Must match what the RU is configured for.<br><br>
-<b style="color:#f5a623">TDD Pattern (only for B41):</b><br>
-Config format: X,Y where X = DL-to-UL config number, Y = special subframe config.<br>
-<b>Config 2,6:</b> DSUUUDSUUU — your standard config (2 DL, 6 UL per frame)<br>
-<b>Config 3,8:</b> DSUUDDSUUD — alternate config<br>
-Must exactly match the TDD configuration set in the DU. Mismatch = EXM injects in wrong subframes = 0% detection rate.`
-  },
-  meas: {
-    title: 'Meas — ACP (ACLR + channel power) and Modulation Analysis (EVM)',
-    color: '#5bc4ef',
-    body: `Selects the measurement type. <b>You use two mainly:</b><br><br>
-<b style="color:#00d4a0">ACP (Adjacent Channel Power):</b><br>
-Shows Channel Power and ACLR together. Channel Power = total power in your channel bandwidth. ACLR = power in adjacent channel relative to your channel. This is your primary DL measurement for verifying the RU is transmitting correctly and within spec (ACLR < −45 dBc).<br><br>
-<b style="color:#f5a623">Modulation Analysis:</b><br>
-Shows EVM (Error Vector Magnitude) — how accurately each symbol matches its ideal constellation point. Good result: EVM < 8% for 64QAM. Constellation display shows the IQ diagram — you can diagnose PA compression, IQ imbalance, phase noise from the constellation shape.<br><br>
-<b>Other available:</b> SEM (Spectrum Emission Mask), OBW (Occupied BW), but ACP and Modulation Analysis are your daily ones.`
-  },
-  amptd_yscale: {
-    title: 'AMPTD Y Scale — reference level and range',
-    color: '#f5a623',
-    body: `Controls the vertical scale of the measurement display.<br><br>
-<b>Reference Level:</b> The amplitude at the top of the display (dBm). Set so your signal peak is 5–10 dB below the reference level. If signal clips the top: reference level too low → increase it. If signal is a tiny blip at the bottom: reference level too high → decrease it.<br><br>
-<b>Range:</b> The total vertical span of the display. <b>Mandatory to adjust to avoid clipping.</b> If range is too small and signal clips, the measurement is wrong. Set range wide enough that the main signal and adjacent channels are both visible with headroom.<br><br>
-<b>Practical setting for DL measurement (RU TX):</b><br>
-Reference level: −10 dBm (signal at BOB SMA after 30 dB pad ≈ −17 dBm → sits 7 dB below reference)<br>
-Range: 100 dB (shows main channel and noise floor together)<br><br>
-<b>You can set manually</b> via softkeys, or use Auto Scale to let EXM choose — but always verify after Auto Scale that nothing is clipping.`
-  },
-  trigger: {
-    title: 'ARB Trigger — Source (External 2), Polarity (Pos), Ext Trig Delay',
-    color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">Most critical difference between FDD and TDD setup — and the root cause of B41 sensitivity failures.</b><br><br>
-
-<b style="color:#5bc4ef">Trigger Source → External 2</b><br>
-Always External 2. This comes from the DU or external timing source and fires once per LTE frame (every 10 ms). Without external trigger, EXM is free-running — injection is randomly timed and most UL bursts land in DL subframes.<br><br>
-
-<b style="color:#00d4a0">Ext Trig Polarity → Pos</b><br>
-Positive for both FDD and TDD. No change needed.<br><br>
-
-<b style="color:#5bc4ef">FDD (B1/B3/B8/B28) — Ext Trig Delay: OFF</b><br>
-DL and UL are on separate frequencies — completely independent. Trigger delay OFF because there is no frame alignment needed. EXM can inject UL at any time.<br><br>
-
-<b style="color:#f5a623">TDD (B41) — Ext Trig Delay: ON → 9.9765 ms</b><br>
-DL and UL share the same 2545 MHz frequency — separated only in time. EXM must inject UL waveform ONLY during UL subframes (subframes 2 and 7 in TDD Config 2). If delay is OFF or wrong value: injection lands in DL subframes or guard period → RU only captures fraction of UL burst → high BLER at given power → reports worse sensitivity than radio actually has.<br><br>
-
-<b style="color:#ff6b6b">This was the exact cause of the B41 ~5 dB sensitivity deficit</b> seen on units 26050508/26050509 — B1/B3/B8/B28 all FDD, all fine. B41 only TDD band, only one reading 5 dB behind theory and behind FDD peers. See the dedicated card: <b>TDD Trigger Delay</b>.<br><br>
-
-<b>From your screenshot:</b> Trigger Source = External 2 ✓, Ext Trig Polarity = Pos ✓, Ext Trig Delay = 9.976500 ms, state = Off ← <b style="color:#ff6b6b">must be ON for B41 tests</b>`
-  },
-  marker: {
-    title: 'Marker — mark a specific frequency on the display',
-    color: '#c8b800',
-    body: `Places a marker on the trace at a specific frequency.<br><br>
-<b>Normal marker:</b> Click on the display to place — reads frequency and amplitude at that point.<br>
-<b>Peak marker:</b> jumps to highest amplitude on the trace.<br>
-<b>Use for:</b> verifying carrier is at the correct frequency, reading adjacent channel levels manually, confirming marker is on the correct signal before taking ACLR reading.<br><br>
-<b>Practical use:</b> after setting up FREQ Channel, place a marker on the carrier peak. If it reads the expected DL frequency → setup is correct. If it reads a different frequency → check FREQ Channel setting.`
-  },
-  span_xscale: {
-    title: 'SPAN X Scale — set frequency span of display',
-    color: '#00d4a0',
-    body: `Sets how many MHz the horizontal axis covers.<br><br>
-<b>For ACP/ACLR measurement:</b> set span ≥ 5× channel BW. For 10 MHz channel: span = 50 MHz minimum, to show main channel plus two adjacent channels clearly.<br><br>
-<b>For wideband view:</b> wide span (200 MHz+) to see spurs and harmonics outside the main channel.<br><br>
-<b>For tight power check:</b> narrow span (1–5 MHz) centred on carrier for accurate channel power.<br><br>
-Adjusting span changes horizontal zoom only — does not affect the measurement limits.`
-  },
-  bw: {
-    title: 'BW — Resolution and Video Bandwidth',
-    color: '#00d4a0',
-    body: `Controls the filter bandwidth for the measurement.<br><br>
-<b>RBW (Resolution Bandwidth):</b> determines frequency resolution. For ACLR: 100 kHz RBW (3GPP standard). Narrower RBW = finer resolution but slower sweep.<br><br>
-<b>VBW (Video Bandwidth):</b> controls trace smoothing. Set VBW ≥ RBW for signal measurements. Narrow VBW smooths the trace (good for noise floor viewing).<br><br>
-<b>Auto Couple:</b> lets EXM choose RBW and VBW automatically based on span — usually fine for standard measurements.`
-  },
-  meas_setup: {
-    title: 'Meas Setup — configure ACP offsets or EVM settings',
-    color: '#5bc4ef',
-    body: `Configures the active measurement in detail.<br><br>
-<b>For ACP (ACLR):</b><br>
-Standard: LTE — sets correct channel BW, offset frequencies, and RRC filter as per 3GPP.<br>
-Offset frequencies: automatically set to ±channel BW (adjacent) and ±2×channel BW (alternate).<br>
-<b>Always use LTE preset</b> — do not set offsets manually.<br><br>
-<b>For Modulation Analysis (EVM):</b><br>
-Demodulation format: LTE UL or LTE DL depending on what you are measuring.<br>
-Subframe: select which subframe to analyse.<br>
-EVM limits: set to 3GPP spec (8% for 64QAM, 17.5% for QPSK).`
-  },
-  mode_preset: {
-    title: 'Mode Preset — reset all settings for current mode',
-    color: '#00aa00',
-    body: `<b style="color:#00aa00">Mode Preset</b> resets all measurement settings to factory defaults for the currently selected mode.<br><br>
-<b>Use when:</b> settings got changed during debugging and you want to start fresh. Much faster than manually resetting each parameter.<br><br>
-<b>User Preset (yellow button):</b> Loads YOUR saved preset — the settings you previously saved as User Preset. <b>Set up and save a User Preset for each band</b> (B1, B3, B8, B28, B41) so you can restore a known-good setup in 2 seconds. Save via: File → Save → User Preset.`
-  },
-  user_preset: {
-    title: 'User Preset — load your saved per-band configuration',
-    color: '#cc9900',
-    body: `Loads the User Preset you previously saved — restores all your customised settings for the current measurement.<br><br>
-<b>Best practice:</b> Save one User Preset per band and test type:<br>
-"B1_FDD_DL_ACLR" — all settings for B1 DL ACLR measurement<br>
-"B3_FDD_UL_RSSI" — all settings for B3 UL injection<br>
-"B41_TDD_UL" — B41 with trigger delay 9.965 ms configured<br><br>
-<b>How to save:</b> Configure everything correctly → File → Save → User Preset → name it.<br>
-<b>How to load:</b> Press User Preset → select from list.<br><br>
-This eliminates setup errors — the most common cause of wrong measurements.`
-  },
-  auto_couple: {
-    title: 'Auto Couple — let EXM choose RBW, VBW, sweep time',
-    color: '#8892b0',
-    body: `Auto Couple sets RBW, VBW, and sweep time automatically based on the span setting.<br><br>
-Good for: quick checks, standard measurements where defaults are acceptable.<br>
-Avoid when: you need specific RBW for 3GPP measurements (use 100 kHz for ACLR) — Auto Couple may choose a different value.`
-  },
-  view_display: {
-    title: 'View/Display — multi-window layout',
-    color: '#8892b0',
-    body: `Controls how many measurement windows are displayed simultaneously.<br><br>
-<b>Single window:</b> full screen for one measurement (ACP or Modulation Analysis).<br>
-<b>Multi-window:</b> show ACP + Modulation Analysis + spectrum simultaneously — see channel power, ACLR, and EVM on one screen. Very useful for DL verification — you see all TX quality metrics at once without switching modes.`
-  },
-  sweep_control: {
-    title: 'Sweep/Control — continuous vs single sweep, trigger press-run',
-    color: '#9b8cf8',
-    body: `Controls sweep mode and trigger.<br><br>
-<b>Continuous:</b> EXM sweeps repeatedly, updating measurement continuously.<br>
-<b>Single:</b> takes one sweep then holds. Use for stable ACLR reading.<br><br>
-<b>Trigger → Press Run:</b> This is the mode you use for both DL and UL at the same time. In Press Run mode, pressing the Run key triggers both the measurement (what EXM is measuring) and the injection (what EXM is transmitting) simultaneously — both DL and UL are active together. This is the correct mode for combined DL+UL tests.<br><br>
-<b>External trigger:</b> EXM waits for trigger from external source (DU frame sync) before sweeping. Correct for TDD gating.`
-  },
-  peak_search: {
-    title: 'Peak Search — jump marker to highest point',
-    color: '#8892b0',
-    body: `Moves the active marker to the frequency with the highest amplitude on the trace.<br><br>
-<b>Use for:</b> quickly finding the carrier peak after changing frequency. If Peak Search lands somewhere unexpected, the FREQ Channel is set wrong or there is an interference signal.`
-  },
-  trace_detector: {
-    title: 'Trace/Detector — trace type and detection method',
-    color: '#8892b0',
-    body: `Trace: Normal, Average, Max Hold, Min Hold.<br>
-<b>Average:</b> use for ACLR — averages multiple sweeps for a stable reading.<br>
-<b>Max Hold:</b> captures the worst case over time — useful for spotting intermittent spurs.<br><br>
-Detector: Peak, Sample, RMS. Use <b>RMS</b> detector for power measurements on OFDM signals — gives correct average power. Peak detector overestimates OFDM power due to high PAPR.`
-  },
-  marker_arrow: {
-    title: 'Marker › — marker functions',
-    color: '#c8b800',
-    body: `Accesses additional marker functions:<br>
-<b>Marker → Centre Freq:</b> sets display centre to the marker frequency — useful when you found a signal and want to zoom into it.<br>
-<b>Marker → Reference Level:</b> sets reference level to match marker amplitude — automatic Y-scale adjustment.<br>
-<b>Delta marker:</b> measures frequency and amplitude difference between two markers.`
-  },
-  save: {
-    title: 'Save — save state, trace, or screen',
-    color: '#4a5470',
-    body: `<b>Save State:</b> saves all current settings. Save one state per band/test type and reload it at the start of each session — eliminates setup errors.<br>
-<b>Save Trace:</b> exports amplitude vs frequency data as CSV.<br>
-<b>Save Screen:</b> PNG screenshot for documentation/reports.`
-  },
-  recall: {
-    title: 'Recall — load saved state',
-    color: '#4a5470',
-    body: `Loads a previously saved EXM state. Restores all settings (frequency, mode, trigger, source, etc.) to a known configuration.<br><br>
-<b>Recommended workflow:</b> at start of each test session, Recall the saved state for the current test. Never start a session by manually setting everything from scratch — too many opportunities for errors.`
-  },
-  restart: {
-    title: 'Restart — restart current measurement',
-    color: '#4a5470',
-    body: `Restarts the current measurement from the beginning — clears averaging, resets sweep.<br><br>
-<b>Use when:</b> you changed a setting (power, frequency, trigger) and want the measurement to restart fresh without old data from before the change.`
-  },
-  single: {
-    title: 'Single — take one measurement sweep',
-    color: '#4a5470',
-    body: `Takes a single sweep and holds. Use when you want a stable snapshot for reading and recording results.<br><br>
-For ACLR: set averaging to 10, press Single — EXM takes 10 averaged sweeps and holds the result. Read the ACLR value. This is the correct procedure for recording official test results.`
-  },
-  marker_fn: {
-    title: 'Marker Function — marker math and analysis',
-    color: '#c8b800',
-    body: `Applies mathematical functions to marker readings:<br>
-<b>Band Power:</b> integrates total power between two marker frequencies — for manual channel power measurement.<br>
-<b>Noise marker:</b> measures noise density at the marker point (dBm/Hz) — for noise floor characterisation.`
-  },
-},
-
-// ══════════════════════════════════════════════════════════
-vna: {
-  meas: {
-    title: 'Measurement Parameter (S-param)',
-    color: '#00d4a0',
-    body: `Selects which S-parameter to measure.<br>
-<b>S11 (Port 1 reflection):</b> input match, VSWR. Use to check cables and connectors.<br>
-<b>S21 (Port 1 → Port 2 transmission):</b> gain, insertion loss, phase. Use for cable loss and phase cal.<br>
-<b>S12 (Port 2 → Port 1):</b> reverse transmission — use for duplexer isolation measurement.<br>
-<b>S22 (Port 2 reflection):</b> output match.<br>
-<b>SCPI:</b> <code>:CALC1:PAR1:DEF S21</code>`
-  },
-  cal: {
-    title: 'Calibration',
-    color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">Always calibrate before measuring — without cal, results are meaningless.</b><br>
-<b>Cal wizard:</b> guides you through Short → Open → Load → Through (SOLT).<br>
-<b>With cables attached:</b> always calibrate with measurement cables connected — cal removes their effect.<br>
-<b>Cal invalidated by:</b> bending cables, changing adapters, temperature change > 10°C.<br>
-<b>After cal:</b> verify by measuring a LOAD — S11 should be < −40 dB.`
-  },
-  solt: {
-    title: 'SOLT Calibration',
-    color: '#ff6b6b',
-    body: `Short-Open-Load-Through calibration — the standard 2-port VNA calibration method.<br>
-<b>Step-by-step:</b><br>
-1. Set frequency range and IFBW = 1 kHz<br>
-2. Port 1: connect SHORT → press Measure Short<br>
-3. Port 1: connect OPEN → press Measure Open<br>
-4. Port 1: connect LOAD (50Ω) → press Measure Load<br>
-5. Repeat SHORT/OPEN/LOAD for Port 2<br>
-6. Connect THROUGH between ports → press Measure Through<br>
-7. Press Apply → calibration complete<br>
-8. Verify: measure LOAD on Port 1 → S11 < −40 dB ✓`
-  },
-  format: {
-    title: 'Format (Display Type)',
-    color: '#5bc4ef',
-    body: `Selects how the measurement is displayed.<br>
-<b>Log Magnitude (dB):</b> S21 amplitude in dB. Use for cable loss and gain.<br>
-<b>Phase (degrees):</b> S21 phase at the measurement frequency. Use for phase calibration per column.<br>
-<b>Group Delay:</b> rate of phase change vs frequency. Flat = constant delay = good.<br>
-<b>Smith Chart:</b> impedance matching visualisation.<br>
-<b>Polar:</b> phase + magnitude together.<br>
-<b>SCPI:</b> <code>:CALC:FORM PHAS</code> for phase.`
-  },
-  ifbw: {
-    title: 'IF Bandwidth (IFBW)',
-    color: '#5bc4ef',
-    body: `Controls measurement noise and sweep speed trade-off.<br>
-<b>1 kHz IFBW:</b> slow, very accurate, low noise floor. Use for phase calibration (±0.1° accuracy).<br>
-<b>100 kHz IFBW:</b> fast, adequate for cable loss measurement.<br>
-<b>1 MHz IFBW:</b> very fast, noisy. Use only for quick checks.<br>
-<b style="color:#ff6b6b">For phase calibration: always use 1 kHz IFBW.</b><br>
-<b>SCPI:</b> <code>:SENS:BWID 1000</code>`
-  },
-  scale: {
-    title: 'Scale',
-    color: '#5bc4ef',
-    body: `Sets the Y-axis scale (dB/division or degrees/division).<br>
-<b>For cable loss (S21 dB):</b> scale = 1 dB/div, reference at 0 dB. Cable loss will appear as a negative value (e.g. −2.5 dB).<br>
-<b>For phase calibration:</b> scale = 5°/div to see column-to-column differences clearly.<br>
-<b>Auto Scale:</b> automatically fits the trace to the display — useful after first measurement.`
-  },
-  power: {
-    title: 'Source Power',
-    color: '#f5a623',
-    body: `Sets the VNA output power for the measurement signal.<br>
-<b>Default: −10 dBm</b> — appropriate for cables, connectors, passive components.<br>
-<b>For RU phase cal:</b> keep at −10 dBm to stay in the RU's linear range. Too high may engage limiter diodes.<br>
-<b>Never exceed 0 dBm</b> for measurements involving active RU ports.<br>
-<b>SCPI:</b> <code>:SOUR:POW -10</code>`
-  },
-  center: {
-    title: 'Centre Frequency',
-    color: '#00d4a0',
-    body: `Sets the centre of the frequency sweep.<br>
-<b>For phase cal (single frequency):</b> set centre = band DL frequency. Set span = 0 Hz for single-point measurement.<br>
-<b>For cable loss over a band:</b> centre = band centre, span = band width + 20%.<br>
-<b>Phase varies with frequency</b> — always measure cable loss and phase at the exact frequency you will use.`
-  },
-  start: {
-    title: 'Start Frequency',
-    color: '#00d4a0',
-    body: `Sets the lower end of the frequency sweep.<br>
-<b>For B1 cable loss:</b> Start = 2110 MHz (DL band edge). Stop = 2170 MHz.<br>
-<b>For all 5 bands at once:</b> Start = 700 MHz, Stop = 2700 MHz (wide view, less resolution).<br>
-<b>For single-frequency phase cal:</b> Start = Stop = band centre frequency.`
-  },
-  stop: {
-    title: 'Stop Frequency',
-    color: '#00d4a0',
-    body: `Sets the upper end of the frequency sweep. See Start for full examples.<br>
-<b>B3 range (DL):</b> 1805 to 1880 MHz → stop = 1880 MHz<br>
-<b>B8 range (DL):</b> 925 to 960 MHz → stop = 960 MHz<br>
-<b>Always measure phase at the exact DL/UL centre frequency</b> for each band.`
-  },
-  span: {
-    title: 'Span',
-    color: '#00d4a0',
-    body: `Sets the frequency range of the sweep (centre ± span/2).<br>
-<b>Span = 0:</b> single-frequency CW measurement. Best for phase cal — no frequency variation.<br>
-<b>Narrow span (±20 MHz):</b> detailed view of one band's cable loss.<br>
-<b>Wide span (700–2700 MHz):</b> all bands at once, for quick cable check.<br>
-<b>SCPI:</b> <code>:SENS:FREQ:SPAN 0</code> for single-point.`
-  },
-  points: {
-    title: 'Number of Points',
-    color: '#9b8cf8',
-    body: `Sets frequency resolution of the sweep.<br>
-<b>201 points:</b> standard. Good for cable loss and phase cal over one band.<br>
-<b>801 points:</b> high resolution for detecting fine-frequency ripple in filters.<br>
-<b>Single point (span=0):</b> points setting irrelevant — only one measurement made.<br>
-More points = slower sweep. For phase cal at a single frequency, use span=0 instead of many points.`
-  },
-  avg: {
-    title: 'Averaging',
-    color: '#9b8cf8',
-    body: `Averages multiple sweeps to reduce noise.<br>
-<b>For phase cal:</b> set averaging = 10 at 1 kHz IFBW for ±0.1° phase accuracy.<br>
-<b>For cable loss:</b> averaging = 5 is sufficient.<br>
-<b>SCPI:</b> <code>:SENS:AVER:COUN 10</code> &nbsp; <code>:SENS:AVER:STAT ON</code>`
-  },
-  marker: {
-    title: 'Marker',
-    color: '#c8b800',
-    body: `Places a marker on the trace to read amplitude/phase at a specific frequency.<br>
-<b>For cable loss:</b> place marker at band centre frequency → read S21 in dB = cable loss.<br>
-<b>For phase cal:</b> place markers at band centre on each column's trace → read phase values → compute difference.<br>
-<b>Marker coupling:</b> when multiple traces active, coupling moves all markers together.`
-  },
-  search: {
-    title: 'Marker Search',
-    color: '#c8b800',
-    body: `Finds specific features on the trace automatically.<br>
-<b>Minimum search:</b> finds the frequency with lowest S21 (most loss) — useful for finding connector resonance.<br>
-<b>Maximum search:</b> finds peak transmission.<br>
-<b>Target search:</b> finds where the trace crosses a specific amplitude value — use to find the −3 dB point of a filter.`
-  },
-  bwsearch: {
-    title: 'Bandwidth Search',
-    color: '#c8b800',
-    body: `Automatically measures the 3 dB bandwidth of a filter or resonance.<br>
-<b>For bandpass filter characterisation:</b> measures the passband BW and insertion loss automatically.<br>
-<b>For duplexer:</b> verify TX passband (should pass your TX band) and RX passband separately.`
-  },
-  display: {
-    title: 'Display / Layout',
-    color: '#4a5470',
-    body: `Controls how many traces and windows are shown.<br>
-<b>Dual trace:</b> show S11 and S21 simultaneously — see both reflection and transmission of the same device.<br>
-<b>Multi-window:</b> show phase on one window and magnitude on another for cable characterisation.<br>
-<b>Overlay traces:</b> show all 4 column phase measurements on the same display to compare them visually.`
-  },
-  memtrace: {
-    title: 'Memory Trace',
-    color: '#4a5470',
-    body: `Stores the current trace in memory and displays it as a reference.<br>
-<b>Phase cal workflow:</b> measure Column A → store to memory → measure Column B → display both → read the difference directly.<br>
-<b>Before/after comparison:</b> store the trace before making a connector change → compare after to see the effect.`
-  },
-  chtr: {
-    title: 'Channel / Trace Setup',
-    color: '#4a5470',
-    body: `Configures multiple measurement channels (separate stimulus/response pairs).<br>
-<b>4-channel setup for phase cal:</b> one channel per column (A/B/C/D), all measuring S21 phase simultaneously with a switch matrix.<br>
-<b>Without switch matrix:</b> use 1 channel, measure one column at a time, save each to memory for comparison.`
-  },
-  calrecall: {
-    title: 'Calibration Recall',
-    color: '#ff6b6b',
-    body: `Loads a previously saved calibration.<br>
-<b>Save cal after SOLT</b> with the cables attached. Next day, reload the cal — valid if cables were not moved and temperature is stable (< 5°C change).<br>
-<b style="color:#ff6b6b">If in doubt: redo the cal. A 5-minute recal beats a wasted morning of wrong measurements.</b>`
-  },
-  timedomain: {
-    title: 'Time Domain (TDR)',
-    color: '#9b8cf8',
-    body: `Time Domain Reflectometry — converts S11 frequency data to time domain.<br>
-<b>Shows reflections vs time (distance):</b> each connector and impedance discontinuity appears as a spike at its physical distance from Port 1.<br>
-<b>Use for:</b> finding where a cable fault is located, verifying connector quality at each point in a cable assembly.<br>
-<b>Distance resolution:</b> depends on frequency range — wider span = better distance resolution.`
-  },
-  units: {
-    title: 'Units',
-    color: '#4a5470',
-    body: `Switches between dB (log magnitude), degrees (phase), seconds (group delay), and others.<br>
-<b>For cable loss:</b> dB<br>
-<b>For phase cal:</b> degrees<br>
-<b>For group delay:</b> nanoseconds — use to check for dispersion in filters.<br>
-<b>SCPI:</b> format and units are set together with <code>:CALC:FORM PHAS</code>`
-  },
-  numeric: {
-    title: 'Numeric Keypad',
-    color: '#4a5470',
-    body: `Direct numeric entry for frequency, power, and scale values.<br>
-<b>Workflow:</b> press Start → type 2.11 → press GHz → Start freq set to 2110 MHz.<br>
-<b>Tip:</b> for single-frequency phase cal, type the exact frequency in Start, press Enter, then type same value in Stop and press Enter. Span = 0 automatically.`
-  },
-  knob: {
-    title: 'Data Entry Knob',
-    color: '#4a5470',
-    body: `Rotary knob for step adjustments.<br>
-<b>Frequency sweep:</b> move marker along trace to read phase/amplitude at each frequency.<br>
-<b>Scale adjustment:</b> fine-tune display scale while observing the trace.<br>
-<b>Knob step size</b> depends on current parameter and display range.`
-  },
-},
-
-}; // end INST_DEFS
-
-// ── show() — display button explanation ────────────────────
+// ── EXA info panels ────────────────────────────────────────────────────────
 function show(inst, key) {
-  const def = INST_DEFS[inst] && INST_DEFS[inst][key];
   const panel = document.getElementById('explain-' + inst);
   if (!panel) return;
-  if (!def) {
-    panel.innerHTML = `<b style="color:#4a5470">${key}</b><br><span style="color:#4a5470">No detail available yet.</span>`;
-    panel.style.display = 'block';
-    return;
-  }
-  panel.innerHTML = `
-    <div style="color:${def.color};font-size:15px;font-weight:700;margin-bottom:8px">${def.title}</div>
-    <div style="color:#c8c8d8;font-size:13px;line-height:1.7">${def.body}</div>`;
-  panel.style.display = 'block';
-  // Highlight active button
-  const all = document.querySelectorAll(`#panel-${inst} .kbtn`);
-  all.forEach(b => b.style.outline = '');
-  // Find the clicked button
-  event && event.target && (event.target.style.outline = `2px solid ${def.color}`);
+  const info = infoData[inst] && infoData[inst][key];
+  panel.innerHTML = info
+    ? '<b style="color:#5bc4ef">' + key + '</b><br>' + info
+    : '<span style="color:#4a5470">No info for ' + key + '</span>';
 }
 
-
-function phyTab(mode) {
-  document.getElementById('phy-fdd').style.display = mode==='fdd' ? 'block' : 'none';
-  document.getElementById('phy-tdd').style.display = mode==='tdd' ? 'block' : 'none';
-  document.getElementById('phy-tab-fdd').style.cssText = mode==='fdd'
-    ? 'background:#0d1a2a;border:2px solid #5bc4ef;color:#5bc4ef;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
-    : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
-  document.getElementById('phy-tab-tdd').style.cssText = mode==='tdd'
-    ? 'background:#1a1a0d;border:2px solid #c8b800;color:#c8b800;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px'
-    : 'background:#141720;border:1px solid #4a5470;color:#4a5470;padding:8px 18px;border-radius:6px;cursor:pointer;font-weight:700;font-size:13px';
-}
-
-
-function exmBtn(key) {
-  const def = INST_DEFS.exm && INST_DEFS.exm[key];
-  const panel = document.getElementById('explain-exm');
-  if (!panel) return;
-  if (!def) {
-    panel.innerHTML = '<b style="color:#4a5470">' + key + '</b><br><span style="color:#4a5470">Click the front panel buttons on the left — this panel will show what each key does for your RF tests.</span>';
-    return;
-  }
-  panel.innerHTML = '<div style="color:' + def.color + ';font-size:15px;font-weight:700;margin-bottom:8px">' + def.title + '</div>'
-    + '<div style="color:#c8c8d8;font-size:13px;line-height:1.7">' + def.body + '</div>';
-  // Highlight active button
-  document.querySelectorAll('#panel-exm [onclick]').forEach(b => b.style.outline = '');
-  if (event && event.target) event.target.style.outline = '2px solid ' + def.color;
-}
-
+// Init: collapse all, ensure EXA tab shown
+document.addEventListener('DOMContentLoaded', () => {
+  // Collapse all cards
+  document.querySelectorAll('.module-body').forEach(b => {
+    b.style.display = 'none';
+  });
+  // Show EXA tab by default
+  switchTab('exa');
+  // Keyboard shortcut
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      const inp = document.getElementById('card-search');
+      if (inp) { inp.focus(); inp.select(); }
+    }
+    if (e.key === 'Escape') {
+      clearSearch();
+      const inp = document.getElementById('card-search');
+      if (inp) inp.blur();
+      if (searchDropdown) { searchDropdown.remove(); searchDropdown = null; }
+    }
+  });
+});
 </script>
