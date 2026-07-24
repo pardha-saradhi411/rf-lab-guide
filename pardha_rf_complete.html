@@ -8442,7 +8442,94 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
             'du_rssi_dbm': du_rssi,
             'gap_db': abs(cli_rssi['dbm'] - du_rssi)
         })
-    return results  # → CSV → plot dynamic range curve</div>
+    return results  # → CSV → plot dynamic range curve
+<div style="background:#0a0a0a;border:1px solid #00d4a0;border-radius:8px;padding:14px;margin:14px 0">
+<b style="color:#00d4a0;font-size:13px">🐍 Real multi-instrument ACLR measurement script — copy and run</b>
+<pre style="color:#c8c8d8;font-size:11px;line-height:1.7;margin:10px 0;overflow-x:auto"><code>import socket, time, json
+from datetime import datetime
+
+# ── Instrument class ──────────────────────────────────────
+class Instrument:
+    def __init__(self, ip, port=5025, timeout=10):
+        self.s = socket.socket()
+        self.s.settimeout(timeout)
+        self.s.connect((ip, port))
+    def send(self, cmd):
+        self.s.send((cmd + "\n").encode())
+    def query(self, cmd):
+        self.send(cmd)
+        return self.s.recv(4096).decode().strip()
+    def wait(self):
+        self.query("*OPC?")  # wait for operation complete
+
+# ── Connect instruments ───────────────────────────────────
+exa = Instrument("10.62.2.135")  # your EXA IP
+print("EXA:", exa.query("*IDN?"))
+
+# ── Setup EXA for LTE ACLR ───────────────────────────────
+def setup_aclr(freq_mhz, bw_mhz=10):
+    exa.send("*RST"); time.sleep(2)
+    exa.send(f":FREQ:CENT {freq_mhz}e6")
+    exa.send(":CONF:ACLR")                  # select ACLR measurement
+    exa.send(":ACLR:STAN:PRES LTE")         # LTE preset (correct RRC filter)
+    exa.send(f":ACLR:BWID {bw_mhz}e6")     # channel BW
+    exa.send(":POW:ATT 20")                  # 20 dB atten
+    exa.send(":POW:GAIN:STAT OFF")           # preamp OFF
+    exa.send(":AVER:COUN 10")               # 10 averages
+    exa.send(":AVER:STAT ON")
+    exa.send(":INIT:CONT OFF")
+    exa.wait()
+
+# ── Run ACLR per band ─────────────────────────────────────
+bands = {
+    "B1": {"dl_mhz": 2140, "bw": 10},
+    "B3": {"dl_mhz": 1842.5, "bw": 10},
+    "B8": {"dl_mhz": 942.5,  "bw": 10},
+    "B28":{"dl_mhz": 758,    "bw": 10},
+}
+
+results = []
+for band, cfg in bands.items():
+    print(f"\nMeasuring {band} at {cfg['dl_mhz']} MHz...")
+    setup_aclr(cfg['dl_mhz'], cfg['bw'])
+    
+    print(f"  Waiting 60s for DPD convergence...")
+    time.sleep(60)
+    
+    exa.send(":INIT")
+    exa.wait()
+    time.sleep(3)
+    
+    raw = exa.query(":FETCH:ACLR?")
+    vals = [float(v) for v in raw.split(",")]
+    ch_pwr = vals[0]            # channel power dBm
+    aclr_adj_low  = vals[1]     # lower adjacent dBc
+    aclr_adj_high = vals[2]     # upper adjacent dBc
+    
+    passed = aclr_adj_low < -45 and aclr_adj_high < -45
+    
+    results.append({
+        "band": band, "freq_mhz": cfg['dl_mhz'],
+        "ch_power_dBm": ch_pwr,
+        "aclr_adj_low_dBc": aclr_adj_low,
+        "aclr_adj_high_dBc": aclr_adj_high,
+        "pass": passed
+    })
+    print(f"  Power: {ch_pwr:.1f} dBm | ACLR: {aclr_adj_low:.1f}/{aclr_adj_high:.1f} dBc | {'PASS' if passed else 'FAIL'}")
+
+# ── Save results ──────────────────────────────────────────
+filename = f"aclr_results_{datetime.now().strftime('%Y%m%d_%H%M')}.json"
+with open(filename, 'w') as f:
+    json.dump(results, f, indent=2)
+print(f"\nResults saved to {filename}")
+fails = [r for r in results if not r['pass']]
+if fails:
+    print(f"FAILED bands: {[r['band'] for r in fails]}")
+else:
+    print("All bands PASSED ACLR")
+</code></pre>
+</div>
+</div>
 </div>
 </div>
 
