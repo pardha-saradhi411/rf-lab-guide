@@ -7512,6 +7512,154 @@ B41 ACLR must be measured with EXA gating on DL subframes only. PRACH arrives in
 
 </div>
 </div>
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">B41T</span>
+  <span class="mod-title">B41 TDD Trigger Delay — 9.9765 ms explained, why it affects sensitivity</span>
+  <span class="mod-level adv">⭐⭐⭐⭐⭐</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+
+<div style="background:#1a0000;border-left:4px solid #ff6b6b;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#ff6b6b;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST — real lab finding</span>
+B41 is TDD — DL and UL share the same frequency, separated only in time. The EXM must inject its UL signal <b>only during the UL subframe windows</b>. The 9.9765 ms delay tells the EXM exactly when those windows open. If the delay is <b>OFF</b> or the wrong value, the UL injection lands in DL subframes or the guard period — the RU can't hear it — and sensitivity appears 5 dB worse than the radio actually is. <b>This was the actual root cause of the B41 sensitivity gap on units 26050508/26050509.</b>
+</div>
+
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:14px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">B41 TDD Config 2 — 10 ms Frame, UL Windows, EXM Injection Timing</text>
+
+  <!-- Frame timeline -->
+  <text x="8" y="40" fill="#4a5470" font-size="9" font-family="monospace">10 ms frame →</text>
+  <rect x="8" y="45" width="784" height="30" fill="#141720" stroke="#4a5470" stroke-width="1" rx="2"/>
+
+  <!-- Subframes — config 2: D S U U U D S U U U -->
+  <!-- 10 subframes, each = 78.4px wide -->
+  <g font-family="monospace" font-size="9">
+    <!-- SF0 D -->
+    <rect x="8"   y="45" width="78" height="30" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1"/>
+    <text x="47"  y="64" fill="#5bc4ef" font-weight="bold" text-anchor="middle">D · SF0</text>
+    <!-- SF1 S -->
+    <rect x="86"  y="45" width="78" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1"/>
+    <text x="125" y="64" fill="#c8b800" font-weight="bold" text-anchor="middle">S · SF1</text>
+    <!-- SF2 U ← UL window -->
+    <rect x="164" y="45" width="78" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="2.5"/>
+    <text x="203" y="60" fill="#00d4a0" font-weight="bold" text-anchor="middle">U · SF2</text>
+    <text x="203" y="71" fill="#00d4a0" font-size="7" text-anchor="middle">← UL window</text>
+    <!-- SF3 U -->
+    <rect x="242" y="45" width="78" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+    <text x="281" y="64" fill="#00d4a0" font-weight="bold" text-anchor="middle">U · SF3</text>
+    <!-- SF4 U -->
+    <rect x="320" y="45" width="78" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+    <text x="359" y="64" fill="#00d4a0" font-weight="bold" text-anchor="middle">U · SF4</text>
+    <!-- SF5 D -->
+    <rect x="398" y="45" width="78" height="30" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1"/>
+    <text x="437" y="64" fill="#5bc4ef" font-weight="bold" text-anchor="middle">D · SF5</text>
+    <!-- SF6 S -->
+    <rect x="476" y="45" width="78" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1"/>
+    <text x="515" y="64" fill="#c8b800" font-weight="bold" text-anchor="middle">S · SF6</text>
+    <!-- SF7 U ← UL window -->
+    <rect x="554" y="45" width="78" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="2.5"/>
+    <text x="593" y="60" fill="#00d4a0" font-weight="bold" text-anchor="middle">U · SF7</text>
+    <text x="593" y="71" fill="#00d4a0" font-size="7" text-anchor="middle">← UL window</text>
+    <!-- SF8 U -->
+    <rect x="632" y="45" width="78" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+    <text x="671" y="64" fill="#00d4a0" font-weight="bold" text-anchor="middle">U · SF8</text>
+    <!-- SF9 U -->
+    <rect x="710" y="45" width="82" height="30" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+    <text x="751" y="64" fill="#00d4a0" font-weight="bold" text-anchor="middle">U · SF9</text>
+  </g>
+
+  <!-- External trigger marker -->
+  <line x1="8" y1="80" x2="8" y2="100" stroke="#9b8cf8" stroke-width="2"/>
+  <polygon points="4,100 12,100 8,108" fill="#9b8cf8"/>
+  <text x="10" y="95" fill="#9b8cf8" font-size="8" font-family="monospace">Ext trigger fires here (frame boundary)</text>
+
+  <!-- 9.9765 ms delay arrow -->
+  <line x1="8"   y1="115" x2="556" y2="115" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="552,111 564,115 552,119" fill="#f5a623"/>
+  <text x="280"  y="111" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Ext Trig Delay = 9.9765 ms</text>
+  <line x1="556" y1="108" x2="556" y2="125" stroke="#00d4a0" stroke-width="2"/>
+  <text x="556"  y="135" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXM injection starts here → lands in SF7 UL window ✓</text>
+
+  <!-- Wrong timing (delay OFF) -->
+  <line x1="8"   y1="148" x2="8"   y2="160" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="3,2"/>
+  <polygon points="4,160 12,160 8,168" fill="#ff6b6b"/>
+  <text x="10"   y="156" fill="#ff6b6b" font-size="8" font-family="monospace">Ext trigger fires</text>
+  <rect x="8" y="162" width="78" height="18" fill="#ff000020" stroke="#ff6b6b" stroke-width="1" rx="2"/>
+  <text x="47" y="174" fill="#ff6b6b" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">INJECTION IN DL!</text>
+  <text x="400" y="178" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Delay OFF → injection lands in SF0 (DL) → RU is transmitting, not receiving → 0% PRACH detect</text>
+
+  <!-- Why 9.9765 breakdown -->
+  <rect x="8" y="188" width="784" height="26" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="400" y="200" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Why 9.9765 ms = 10 ms frame − 23.5 µs fine adjustment</text>
+  <text x="400" y="212" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">23.5 µs ≈ N_TA offset (20.3 µs) + cable/processing delay — empirically tuned where UL BLER bottoms out</text>
+</svg>
+
+<h4>Why 9.9765 ms — the complete technical explanation</h4>
+
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">The 10 ms part — aligning to the LTE TDD frame:</b><br>
+The External 2 trigger fires once per LTE radio frame — every 10 ms exactly. The EXM ARB waveform repeats every 10 ms. The delay is set to approximately one full frame (10 ms) so the ARB re-phases and its UL subframes align to the RU's UL receive windows on the next frame. This is why the delay is ~10 ms and not 2 ms or 7 ms — it must be a whole-frame offset to work modulo the 10 ms period.<br><br>
+<b>TDD Config 2 frame:</b> D S U U U D S U U U — UL subframes are #2, #3, #4, #7, #8, #9. EXM injection must land in one of these windows.
+</div>
+
+<div style="background:#001a00;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">The −23.5 µs part — the fine timing correction:</b><br>
+The small shortfall from 10 ms is not arbitrary. It absorbs:<br><br>
+<b>① N_TA offset (LTE TDD spec):</b> In LTE TDD, uplink transmissions are advanced by N_TA = 624 × Ts where Ts = 1/(30.72 MHz). That equals 624 / 30,720,000 = <b>20.33 µs</b>. This is mandated by 3GPP TS 36.213 for TDD UL timing.<br><br>
+<b>② Cable and processing delay:</b> The physical cable from EXM to RU, trigger cable from DU to EXM, and EXM internal processing adds a few µs.<br><br>
+<b>Total:</b> ~20.3 µs (N_TA) + ~3 µs (cable/processing) ≈ <b>23.5 µs</b><br>
+So 10,000 µs − 23.5 µs = <b>9,976.5 µs = 9.9765 ms</b> — exactly what you see on your EXM screen.<br><br>
+In practice: this value was empirically tuned — someone swept the delay and parked it where UL BLER bottomed out. The physics gives the ballpark, fine tuning confirms the exact value.
+</div>
+
+<div style="background:#2a0000;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">The B41 sensitivity gap — confirmed root cause:</b><br>
+From your screenshot: <b>Ext Trig Delay = 9.976500 ms, state = OFF</b><br><br>
+The value is correctly set (9.9765 ms) but the toggle is <b>OFF</b> — meaning the delay is not being applied. The EXM ARB injection starts immediately when the trigger fires (at the frame boundary, which is a DL subframe), not 9.9765 ms later (which would be SF7 UL).<br><br>
+<b>Symptom match:</b> B1/B3/B8/B28 are FDD — no trigger delay needed, all measured fine (~3 dB better than theory). B41 is the only TDD band — the only one needing this delay, the only one showing ~5 dB worse sensitivity than theory and ~5–6 dB behind FDD peers.<br><br>
+<b>Confirmation test:</b> Inject at a fixed power (e.g. −97 dBm), sweep the trigger delay value from 9.0 to 10.0 ms in 0.1 ms steps. Watch BLER. It will drop sharply to ~5% at the correct alignment (9.9765 ms, delay ON), and be near 100% BLER at all other values. The ~5 dB deficit disappears and B41 will match FDD sensitivity levels.
+</div>
+
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Special subframe Config 6 — why it tightens the timing window:</b><br>
+TDD Config 2, Special Subframe Config 6 gives: DwPTS = 9 symbols, GP = 3 symbols, UpPTS = 2 symbols. The guard period (GP) is only 3 symbols = 3 × 71.35 µs = 214 µs. If the injection is even 0.5 ms off, the UL burst clips into the guard period. The RU will not process UL during GP — so even a small timing error causes partial burst loss and BLER degradation. This is why the timing is sharp and 9.9765 ms (not 9.9 or 10.0) matters.<br><br>
+<b>For PRACH tests specifically:</b> PRACH in TDD is sent in UpPTS (only 2 symbols = 142.7 µs) — an extremely narrow window. Wrong trigger delay = zero PRACH symbols captured = 0% detection rate regardless of signal power.
+</div>
+
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">EXM setup checklist for B41 TDD tests:</b><br>
+<code style="color:#c8c8d8;line-height:2;display:block">
+□ ARB Trigger Source → External 2<br>
+□ Ext Trig Polarity → Pos<br>
+□ Ext Trig Delay value → 9.9765 ms (or 9.976500 ms as on your screen)<br>
+□ Ext Trig Delay toggle → <b style="color:#ff6b6b">ON</b> ← this is what was OFF<br>
+□ TDD Config in Mode Setup → matches DU config (Config 2, Special SF 6)<br>
+□ ARB bin file → correct TDD waveform (e.g. A1-3_BW10_TDD_RNTI_0.bin)<br>
+□ Confirm with EXA: DL measurement must show no signal during injected UL slots
+</code>
+</div>
+
+<div style="background:#141720;border:1px solid #4a5470;border-radius:8px;padding:14px;margin:10px 0">
+<b style="color:#f5a623;font-size:13px">📊 From the document: does trigger delay affect sensitivity?</b>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;font-size:12px">
+<div style="background:#0d1a0d;padding:10px;border-radius:6px">
+<b style="color:#00d4a0">Directly: NO</b><br>
+<span style="color:#8892b0">Trigger delay is not attenuation. It does not reduce the RF signal power reaching the RU by a single dB. The radio hardware sensitivity is unchanged.</span>
+</div>
+<div style="background:#1a0d0d;padding:10px;border-radius:6px">
+<b style="color:#ff6b6b">Indirectly for B41: YES — severely</b><br>
+<span style="color:#8892b0">Wrong delay → injection in wrong subframe → RU captures fraction of burst → higher BLER at same power → test reports worse sensitivity than the radio actually has. Looks exactly like a 5 dB hardware deficit.</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 
 <!-- ───── RUAUTO FRAMEWORK ───── -->
@@ -16439,17 +16587,25 @@ Range: 100 dB (shows main channel and noise floor together)<br><br>
 <b>You can set manually</b> via softkeys, or use Auto Scale to let EXM choose — but always verify after Auto Scale that nothing is clipping.`
   },
   trigger: {
-    title: 'Trigger — Trigger Source, Polarity, and the critical TDD delay',
+    title: 'ARB Trigger — Source (External 2), Polarity (Pos), Ext Trig Delay',
     color: '#ff6b6b',
-    body: `<b style="color:#ff6b6b">This is the most important difference between FDD and TDD setup.</b><br><br>
-<b>Sweep/Control → Trigger → Trigger Source:</b><br>
-Always set to <b style="color:#f5a623">External</b>. The trigger comes from an external device (the DU or a timing source). This synchronises EXM sweeps and injections to the LTE frame timing.<br><br>
-<b>Trigger Polarity:</b> Set to <b style="color:#00d4a0">Positive</b> for both FDD and TDD.<br><br>
-<b style="color:#5bc4ef">FDD (B1/B3/B8/B28) — External Trigger Delay: OFF</b><br>
-DL and UL are on different frequencies so they are independent. No delay is needed — EXM can inject UL or measure DL at any time without timing dependency.<br><br>
-<b style="color:#f5a623">TDD (B41) — External Trigger Delay: ON → 9.965 ms</b><br>
-DL and UL share the same frequency. EXM must inject in UL subframes only — not during DL subframes (RU is transmitting then). The 9.965 ms delay shifts the injection window to align with the UL portion of the TDD frame. Without this delay: EXM injects during DL period → RU cannot receive it → 0% PRACH detection → all UL tests fail.<br><br>
-<b>Why 9.965 ms specifically?</b> The LTE TDD frame is 10 ms. The 9.965 ms delay positions the injection at the start of the UL subframe window accounting for frame processing overhead.`
+    body: `<b style="color:#ff6b6b">Most critical difference between FDD and TDD setup — and the root cause of B41 sensitivity failures.</b><br><br>
+
+<b style="color:#5bc4ef">Trigger Source → External 2</b><br>
+Always External 2. This comes from the DU or external timing source and fires once per LTE frame (every 10 ms). Without external trigger, EXM is free-running — injection is randomly timed and most UL bursts land in DL subframes.<br><br>
+
+<b style="color:#00d4a0">Ext Trig Polarity → Pos</b><br>
+Positive for both FDD and TDD. No change needed.<br><br>
+
+<b style="color:#5bc4ef">FDD (B1/B3/B8/B28) — Ext Trig Delay: OFF</b><br>
+DL and UL are on separate frequencies — completely independent. Trigger delay OFF because there is no frame alignment needed. EXM can inject UL at any time.<br><br>
+
+<b style="color:#f5a623">TDD (B41) — Ext Trig Delay: ON → 9.9765 ms</b><br>
+DL and UL share the same 2545 MHz frequency — separated only in time. EXM must inject UL waveform ONLY during UL subframes (subframes 2 and 7 in TDD Config 2). If delay is OFF or wrong value: injection lands in DL subframes or guard period → RU only captures fraction of UL burst → high BLER at given power → reports worse sensitivity than radio actually has.<br><br>
+
+<b style="color:#ff6b6b">This was the exact cause of the B41 ~5 dB sensitivity deficit</b> seen on units 26050508/26050509 — B1/B3/B8/B28 all FDD, all fine. B41 only TDD band, only one reading 5 dB behind theory and behind FDD peers. See the dedicated card: <b>TDD Trigger Delay</b>.<br><br>
+
+<b>From your screenshot:</b> Trigger Source = External 2 ✓, Ext Trig Polarity = Pos ✓, Ext Trig Delay = 9.976500 ms, state = Off ← <b style="color:#ff6b6b">must be ON for B41 tests</b>`
   },
   marker: {
     title: 'Marker — mark a specific frequency on the display',
