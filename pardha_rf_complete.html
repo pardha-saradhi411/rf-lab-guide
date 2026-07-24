@@ -365,31 +365,133 @@ body.light-mode .module-body { background: #fafbff; }
 </head>
 <body>
 <nav id="main-nav">
-  <div class="nav-brand">⬡ PARDHA RF LAB</div>
+  <div class="nav-brand">⬡ PARDHA RF</div>
+
   <div class="phase-tabs">
     <button class="phase-btn active" onclick="showPhase('foundation')" id="btn-foundation">
-      <span class="phase-num">01</span> Start Here
+      <span class="phase-num">01</span><span class="phase-label"> Start Here</span>
     </button>
     <button class="phase-btn" onclick="showPhase('instruments')" id="btn-instruments">
-      <span class="phase-num">02</span> Instruments
+      <span class="phase-num">02</span><span class="phase-label"> Instruments</span>
     </button>
     <button class="phase-btn" onclick="showPhase('rct')" id="btn-rct">
-      <span class="phase-num">03</span> RCT Tests
+      <span class="phase-num">03</span><span class="phase-label"> RCT Tests</span>
     </button>
     <button class="phase-btn" onclick="showPhase('deepdive')" id="btn-deepdive">
-      <span class="phase-num">04</span> Deep Dive
+      <span class="phase-num">04</span><span class="phase-label"> Deep Dive</span>
     </button>
   </div>
+
   <div class="nav-right">
     <div class="search-mini">
-      <span>🔍</span>
-      <input id="card-search" type="text" placeholder="Search all cards…" oninput="filterCards(this.value)">
-      <span id="search-count" style="color:#4a5470;font-size:11px"></span>
-      <button onclick="clearSearch()" style="background:none;border:none;color:#4a5470;cursor:pointer;font-size:12px">✕</button>
+      <span style="color:#5bc4ef">🔍</span>
+      <input id="card-search" type="text"
+             placeholder="Search all 130 cards…"
+             oninput="filterCards(this.value)">
+      <span id="search-count"></span>
+      <button onclick="clearSearch()"
+              style="background:none;border:none;color:#4a5470;cursor:pointer;padding:0 2px">✕</button>
     </div>
-    <button id="theme-toggle" onclick="toggleTheme()">☀️</button>
+    <button id="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light">☀️</button>
   </div>
 </nav>
+
+<!-- ── Sub navigation ── -->
+<div id="sub-nav">
+
+  <div class="sub-group" id="sg-foundation">
+    <a class="sub-btn active" onclick="subClick(this,'foundation-basics')">📐 RF Basics</a>
+    <a class="sub-btn" onclick="subClick(this,'foundation-chain')">🔗 Signal Chain</a>
+    <a class="sub-btn" onclick="subClick(this,'foundation-sensitivity')">📡 Sensitivity</a>
+    <a class="sub-btn" onclick="subClick(this,'foundation-lte')">📶 TDD/LTE</a>
+    <a class="sub-btn" onclick="subClick(this,'foundation-noise')">🌡️ Noise Figure</a>
+    <span class="sub-divider"></span>
+    <button class="expand-btn" onclick="expandAll()">▼ Expand All</button>
+    <button class="expand-btn" onclick="collapseAll()">▲ Collapse</button>
+  </div>
+
+  <div class="sub-group hidden" id="sg-instruments">
+    <a class="sub-btn active" onclick="subClick(this,'inst-exa')">📊 EXA N9010B</a>
+    <a class="sub-btn" onclick="subClick(this,'inst-vna')">🔬 VNA E5071C</a>
+    <a class="sub-btn" onclick="subClick(this,'inst-cal')">🎯 Calibration</a>
+    <span class="sub-divider"></span>
+    <button class="expand-btn" onclick="expandAll()">▼ Expand All</button>
+    <button class="expand-btn" onclick="collapseAll()">▲ Collapse</button>
+  </div>
+
+  <div class="sub-group hidden" id="sg-rct">
+    <a class="sub-btn active" onclick="subClick(this,'rct-setup')">⚙️ Bench Setup</a>
+    <a class="sub-btn" onclick="subClick(this,'rct-dl')">↓ DL TX Tests</a>
+    <a class="sub-btn" onclick="subClick(this,'rct-ul')">↑ UL RX Tests</a>
+    <a class="sub-btn" onclick="subClick(this,'rct-phy')">📋 PHY Test List</a>
+    <a class="sub-btn" onclick="subClick(this,'rct-faults')">🚨 Fault Lookup</a>
+    <a class="sub-btn" onclick="subClick(this,'rct-daily')">📅 Daily Workflow</a>
+    <span class="sub-divider"></span>
+    <button class="expand-btn" onclick="expandAll()">▼ Expand All</button>
+    <button class="expand-btn" onclick="collapseAll()">▲ Collapse</button>
+  </div>
+
+  <div class="sub-group hidden" id="sg-deepdive">
+    <a class="sub-btn active" onclick="subClick(this,'dd-expert')">🔬 Expert RF</a>
+    <a class="sub-btn" onclick="subClick(this,'dd-career')">🎯 Career</a>
+    <a class="sub-btn" onclick="subClick(this,'dd-oran')">🌐 O-RAN</a>
+    <a class="sub-btn" onclick="subClick(this,'dd-automation')">🐍 Automation</a>
+    <span class="sub-divider"></span>
+    <button class="expand-btn" onclick="expandAll()">▼ Expand All</button>
+    <button class="expand-btn" onclick="collapseAll()">▲ Collapse</button>
+  </div>
+
+</div>
+
+<!-- ── Phase hero banners (injected at top of page-content) ── -->
+<div id="phase-heroes">
+
+  <div class="phase-hero" id="hero-foundation">
+    <div class="hero-tag">Phase 01 · Start Here</div>
+    <h1>RF Foundations</h1>
+    <p>Everything you need before touching the equipment — dB, noise, sensitivity, LTE frame structure, the complete signal chain. Work through in order: RF0 → M01 → M02 → M03 → NCH → DSA → M07.</p>
+    <div class="hero-chips">
+      <span class="chip chip-green">35 cards</span>
+      <span class="chip chip-blue">Beginner → Intermediate</span>
+      <span class="chip chip-yellow">Read first</span>
+    </div>
+  </div>
+
+  <div class="phase-hero hidden" id="hero-instruments">
+    <div class="hero-tag">Phase 02 · Instruments</div>
+    <h1>EXA · EXM · VNA</h1>
+    <p>Your three tools. Click any front-panel button to see the exact setting, the correct value for your lab, and what goes wrong when it's misconfigured. EXM is split FDD vs TDD — the 9.9765 ms trigger delay is the key difference.</p>
+    <div class="hero-chips">
+      <span class="chip chip-green">11 cards</span>
+      <span class="chip chip-blue">EXA · EXM · VNA · Cal</span>
+      <span class="chip chip-yellow">Interactive front panels</span>
+    </div>
+  </div>
+
+  <div class="phase-hero hidden" id="hero-rct">
+    <div class="hero-tag">Phase 03 · RCT Tests</div>
+    <h1>Bench to Results</h1>
+    <p>Actual test procedures from power-on to pass/fail. Bench setup → DL TX (ACLR/EVM/power) → UL RX (RSSI cal/sensitivity/PRACH) → 3rd-party PHY test list → fault lookup → daily workflow. All 5 bands.</p>
+    <div class="hero-chips">
+      <span class="chip chip-green">13 cards</span>
+      <span class="chip chip-blue">B1 · B3 · B8 · B28 · B41</span>
+      <span class="chip chip-yellow">Step-by-step procedures</span>
+    </div>
+  </div>
+
+  <div class="phase-hero hidden" id="hero-deepdive">
+    <div class="hero-tag">Phase 04 · Deep Dive</div>
+    <h1>Expert Topics & Career</h1>
+    <p>O-RAN architecture, 5G NR beam management, PA classes, SCPI automation, AI for RF, interview scenarios, 45-level career roadmap. For when you want to go beyond the daily tests.</p>
+    <div class="hero-chips">
+      <span class="chip chip-green">71 cards</span>
+      <span class="chip chip-blue">Advanced · Expert</span>
+      <span class="chip chip-yellow">Career roadmap included</span>
+    </div>
+  </div>
+
+</div>
+
 <div id="sub-nav">
   <!-- Foundation sub-nav -->
   <div class="sub-nav-group" id="subnav-foundation">
@@ -877,7 +979,7 @@ body.light-mode .module-body { background: #fafbff; }
   <button class="expand-btn" onclick="expandAll()">▼ Expand All</button>
   <button class="expand-btn" onclick="collapseAll()">▲ Collapse All</button>
 </div>
-<div class="sec-hdr" style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+<div class="sec-hdr" style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)" data-phase="foundation">
     <div class="badge g">INST</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#7fffd0;font-size:20px;font-weight:700;margin-bottom:3px">RF Instruments — Interactive Panel Guide</h2>
@@ -1302,7 +1404,7 @@ body.light-mode .module-body { background: #fafbff; }
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="div-line"></div>
 <div id="rct" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge p">RCT</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#c4b9ff">LTE Radio Conformance Tests — What You Run Daily</h2>
@@ -1531,7 +1633,7 @@ body.light-mode .module-body { background: #fafbff; }
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="div-line"></div>
 <div id="ota" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge c">OTA</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffbbbb">NR OTA Tests — TS 38.141-2 (Radiated Conformance)</h2>
@@ -1740,7 +1842,7 @@ body.light-mode .module-body { background: #fafbff; }
 <!-- ═══════════════════════════════════════════════════ -->
 <div class="div-line"></div>
 <div id="testconfig" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge b">CFG</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#a0dff5">Test Config — JSON Reference Decoder</h2>
@@ -1781,7 +1883,7 @@ body.light-mode .module-body { background: #fafbff; }
 <div class="div-line"></div>
 <div class="div-line"></div>
 <div id="rfcourse" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge pk">COURSE</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#f5a0c8">RF Engineering Course — Full Content, Basics to Expert</h2>
@@ -2065,7 +2167,7 @@ RF (Radio Frequency) is the part of the electromagnetic spectrum used to transmi
 </div>
 </div>
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A01</span>
   <span class="mod-title">RF fundamentals — signals, power, frequency, wavelength</span>
@@ -2185,7 +2287,7 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
 </div><!-- end module-card -->
 
 <!-- ─────────────────────────── M02 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A02</span>
   <span class="mod-title">Noise, noise figure, sensitivity, dynamic range</span>
@@ -2235,7 +2337,7 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
 </div>
 
 <!-- ─────────────────────────── M03 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A03</span>
   <span class="mod-title">Filters, S-parameters, VNA measurements in depth</span>
@@ -2348,7 +2450,7 @@ S11 (cable/connector quality): both ports, check S11 < −20 dB at band frequenc
 </div>
 
 <!-- ─────────────────────────── M04 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A04</span>
   <span class="mod-title">LTE/NR air interface — OFDM, resource blocks, FDD/TDD, physical channels</span>
@@ -2466,7 +2568,7 @@ Benefits: flat fading per subcarrier (simple equalisation), flexible resource al
 </div>
 
 <!-- ─────────────────────────── M05 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A05</span>
   <span class="mod-title">TX chain — PA, linearity, EVM, ACLR, DPD in full depth</span>
@@ -2648,7 +2750,7 @@ ACLR (Adjacent Channel Leakage Ratio) measures how much of the TX signal power s
 </div>
 
 <!-- ─────────────────────────── M06 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A06</span>
   <span class="mod-title">RX chain — LNA, mixer, ADC, AGC, sensitivity in depth</span>
@@ -2809,7 +2911,7 @@ The 12-bit ADC samples the analog baseband IQ signal at 122.88 MSPS (mega sample
 </div>
 
 <!-- ─────────────────────────── M07 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A07</span>
   <span class="mod-title">Massive MIMO, beamforming, OTA physics in full depth</span>
@@ -2910,7 +3012,7 @@ Each column's TX path (from digital beamformer output to antenna element) has sl
 </div>
 
 <!-- ─────────────────────────── M08 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A08</span>
   <span class="mod-title">Propagation channel models — AWGN, EPA, EVA, ETU, PropSim</span>
@@ -3040,7 +3142,7 @@ PropSim is a hardware channel emulator that sits between EXM and RU. It applies 
 </div>
 
 <!-- ─────────────────────────── M09 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A09</span>
   <span class="mod-title">Test automation, cadence design, ETM, measurement architecture</span>
@@ -3135,7 +3237,7 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
 </div>
 
 <!-- ─────────────────────────── M10 ─────────────────────────── -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A10</span>
   <span class="mod-title">Expert: troubleshooting, root cause analysis, RF pathology patterns</span>
@@ -3270,6 +3372,129 @@ Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct co
 .mod-p{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:8px}
 .mod-formula{font-family:var(--mono);font-size:12.5px;color:var(--amber);background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:7px 12px;margin:8px 0;letter-spacing:.03em}
 .mod-table-wrap{overflow-x:auto;margin:8px 0}
+
+/* ═══ PHASE HEROES ═══ */
+#phase-heroes { padding: 0 0 4px; }
+.phase-hero {
+  padding: 28px 0 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.phase-hero.hidden { display: none; }
+.hero-tag {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.phase-hero h1 {
+  font-size: 24px; font-weight: 700; color: var(--text);
+  margin-bottom: 8px; line-height: 1.2;
+}
+.phase-hero p {
+  color: var(--muted); font-size: 13px; max-width: 680px; line-height: 1.7;
+}
+.hero-chips { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.chip {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  border: 1px solid;
+}
+.chip-green { color: var(--green); border-color: rgba(0,212,160,0.3); background: rgba(0,212,160,0.06); }
+.chip-blue  { color: var(--accent); border-color: rgba(91,196,239,0.3); background: rgba(91,196,239,0.06); }
+.chip-yellow{ color: var(--yellow); border-color: rgba(200,184,0,0.3); background: rgba(200,184,0,0.06); }
+
+/* ═══ SUB-NAV ═══ */
+#sub-nav {
+  position: fixed; top: var(--nav-h); left: 0; right: 0;
+  height: var(--sub-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index: 190;
+  display: flex; align-items: center;
+  padding: 0 16px; overflow-x: auto;
+  gap: 2px;
+}
+#sub-nav::-webkit-scrollbar { height: 2px; }
+#sub-nav::-webkit-scrollbar-thumb { background: var(--border); }
+
+.sub-group {
+  display: flex; align-items: center; gap: 2px; width: 100%;
+}
+.sub-group.hidden { display: none; }
+
+.sub-btn {
+  display: inline-flex; align-items: center;
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  padding: 8px 12px;
+  cursor: pointer; white-space: nowrap;
+  font-size: 12px; font-weight: 600;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.15s;
+  text-decoration: none;
+}
+.sub-btn:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.sub-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.sub-divider {
+  flex: 1;
+  border-right: none;
+}
+
+.expand-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px; color: var(--muted);
+  padding: 4px 10px; cursor: pointer;
+  font-size: 11px; white-space: nowrap;
+  margin-left: 4px;
+}
+.expand-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ═══ SEC-HEADERS ═══ */
+.sec-hdr {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+  padding: 22px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-hdr::before {
+  content: '';
+  width: 3px; height: 14px;
+  background: var(--accent); border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ═══ SEARCH IN NAV ═══ */
+.search-mini {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  min-width: 0;
+}
+.search-mini:focus-within { border-color: var(--accent); }
+#card-search {
+  background: none; border: none; outline: none;
+  color: var(--text); font-size: 12px; width: 180px; min-width: 0;
+}
+#card-search::placeholder { color: var(--muted); }
+#search-count { color: var(--muted); font-size: 11px; white-space: nowrap; }
+
+/* ═══ BODY PADDING FOR FIXED NAVS ═══ */
+body { padding-top: calc(var(--nav-h) + var(--sub-h) + 2px) !important; }
+
+/* ═══ SCROLL OFFSET FOR ANCHORS ═══ */
+[id] { scroll-margin-top: 115px; }
+
+/* ═══ CARD HOVER ═══ */
+.module-card { transition: border-color 0.12s, box-shadow 0.12s; }
+.module-card:hover { border-color: #354070; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
+
 </style>
 
 </div><!-- end rfcourse section -->
@@ -3277,7 +3502,7 @@ Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct co
 <!-- ═══════════════ LINK BUDGET ═══════════════ -->
 <div class="div-line"></div>
 <div id="linkbudget" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge g">LB</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#7fffd0">M11 — Link Budget: The Engineer's Core Skill</h2>
@@ -3285,7 +3510,7 @@ Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct co
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A11</span>
     <span class="mod-title">Link budget — from TX power to receiver sensitivity with every loss accounted for</span>
@@ -3428,7 +3653,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
 <!-- ═══════════════ PHASE NOISE ═══════════════ -->
 <div class="div-line"></div>
 <div id="phasenoise" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge a">PN</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffd080">M12 — Phase Noise: The Hidden EVM Killer</h2>
@@ -3436,7 +3661,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A12</span>
     <span class="mod-title">Phase noise — what it is, why it matters, how to measure and fix it</span>
@@ -3473,7 +3698,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
 <!-- ═══════════════ CSI + BEAM MANAGEMENT ═══════════════ -->
 <div class="div-line"></div>
 <div id="beammgmt" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge c">BM</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffbbbb">M13 — CSI, Beam Management & 5G NR Reference Signals</h2>
@@ -3481,7 +3706,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A13</span>
     <span class="mod-title">5G NR CSI-RS, SSB, SRS, beam management — how the gNB knows where to point</span>
@@ -3582,7 +3807,7 @@ SRS (Sounding Reference Signal) is transmitted by the UE and received by the gNB
 <!-- ═══════════════ CONNECTORS + CABLES ═══════════════ -->
 <div class="div-line"></div>
 <div id="cables" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge b">CON</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#a0dff5">M14 — Connectors, Cables & RF Plumbing Mastery</h2>
@@ -3590,7 +3815,7 @@ SRS (Sounding Reference Signal) is transmitted by the UE and received by the gNB
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A14</span>
     <span class="mod-title">RF connectors, cables, torque specs, inspection — zero mistakes in the lab</span>
@@ -3684,7 +3909,7 @@ RG316 (flexible, your lab cables): 2.5 dB/m @ 2 GHz. A 1m cable = −2.5 dB. LMR
 <!-- ═══════════════ OPEN RAN ═══════════════ -->
 <div class="div-line"></div>
 <div id="oran" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge pk">ORAN</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#f5a0c8">M15 — Open RAN, O-RU Testing & What's Next</h2>
@@ -3692,7 +3917,7 @@ RG316 (flexible, your lab cables): 2.5 dB/m @ 2 GHz. A 1m cable = −2.5 dB. LMR
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A15</span>
     <span class="mod-title">Open RAN architecture, O-RU/O-DU/O-CU split, fronthaul, your RU in context</span>
@@ -3840,7 +4065,7 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
 <!-- ═══════════════ RF SIGNAL CHAIN M16 ═══════════════ -->
 <div class="div-line"></div>
 <div id="rfchain" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge c">M16</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffbbbb">M16 — Complete RF Signal Chain: Antenna → RU → FHGW → DU</h2>
@@ -3899,7 +4124,7 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="rct">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16a</span>
     <span class="mod-title">RF path components — duplexer, BPF, LNA, VGA, mixer (every stage)</span>
@@ -4003,7 +4228,7 @@ LNA dead → sensitivity fails, all columns for that band. LNA compressed (block
   </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="rct">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16b</span>
     <span class="mod-title">ADC — 11-12 bit resolution, dynamic range, dBFS, clipping</span>
@@ -4078,7 +4303,7 @@ SQNR = 6.02 × N + 1.76 dB
   </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="rct">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16c</span>
     <span class="mod-title">RSSI: two methods (CLI dBFS vs DU dBm), sensitivity point, your task</span>
@@ -4161,7 +4386,7 @@ CLI accurate, DU off by 2–3 dB → FHGW BFP decompression issue or eCPRI timin
   </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="rct">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16d</span>
     <span class="mod-title">FHGW internals — FFT, BFP compression, eCPRI fronthaul timing</span>
@@ -4255,14 +4480,14 @@ BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are w
 <!-- ═══════════════ RSSI TEST (David's call) ═══════════════ -->
 <div class="div-line"></div>
 <div id="rssi_david" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="instruments">
     <div class="badge b">RSSI</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#a0dff5">RSSI Automation Task — From David Bekker's Call (July 1, 2026)</h2>
       <p>Exact goals · Manual procedure · Automation requirements · Pass criteria · What to compare between CLI and DU</p>
     </div>
   </div>
-  <div class="module-card">
+  <div class="module-card" data-phase="instruments">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">RSSI</span>
     <span class="mod-title">Sensitivity + dynamic range test: manual steps and automation blueprint</span>
@@ -4422,7 +4647,7 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
 <!-- ═══════════════ FULL PARALLEL WIRELESS RF COURSE ═══════════════ -->
 <div class="div-line"></div>
 <div id="pwcourse" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge g">PW</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#7fffd0">Parallel Wireless RF Course — All 16 Modules (from D:\Learning\RCT)</h2>
@@ -4445,7 +4670,7 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
   </div>
 
 <!-- ───── M01 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M01</span>
   <span class="mod-title">The Decibel & RF Power — dB, dBm, dBc, dBFS, link budget</span>
@@ -4639,7 +4864,7 @@ RF signals span 13 orders of magnitude in power — from a 20W PA (+43 dBm) to a
 </div>
 
 <!-- ───── M02 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M02</span>
   <span class="mod-title">The 50-Ohm World — impedance, reflection, VSWR, return loss</span>
@@ -4817,7 +5042,7 @@ VSWR = (1 + |Γ|) / (1 − |Γ|)           ← near 1 is better</div>
 </div>
 
 <!-- ───── M03 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M03</span>
   <span class="mod-title">The RF Chain — TX/RX flow, gain cascade, noise figure, sensitivity</span>
@@ -4959,7 +5184,7 @@ Sensitivity = −174 + 10×log₁₀(BW_Hz) + NF + required_SNR</div>
 </div>
 
 <!-- ───── M04 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M04</span>
   <span class="mod-title">Key Radio Metrics — RSSI, sensitivity, dynamic range, EIRP, TRP</span>
@@ -5056,7 +5281,7 @@ TRP = EIRP integrated over the full sphere</div>
 </div>
 
 <!-- ───── M05 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M05</span>
   <span class="mod-title">Modulation & IQ — constellations, OFDM, EVM, IQ playback</span>
@@ -5312,7 +5537,7 @@ If the I and Q paths have amplitude or phase mismatch, the constellation rotates
 </div>
 
 <!-- ───── M06 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M06</span>
   <span class="mod-title">DL TX Chain — Power scaling, CFR, DPD, DAC scale</span>
@@ -5431,7 +5656,7 @@ DPD adapts its pre-distortion polynomial coefficients by comparing the PA output
 </div>
 
 <!-- ───── M07 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M07</span>
   <span class="mod-title">ACLR & Spectrum Analysis — RBW, cable loss, TDD gating, SEM</span>
@@ -5529,7 +5754,7 @@ B41 is TDD — the PA transmits only during DL subframes. EXA must be gated to m
 </div>
 
 <!-- ───── M08 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M08</span>
   <span class="mod-title">PRACH — Zadoff-Chu, Ncs/ZCZ/K, detector, timing advance</span>
@@ -5621,7 +5846,7 @@ When a PRACH is detected, the RU measures the arrival time of the correlation pe
 </div>
 
 <!-- ───── M09 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09</span>
   <span class="mod-title">AAU Architecture — board split, single DPD observation loop, beamforming</span>
@@ -5778,7 +6003,7 @@ DPD needs to observe the PA output to adapt. A single observation receiver (ORX)
 
 <div id="m09b_anchor"></div>
 <!-- ───── M09b RFFE TX Block Diagram ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09b</span>
   <span class="mod-title">RFFE TX Block Diagram — B7/B1/B3 three-band TX_A path decoded stage by stage</span>
@@ -5920,7 +6145,7 @@ The directional coupler taps a fixed fraction of the main TX signal (−30 dB = 
 
 <div id="m09c_anchor"></div>
 <!-- ───── M09c FHGW DL Chain Diagram ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09c</span>
   <span class="mod-title">FHGW DL Chain — LowPHY → DFE → DAC with real register values and power taps</span>
@@ -6062,7 +6287,7 @@ DFE performs interpolation (upsampling from symbol rate to DAC rate) and frequen
 
 <div id="m09d_anchor"></div>
 <!-- ───── M09d Real Lab Screenshots ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09d</span>
   <span class="mod-title">Real Lab Screenshots Decoded — EXM ACP / Modulation Analysis / TRX1 ACLR (B28, Jul 13 2026)</span>
@@ -6261,7 +6486,7 @@ EVM is shown as a percentage. Lower = better. Limits: QPSK &lt; 17.5%, 16QAM &lt
 
 
 <!-- ───── M10 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M10</span>
   <span class="mod-title">Lab & Measurement Practice — bench setup, instruments, platform bring-up</span>
@@ -6411,7 +6636,7 @@ All Keysight instruments listen on TCP port 5025 for SCPI commands. Connect via 
 </div>
 
 <!-- ───── M11 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M11</span>
   <span class="mod-title">PA Efficiency & Power Optimization — Dynamic Vdd, gate bias, sequencing</span>
@@ -6515,7 +6740,7 @@ GaN PA junction temperature limit: typically 150–200°C. At 20W output and 35%
 </div>
 
 <!-- ───── M12 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M12</span>
   <span class="mod-title">Reading the RCT Config — tc_cadence, Group-IDs, Test-IDs, KPI limits</span>
@@ -6648,7 +6873,7 @@ When RuAuto reports a failure, it includes Group-ID and Test-ID. Group_TX_POWER 
 </div>
 
 <!-- ───── M13 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M13</span>
   <span class="mod-title">RU Features & Operations — uSleep, PA protection, RSSI accuracy, IQ playback</span>
@@ -7432,7 +7657,7 @@ IQ playback captures raw ADC samples (IQ data) from the RX chain and stores them
 </div>
 
 <!-- ───── M14 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M14</span>
   <span class="mod-title">RSSI & Receive Chain — dBFS vs dBm, ADC calibration, dynamic range results</span>
@@ -7537,7 +7762,7 @@ All three (EXM, CLI, DU) off → EXM not calibrated, or cable loss not subtracte
 </div>
 
 <!-- ───── M15 ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M15</span>
   <span class="mod-title">UL RCT Embedded & Dynamic Test — ul-rct-test, 4-stage pipeline, real results</span>
@@ -7648,7 +7873,7 @@ ul-rct-test 10 a34 0                   # → BLER 0.00%  SNR 24.6 dB</div>
 </div>
 
 <!-- ───── M16-TDD ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M16</span>
   <span class="mod-title">TDD LTE & PHY DU Impact — frame structure, special subframe, HARQ, PSS/SSS</span>
@@ -7825,7 +8050,7 @@ B41 ACLR must be measured with EXA gating on DL subframes only. PRACH arrives in
 </div>
 
 <!-- ───── GLOSSARY ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">REF</span>
   <span class="mod-title">RF & RCT Glossary — quick definitions of every term</span>
@@ -7895,7 +8120,7 @@ B41 ACLR must be measured with EXA gating on DL subframes only. PRACH arrives in
 </div>
 </div>
 
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">B41T</span>
   <span class="mod-title">B41 TDD Trigger Delay — 9.9765 ms explained, why it affects sensitivity</span>
@@ -8086,7 +8311,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
 </div>
 
 <!-- ───── RUAUTO FRAMEWORK ───── -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">REF</span>
   <span class="mod-title">RuAuto Framework — 3-layer architecture, how tests run, full test catalog</span>
@@ -8145,7 +8370,7 @@ Open rct_results.json → find failing test → note Group-ID and Test-ID. Examp
 <!-- ═══════════════ PPT & OPERATIONAL DOCS ═══════════════ -->
 <div class="div-line"></div>
 <div id="opsdocs" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="rct">
     <div class="badge a">OPS</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffd080">Operational Docs — PPT Decks, FHGW Guide, 4G Test Plan</h2>
@@ -8154,7 +8379,7 @@ Open rct_results.json → find failing test → note Group-ID and Test-ID. Examp
   </div>
 
 <!-- RSSI Results PPT -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT1</span>
   <span class="mod-title">RSSI ADC Adjustment Results — actual calibration data from your hardware</span>
@@ -8208,7 +8433,7 @@ XSA: vvdn_dbru_4cc_top.bit</div>
 </div>
 
 <!-- PA Efficiency Test Plan -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT2</span>
   <span class="mod-title">PA Efficiency Test Plan — 5-band AAU, Dynamic Vdd, test procedure</span>
@@ -8266,7 +8491,7 @@ Pre-CFR Gain register 0xb0290000:
 </div>
 
 <!-- FHGW Embedded RCT PPT -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT3</span>
   <span class="mod-title">FHGW Embedded RCT — standalone UL test, CLI, memory management, real timing</span>
@@ -8327,7 +8552,7 @@ Debug: per-stage timing + full PHY logs + constellation output</div>
 </div>
 
 <!-- 4G Test Plan Operational Details -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">OPS1</span>
   <span class="mod-title">4G Test Plan — band mapping, rated power, antenna ports, NETCONF bring-up</span>
@@ -8411,7 +8636,7 @@ tail -f /var/log/synctimingptp2.log  # should show synchronized + errors &lt;10 
 </div>
 
 <!-- Validation Team Handbook -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">OPS2</span>
   <span class="mod-title">Validation Team Handbook — Agile, CI/CD, PreChecks, Jenkins, Bitbucket</span>
@@ -8468,7 +8693,7 @@ Flow:
 </div>
 
 <!-- Expert RF Topics (from YouTube + LinkedIn resources) -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP1</span>
   <span class="mod-title">Expert RF topics — PLL/LO, mixers, filters deep dive, phase noise, IQ imbalance</span>
@@ -8648,7 +8873,7 @@ Real ADCs: SFDR typically 3–10 dB below theoretical due to harmonics, clock ji
 </div>
 
 <!-- Expert: SCPI Automation -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP2</span>
   <span class="mod-title">SCPI Instrument Automation — control EXM/EXA via Python, real commands</span>
@@ -8920,7 +9145,7 @@ else:
 <!-- ═══════════════ EXPERT VIDEOS & RESOURCES ═══════════════ -->
 <div class="div-line"></div>
 <div id="expertvideos" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge pk">▶</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#f5a0c8">Expert Learning Resources — YouTube · LinkedIn · Channels</h2>
@@ -8928,7 +9153,7 @@ else:
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">VID</span>
     <span class="mod-title">Week-by-week learning plan — tailored for RF test engineer at Parallel Wireless</span>
@@ -8964,7 +9189,7 @@ DSA (sensitivity and test thresholds), A05 (TX chain), A06 (RX chain), NCH (nois
   </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">CH</span>
     <span class="mod-title">Top channels and videos — direct links with what to watch</span>
@@ -9032,7 +9257,7 @@ How DPD works (Keysight application notes). VNA calibration procedure (Keysight 
 <!-- ═══════════════ EXPERT RF DEEP DIVE ═══════════════ -->
 <div class="div-line"></div>
 <div id="opsdocs" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="rct">
     <div class="badge a">OPS</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffd080">Operational Docs — PPT Decks, FHGW Guide, 4G Test Plan</h2>
@@ -9041,7 +9266,7 @@ How DPD works (Keysight application notes). VNA calibration procedure (Keysight 
   </div>
 
 <!-- RSSI Results PPT -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT1</span>
   <span class="mod-title">RSSI ADC Adjustment Results — actual calibration data from your hardware</span>
@@ -9095,7 +9320,7 @@ XSA: vvdn_dbru_4cc_top.bit</div>
 </div>
 
 <!-- PA Efficiency Test Plan -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT2</span>
   <span class="mod-title">PA Efficiency Test Plan — 5-band AAU, Dynamic Vdd, test procedure</span>
@@ -9153,7 +9378,7 @@ Pre-CFR Gain register 0xb0290000:
 </div>
 
 <!-- FHGW Embedded RCT PPT -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PPT3</span>
   <span class="mod-title">FHGW Embedded RCT — standalone UL test, CLI, memory management, real timing</span>
@@ -9214,7 +9439,7 @@ Debug: per-stage timing + full PHY logs + constellation output</div>
 </div>
 
 <!-- 4G Test Plan Operational Details -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">OPS1</span>
   <span class="mod-title">4G Test Plan — band mapping, rated power, antenna ports, NETCONF bring-up</span>
@@ -9298,7 +9523,7 @@ tail -f /var/log/synctimingptp2.log  # should show synchronized + errors &lt;10 
 </div>
 
 <!-- Validation Team Handbook -->
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">OPS2</span>
   <span class="mod-title">Validation Team Handbook — Agile, CI/CD, PreChecks, Jenkins, Bitbucket</span>
@@ -9355,7 +9580,7 @@ Flow:
 </div>
 
 <!-- Expert RF Topics (from YouTube + LinkedIn resources) -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP1</span>
   <span class="mod-title">Expert RF topics — PLL/LO, mixers, filters deep dive, phase noise, IQ imbalance</span>
@@ -9410,7 +9635,7 @@ Real ADCs: SFDR typically 3–10 dB below theoretical due to harmonics, clock ji
 </div>
 
 <!-- Expert: SCPI Automation -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP2</span>
   <span class="mod-title">SCPI Instrument Automation — control EXM/EXA via Python, real commands</span>
@@ -9506,7 +9731,7 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
 <!-- ═══════════════ EXPERT VIDEOS & RESOURCES ═══════════════ -->
 <div class="div-line"></div>
 <div id="expertvideos" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge pk">▶</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#f5a0c8">Expert Learning Resources — YouTube · LinkedIn · Channels</h2>
@@ -9514,7 +9739,7 @@ def rssi_sweep(sig_gen, fhgw_cli, band, start_dbm=-40, stop_dbm=-120, step=1):
     </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">VID</span>
     <span class="mod-title">Week-by-week learning plan — tailored for RF test engineer at Parallel Wireless</span>
@@ -9550,7 +9775,7 @@ DSA (sensitivity and test thresholds), A05 (TX chain), A06 (RX chain), NCH (nois
   </div>
   </div>
 
-  <div class="module-card">
+  <div class="module-card" data-phase="deepdive">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">CH</span>
     <span class="mod-title">Top channels and videos — direct links with what to watch</span>
@@ -9618,7 +9843,7 @@ How DPD works (Keysight application notes). VNA calibration procedure (Keysight 
 <!-- ═══════════════ EXPERT RF DEEP DIVE ═══════════════ -->
 <div class="div-line"></div>
 <div id="expertrf" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="deepdive">
     <div class="badge c">EXP</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#c8b8ff">Expert RF Engineering — Complete Deep Dive (E01–E15)</h2>
@@ -9627,7 +9852,7 @@ How DPD works (Keysight application notes). VNA calibration procedure (Keysight 
   </div>
 
 <!-- ══ VIDEO 1: aQd_zBytid8 — Constellation Diagram Diagnostics ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VID1</span>
   <span class="mod-title">Constellation Diagram Diagnosis — reading impairments from IQ plots (YouTube aQd_zBytid8)</span>
@@ -9687,7 +9912,7 @@ If you see EVM > 1% with everything calibrated → DPD or PA issue.</div>
 </div>
 
 <!-- ══ VIDEO 2: 1xGncBvWv6U — Spectrum Analyzer ACLR Setup ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VID2</span>
   <span class="mod-title">Spectrum Analyzer ACLR Measurement Setup — complete step-by-step (YouTube 1xGncBvWv6U)</span>
@@ -9754,7 +9979,7 @@ verdict = 'PASS' if min(abs(result[1]), abs(result[2])) >= aclr_kpi else 'FAIL'<
 </div>
 
 <!-- ══ VIDEO 3: rMVAQsUudSs — Spectrum Analyzer Fundamentals ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VID3</span>
   <span class="mod-title">Spectrum Analyzer Deep Dive — FFT, RBW, dynamic range, noise floor (YouTube rMVAQsUudSs)</span>
@@ -9835,7 +10060,7 @@ For REFSENS test (−69 dBm in 10 MHz):
 </div>
 
 <!-- ══ VIDEO 4: swjgr4YBhRM ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VID4</span>
   <span class="mod-title">RF Engineering Topics — signal chain, IQ, mixers (YouTube swjgr4YBhRM)</span>
@@ -9899,7 +10124,7 @@ Converting dBFS → dBm:
 </div>
 
 <!-- ══ PA Classes — the missing topic ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP3</span>
   <span class="mod-title">PA Classes A/B/AB/C/F — efficiency vs linearity trade-off in your GaN PA</span>
@@ -10132,7 +10357,7 @@ Class AB PA efficiency is highest at peak power and drops at lower power levels.
 </div>
 
 <!-- ══ Noise Floor Derivation ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP4</span>
   <span class="mod-title">Noise floor from first principles — thermal noise, kTB, −174 dBm/Hz derivation</span>
@@ -10308,7 +10533,7 @@ For B1 10 MHz:
 </div>
 
 <!-- ══ PRACH Detector Internals ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP5</span>
   <span class="mod-title">PRACH detector internals — noise estimator, peak multiplier, timing advance math</span>
@@ -10438,7 +10663,7 @@ UE then transmits that much earlier so signal arrives aligned at eNB</div>
 </div>
 
 <!-- ══ dBFS to dBm conversion ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP6</span>
   <span class="mod-title">dBFS ↔ dBm conversion — the complete guide with your real calibration numbers</span>
@@ -10547,7 +10772,7 @@ If hardware.json is wrong (offset not calibrated for your unit):
 </div>
 
 <!-- ══ Complete RF Learning Path Summary ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PATH</span>
   <span class="mod-title">Your complete RF mastery path — all channels, all videos, ordered correctly</span>
@@ -10618,7 +10843,7 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
 <!-- ═══════════════ LIVE EXA DATA ═══════════════ -->
 <div class="div-line"></div>
 <div id="exa_live" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="instruments">
     <div class="badge a">LIVE</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#00d4a0">Your EXA N9010B — Live Instrument Data (captured Jul 15 2026 21:25)</h2>
@@ -10626,7 +10851,7 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
     </div>
   </div>
 
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXA</span>
   <span class="mod-title">EXA N9010B Live State — B1 2140 MHz ACP measurement decoded (10.62.2.135)</span>
@@ -10783,7 +11008,7 @@ Preamp ON with TX signal → input compression → ACLR reads 10–15 dB better 
 <!-- ═══════════════ VNA PHASE & ANGLE CALIBRATION ═══════════════ -->
 <div class="div-line"></div>
 <div id="vna_cal" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="instruments">
     <div class="badge b">VNA</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#9b8cf8">Phase & Angle Calibration using VNA E5071C — Complete Guide</h2>
@@ -10792,7 +11017,7 @@ Preamp ON with TX signal → input compression → ACLR reads 10–15 dB better 
   </div>
 
 <!-- ══ WHY PHASE MATTERS ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA1</span>
   <span class="mod-title">Why phase calibration matters — beamforming, MIMO, cable characterisation</span>
@@ -10880,7 +11105,7 @@ Freq range: single point or narrow span (±10 MHz) around band centre. IFBW: 1 k
 </div>
 
 <!-- ══ VNA CALIBRATION (SOLT) ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA2</span>
   <span class="mod-title">VNA calibration — SOLT/SOLR, why it matters, what errors it removes</span>
@@ -11020,7 +11245,7 @@ Procedure:
 </div>
 
 <!-- ══ CABLE PHASE MATCHING ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA3</span>
   <span class="mod-title">Cable electrical length & phase matching — step-by-step for your SF141 cables</span>
@@ -11143,7 +11368,7 @@ So Cable B is 0.91 mm longer than Cable A. Trim 0.91 mm off Cable B to match.</d
 </div>
 
 <!-- ══ ANTENNA ELEMENT PHASE CALIBRATION ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA4</span>
   <span class="mod-title">Antenna element phase calibration — measuring TX path phase across all 8/12 elements</span>
@@ -11258,7 +11483,7 @@ Col A: −125.4° (ref). Col B: −127.1° → Δ = −1.7° (within ±2° ✓).
 </div>
 
 <!-- ══ BEAMFORMING PHASE ANGLE CALIBRATION ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA5</span>
   <span class="mod-title">Beamforming angle calibration — mapping phase shift to beam angle, verifying PE44820DS</span>
@@ -11379,7 +11604,7 @@ Your B1/B3 4-column array (12 elements):
 </div>
 
 <!-- ══ PRACTICAL TIPS & COMMON MISTAKES ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA6</span>
   <span class="mod-title">Practical VNA phase tips — common mistakes, connector care, temperature effects</span>
@@ -11497,7 +11722,7 @@ Full recal: whenever you change cable, add/remove adapter, or temperature change
 </div>
 
 <!-- ══ FULL WORKED EXAMPLE ══ -->
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">VNA7</span>
   <span class="mod-title">Worked example — full B1 TX path phase calibration from scratch</span>
@@ -11622,7 +11847,7 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
 <!-- ═══════════════ RCT TEST SETUP DIAGRAM ═══════════════ -->
 <div class="div-line"></div>
 <div id="rct_setup" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="rct">
     <div class="badge g">SETUP</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#7fffd0">RCT Test Setup — DU → AAU B1B3 → 4-Port → EXM (your hand-drawn diagram decoded)</h2>
@@ -11630,7 +11855,7 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
     </div>
   </div>
 
-<div class="module-card">
+<div class="module-card" data-phase="rct">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">SET1</span>
   <span class="mod-title">Your RCT bench setup decoded — DU → AAU B1B3 → A/B/C/D ports → EXM</span>
@@ -11784,7 +12009,7 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
 <!-- ═══════════════ NOISE FIGURE MODULE ═══════════════ -->
 <div class="div-line"></div>
 <div id="noisefigure" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge c">NF</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#a0c8ff">Understanding Noise Figure — Complete Guide</h2>
@@ -11793,7 +12018,7 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   </div>
 
 <!-- NF1: Thermal Noise Foundation -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF1</span>
   <span class="mod-title">Thermal noise foundation — kTB, −174 dBm/Hz, Johnson-Nyquist, noise voltage</span>
@@ -11898,7 +12123,7 @@ Noise voltage Vn = √(4kTBR). For a 50Ω system at 290K in 1MHz bandwidth: Vn =
 </div>
 
 <!-- NF2: Noise Figure Definition -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF2</span>
   <span class="mod-title">Noise Figure definition — SNR degradation, Noise Factor vs NF, receiver sensitivity formula</span>
@@ -11946,7 +12171,7 @@ EXM injects at sensitivity threshold. Sensitivity = kTB_floor + NF + SNR_req. If
 </div>
 
 <!-- NF3: Friis Cascade Formula -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF3</span>
   <span class="mod-title">Friis cascade formula — why the LNA dominates, worked examples for your RU chain</span>
@@ -12002,7 +12227,7 @@ The duplexer and pre-BPF are fixed inside the RFFE — you cannot change them. T
 </div>
 
 <!-- NF4: NF of Passive Devices -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF4</span>
   <span class="mod-title">NF of passive devices — attenuators, mixers, filters, cables, your test setup</span>
@@ -12077,7 +12302,7 @@ A single SMA connector in good condition has approximately 0.1–0.15 dB inserti
 </div>
 
 <!-- NF5: Five Types of Noise -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF5</span>
   <span class="mod-title">All 5 noise types — Thermal, Shot, Flicker/1f, White, Burst — with RF context</span>
@@ -12160,7 +12385,7 @@ Every ADC rounds the analog signal to the nearest discrete level. With 12 bits, 
 </div>
 
 <!-- NF6: Applied to your specific work -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF6</span>
   <span class="mod-title">NF applied to your work — EXA preamp, sensitivity testing, RSSI calibration, EXM overrange</span>
@@ -12224,7 +12449,7 @@ If your sensitivity test fails by X dB, and you have confirmed cable loss and EX
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF_CAL</span>
   <span class="mod-title">Noise Figure calibration — Y-factor method, ENR, hot/cold noise, what it measures and why</span>
@@ -12337,7 +12562,7 @@ If measured NF > spec by more than 1 dB: (1) Check cable loss — every 0.1 dB e
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="instruments">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">GAIN_CAL</span>
   <span class="mod-title">Gain calibration — RX chain ADC_ADJUST, TX power trim, what each register means</span>
@@ -12480,7 +12705,7 @@ They are the same operation from opposite ends of the RX chain. RSSI cal (ADC_AD
 <!-- ═══════════════ SENSITIVITY & DSA ═══════════════ -->
 <div class="div-line"></div>
 <div id="sensitivity_dsa" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge a">DSA</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#ffd080">Sensitivity & DSA — How they connect, what DSA really means</h2>
@@ -12489,7 +12714,7 @@ They are the same operation from opposite ends of the RX chain. RSSI cal (ADC_AD
   </div>
 
 <!-- DSA1: What sensitivity really is -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">DSA1</span>
   <span class="mod-title">Receiver sensitivity — what it means physically, BLER threshold, lab measurement</span>
@@ -12545,7 +12770,7 @@ A wider channel (wider bandwidth) collects more thermal noise — like a wider b
 </div>
 
 <!-- DSA2: Modulation and Required SNR -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">DSA2</span>
   <span class="mod-title">Modulation vs sensitivity — FRC, SNR_required, why QPSK gives best sensitivity</span>
@@ -12610,7 +12835,7 @@ QPSK has only 4 constellation points — they are spread far apart in the IQ pla
 </div>
 
 <!-- DSA3: What DSA is -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">DSA3</span>
   <span class="mod-title">DSA — complete picture: kTB → sensitivity → per-band offset → rev paths → before/after → MRC combining</span>
@@ -12787,7 +13012,7 @@ B1 at RU port: −91.65 − 2.5 = −94.15 dBm → compare to sensitivity −99.
 </div>
 
 <!-- DSA4: Complete connection diagram -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">DSA4</span>
   <span class="mod-title">DSA table deep dive — every column explained, before/after gap, MRC combining gain</span>
@@ -12905,7 +13130,7 @@ MRC (Maximum Ratio Combining) does not simply add signals — it weights each ch
 </div>
 
 <!-- KTB DEEP DIVE CARD -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">KTB</span>
   <span class="mod-title">K × T × B explained — what each constant is, why room temp is the reference</span>
@@ -13009,7 +13234,7 @@ IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and se
 </div>
 
 <!-- NOISE CHAIN VISUAL CARD -->
-<div class="module-card">
+<div class="module-card" data-phase="foundation">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NCH</span>
   <span class="mod-title">The complete noise chain — EXM → cable → RU port → LNA → ADC → DU, every stage explained</span>
@@ -13328,7 +13553,7 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 <!-- ═══════════════ RF FUNDAMENTALS Q&A ═══════════════ -->
 <div class="div-line"></div>
 <div id="rf_fundamentals" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge b">RF</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#5bc4ef">RF Fundamentals — Visual Q&A Reference (16 Topics)</h2>
@@ -13838,7 +14063,7 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 <!-- ═══════════════ RF CAREER ROADMAP ═══════════════ -->
 <div class="div-line"></div>
 <div id="careermap" class="sec">
-  <div class="sec-hdr">
+  <div class="sec-hdr" data-phase="foundation">
     <div class="badge a">🗺</div>
     <div class="sec-hdr-txt">
       <h2 style="color:#f5a623">RF Engineering Mastery — Complete 17-Level Roadmap</h2>
@@ -14022,7 +14247,7 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 <!-- ══════════════ LEVEL CARDS ══════════════ -->
 
 <!-- L0 -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L0</span>
   <span class="mod-title">Foundation — Electronics: Ohm's Law, Impedance, dB/dBm/dBc, VSWR, Smith Chart, Filters, Mixers</span>
@@ -14125,7 +14350,7 @@ Learn these rules cold: +3dB=×2 power, +10dB=×10. 0dBm=1mW, +30dBm=1W, −30dB
 </div>
 
 <!-- L1 -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L1</span>
   <span class="mod-title">Digital Communications — Modulation (AM/FM/PSK/QAM/OFDM), Coding (CRC/Turbo/LDPC), Multiple Access (FDMA/TDMA/CDMA/OFDMA)</span>
@@ -14218,7 +14443,7 @@ OFDM converts a wideband channel into many narrow subchannels (15 kHz each). Eac
 </div>
 
 <!-- L3 — RF Measurements (star) -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L3</span>
   <span class="mod-title">RF Measurements ⭐⭐⭐⭐⭐ — Power, EVM, ACLR, SEM, RSSI, Sensitivity, Dynamic Range, PA tests — where RF engineers spend their lives</span>
@@ -14313,7 +14538,7 @@ SEM verifies TX spectral purity across a wide frequency range — not just the a
 </div>
 
 <!-- L4: RF Components Chain -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L4</span>
   <span class="mod-title">RF Components — Full signal chain: BBU→DAC→IQ→Mixer→PLL→PA→Duplexer→Antenna (and reverse RX path)</span>
@@ -14455,7 +14680,7 @@ Antenna → duplexer/T-R switch → pre-BPF → LNA → post-BPF → mixer → V
 </div>
 
 <!-- L7: O-RAN (your work) -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L7</span>
   <span class="mod-title">O-RAN RF ⭐⭐⭐⭐⭐ — RU Architecture, M/C/U/S Plane, RU Capabilities, Tilt, RET, RSSI, IQ Playback, DPD, uSleep, Carrier Activation</span>
@@ -14547,7 +14772,7 @@ TDD requires all gNBs in a network to switch from DL to UL at exactly the same t
 </div>
 
 <!-- L9: Test Equipment -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L9</span>
   <span class="mod-title">Test Equipment ⭐⭐⭐⭐⭐ — Keysight EXA/EXM/VNA, Rohde &amp; Schwarz CMW500, Anritsu, VIAVI, LitePoint — know these deeply</span>
@@ -14629,7 +14854,7 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
 </div>
 
 <!-- L11: RF Debugging -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L11</span>
   <span class="mod-title">RF Debugging — TX Power failure tree: PA → Calibration → Gain → Temperature → Hardware → Software → Root Cause</span>
@@ -14715,7 +14940,7 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
 </div>
 
 <!-- L17: Interview Prep -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L17</span>
   <span class="mod-title">Interview Preparation — Master all 17 levels · Scenario questions · ACLR/EVM/RSSI/DPD/PA/S-parameters/Smith Chart</span>
@@ -14761,7 +14986,7 @@ RF knowledge is secondary — they want to see: (1) Do you think systematically?
 <!-- ══════════════════════════════════════════════════════ -->
 
 <!-- L18: RF System Architecture -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L18</span>
   <span class="mod-title">RF System Architecture ⭐⭐⭐⭐⭐ — Complete signal chain: L2/L3→PHY→Baseband→IQ→DAC→Upconverter→PLL→PA→Duplexer→Antenna + reverse RX path</span>
@@ -14882,7 +15107,7 @@ gNB TX: +43 dBm (20W) per column at antenna port. Free space loss at 1km, 2140MH
 </div>
 
 <!-- L19: RF Impairments -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L19</span>
   <span class="mod-title">RF Impairments — IQ Imbalance, LO Leakage, DC Offset, Phase Noise, CFO, PA Nonlinearity, AM-AM/AM-PM Distortion</span>
@@ -14982,7 +15207,7 @@ As input power approaches P1dB, PA gain drops. In the constellation: all points 
 </div>
 
 <!-- L20: Synchronisation -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L20</span>
   <span class="mod-title">Synchronisation — GPS/GNSS, PTP IEEE 1588, SyncE, Holdover, Frequency/Phase/Time sync — critical in O-RAN TDD</span>
@@ -15062,7 +15287,7 @@ No PTP lock → DU operates in freerun → TDD frame timing is arbitrary → DL/
 </div>
 
 <!-- L21+L22: Timing Advance + Beamforming -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L22</span>
   <span class="mod-title">Beamforming ⭐⭐⭐⭐⭐ — Analog/Digital/Hybrid beamforming, Beam Sweeping, Beam Management, Beam Failure Recovery</span>
@@ -15164,7 +15389,7 @@ Beamforming gain (TX): for 4-column phased array, beam gain ≈ 10·log(4) = +6 
 </div>
 
 <!-- L24: Calibration -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L24</span>
   <span class="mod-title">Calibration — TX/RX/IQ/Temperature/Gain/Phase/Factory/Field — the most overlooked area, critical for accurate measurements</span>
@@ -15251,7 +15476,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
 </div>
 
 <!-- L28: Fault Management -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L28</span>
   <span class="mod-title">Fault Management — PA Over-Temperature, VSWR Alarm, Fan Failure, GPS Loss, PTP Loss, Low Output Power, Carrier Failure</span>
@@ -15326,7 +15551,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 <!-- L38: KPI Correlation -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L38</span>
   <span class="mod-title">KPI Correlation — Bad ACLR → Interference → Low SINR → Low CQI → Lower MCS → Lower Throughput</span>
@@ -15408,7 +15633,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 <!-- L39: End-to-End Troubleshooting -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L39</span>
   <span class="mod-title">End-to-End Troubleshooting ⭐⭐⭐⭐⭐ — Alarm→Logs→Protocol→RF→Hardware→Software→Root Cause</span>
@@ -15508,7 +15733,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 <!-- L42: AI for RF -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L42</span>
   <span class="mod-title">AI for RF ⭐⭐⭐⭐ — AI-based DPD, Fault Prediction, Power Optimization, Beam Optimization, Anomaly Detection, RCA</span>
@@ -15570,7 +15795,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 <!-- The "Why?" Framework -->
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">WHY</span>
   <span class="mod-title">The "Why?" Framework — For every topic: Why does it exist? What problem? Which hardware? Which spec? How measured? Pass/fail? Debug? Interview? Customer impact?</span>
@@ -15675,7 +15900,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L21</span>
   <span class="mod-title">Timing Advance — LTE TA, NR TA, cell radius, propagation delay</span>
@@ -15707,7 +15932,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L23</span>
   <span class="mod-title">MIMO — SISO to Massive MIMO, SU-MIMO, MU-MIMO, spatial multiplexing</span>
@@ -15759,7 +15984,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L25</span>
   <span class="mod-title">Temperature testing — RF performance at −40°C to +70°C</span>
@@ -15805,7 +16030,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L26</span>
   <span class="mod-title">Environmental testing — thermal, humidity, rain, salt fog, dust</span>
@@ -15852,7 +16077,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L27</span>
   <span class="mod-title">Power supply — sequencing, inrush current, ripple, brownout</span>
@@ -15894,7 +16119,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L29</span>
   <span class="mod-title">Network management — NETCONF, YANG, O1 interface, M-plane</span>
@@ -15939,7 +16164,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L30</span>
   <span class="mod-title">Transport — eCPRI, Ethernet, VLAN, QoS, fronthaul/backhaul</span>
@@ -15987,7 +16212,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L31</span>
   <span class="mod-title">Linux — journalctl, tcpdump, grep, awk, ssh for RF engineers</span>
@@ -16027,7 +16252,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L32</span>
   <span class="mod-title">Scripting — Python SCPI, Shell automation, YAML/JSON config</span>
@@ -16069,7 +16294,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L33</span>
   <span class="mod-title">RF safety — SAR, EIRP limits, EMC, EMI, human exposure</span>
@@ -16111,7 +16336,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L34</span>
   <span class="mod-title">Standards — 3GPP, O-RAN, ETSI, FCC, CE, PTCRB, GCF</span>
@@ -16158,7 +16383,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L35</span>
   <span class="mod-title">Manufacturing — PCB assembly, factory calibration, end-of-line test, burn-in</span>
@@ -16209,7 +16434,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L36</span>
   <span class="mod-title">Certification — FCC, CE, PTCRB, GCF, operator acceptance</span>
@@ -16255,7 +16480,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L37</span>
   <span class="mod-title">Customer acceptance — field trial, optimisation, commercial launch</span>
@@ -16301,7 +16526,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L40</span>
   <span class="mod-title">Product lifecycle — requirements → design → validation → deployment → maintenance</span>
@@ -16353,7 +16578,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L41</span>
   <span class="mod-title">Telecom business context — CAPEX/OPEX, energy efficiency, why operators care</span>
@@ -16393,7 +16618,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L43</span>
   <span class="mod-title">Interview scenarios — 8 systematic debug walkthroughs</span>
@@ -16459,7 +16684,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L44</span>
   <span class="mod-title">Hands-on lab skills — spectrum analyser, VNA, oscilloscope, power meter</span>
@@ -16572,7 +16797,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
 </div>
 
 
-<div class="module-card">
+<div class="module-card" data-phase="deepdive">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L45</span>
   <span class="mod-title">Company knowledge — Ericsson, Nokia, Apple, Qualcomm focus areas</span>
@@ -16628,38 +16853,66 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
 const PHASES = ['foundation','instruments','rct','deepdive'];
 
 function showPhase(phase) {
-  // Update phase buttons
-  PHASES.forEach(p => {
-    const btn = document.getElementById('btn-' + p);
-    if (btn) btn.classList.toggle('active', p === phase);
+  const phases = ['foundation','instruments','rct','deepdive'];
+
+  // Phase buttons
+  phases.forEach(p => {
+    const b = document.getElementById('btn-' + p);
+    if (b) b.classList.toggle('active', p === phase);
   });
 
-  // Show/hide sub-navs
-  PHASES.forEach(p => {
-    const sn = document.getElementById('subnav-' + p);
-    if (sn) sn.classList.toggle('hidden', p !== phase);
+  // Sub-nav groups
+  phases.forEach(p => {
+    const sg = document.getElementById('sg-' + p);
+    if (sg) sg.classList.toggle('hidden', p !== phase);
   });
 
-  // Show/hide phase pages
-  PHASES.forEach(p => {
-    const page = document.getElementById('phase-' + p);
-    if (page) page.classList.toggle('hidden', p !== phase);
+  // Phase heroes
+  phases.forEach(p => {
+    const hero = document.getElementById('hero-' + p);
+    if (hero) hero.classList.toggle('hidden', p !== phase);
   });
 
-  // Show/hide card sections belonging to this phase
-  showPhaseCards(phase);
+  // Cards and section headers
+  document.querySelectorAll('.module-card').forEach(card => {
+    const cp = card.getAttribute('data-phase') || 'foundation';
+    card.style.display = cp === phase ? '' : 'none';
+  });
+  document.querySelectorAll('.sec-hdr').forEach(hdr => {
+    const hp = hdr.getAttribute('data-phase') || 'foundation';
+    hdr.style.display = hp === phase ? '' : 'none';
+  });
+  document.querySelectorAll('[id^="inst-"],[id^="rct-"],[id^="dd-"],[id^="foundation-"]').forEach(el => {
+    el.style.display = '';
+  });
 
-  // Reset sub-btn states
-  const subbtns = document.querySelectorAll('#subnav-' + phase + ' .sub-btn');
-  subbtns.forEach((b,i) => b.classList.toggle('active', i===0));
-
-  // Clear search
-  clearSearch();
-
-  // Store current phase
+  // EXM panel — show in instruments phase
+  const exmCard = document.querySelector('[data-phase="instruments"]');
+  
   window._currentPhase = phase;
   localStorage.setItem('phase', phase);
+
+  // Reset to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Reset sub-btns
+  const firstSub = document.querySelector('#sg-' + phase + ' .sub-btn');
+  if (firstSub) {
+    document.querySelectorAll('#sg-' + phase + ' .sub-btn').forEach(b => b.classList.remove('active'));
+    firstSub.classList.add('active');
+  }
 }
+
+function subClick(el, sectionId) {
+  // Update active sub-btn
+  const parent = el.parentElement;
+  parent.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  // Scroll to section
+  const target = document.getElementById(sectionId);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 
 function showPhaseCards(phase) {
   // Each card has a data-phase attribute we'll add below
