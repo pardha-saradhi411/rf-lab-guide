@@ -1796,6 +1796,275 @@ body.light-mode .module-body { background: #fafbff; }
   </div>
 
 <!-- ─────────────────────────── M01 ─────────────────────────── -->
+
+<div class="module-card" data-phase="foundation">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">RF0</span>
+  <span class="mod-title">What is RF? — The complete visual foundation before anything else</span>
+  <span class="mod-level">⭐ Begin Here</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+
+<div style="background:#001a00;border-left:4px solid #00d4a0;padding:12px 16px;margin:0 0 18px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#00d4a0;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">READ THIS FIRST — before any other card</span>
+RF (Radio Frequency) is the part of the electromagnetic spectrum used to transmit information wirelessly. Your entire job — testing Metro AAU hardware across B1/B3/B8/B28/B41 — is about making sure RF energy is generated correctly, travels through the right hardware, and is received cleanly. Every card in this guide connects back to these six fundamentals.
+</div>
+
+<!-- 6-panel grid matching the infographic -->
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px">
+
+<!-- 1. What is RF -->
+<div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px">
+  <div style="color:#5bc4ef;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">① WHAT IS RF</div>
+  <svg width="100%" viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="80" fill="#0d0f14" rx="6"/>
+    <!-- Sine wave -->
+    <path d="M10,40 Q27.5,10 45,40 Q62.5,70 80,40 Q97.5,10 115,40 Q132.5,70 150,40 Q167.5,10 185,40 Q202.5,70 210,40"
+      fill="none" stroke="#5bc4ef" stroke-width="2"/>
+    <!-- Transmitter tower -->
+    <line x1="20" y1="65" x2="20" y2="25" stroke="#f5a623" stroke-width="2"/>
+    <line x1="20" y1="25" x2="14" y2="40" stroke="#f5a623" stroke-width="1.5"/>
+    <line x1="20" y1="25" x2="26" y2="40" stroke="#f5a623" stroke-width="1.5"/>
+    <circle cx="20" cy="24" r="3" fill="#f5a623"/>
+    <!-- Receiver -->
+    <rect x="185" y="50" width="24" height="18" fill="#141720" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+    <text x="197" y="63" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">RX</text>
+    <!-- Arrow -->
+    <line x1="25" y1="55" x2="183" y2="55" stroke="#4a5470" stroke-width="1" stroke-dasharray="4,3"/>
+    <polygon points="181,52 187,55 181,58" fill="#4a5470"/>
+    <text x="110" y="75" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">through air — no wire needed</text>
+  </svg>
+  <div style="color:#8892b0;font-size:12px;line-height:1.7;margin-top:8px">
+    RF converts information (voice/data/video) into electromagnetic waves. A transmitter generates them; a receiver captures them. <b style="color:#5bc4ef">Your AAU is the transmitter + receiver.</b>
+  </div>
+</div>
+
+<!-- 2. EM Spectrum -->
+<div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px">
+  <div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">② ELECTROMAGNETIC SPECTRUM</div>
+  <svg width="100%" viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="80" fill="#0d0f14" rx="6"/>
+    <!-- Spectrum bar gradient -->
+    <defs>
+      <linearGradient id="specgrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"   stop-color="#ff0000"/>
+        <stop offset="16%"  stop-color="#ff8800"/>
+        <stop offset="33%"  stop-color="#ffff00"/>
+        <stop offset="50%"  stop-color="#00ff00"/>
+        <stop offset="66%"  stop-color="#0088ff"/>
+        <stop offset="83%"  stop-color="#8800ff"/>
+        <stop offset="100%" stop-color="#ff00ff"/>
+      </linearGradient>
+    </defs>
+    <rect x="8" y="28" width="204" height="12" fill="url(#specgrad)" rx="2" opacity="0.5"/>
+    <!-- RF range bracket -->
+    <rect x="8" y="25" width="55" height="18" fill="none" stroke="#5bc4ef" stroke-width="1.5" rx="2"/>
+    <text x="35" y="57" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">RF RANGE</text>
+    <text x="35" y="66" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">3kHz–300GHz</text>
+    <!-- Band labels -->
+    <text x="8"   y="20" fill="#4a5470" font-size="6" font-family="monospace">Radio</text>
+    <text x="60"  y="20" fill="#4a5470" font-size="6" font-family="monospace">Micro</text>
+    <text x="100" y="20" fill="#c8b800" font-size="6" font-family="monospace">IR</text>
+    <text x="122" y="20" fill="#f5a623" font-size="6" font-family="monospace">Visible</text>
+    <text x="158" y="20" fill="#9b8cf8" font-size="6" font-family="monospace">UV</text>
+    <text x="185" y="20" fill="#ff6b6b" font-size="6" font-family="monospace">X-Ray</text>
+    <!-- Your bands -->
+    <text x="110" y="74" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">Your bands: 700–2700 MHz ← all in RF range</text>
+  </svg>
+  <div style="color:#8892b0;font-size:12px;line-height:1.7;margin-top:8px">
+    B28=758MHz · B8=942MHz · B3=1843MHz · B1=2140MHz · B41=2545MHz. All in the microwave/RF portion. Higher frequency = more data capacity but shorter range.
+  </div>
+</div>
+
+<!-- 3. RF Signal Characteristics -->
+<div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px">
+  <div style="color:#f5a623;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">③ KEY CHARACTERISTICS</div>
+  <div style="font-family:monospace;font-size:12px;line-height:2">
+    <div><span style="color:#f5a623">f</span> <span style="color:#4a5470">=</span> <span style="color:#c8c8d8">Frequency</span> <span style="color:#4a5470">(Hz) — cycles/sec</span></div>
+    <div><span style="color:#9b8cf8">λ</span> <span style="color:#4a5470">=</span> <span style="color:#c8c8d8">Wavelength</span> <span style="color:#4a5470">(m) — one cycle</span></div>
+    <div><span style="color:#00d4a0">c</span> <span style="color:#4a5470">=</span> <span style="color:#c8c8d8">3 × 10⁸ m/s</span> <span style="color:#4a5470">(speed of light)</span></div>
+    <div style="margin-top:4px;padding:6px;background:#0d1a0d;border-radius:4px;text-align:center">
+      <span style="color:#00d4a0;font-size:14px;font-weight:700">λ = c / f</span>
+    </div>
+    <div style="margin-top:8px;color:#4a5470;font-size:10px">
+      B1 2140 MHz → λ = 14 cm<br>
+      B8  942 MHz → λ = 32 cm<br>
+      B28 758 MHz → λ = 40 cm<br>
+      <span style="color:#5bc4ef">Lower freq → longer λ → better wall penetration</span>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Working Principle -->
+<div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px">
+  <div style="color:#00d4a0;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">④ HOW YOUR AAU WORKS</div>
+  <svg width="100%" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+    <rect width="220" height="90" fill="#0d0f14" rx="6"/>
+    <!-- Chain: BBU → FHGW → AAU → Air → UE -->
+    <!-- BBU -->
+    <rect x="4" y="30" width="38" height="24" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+    <text x="23" y="45" fill="#9b8cf8" font-size="7" text-anchor="middle" font-family="monospace">BBU/DU</text>
+    <line x1="42" y1="42" x2="52" y2="42" stroke="#4a5470" stroke-width="1.5"/>
+    <polygon points="50,39 56,42 50,45" fill="#4a5470"/>
+    <!-- FHGW -->
+    <rect x="56" y="30" width="38" height="24" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+    <text x="75" y="45" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">FHGW</text>
+    <line x1="94" y1="42" x2="104" y2="42" stroke="#4a5470" stroke-width="1.5"/>
+    <polygon points="102,39 108,42 102,45" fill="#4a5470"/>
+    <!-- AAU -->
+    <rect x="108" y="24" width="44" height="36" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="3"/>
+    <text x="130" y="40" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">Metro</text>
+    <text x="130" y="51" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">AAU ★</text>
+    <!-- RF waves from AAU -->
+    <path d="M155,38 Q165,30 170,38 Q175,46 180,38" fill="none" stroke="#5bc4ef" stroke-width="1.5"/>
+    <path d="M158,38 Q172,24 182,38 Q192,52 198,38" fill="none" stroke="#5bc4ef" stroke-width="1" opacity="0.5"/>
+    <!-- UE -->
+    <rect x="198" y="32" width="18" height="22" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="3"/>
+    <text x="207" y="47" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">UE</text>
+    <!-- Labels -->
+    <text x="23"  y="64" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">baseband</text>
+    <text x="75"  y="64" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">eCPRI</text>
+    <text x="130" y="68" fill="#00d4a0" font-size="6" text-anchor="middle" font-family="monospace">your unit</text>
+    <text x="207" y="64" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">phone</text>
+    <!-- eCPRI label -->
+    <text x="75" y="76" fill="#4a5470" font-size="5" text-anchor="middle" font-family="monospace">fronthaul</text>
+    <text x="170" y="80" fill="#5bc4ef" font-size="6" text-anchor="middle" font-family="monospace">OTA</text>
+  </svg>
+  <div style="color:#8892b0;font-size:12px;line-height:1.7;margin-top:6px">
+    Data flows: DU → eCPRI → FHGW → Metro AAU → RF over air → UE phone. Your tests verify the AAU does this correctly on all 5 bands.
+  </div>
+</div>
+
+<!-- 5. Your Frequency Bands -->
+<div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px">
+  <div style="color:#c8b800;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">⑤ YOUR 5 BANDS</div>
+  <table style="width:100%;font-size:11px;border-collapse:collapse">
+    <tr style="border-bottom:1px solid #232840">
+      <th style="color:#4a5470;text-align:left;padding:3px 6px">Band</th>
+      <th style="color:#4a5470;text-align:left;padding:3px 6px">DL MHz</th>
+      <th style="color:#4a5470;text-align:left;padding:3px 6px">Type</th>
+      <th style="color:#4a5470;text-align:left;padding:3px 6px">Use</th>
+    </tr>
+    <tr style="border-bottom:1px solid #1a2035">
+      <td style="color:#c8b800;padding:4px 6px;font-weight:700">B28</td>
+      <td style="color:#8892b0;padding:4px 6px">758–803</td>
+      <td style="color:#5bc4ef;padding:4px 6px">FDD</td>
+      <td style="color:#4a5470;padding:4px 6px;font-size:10px">Rural/deep indoor</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+      <td style="color:#c8b800;padding:4px 6px;font-weight:700">B8</td>
+      <td style="color:#8892b0;padding:4px 6px">925–960</td>
+      <td style="color:#5bc4ef;padding:4px 6px">FDD</td>
+      <td style="color:#4a5470;padding:4px 6px;font-size:10px">Coverage layer</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a2035">
+      <td style="color:#c8b800;padding:4px 6px;font-weight:700">B3</td>
+      <td style="color:#8892b0;padding:4px 6px">1805–1880</td>
+      <td style="color:#5bc4ef;padding:4px 6px">FDD</td>
+      <td style="color:#4a5470;padding:4px 6px;font-size:10px">Urban capacity</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+      <td style="color:#c8b800;padding:4px 6px;font-weight:700">B1</td>
+      <td style="color:#8892b0;padding:4px 6px">2110–2170</td>
+      <td style="color:#5bc4ef;padding:4px 6px">FDD</td>
+      <td style="color:#4a5470;padding:4px 6px;font-size:10px">Dense urban</td>
+    </tr>
+    <tr>
+      <td style="color:#f5a623;padding:4px 6px;font-weight:700">B41</td>
+      <td style="color:#8892b0;padding:4px 6px">2496–2690</td>
+      <td style="color:#f5a623;padding:4px 6px">TDD</td>
+      <td style="color:#4a5470;padding:4px 6px;font-size:10px">High capacity</td>
+    </tr>
+  </table>
+</div>
+
+<!-- 6. Why RF Matters -->
+<div style="background:#141720;border:1px solid #232840;border-radius:10px;padding:16px">
+  <div style="color:#ff6b6b;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">⑥ WHY YOUR TESTS MATTER</div>
+  <div style="display:flex;flex-direction:column;gap:8px;font-size:12px">
+    <div style="display:flex;gap:8px;align-items:flex-start">
+      <span style="color:#00d4a0;font-weight:700;font-size:14px;line-height:1">✦</span>
+      <span style="color:#8892b0">Bad ACLR → interference → neighbours get poor signal → operator SLA breach → revenue loss</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start">
+      <span style="color:#00d4a0;font-weight:700;font-size:14px;line-height:1">✦</span>
+      <span style="color:#8892b0">Bad sensitivity → phone at cell edge cannot connect → dropped calls → complaints</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start">
+      <span style="color:#00d4a0;font-weight:700;font-size:14px;line-height:1">✦</span>
+      <span style="color:#8892b0">Bad EVM → lower MCS → lower throughput → slower speeds for every user on that cell</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-start">
+      <span style="color:#f5a623;font-weight:700;font-size:14px;line-height:1">✦</span>
+      <span style="color:#8892b0"><b style="color:#f5a623">You</b> are the last check before this hardware goes live in a real network serving real people.</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Key formulas strip -->
+<div style="background:#0d0f14;border:1px solid #232840;border-radius:10px;padding:14px;margin-bottom:18px">
+  <div style="color:#4a5470;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:10px">CORE FORMULAS — memorise these</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;font-family:monospace;font-size:13px">
+    <div style="text-align:center;padding:8px;background:#141720;border-radius:6px">
+      <div style="color:#00d4a0;font-weight:700">λ = c / f</div>
+      <div style="color:#4a5470;font-size:10px;margin-top:2px">wavelength</div>
+    </div>
+    <div style="text-align:center;padding:8px;background:#141720;border-radius:6px">
+      <div style="color:#f5a623;font-weight:700">P(dBm) = 10·log(P_mW)</div>
+      <div style="color:#4a5470;font-size:10px;margin-top:2px">power conversion</div>
+    </div>
+    <div style="text-align:center;padding:8px;background:#141720;border-radius:6px">
+      <div style="color:#9b8cf8;font-weight:700">S = −174 + BW + NF + SNR</div>
+      <div style="color:#4a5470;font-size:10px;margin-top:2px">sensitivity</div>
+    </div>
+    <div style="text-align:center;padding:8px;background:#141720;border-radius:6px">
+      <div style="color:#5bc4ef;font-weight:700">VSWR = (1+|Γ|)/(1−|Γ|)</div>
+      <div style="color:#4a5470;font-size:10px;margin-top:2px">impedance mismatch</div>
+    </div>
+    <div style="text-align:center;padding:8px;background:#141720;border-radius:6px">
+      <div style="color:#c8b800;font-weight:700">NF_total = NF₁ + (NF₂−1)/G₁</div>
+      <div style="color:#4a5470;font-size:10px;margin-top:2px">Friis (noise chain)</div>
+    </div>
+  </div>
+</div>
+
+<!-- What to read next -->
+<div style="background:#0a1628;border:1px solid #5bc4ef;border-radius:10px;padding:14px">
+  <div style="color:#5bc4ef;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">📚 READ NEXT — in this order</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;font-size:12px">
+    <div style="background:#141720;padding:10px;border-radius:6px;border-left:3px solid #5bc4ef">
+      <div style="color:#5bc4ef;font-weight:700;margin-bottom:4px">① M01 — dB & Power</div>
+      <div style="color:#4a5470">The language of RF. Every measurement uses dBm.</div>
+    </div>
+    <div style="background:#141720;padding:10px;border-radius:6px;border-left:3px solid #5bc4ef">
+      <div style="color:#5bc4ef;font-weight:700;margin-bottom:4px">② M02 — 50 Ohm</div>
+      <div style="color:#4a5470">Why impedance matching matters for every connector.</div>
+    </div>
+    <div style="background:#141720;padding:10px;border-radius:6px;border-left:3px solid #5bc4ef">
+      <div style="color:#5bc4ef;font-weight:700;margin-bottom:4px">③ M03 — RF Chain</div>
+      <div style="color:#4a5470">The complete TX/RX signal flow end to end.</div>
+    </div>
+    <div style="background:#141720;padding:10px;border-radius:6px;border-left:3px solid #00d4a0">
+      <div style="color:#00d4a0;font-weight:700;margin-bottom:4px">④ NCH — Noise Chain</div>
+      <div style="color:#4a5470">Why cable before LNA kills sensitivity.</div>
+    </div>
+    <div style="background:#141720;padding:10px;border-radius:6px;border-left:3px solid #f5a623">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:4px">⑤ DSA1-4 — Sensitivity</div>
+      <div style="color:#4a5470">The core of every UL test you will run.</div>
+    </div>
+    <div style="background:#141720;padding:10px;border-radius:6px;border-left:3px solid #c8b800">
+      <div style="color:#c8b800;font-weight:700;margin-bottom:4px">⑥ M07 — ACLR</div>
+      <div style="color:#4a5470">The core of every DL TX test you will run.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A01</span>
