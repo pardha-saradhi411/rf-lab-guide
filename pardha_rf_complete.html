@@ -31,7 +31,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,13,18,.96);backdrop-fil
 .nav-links a:hover,.nav-links a.active{color:var(--text);background:var(--bg3)}
 
 /* HERO */
-.hero{padding:60px 24px 48px;max-width:960px;margin:0 auto}
+.hero{padding:60px 24px 48px;max-width:1200px;margin:0 auto}
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--green);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .eyebrow::after{content:'';flex:1;height:1px;background:var(--border)}
 h1{font-size:clamp(26px,5vw,46px);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-bottom:14px}
@@ -46,8 +46,8 @@ h1 em{font-style:normal;color:var(--green)}
 .chip.b{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
 
 /* SECTION WRAPPER */
-.sec{padding:48px 24px;max-width:960px;margin:0 auto}
-.div-line{height:1px;background:var(--border);max-width:960px;margin:0 auto}
+.sec{padding:48px 24px;max-width:1200px;margin:0 auto}
+.div-line{height:1px;background:var(--border);max-width:1200px;margin:0 auto}
 .sec-hdr{display:flex;align-items:flex-start;gap:16px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border)}
 .badge{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;letter-spacing:.04em;flex-shrink:0}
 .badge.g{background:var(--green-bg);color:var(--green);border:1px solid var(--green)}
@@ -313,6 +313,15 @@ body.light-mode .sec-hdr {
   #cheatsheet { page-break-after: always; }
 }
 
+
+/* ══ 1200px centered layout ══ */
+.module-card { max-width:1200px; margin-left:auto; margin-right:auto; width:100%; box-sizing:border-box; }
+.sec-hdr     { max-width:1200px; margin-left:auto; margin-right:auto; box-sizing:border-box; }
+.div-line    { max-width:1200px; margin-left:auto; margin-right:auto; }
+.hero        { max-width:1200px; margin-left:auto; margin-right:auto; }
+.module-body { overflow:hidden; }
+#careermap-top { max-width:1200px; margin:0 auto 24px; background:#0d0f14; border:1px solid #f5a62333; border-radius:12px; padding:20px 24px; }
+#careermap-top .sec-hdr { max-width:none; margin:0; }
 </style>
 </head>
 <body>
@@ -326,26 +335,34 @@ body.light-mode .sec-hdr {
     <a href="#course_intermediate">Intermediate</a>
     <a href="#course_expert">Expert</a>
     <a href="#features">Features</a>
-    <a href="#careermap">Career Roadmap</a>
     <a href="#instruments">Instruments</a>
     <a href="#test_configurations">Test Config</a>
     <a href="#docs_videos">Docs & Videos</a>
   </div>
-
-  <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-    <input id="card-search" type="text" placeholder="🔍 Search cards…" 
+  <div style="display:flex;align-items:center;gap:8px;margin-left:16px;flex-shrink:0">
+    <input id="card-search" type="text" placeholder="🔍 Search…"
            oninput="filterCards(this.value)"
-           style="background:#141720;border:1px solid #2a3050;border-radius:20px;
-                  padding:5px 14px;color:#c8c8d8;font-size:12px;outline:none;width:180px">
-    <button id="clear-search" onclick="clearSearch()" 
-            style="background:none;border:1px solid #2a3050;border-radius:20px;
-                   color:#4a5470;padding:5px 10px;cursor:pointer;font-size:11px">✕</button>
-    <span id="search-count" style="color:#4a5470;font-size:11px;min-width:60px"></span>
+           style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:5px 12px;color:#c8c8d8;font-size:12px;outline:none;width:140px">
+    <button onclick="clearSearch()" title="Clear"
+            style="background:none;border:1px solid #2a3050;border-radius:50%;color:#4a5470;width:26px;height:26px;cursor:pointer;font-size:12px;line-height:1">✕</button>
+    <span id="search-count" style="color:#4a5470;font-size:11px;min-width:45px"></span>
   </div>
 </nav>
+<div id="quick-filters" style="background:#0a0c10;border-bottom:1px solid #1e2535;padding:7px 24px;display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+  <span style="color:#4a5470;font-size:11px;font-weight:700;letter-spacing:1px;margin-right:2px">JUMP TO:</span>
+  <button onclick="location.href='#start_here'" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a055;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;font-weight:600">★ Start Here</button>
+  <button onclick="location.href='#foundation'" style="background:#9b8cf822;color:#9b8cf8;border:1px solid #9b8cf855;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Foundation</button>
+  <button onclick="location.href='#course_beginner'" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Beginner</button>
+  <button onclick="location.href='#course_intermediate'" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Intermediate</button>
+  <button onclick="location.href='#course_expert'" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Expert</button>
+  <button onclick="location.href='#features'" style="background:#ff6b6b22;color:#ff6b6b;border:1px solid #ff6b6b55;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;font-weight:600">⚙ Features</button>
+  <button onclick="location.href='#instruments'" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Instruments</button>
+  <button onclick="location.href='#test_configurations'" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Test Config</button>
+  <button onclick="location.href='#docs_videos'" style="background:#4a547022;color:#8892b0;border:1px solid #4a547055;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Docs & Videos</button>
+</div>
+
 
 <!-- ── Live card search ── -->
-
 
 
 <!-- HERO -->
@@ -366,7 +383,7 @@ body.light-mode .sec-hdr {
 
 <!-- ═══════════════ BEGINNER START HERE ═══════════════ -->
 <div style="background:linear-gradient(135deg,#0a1628 0%,#0d1f0d 100%);border-top:3px solid #00d4a0;border-bottom:3px solid #5bc4ef;padding:48px 24px;margin:0">
-<div style="max-width:960px;margin:0 auto">
+<div style="max-width:1200px;margin:0 auto">
 
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
     <span style="background:#00d4a0;color:#000;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px">START HERE</span>
@@ -753,19 +770,6 @@ body.light-mode .sec-hdr {
 <!-- ═══════════════════════════════════════════════════ -->
 <!-- INSTRUMENTS -->
 <!-- ═══════════════════════════════════════════════════ -->
-<div id="quick-filters" style="background:#0a0c10;border-bottom:1px solid #1e2535;padding:10px 24px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-  <span style="color:#4a5470;font-size:11px;font-weight:700;letter-spacing:1px">JUMP TO:</span>
-  <button onclick="location.href='#start_here'" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a055;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer;font-weight:600">★ Start Here</button>
-  <button onclick="location.href='#foundation'" style="background:#9b8cf822;color:#9b8cf8;border:1px solid #9b8cf855;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Foundation</button>
-  <button onclick="location.href='#course_beginner'" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Beginner</button>
-  <button onclick="location.href='#course_intermediate'" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Intermediate</button>
-  <button onclick="location.href='#course_expert'" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Expert</button>
-  <button onclick="location.href='#features'" style="background:#ff6b6b22;color:#ff6b6b;border:1px solid #ff6b6b55;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer;font-weight:600">⚙ Features</button>
-  <button onclick="location.href='#careermap'" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Career Roadmap</button>
-  <button onclick="location.href='#instruments'" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Instruments</button>
-  <button onclick="location.href='#test_configurations'" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Test Config</button>
-  <button onclick="location.href='#docs_videos'" style="background:#4a547022;color:#8892b0;border:1px solid #4a547055;border-radius:20px;padding:4px 14px;font-size:12px;cursor:pointer">Docs & Videos</button>
-</div>
 
 <div class="div-line"></div>
 <div class="sec-hdr" id="start_here" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">★</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">Start Here</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">READ FIRST</span></div><div style="font-size:12px;color:#4a5470">What is RF · How to use this guide · Reading order</div></div></div>
@@ -1279,7 +1283,195 @@ body.light-mode .sec-hdr {
 </div><!-- end rf_fundamentals section -->
 
 <!-- ═══════════════ RF CAREER ROADMAP ═══════════════ -->
-<div class="div-line"></div>
+
+<div id="careermap-top">
+<div id="careermap-top" class="sec">
+  <div class="sec-hdr">
+    <div class="badge a">🗺</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#f5a623">RF Engineering Mastery — Complete 17-Level Roadmap</h2>
+      <p>From electronics foundations to advanced RF · Every topic with theory, hardware, measurement, troubleshooting · Your personal master reference</p>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ROADMAP OVERVIEW SVG -->
+<!-- ══════════════════════════════════════════════════════ -->
+<svg width="100%" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:20px">
+  <rect width="800" height="520" fill="#0d0f14" rx="10"/>
+  <text x="400" y="28" fill="#f5a623" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">RF Engineer Mastery Path — 17 Levels</text>
+
+  <!-- Level boxes arranged in a flow -->
+  <!-- Row 1 -->
+  <rect x="10"  y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
+  <text x="65"  y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L0: Electronics</text>
+  <text x="65"  y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Foundation</text>
+
+  <line x1="120" y1="65" x2="135" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="133,61 143,65 133,69" fill="#4a5470"/>
+
+  <rect x="143" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
+  <text x="198" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L1: Digital Comms</text>
+  <text x="198" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Modulation/Coding</text>
+
+  <line x1="253" y1="65" x2="268" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="266,61 276,65 266,69" fill="#4a5470"/>
+
+  <rect x="276" y="45" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
+  <text x="331" y="61" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L2: RF Fundamentals</text>
+  <text x="331" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Freq/Power/Noise/Ant</text>
+
+  <line x1="386" y1="65" x2="401" y2="65" stroke="#00d4a0" stroke-width="1.5"/>
+  <polygon points="399,61 409,65 399,69" fill="#00d4a0"/>
+
+  <rect x="409" y="45" width="110" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
+  <text x="464" y="58" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L3: RF Measurements</text>
+  <text x="464" y="70" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ CORE</text>
+  <text x="464" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EVM/ACLR/RSSI/PA</text>
+
+  <line x1="519" y1="65" x2="534" y2="65" stroke="#f5a623" stroke-width="1.5"/>
+  <polygon points="532,61 542,65 532,69" fill="#f5a623"/>
+
+  <rect x="542" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
+  <text x="597" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L4: RF Components</text>
+  <text x="597" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/DAC/Mixer</text>
+
+  <line x1="652" y1="65" x2="667" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="665,61 675,65 665,69" fill="#4a5470"/>
+
+  <rect x="675" y="45" width="115" height="40" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
+  <text x="732" y="61" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L5: LTE RF</text>
+  <text x="732" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">EARFCN/CA/MIMO</text>
+
+  <!-- Row 2 -->
+  <line x1="732" y1="85" x2="732" y2="110" stroke="#5bc4ef" stroke-width="1.5"/>
+  <polygon points="728,108 736,108 732,118" fill="#5bc4ef"/>
+
+  <rect x="675" y="118" width="115" height="40" fill="#0d1a2a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
+  <text x="732" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L6: 5G NR RF</text>
+  <text x="732" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">SSB/PRACH/BF/FR1-2</text>
+
+  <line x1="675" y1="138" x2="660" y2="138" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="662,134 652,138 662,142" fill="#9b8cf8"/>
+
+  <rect x="540" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
+  <text x="600" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L7: O-RAN RF</text>
+  <text x="600" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ YOUR WORK</text>
+  <text x="600" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RU/M-C-U-S Plane</text>
+
+  <line x1="540" y1="138" x2="525" y2="138" stroke="#f5a623" stroke-width="1.5"/>
+  <polygon points="527,134 517,138 527,142" fill="#f5a623"/>
+
+  <rect x="405" y="118" width="120" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
+  <text x="465" y="131" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L8: RF Conformance</text>
+  <text x="465" y="143" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ RCT</text>
+  <text x="465" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR/EVM/SEM/RSSI</text>
+
+  <line x1="405" y1="138" x2="390" y2="138" stroke="#c8b800" stroke-width="1.5"/>
+  <polygon points="392,134 382,138 392,142" fill="#c8b800"/>
+
+  <rect x="270" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
+  <text x="330" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L9: Test Equipment</text>
+  <text x="330" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ DAILY</text>
+  <text x="330" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EXA/EXM/VNA/CMW</text>
+
+  <line x1="270" y1="138" x2="255" y2="138" stroke="#f5a623" stroke-width="1.5"/>
+  <polygon points="257,134 247,138 257,142" fill="#f5a623"/>
+
+  <rect x="135" y="118" width="120" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
+  <text x="195" y="134" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L10: Telecom Logs</text>
+  <text x="195" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">QXDM/Wireshark/NETCONF</text>
+
+  <line x1="135" y1="138" x2="120" y2="138" stroke="#00d4a0" stroke-width="1.5"/>
+  <polygon points="122,134 112,138 122,142" fill="#00d4a0"/>
+
+  <rect x="10" y="118" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
+  <text x="65" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L11: RF Debug</text>
+  <text x="65" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Fault→Root Cause</text>
+
+  <!-- Row 3 -->
+  <line x1="65" y1="158" x2="65" y2="180" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="61,178 69,178 65,188" fill="#9b8cf8"/>
+
+  <rect x="10"  y="188" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
+  <text x="65" y="204" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L12: Automation</text>
+  <text x="65" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Python/SCPI/SSH</text>
+
+  <line x1="120" y1="208" x2="135" y2="208" stroke="#00d4a0" stroke-width="1.5"/>
+  <polygon points="133,204 143,208 133,212" fill="#00d4a0"/>
+
+  <rect x="143" y="188" width="110" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="5"/>
+  <text x="198" y="204" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L13: RF Hardware</text>
+  <text x="198" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/PLL/ADC/DAC</text>
+
+  <line x1="253" y1="208" x2="268" y2="208" stroke="#ff6b6b" stroke-width="1.5"/>
+  <polygon points="266,204 276,208 266,212" fill="#ff6b6b"/>
+
+  <rect x="276" y="188" width="110" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
+  <text x="331" y="204" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L14: Standards</text>
+  <text x="331" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">3GPP 36/38.xxx</text>
+
+  <line x1="386" y1="208" x2="401" y2="208" stroke="#5bc4ef" stroke-width="1.5"/>
+  <polygon points="399,204 409,208 399,212" fill="#5bc4ef"/>
+
+  <rect x="409" y="188" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
+  <text x="464" y="204" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L15: Product Know.</text>
+  <text x="464" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Ericsson/Qual/Apple</text>
+
+  <line x1="519" y1="208" x2="534" y2="208" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="532,204 542,208 532,212" fill="#9b8cf8"/>
+
+  <rect x="542" y="188" width="110" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
+  <text x="597" y="204" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L16: Advanced RF</text>
+  <text x="597" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">BF/DPD/CFR/ET</text>
+
+  <line x1="652" y1="208" x2="667" y2="208" stroke="#c8b800" stroke-width="1.5"/>
+  <polygon points="665,204 675,208 665,212" fill="#c8b800"/>
+
+  <rect x="675" y="188" width="115" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="5"/>
+  <text x="732" y="201" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L17: Interview Prep</text>
+  <text x="732" y="213" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">⭐ Master All Above</text>
+  <text x="732" y="224" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scenario questions</text>
+
+  <!-- WHERE YOU ARE marker -->
+  <rect x="10" y="255" width="780" height="55" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="6"/>
+  <text x="400" y="274" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">📍 WHERE YOU ARE NOW — Pardha Saradhi @ Parallel Wireless</text>
+  <text x="400" y="291" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L3 RF Measurements ✓ · L7 O-RAN RF ✓ · L8 RCT ✓ · L9 Test Equipment ✓ (EXA/EXM/VNA)</text>
+  <text x="400" y="305" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Hands-on: Metro AAU B1/B3/B8/B28/B41 · RuAuto · FHGW · DPD/CFR · ACLR/EVM/RSSI · uSleep · PA Protection</text>
+
+  <!-- What to study next -->
+  <rect x="10" y="325" width="780" height="55" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="6"/>
+  <text x="400" y="344" fill="#f5a623" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">🎯 NEXT FOCUS AREAS</text>
+  <text x="400" y="360" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L0 deepen: Smith Chart · Mixers · Filters → L2 deepen: S-parameters · NF theory → L6: 5G NR SSB/CSI-RS/PRACH</text>
+  <text x="400" y="374" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">L12: Python SCPI automation → L14: Read 38.104 §6 (TX power) §7 (RX) → L16: Doherty PA · Envelope Tracking</text>
+
+  <!-- Study framework -->
+  <rect x="10" y="395" width="780" height="118" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="6"/>
+  <text x="400" y="414" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📚 MASTER REFERENCE FRAMEWORK (for every topic)</text>
+  <text x="30"  y="432" fill="#9b8cf8" font-size="9" font-family="monospace">① Theory</text>
+  <text x="30"  y="445" fill="#4a5470" font-size="8" font-family="monospace">   Why does this exist? What problem does it solve?</text>
+  <text x="200" y="432" fill="#5bc4ef" font-size="9" font-family="monospace">② Standards</text>
+  <text x="200" y="445" fill="#4a5470" font-size="8" font-family="monospace">   3GPP spec, section, limit value</text>
+  <text x="380" y="432" fill="#00d4a0" font-size="9" font-family="monospace">③ Hardware</text>
+  <text x="380" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Which blocks involved? Signal path?</text>
+  <text x="570" y="432" fill="#f5a623" font-size="9" font-family="monospace">④ Measurement</text>
+  <text x="570" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Equipment setup, procedure, SCPI</text>
+  <text x="30"  y="465" fill="#c8b800" font-size="9" font-family="monospace">⑤ Pass/Fail</text>
+  <text x="30"  y="478" fill="#4a5470" font-size="8" font-family="monospace">   Acceptance limits, typical values</text>
+  <text x="200" y="465" fill="#ff6b6b" font-size="9" font-family="monospace">⑥ Troubleshoot</text>
+  <text x="200" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Typical failures, symptoms, root cause</text>
+  <text x="380" y="465" fill="#9b8cf8" font-size="9" font-family="monospace">⑦ Interview Qs</text>
+  <text x="380" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Conceptual + scenario based</text>
+  <text x="570" y="465" fill="#8892b0" font-size="9" font-family="monospace">⑧ Lab Notes</text>
+  <text x="570" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Commands, screenshots, real data</text>
+  <text x="400" y="505" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">This HTML guide follows this framework for every module — theory + diagram + formula + real lab data from your EXA/EXM/VNA</text>
+</svg>
+
+<!-- ══════════════ LEVEL CARDS ══════════════ -->
+
+<!-- L0 -->
+
+</div>
 
 <div class="div-line"></div>
 <div class="sec-hdr" id="foundation" style="background:linear-gradient(90deg,#9b8cf811,transparent);border-left:4px solid #9b8cf8;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔧</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#9b8cf8">RF Foundation</span><span style="background:#9b8cf822;color:#9b8cf8;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">BASICS FIRST</span></div><div style="font-size:12px;color:#4a5470">Basic definitions · TX/RX chain · ADC · RSSI · NF · DSA · KTB</div></div></div>
@@ -1638,7 +1830,7 @@ BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are w
 
 <!-- ═══════════════ RSSI TEST (David's call) ═══════════════ -->
 <div class="div-line"></div>
-<div id="rssi_david" class="sec">
+<div id="rssi_david_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge b">RSSI</div>
     <div class="sec-hdr-txt">
@@ -6350,7 +6542,7 @@ Sensitivity fail: check (1) cable loss subtracted from EXM power, (2) correct co
 
 <!-- ═══════════════ LINK BUDGET ═══════════════ -->
 <div class="div-line"></div>
-<div id="linkbudget" class="sec">
+<div id="linkbudget_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge g">LB</div>
     <div class="sec-hdr-txt">
@@ -6501,7 +6693,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
 
 <!-- ═══════════════ PHASE NOISE ═══════════════ -->
 <div class="div-line"></div>
-<div id="phasenoise" class="sec">
+<div id="phasenoise_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge a">PN</div>
     <div class="sec-hdr-txt">
@@ -6546,7 +6738,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
 
 <!-- ═══════════════ CSI + BEAM MANAGEMENT ═══════════════ -->
 <div class="div-line"></div>
-<div id="beammgmt" class="sec">
+<div id="beammgmt_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge c">BM</div>
     <div class="sec-hdr-txt">
@@ -6655,7 +6847,7 @@ SRS (Sounding Reference Signal) is transmitted by the UE and received by the gNB
 
 <!-- ═══════════════ CONNECTORS + CABLES ═══════════════ -->
 <div class="div-line"></div>
-<div id="cables" class="sec">
+<div id="cables_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge b">CON</div>
     <div class="sec-hdr-txt">
@@ -6757,7 +6949,7 @@ RG316 (flexible, your lab cables): 2.5 dB/m @ 2 GHz. A 1m cable = −2.5 dB. LMR
 
 <!-- ═══════════════ OPEN RAN ═══════════════ -->
 <div class="div-line"></div>
-<div id="oran" class="sec">
+<div id="oran_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge pk">ORAN</div>
     <div class="sec-hdr-txt">
@@ -6913,7 +7105,7 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
 
 <!-- ═══════════════ RF SIGNAL CHAIN M16 ═══════════════ -->
 <div class="div-line"></div>
-<div id="rfchain" class="sec">
+<div id="rfchain_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge c">M16</div>
     <div class="sec-hdr-txt">
@@ -11472,6 +11664,804 @@ function exmBtn(key) {
 
 </body>
 </html><div class="div-line"></div>
+<div style="max-width:960px;margin:0 auto;padding:48px 24px">
+  <div class="sec-hdr" style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+    <div class="badge g">INST</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#7fffd0;font-size:20px;font-weight:700;margin-bottom:3px">RF Instruments — Interactive Panel Guide</h2>
+      <p style="font-size:13px;color:var(--text2)">Click any tab to switch instrument · Click any button on the panel to see full explanation with your B1/B3/B8/B28/B41 context</p>
+    </div>
+  </div>
+    <!-- ═══ INSTRUMENT TABS ═══ -->
+  <div id="instruments_tab">
+  <div class="tab-row">
+    <button class="itab exa sel" id="tab-exa" onclick="switchTab('exa')">📡 EXA N9010B — Signal Analyzer</button>
+    <button class="itab exm" id="tab-exm" onclick="switchTab('exm')">📻 EXM E6640A — Wireless Test Set</button>
+    <button class="itab vna" id="tab-vna" onclick="switchTab('vna')">🔬 VNA E5071C — Network Analyzer</button>
+  </div>
+
+  <!-- ═══ EXA PANEL ═══ -->
+  <div class="inst-panel active" id="panel-exa">
+    <div class="diagram-side">
+      <div class="hint">Click any button below — explanation appears on the right →</div>
+
+      <div style="margin-bottom:12px;border-radius:8px;overflow:hidden;border:1px solid #232840">
+        <img src="https://keysight-h.assetsadobe.com/is/image/content/dam/keysight/en/img/prd/scopes-analyzers-meters/spectrumanalyzers/x-series/n9010b/N9010B_EXA_15_1600x900.png?wid=560&hei=315&fmt=webp-alpha&resMode=sharp2&op_sharpen=1"
+          alt="Keysight EXA N9010B Signal Analyzer front panel"
+          style="width:100%;display:block"
+          onerror="this.style.display='none';document.getElementById('exa-img-fallback').style.display='block'">
+        <div id="exa-img-fallback" style="display:none;background:#141720;padding:10px;font-size:11px;color:#4a5470;text-align:center">
+          Image loads when online — keysight.com/N9010B
+        </div>
+      </div>
+      <div style="font-size:11px;color:#4a5470;margin-bottom:8px">
+        ↑ Real Keysight EXA N9010B front panel &nbsp;·&nbsp;
+        <strong style="color:#00d4a070">Click the buttons below</strong> to learn each key
+      </div>
+      <div class="device-graphic">
+        <div class="device-label">KEYSIGHT</div>
+        <div class="device-brand">EXA N9010B &nbsp; Signal Analyzer &nbsp; 10 Hz – 26.5 GHz</div>
+        <div class="device-screen">
+          <div style="color:#4a5470;font-size:10px">CF: 1842.5 MHz &nbsp; SPAN: 50 MHz &nbsp; RBW: 100kHz &nbsp; RefLvl: 0dBm</div>
+          <div style="color:#00d4a0;margin-top:4px;font-size:10px">▂▃▅▇██▇▅▃▂ &nbsp; LTE B3 ACLR: -46.3 dBc ✓</div>
+          <div style="color:#f5a623;font-size:10px">Mkr1: 1842.5 MHz &nbsp; -12.3 dBm</div>
+        </div>
+        <div class="port-row">
+          <div class="port" style="border-color:#f5a623;color:#f5a623">RF<br>IN</div>
+          <span style="font-size:10px;color:#4a5470">50Ω main input &nbsp;|&nbsp;</span>
+          <div class="port" style="border-color:#363d5a;color:#8892b0">EXT<br>10M</div>
+          <span style="font-size:10px;color:#4a5470">10MHz ref</span>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#00d4a020;color:#00d4a0">FREQUENCY</div>
+        <div class="keys">
+          <button class="kbtn gc-freq" onclick="show('exa','freq')">Freq</button>
+          <button class="kbtn gc-freq" onclick="show('exa','span')">Span</button>
+          <button class="kbtn gc-freq" onclick="show('exa','start_stop')">Start / Stop</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#f5a62320;color:#f5a623">AMPLITUDE</div>
+        <div class="keys">
+          <button class="kbtn gc-amp" onclick="show('exa','amptd')">AMPTD</button>
+          <button class="kbtn gc-amp" onclick="show('exa','attn')">Attn</button>
+          <button class="kbtn gc-amp" onclick="show('exa','preamp')">Preamp</button>
+          <button class="kbtn gc-amp" onclick="show('exa','extgain')">Ext Gain ⚠</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#9b8cf820;color:#9b8cf8">BW / SWEEP</div>
+        <div class="keys">
+          <button class="kbtn gc-bw" onclick="show('exa','bw')">BW</button>
+          <button class="kbtn gc-bw" onclick="show('exa','sweep')">Sweep</button>
+          <button class="kbtn gc-bw" onclick="show('exa','avg')">Avg</button>
+          <button class="kbtn gc-bw" onclick="show('exa','trig')">Trig ⚠</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#ff6b6b20;color:#ff6b6b">MEASURE</div>
+        <div class="keys">
+          <button class="kbtn gc-meas" onclick="show('exa','meas')">Meas</button>
+          <button class="kbtn gc-meas" onclick="show('exa','meas_setup')">Meas Setup ⚠</button>
+          <button class="kbtn gc-meas" onclick="show('exa','mode')">Mode</button>
+          <button class="kbtn gc-meas" onclick="show('exa','mode_setup')">Mode Setup</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#5bc4ef20;color:#5bc4ef">MARKER</div>
+        <div class="keys">
+          <button class="kbtn gc-mkr" onclick="show('exa','marker')">Marker</button>
+          <button class="kbtn gc-mkr" onclick="show('exa','peak')">Peak Search</button>
+          <button class="kbtn gc-mkr" onclick="show('exa','delta')">Delta Mkr</button>
+          <button class="kbtn gc-mkr" onclick="show('exa','mkr_to')">Mkr →</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#e879a020;color:#e879a0">INPUT / FILE / NAV</div>
+        <div class="keys">
+          <button class="kbtn gc-file" onclick="show('exa','input')">Input</button>
+          <button class="kbtn gc-file" onclick="show('exa','save')">Save</button>
+          <button class="kbtn gc-file" onclick="show('exa','recall')">Recall</button>
+          <button class="kbtn gc-nav" onclick="show('exa','knob')">Rotary Knob</button>
+          <button class="kbtn gc-nav" onclick="show('exa','numeric')">0–9 Keypad</button>
+          <button class="kbtn gc-nav" onclick="show('exa','units')">GHz MHz kHz Hz</button>
+          <button class="kbtn gc-nav" onclick="show('exa','system')">System</button>
+        </div>
+      </div>
+
+      <div class="quick-ref">
+        <div class="qcard">
+          <div class="qcard-title" style="color:#00d4a0">Your B3 ACLR setup</div>
+          <div class="qcard-text">
+            Freq: <span>1842.5 MHz</span><br>
+            Span: <span>50 MHz</span><br>
+            Meas: <span>ACLR</span><br>
+            ExtGain: <span>−77 dB</span><br>
+            Trig: <span>Free Run</span>
+          </div>
+        </div>
+        <div class="qcard">
+          <div class="qcard-title" style="color:#ff6b6b">Critical warnings</div>
+          <div class="qcard-text">
+            ⚠ Never 0 dB Attn on RU TX<br>
+            ⚠ Always set Ext Gain<br>
+            ⚠ Frame Trig for B41 TDD<br>
+            ⚠ Set EARFCN before EVM
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-panel" id="info-exa">
+      <div id="explain-exa" style="min-height:60px">
+        <div class="info-empty" style="color:#4a5470;font-size:13px;padding:20px">← Click any button on the left to see a full explanation for your RF tests</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ EXM PANEL ═══ -->
+  <div class="inst-panel" <div class="inst-panel" id="panel-exm">
+  <div class="diagram-side">
+    <div class="hint">Click any button — explanation appears below</div>
+
+    <!-- Front panel image from screenshot -->
+    <div style="margin-bottom:10px;border-radius:8px;overflow:hidden;border:1px solid #232840;background:#c8c8c0;padding:6px">
+      <div style="font-size:10px;color:#333;text-align:center;margin-bottom:4px;font-weight:700">TRX2 — EXM E6640A Front Panel (your lab)</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;font-size:9px;font-family:sans-serif">
+        <!-- Row 1 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('freq_ch')">FREQ<br>Channel</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('input_output')">Input/<br>Output</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('auto_couple')">Auto<br>Couple</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('marker')">Marker</div>
+        <div style="background:#00aa00;color:#fff;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('mode_preset')">Mode<br>Preset</div>
+        <!-- Row 2 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('span_xscale')">SPAN<br>X Scale</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('view_display')">View/<br>Display</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('bw')">BW</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('peak_search')">Peak<br>Search</div>
+        <div style="background:#ffffaa;border:1px solid #cc9900;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('user_preset')"><b>User<br>Preset</b></div>
+        <!-- Row 3 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('amptd_yscale')">AMPTD<br>Y Scale</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('trace_detector')">Trace/<br>Detector</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('source')">Source</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('marker_arrow')">Marker ›</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('save')">Save</div>
+        <!-- Row 4 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('mode')">Mode</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('mode_setup')">Mode<br>Setup</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('trigger')">Trigger</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('marker_fn')">Marker<br>Function</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('recall')">Recall</div>
+        <!-- Row 5 -->
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('meas')">Meas</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('meas_setup')">Meas<br>Setup</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('sweep_control')">Sweep/<br>Control</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('restart')">Restart</div>
+        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('single')">Single</div>
+      </div>
+      <div style="font-size:9px;color:#666;text-align:center;margin-top:4px">Click any key above for explanation</div>
+    </div>
+
+    <!-- Explanation panel — shows on click -->
+    <div id="explain-exm" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px;min-height:80px;font-size:13px;line-height:1.6">
+      <span style="color:#4a5470">Click any front panel key above — full explanation for your lab work appears here.</span>
+    </div>
+
+  </div>
+
+  <!-- Right side: Quick reference -->
+  <div class="info-panel" id="info-exm">
+    <div style="font-size:12px">
+
+      <!-- FDD vs TDD quick setup -->
+      <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px;margin-bottom:12px">
+        <div style="color:#00d4a0;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">FDD vs TDD SETUP — KEY DIFFERENCES</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="background:#0d1a0d;padding:10px;border-radius:6px;border-left:3px solid #5bc4ef">
+            <div style="color:#5bc4ef;font-weight:700;font-size:12px;margin-bottom:6px">FDD (B1/B3/B8/B28)</div>
+            <div style="color:#8892b0;line-height:1.8;font-size:11px">
+              <b style="color:#c8c8d8">FREQ Channel:</b> set DL freq<br>
+              <b style="color:#c8c8d8">Mode:</b> FDD LTE (e.g. B3)<br>
+              <b style="color:#c8c8d8">Mode Setup:</b> DL or UL direction<br>
+              <b style="color:#c8c8d8">Source → Freq:</b> set UL freq<br>
+              <b style="color:#c8c8d8">Trigger polarity:</b> Positive<br>
+              <b style="color:#ff6b6b">Trigger delay:</b> OFF<br>
+              <div style="margin-top:6px;padding:6px;background:#0a2010;border-radius:4px;color:#4a5470;font-size:10px">DL and UL are different frequencies → no timing dependency between them</div>
+            </div>
+          </div>
+          <div style="background:#1a1a0d;padding:10px;border-radius:6px;border-left:3px solid #f5a623">
+            <div style="color:#f5a623;font-weight:700;font-size:12px;margin-bottom:6px">TDD (B41)</div>
+            <div style="color:#8892b0;line-height:1.8;font-size:11px">
+              <b style="color:#c8c8d8">FREQ Channel:</b> same freq DL/UL<br>
+              <b style="color:#c8c8d8">Mode:</b> TDD LTE (B41)<br>
+              <b style="color:#c8c8d8">Mode Setup:</b> TDD pattern (e.g. 2,6 or 3,8)<br>
+              <b style="color:#c8c8d8">Source → Freq:</b> same as DL<br>
+              <b style="color:#c8c8d8">Trigger polarity:</b> Positive<br>
+              <b style="color:#f5a623">Trigger delay:</b> ON → <b style="color:#ff6b6b">9.965 ms</b><br>
+              <div style="margin-top:6px;padding:6px;background:#1a1500;border-radius:4px;color:#f5a623;font-size:10px">DL and UL share same freq → delay aligns injection to correct UL subframe window</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Source setup -->
+      <div style="background:#1a0d2a;border:1px solid #9b8cf8;border-radius:8px;padding:12px;margin-bottom:12px">
+        <div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">SOURCE SETUP — STEP BY STEP</div>
+        <div style="color:#8892b0;font-size:11px;line-height:2;font-family:monospace">
+          <span style="color:#9b8cf8">1.</span> Source → RF Output: <span style="color:#ff6b6b">OFF</span> (before connecting cable)<br>
+          <span style="color:#9b8cf8">2.</span> Source → Amplitude: set injection power (e.g. <span style="color:#f5a623">−95 dBm</span>)<br>
+          <span style="color:#9b8cf8">3.</span> Source → Frequency: set UL band centre<br>
+          <span style="color:#9b8cf8">4.</span> Source → Modulation: <span style="color:#00d4a0">ON</span><br>
+          <span style="color:#9b8cf8">5.</span> Modulation Setup → <span style="color:#00d4a0">ARB</span><br>
+          <span style="color:#9b8cf8">6.</span> ARB → <span style="color:#00d4a0">ON</span><br>
+          <span style="color:#9b8cf8">7.</span> ARB → Select ARB → choose <span style="color:#c8b800">.bin file</span><br>
+          <span style="color:#9b8cf8">8.</span> ARB → Sample Rate: match BW<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;5 MHz→7.68 MHz · 10→15.36 · 15→23.04 · 20→30.72<br>
+          <span style="color:#9b8cf8">9.</span> Verify output with EXA (±0.5 dB)<br>
+          <span style="color:#9b8cf8">10.</span> Source → RF Output: <span style="color:#00d4a0">ON</span>
+        </div>
+      </div>
+
+      <!-- ARB bin file reference -->
+      <div style="background:#141720;border:1px solid #4a5470;border-radius:8px;padding:12px;margin-bottom:12px">
+        <div style="color:#c8b800;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">ARB BIN FILE → SIGNAL MAPPING</div>
+        <table style="width:100%;font-size:11px;border-collapse:collapse">
+          <tr style="border-bottom:1px solid #2a3050">
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Bin file</th>
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Signal</th>
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">BW</th>
+            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Mode</th>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_off_25_49_BW10_FDD_RNTI_0</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 offset 25</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW20_FDD_RNTI_0.bin</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">20 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A2-3_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#5bc4ef;padding:3px 6px">A2-3 (16QAM 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A5-5_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#f5a623;padding:3px 6px">A5-5 (64QAM 4/5)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">PRACH_Bw10[Mhz]_PID32_FreqOffset35_ZCZ8_1UEs.bin</td>
+            <td style="color:#9b8cf8;padding:3px 6px">PRACH ZCZ8</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#f5a623;padding:3px 6px">TDD</td>
+          </tr>
+          <tr style="border-bottom:1px solid #1a2035">
+            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW10_FDD_RNTI_0.bin</td>
+            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
+            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
+            <td style="color:#f5a623;padding:3px 6px">TDD</td>
+          </tr>
+        </table>
+        <div style="color:#4a5470;font-size:10px;margin-top:6px">Full bin file list → see PHY Tests card (3rd-party test list)</div>
+      </div>
+
+      <!-- Input/Output ports -->
+      <div style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:12px">
+        <div style="color:#5bc4ef;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">INPUT/OUTPUT PORT REFERENCE</div>
+        <div style="display:grid;gap:6px;font-size:11px">
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #ff6b6b">
+            <b style="color:#ff6b6b">RF Input</b> — signal coming IN from the RU (DL measurement). Connect RU BOB SMA → 30 dB pad → EXM RF Input. Used when EXM is measuring RU TX signal.
+          </div>
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #00d4a0">
+            <b style="color:#00d4a0">RF Output</b> — signal going OUT to RU (UL injection). Connect EXM RF Output → cable → RU BOB SMA. Used for RSSI cal and sensitivity tests. Verify power with EXA before connecting.
+          </div>
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #c8b800">
+            <b style="color:#c8b800">External Gain (BTS setting)</b> — for LTE, select <b>BTS</b> here. This applies the correct gain reference for base station measurements. Sets the measurement context so EXM knows it is measuring a BTS (base station transmitter) rather than a UE.
+          </div>
+          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #9b8cf8">
+            <b style="color:#9b8cf8">Test Set Config → RF Port</b> — select RF Port here to route signal to the front panel RF connector. Required before any injection or measurement.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  <div class="inst-panel" id="panel-vna">
+    <div class="diagram-side">
+      <div class="hint">Click any button below →</div>
+
+      <div style="margin-bottom:12px;border-radius:8px;overflow:hidden;border:1px solid #232840">
+        <img src="https://www.keysight.com/us/en/assets/3120-01251/photos/E5071C.png"
+          alt="Keysight E5071C ENA Network Analyzer"
+          style="width:100%;display:block;background:#1a1e2c"
+          onerror="this.style.display='none';document.getElementById('vna-img-fallback').style.display='block'">
+        <div id="vna-img-fallback" style="display:none;background:#141720;padding:10px;font-size:11px;color:#4a5470;text-align:center">
+          Image loads when online — keysight.com/E5071C
+        </div>
+      </div>
+      <div style="font-size:11px;color:#4a5470;margin-bottom:8px">
+        ↑ Keysight E5071C ENA Network Analyzer &nbsp;·&nbsp;
+        <strong style="color:#f5a62370">Click the buttons below</strong> to learn each key
+      </div>
+      <div class="device-graphic">
+        <div class="device-brand" style="color:#f5a623">KEYSIGHT E5071C &nbsp; ENA Network Analyzer &nbsp; 100kHz – 8.5GHz</div>
+        <div class="device-screen" style="background:#020800;border-color:#332200;color:#f5a623;min-height:90px">
+          <div style="font-size:9px;color:#664400">S21 Log Mag 10dB/div &nbsp; Ref 0.000 &nbsp; Cal: C ✓</div>
+          <div style="margin:6px 0;font-size:10px">
+            <span style="color:#f5a623">▓▓▓▓▓▓▄▄▄▄</span><span style="color:#4a3a00">————————————————</span>
+          </div>
+          <div style="font-size:9px;color:#664400">Passband: ~−0.8dB IL &nbsp;|&nbsp; Stopband: −55dB rejection</div>
+          <div style="font-size:9px;color:#00d4a0">Mkr1: 900MHz &nbsp; −0.8dB &nbsp; (B8 filter centre)</div>
+        </div>
+        <div class="port-row">
+          <div class="port" style="border-color:#f5a623;color:#f5a623">P1</div>
+          <div class="port" style="border-color:#f5a623;color:#f5a623">P2</div>
+          <div class="port" style="border-color:#664400;color:#886600">P3</div>
+          <span style="font-size:10px;color:#4a5470;margin-left:4px">Calibrate AT the DUT connector — not at VNA port!</span>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#f5a62320;color:#f5a623">RESPONSE — what to measure</div>
+        <div class="keys">
+          <button class="kbtn gv-resp" onclick="show('vna','meas')">Meas (S11/S21)</button>
+          <button class="kbtn gv-resp" onclick="show('vna','format')">Format</button>
+          <button class="kbtn gv-resp" onclick="show('vna','scale')">Scale</button>
+          <button class="kbtn gv-resp" onclick="show('vna','display')">Display</button>
+          <button class="kbtn gv-resp" onclick="show('vna','avg')">Avg / IF BW</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#ff6b6b30;color:#ff8888">CALIBRATION — never skip this</div>
+        <div class="keys">
+          <button class="kbtn gv-cal" onclick="show('vna','cal')">Cal ⚠</button>
+          <button class="kbtn gv-cal" onclick="show('vna','solt')">SOLT Steps</button>
+          <button class="kbtn gv-cal" onclick="show('vna','calrecall')">Cal Recall</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#9b8cf820;color:#9b8cf8">STIMULUS — sweep setup</div>
+        <div class="keys">
+          <button class="kbtn gv-stim" onclick="show('vna','start')">Start</button>
+          <button class="kbtn gv-stim" onclick="show('vna','stop')">Stop</button>
+          <button class="kbtn gv-stim" onclick="show('vna','center')">Center</button>
+          <button class="kbtn gv-stim" onclick="show('vna','span')">Span</button>
+          <button class="kbtn gv-stim" onclick="show('vna','points')">Points</button>
+          <button class="kbtn gv-stim" onclick="show('vna','power')">Power ⚠</button>
+          <button class="kbtn gv-stim" onclick="show('vna','ifbw')">IF BW</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#00d4a020;color:#00d4a0">MARKER / ANALYSIS</div>
+
+
+        <div class="keys">
+          <button class="kbtn gv-mkr" onclick="show('vna','marker')">Marker</button>
+          <button class="kbtn gv-mkr" onclick="show('vna','search')">Marker Search</button>
+          <button class="kbtn gv-mkr" onclick="show('vna','bwsearch')">BW Search</button>
+          <button class="kbtn gv-mkr" onclick="show('vna','timedomain')">Time Domain</button>
+          <button class="kbtn gv-mkr" onclick="show('vna','memtrace')">Mem Trace</button>
+        </div>
+      </div>
+
+      <div class="key-group">
+        <div class="group-label" style="background:#88809020;color:#aaa098">NAVIGATION / ENTRY</div>
+<div id="explain-vna" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:16px;margin-top:12px;display:none;min-height:60px">Click any button above to see what it does and how to set it for your RF tests.</div>
+
+        <div class="keys">
+          <button class="kbtn gv-nav" onclick="show('vna','knob')">Rotary Knob</button>
+          <button class="kbtn gv-nav" onclick="show('vna','numeric')">0–9 Keypad</button>
+          <button class="kbtn gv-nav" onclick="show('vna','units')">GHz MHz kHz</button>
+          <button class="kbtn gv-nav" onclick="show('vna','chtr')">Ch/Trace Prev Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-panel" id="info-vna">
+      <div class="info-empty">← Click any button on the left</div>
+    </div>
+  </div>
+  </div><!-- end instruments -->
+</div>
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LTE RCT TESTS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="div-line"></div>
+<div id="exa_live" class="sec">
+  <div class="sec-hdr">
+    <div class="badge a">LIVE</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#00d4a0">Your EXA N9010B — Live Instrument Data (captured Jul 15 2026 21:25)</h2>
+      <p>Real SCPI query results pulled directly from your EXA at 10.62.2.135 · B1 ACP measurement active · All parameters decoded</p>
+    </div>
+  </div>
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">WHY</span>
+  <span class="mod-title">The "Why?" Framework — For every topic: Why does it exist? What problem? Which hardware? Which spec? How measured? Pass/fail? Debug? Interview? Customer impact?</span>
+  <span class="mod-level adv">Master Framework</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#f5a623" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">The "Why?" Framework — Applied to Every Topic</text>
+  <text x="400" y="38" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Transforms definitions into engineering understanding. Use this for every module in this guide.</text>
+
+  <!-- 10 question boxes in 2 rows of 5 -->
+  <rect x="10"  y="50" width="148" height="90" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="67" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① Why does it exist?</text>
+  <text x="20"  y="82" fill="#8892b0" font-size="8" font-family="monospace">What problem does this</text>
+  <text x="20"  y="94" fill="#8892b0" font-size="8" font-family="monospace">feature/measurement solve?</text>
+  <text x="20"  y="106" fill="#f5a623" font-size="8" font-family="monospace">e.g. DPD exists because PA</text>
+  <text x="20"  y="118" fill="#f5a623" font-size="8" font-family="monospace">is nonlinear → ACLR fails</text>
+  <text x="20"  y="133" fill="#4a5470" font-size="7" font-family="monospace">Without this: what would fail?</text>
+
+  <rect x="167" y="50" width="148" height="90" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="241" y="67" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② 3GPP Spec</text>
+  <text x="177" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which TS defines it?</text>
+  <text x="177" y="94" fill="#8892b0" font-size="8" font-family="monospace">Which section? Limit?</text>
+  <text x="177" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: 36.104 §6.6.2</text>
+  <text x="177" y="118" fill="#f5a623" font-size="8" font-family="monospace">EVM: 36.104 §6.5.2.2</text>
+  <text x="177" y="133" fill="#4a5470" font-size="7" font-family="monospace">Always cite the spec</text>
+
+  <rect x="324" y="50" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="398" y="67" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Hardware blocks</text>
+  <text x="334" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which blocks involved?</text>
+  <text x="334" y="94" fill="#8892b0" font-size="8" font-family="monospace">Signal path through each?</text>
+  <text x="334" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: PA → DPD → CFR</text>
+  <text x="334" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: LNA → ADC → FW</text>
+  <text x="334" y="133" fill="#4a5470" font-size="7" font-family="monospace">Draw the signal path</text>
+
+  <rect x="481" y="50" width="148" height="90" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="555" y="67" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Measurement</text>
+  <text x="491" y="82" fill="#8892b0" font-size="8" font-family="monospace">Equipment + setup?</text>
+  <text x="491" y="94" fill="#8892b0" font-size="8" font-family="monospace">SCPI commands?</text>
+  <text x="491" y="106" fill="#f5a623" font-size="8" font-family="monospace">EXA: CALC:MARK:ACLR</text>
+  <text x="491" y="118" fill="#f5a623" font-size="8" font-family="monospace">EXM: ul-rct-test run</text>
+  <text x="491" y="133" fill="#4a5470" font-size="7" font-family="monospace">Cable loss correction</text>
+
+  <rect x="638" y="50" width="152" height="90" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="714" y="67" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑤ Pass/Fail</text>
+  <text x="648" y="82" fill="#8892b0" font-size="8" font-family="monospace">Acceptance limits?</text>
+  <text x="648" y="94" fill="#8892b0" font-size="8" font-family="monospace">Typical good values?</text>
+  <text x="648" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: &gt;45dBc (3GPP)</text>
+  <text x="648" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: ±2dB (PW spec)</text>
+  <text x="648" y="133" fill="#4a5470" font-size="7" font-family="monospace">Also: PW internal gates</text>
+
+  <!-- Row 2 -->
+  <rect x="10"  y="152" width="148" height="90" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="169" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑥ Troubleshoot</text>
+  <text x="20"  y="184" fill="#8892b0" font-size="8" font-family="monospace">Failure symptoms?</text>
+  <text x="20"  y="196" fill="#8892b0" font-size="8" font-family="monospace">First 3 checks?</text>
+  <text x="20"  y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail: wait 60s</text>
+  <text x="20"  y="220" fill="#f5a623" font-size="8" font-family="monospace">check DPD, CFR, PA temp</text>
+  <text x="20"  y="235" fill="#4a5470" font-size="7" font-family="monospace">Systematic isolation</text>
+
+  <rect x="167" y="152" width="148" height="90" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="241" y="169" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑦ Interview Qs</text>
+  <text x="177" y="184" fill="#8892b0" font-size="8" font-family="monospace">Conceptual questions?</text>
+  <text x="177" y="196" fill="#8892b0" font-size="8" font-family="monospace">Scenario questions?</text>
+  <text x="177" y="208" fill="#f5a623" font-size="8" font-family="monospace">"Walk me through how</text>
+  <text x="177" y="220" fill="#f5a623" font-size="8" font-family="monospace">you debug bad ACLR"</text>
+  <text x="177" y="235" fill="#4a5470" font-size="7" font-family="monospace">Practice out loud</text>
+
+  <rect x="324" y="152" width="148" height="90" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="398" y="169" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑧ Lab Notes</text>
+  <text x="334" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your real measurements?</text>
+  <text x="334" y="196" fill="#8892b0" font-size="8" font-family="monospace">Screenshots from EXA?</text>
+  <text x="334" y="208" fill="#f5a623" font-size="8" font-family="monospace">B28 ACLR: 49.14dBm</text>
+  <text x="334" y="220" fill="#f5a623" font-size="8" font-family="monospace">RSSI B1: -95.5dBm</text>
+  <text x="334" y="235" fill="#4a5470" font-size="7" font-family="monospace">Real data = credibility</text>
+
+  <rect x="481" y="152" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="555" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑨ Customer Impact</text>
+  <text x="491" y="184" fill="#8892b0" font-size="8" font-family="monospace">What fails for customer</text>
+  <text x="491" y="196" fill="#8892b0" font-size="8" font-family="monospace">if this test fails?</text>
+  <text x="491" y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail → regulator</text>
+  <text x="491" y="220" fill="#f5a623" font-size="8" font-family="monospace">fine + network shutdown</text>
+  <text x="491" y="235" fill="#4a5470" font-size="7" font-family="monospace">Always tie to business</text>
+
+  <rect x="638" y="152" width="152" height="90" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="714" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑩ Apply to your lab</text>
+  <text x="648" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your unit: 26050509</text>
+  <text x="648" y="196" fill="#8892b0" font-size="8" font-family="monospace">Your bands: B1-B41</text>
+  <text x="648" y="208" fill="#f5a623" font-size="8" font-family="monospace">Your instruments: EXA</text>
+  <text x="648" y="220" fill="#f5a623" font-size="8" font-family="monospace">EXM, VNA E5071C</text>
+  <text x="648" y="235" fill="#4a5470" font-size="7" font-family="monospace">Personalise every topic</text>
+</svg>
+<h4>The WHY framework — 11 questions to master any RF topic</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">How to use the WHY framework:</b><br>For every feature, measurement, or standard you study, answer these 11 questions. This transforms memorised definitions into real understanding. A person who only answers "what is ACLR?" (definition) loses to someone who answers all 11. Use for interview preparation — structure your answers using these questions for complete, impressive responses.</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">The 11 questions — apply to every topic:</b><br>1. Why does it exist? 2. What problem does it solve? 3. Where is it used? 4. Which hardware blocks? 5. Which spec/clause? 6. How measured (instrument + setup)? 7. Pass/fail criteria (exact numbers)? 8. Common failures? 9. Debug approach? 10. Interview Q that tests it? 11. Customer/business impact if it fails?</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Example — ACLR through all 11:</b><br>1. Prevent adjacent channel interference. 2. PA nonlinearity causing spectral regrowth. 3. Every base station TX measurement. 4. PA, DPD engine, CFR. 5. 3GPP TS 36.141 clause 6.6.1. 6. EXA ACLR LTE mode, BOB SMA + 30 dB pad, after 60s DPD convergence. 7. < −45 dBc adj, < −50 dBc alt. 8. DPD not converged, over P1dB, CFR too aggressive. 9. ACLR suddenly fails after SW update — debug approach? 10. Interference → SINR down → throughput down. 11. Regulator fine, operator SLA penalty.</div>
+
+<div class="tip">This "Why?" framework is what separates senior RF engineers from those who only memorised concepts. A senior engineer can answer all 10 questions for any topic without notes. Practice answering them out loud for every module in this guide — that is your interview preparation.</div>
+</div>
+</div>
+
+
+<div class="module-card">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PATH</span>
+  <span class="mod-title">Your complete RF mastery path — all channels, all videos, ordered correctly</span>
+  <span class="mod-level beg">All Levels</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body">
+<h4>Complete RF mastery path — all channels, videos, reading order</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Recommended study order for your role:</b><br>
+1. DSA card (sensitivity, kTB, NF, formula) — the mathematical foundation of all your tests. 2. A05 (TX chain) + A06 (RX chain) — understand what you are measuring. 3. NCH (noise chain) — Friis formula, why LNA matters. 4. NF_CAL + GAIN_CAL — how calibration works. 5. VNA2-7 (phase cal) — beamforming validation. 6. M07 (ACLR) + M12 (RCT config) — your daily workflow. 7. A09 (automation) — RuAuto deep dive. 8. Everything else — depth on specific topics as needed.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">External resources:</b><br>
+Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwarz Knowledge Center: 5G NR, O-RAN. 3GPP TS 36.104 (LTE): base station conformance requirements. O-RAN Alliance: fronthaul specs, WG4 documents. YouTube: w2aew for practical RF, MATLAB for simulations. Your own lab: always the best learning — run the measurement, change one variable, observe the effect.
+</div>
+
+<div class="mod-section-title">4 YouTube videos you shared — what each teaches</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Video</th><th>Title</th><th>Core lesson</th><th>Module connection</th></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=aQd_zBytid8" target="_blank" style="color:#f5a623">aQd_zBytid8</a></td><td>Interpreting Constellation Diagrams</td><td>How to diagnose signal impairments (phase noise, IQ imbalance, PA compression, DC offset) from the IQ scatter plot on your EXM</td><td>M05, VID1 above</td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=1xGncBvWv6U" target="_blank" style="color:#f5a623">1xGncBvWv6U</a></td><td>Understanding Spectrum Analyzers — ACLR</td><td>Complete ACLR measurement setup: RBW, cable loss, gating, reading dBc, what causes ACLR to fail</td><td>M07, VID2 above</td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=rMVAQsUudSs" target="_blank" style="color:#f5a623">rMVAQsUudSs</a></td><td>Understanding Spectrum Analyzers</td><td>FFT, RBW, VBW, dynamic range, DANL, noise floor — the fundamentals of how your EXA/EXM work</td><td>M07, VID3 above</td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=swjgr4YBhRM" target="_blank" style="color:#f5a623">swjgr4YBhRM</a></td><td>RF Signal Chain Topics</td><td>Signal chain overview, IQ architecture, mixer theory, noise figure — connects theory to your daily hardware</td><td>M03, M16, VID4 above</td></tr>
+</table></div>
+
+<div class="mod-section-title">15 YouTube channels — ordered for your background</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>#</th><th>Channel</th><th>Link</th><th>Start with</th></tr>
+<tr><td>1</td><td>⭐ Keysight Labs</td><td><a href="https://www.youtube.com/@KeysightLabs" target="_blank" style="color:#00d4a0">@KeysightLabs</a></td><td>RF Back to Basics playlist → Spectrum Analysis Fundamentals</td></tr>
+<tr><td>2</td><td>⭐ Rohde &amp; Schwarz</td><td><a href="https://www.youtube.com/@RohdeSchwarz" target="_blank" style="color:#00d4a0">@RohdeSchwarz</a></td><td>Spectrum Analyzer Basics → ACLR → EVM → LTE → 5G NR</td></tr>
+<tr><td>3</td><td>⭐ The Signal Path</td><td><a href="https://www.youtube.com/@TheSignalPath" target="_blank" style="color:#00d4a0">@TheSignalPath</a></td><td>Mixers → PLL → ADC → Spectrum Analyzer teardowns</td></tr>
+<tr><td>4</td><td>⭐ Analog Devices</td><td><a href="https://www.youtube.com/@AnalogDevices" target="_blank" style="color:#00d4a0">@AnalogDevices</a></td><td>ADC/DAC fundamentals → IQ Signals → RF Front Ends</td></tr>
+<tr><td>5</td><td>⭐ Amarisoft</td><td><a href="https://www.youtube.com/@Amarisoft" target="_blank" style="color:#00d4a0">@Amarisoft</a></td><td>LTE PHY → 5G PHY → PRACH → PUSCH/PDSCH → DMRS</td></tr>
+<tr><td>6</td><td>⭐ MathWorks</td><td><a href="https://www.youtube.com/@MathWorks" target="_blank" style="color:#00d4a0">@MathWorks</a></td><td>OFDM simulation → LTE/5G Toolbox → Beamforming → MIMO</td></tr>
+<tr><td>7</td><td>Texas Instruments</td><td><a href="https://www.youtube.com/@TexasInstruments" target="_blank" style="color:#00d4a0">@TexasInstruments</a></td><td>RF Basics Getting Started (31 min) → TI Precision Labs ADC/DAC</td></tr>
+<tr><td>8</td><td>Neso Academy</td><td><a href="https://www.youtube.com/@NESOAcademy" target="_blank" style="color:#9b8cf8">@NESOAcademy</a></td><td>Digital Communication → FFT → Sampling → Nyquist</td></tr>
+<tr><td>9</td><td>All About Electronics</td><td><a href="https://www.youtube.com/@AllAboutElectronics" target="_blank" style="color:#9b8cf8">@AllAboutElectronics</a></td><td>ADC → DAC → PLL → Filters → OFDM → DSP</td></tr>
+<tr><td>10</td><td>Wireless Future</td><td><a href="https://www.youtube.com/@WirelessFuture" target="_blank" style="color:#9b8cf8">@WirelessFuture</a></td><td>LTE/5G architecture → MAC/RLC → RRC → call flows</td></tr>
+<tr><td>11</td><td>TelecomHall</td><td><a href="https://www.youtube.com/@TelecomHall" target="_blank" style="color:#9b8cf8">@TelecomHall</a></td><td>LTE/5G KPI → optimization → RAN architecture</td></tr>
+<tr><td>12</td><td>National Instruments</td><td><a href="https://www.youtube.com/@NIglobal" target="_blank" style="color:#9b8cf8">@NIglobal</a></td><td>SDR → RF Testing → Signal Processing</td></tr>
+<tr><td>13</td><td>free5GC</td><td><a href="https://www.youtube.com/@free5GC" target="_blank" style="color:#9b8cf8">@free5GC</a></td><td>5G Core → PDU Session → NGAP → GTP</td></tr>
+<tr><td>14</td><td>NPTEL</td><td><a href="https://www.youtube.com/@nptel" target="_blank" style="color:#9b8cf8">@nptel</a></td><td>RF Systems playlist → Microwave Engineering → DSP</td></tr>
+<tr><td>15</td><td>W2AEW</td><td><a href="https://www.youtube.com/@w2aew" target="_blank" style="color:#9b8cf8">@w2aew</a></td><td>VNA use → S-parameters → Smith charts → oscilloscopes</td></tr>
+</table></div>
+
+<div class="mod-section-title">12-week expert learning plan</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Week</th><th>Focus</th><th>Channel/Resource</th><th>Self-check from this file</th></tr>
+<tr><td>1</td><td>dB, dBm, link budget, noise floor −174 dBm/Hz</td><td>Keysight RF Back to Basics</td><td>M01, EXP4</td></tr>
+<tr><td>2</td><td>LNA, PA classes, Doherty, VSWR, S-params</td><td>Keysight + The Signal Path</td><td>M02, M03, EXP3</td></tr>
+<tr><td>3</td><td>PLL, LO, IQ, ADC/DAC, dBFS↔dBm</td><td>Analog Devices + TI</td><td>EXP1, EXP6, VID4</td></tr>
+<tr><td>4</td><td>FFT, OFDM, sampling, spectrum analyzer RBW/VBW</td><td>Neso + All About Electronics</td><td>M05, VID2, VID3</td></tr>
+<tr><td>5</td><td>Constellation diagrams, EVM, IQ impairment diagnosis</td><td>Watch aQd_zBytid8</td><td>VID1, EXP2</td></tr>
+<tr><td>6</td><td>ACLR, SEM, DPD, CFR — full Tx chain</td><td>Watch 1xGncBvWv6U + R&amp;S ACLR</td><td>M06, M07, VID2</td></tr>
+<tr><td>7</td><td>LTE PHY — resource grid, PDSCH, PRACH, PUCCH</td><td>Amarisoft YouTube</td><td>M08, EXP5</td></tr>
+<tr><td>8</td><td>5G NR, TDD, beamforming, massive MIMO</td><td>Amarisoft + MathWorks</td><td>M09, M16-TDD</td></tr>
+<tr><td>9</td><td>RSSI calibration, ADC dynamic range, dBFS</td><td>Watch rMVAQsUudSs + David call</td><td>M14, M16b, EXP6</td></tr>
+<tr><td>10</td><td>O-RAN, eCPRI, FHGW, RuAuto framework</td><td>O-RAN Alliance videos</td><td>M15, RuAuto card</td></tr>
+<tr><td>11</td><td>Instruments deep dive — EXA/EXM/VNA all buttons</td><td>R&amp;S + Keysight</td><td>Instruments section</td></tr>
+<tr><td>12</td><td>Review weak areas — redo all self-checks</td><td>All modules above</td><td>All M01–M16 self-checks</td></tr>
+</table></div>
+</div>
+</div>
+
+</div><!-- end expertrf section -->
+
+<!-- ═══════════════ LIVE EXA DATA ═══════════════ -->
+<div class="div-line"></div>
+<div id="careermap_old" class="sec">
+  <div class="sec-hdr">
+    <div class="badge a">🗺</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#f5a623">RF Engineering Mastery — Complete 17-Level Roadmap</h2>
+      <p>From electronics foundations to advanced RF · Every topic with theory, hardware, measurement, troubleshooting · Your personal master reference</p>
+    </div>
+  </div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- ROADMAP OVERVIEW SVG -->
+<!-- ══════════════════════════════════════════════════════ -->
+<svg width="100%" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:20px">
+  <rect width="800" height="520" fill="#0d0f14" rx="10"/>
+  <text x="400" y="28" fill="#f5a623" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">RF Engineer Mastery Path — 17 Levels</text>
+
+  <!-- Level boxes arranged in a flow -->
+  <!-- Row 1 -->
+  <rect x="10"  y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
+  <text x="65"  y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L0: Electronics</text>
+  <text x="65"  y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Foundation</text>
+
+  <line x1="120" y1="65" x2="135" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="133,61 143,65 133,69" fill="#4a5470"/>
+
+  <rect x="143" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
+  <text x="198" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L1: Digital Comms</text>
+  <text x="198" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Modulation/Coding</text>
+
+  <line x1="253" y1="65" x2="268" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="266,61 276,65 266,69" fill="#4a5470"/>
+
+  <rect x="276" y="45" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
+  <text x="331" y="61" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L2: RF Fundamentals</text>
+  <text x="331" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Freq/Power/Noise/Ant</text>
+
+  <line x1="386" y1="65" x2="401" y2="65" stroke="#00d4a0" stroke-width="1.5"/>
+  <polygon points="399,61 409,65 399,69" fill="#00d4a0"/>
+
+  <rect x="409" y="45" width="110" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
+  <text x="464" y="58" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L3: RF Measurements</text>
+  <text x="464" y="70" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ CORE</text>
+  <text x="464" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EVM/ACLR/RSSI/PA</text>
+
+  <line x1="519" y1="65" x2="534" y2="65" stroke="#f5a623" stroke-width="1.5"/>
+  <polygon points="532,61 542,65 532,69" fill="#f5a623"/>
+
+  <rect x="542" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
+  <text x="597" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L4: RF Components</text>
+  <text x="597" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/DAC/Mixer</text>
+
+  <line x1="652" y1="65" x2="667" y2="65" stroke="#4a5470" stroke-width="1.5"/>
+  <polygon points="665,61 675,65 665,69" fill="#4a5470"/>
+
+  <rect x="675" y="45" width="115" height="40" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
+  <text x="732" y="61" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L5: LTE RF</text>
+  <text x="732" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">EARFCN/CA/MIMO</text>
+
+  <!-- Row 2 -->
+  <line x1="732" y1="85" x2="732" y2="110" stroke="#5bc4ef" stroke-width="1.5"/>
+  <polygon points="728,108 736,108 732,118" fill="#5bc4ef"/>
+
+  <rect x="675" y="118" width="115" height="40" fill="#0d1a2a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
+  <text x="732" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L6: 5G NR RF</text>
+  <text x="732" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">SSB/PRACH/BF/FR1-2</text>
+
+  <line x1="675" y1="138" x2="660" y2="138" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="662,134 652,138 662,142" fill="#9b8cf8"/>
+
+  <rect x="540" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
+  <text x="600" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L7: O-RAN RF</text>
+  <text x="600" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ YOUR WORK</text>
+  <text x="600" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RU/M-C-U-S Plane</text>
+
+  <line x1="540" y1="138" x2="525" y2="138" stroke="#f5a623" stroke-width="1.5"/>
+  <polygon points="527,134 517,138 527,142" fill="#f5a623"/>
+
+  <rect x="405" y="118" width="120" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
+  <text x="465" y="131" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L8: RF Conformance</text>
+  <text x="465" y="143" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ RCT</text>
+  <text x="465" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR/EVM/SEM/RSSI</text>
+
+  <line x1="405" y1="138" x2="390" y2="138" stroke="#c8b800" stroke-width="1.5"/>
+  <polygon points="392,134 382,138 392,142" fill="#c8b800"/>
+
+  <rect x="270" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
+  <text x="330" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L9: Test Equipment</text>
+  <text x="330" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ DAILY</text>
+  <text x="330" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EXA/EXM/VNA/CMW</text>
+
+  <line x1="270" y1="138" x2="255" y2="138" stroke="#f5a623" stroke-width="1.5"/>
+  <polygon points="257,134 247,138 257,142" fill="#f5a623"/>
+
+  <rect x="135" y="118" width="120" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
+  <text x="195" y="134" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L10: Telecom Logs</text>
+  <text x="195" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">QXDM/Wireshark/NETCONF</text>
+
+  <line x1="135" y1="138" x2="120" y2="138" stroke="#00d4a0" stroke-width="1.5"/>
+  <polygon points="122,134 112,138 122,142" fill="#00d4a0"/>
+
+  <rect x="10" y="118" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
+  <text x="65" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L11: RF Debug</text>
+  <text x="65" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Fault→Root Cause</text>
+
+  <!-- Row 3 -->
+  <line x1="65" y1="158" x2="65" y2="180" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="61,178 69,178 65,188" fill="#9b8cf8"/>
+
+  <rect x="10"  y="188" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
+  <text x="65" y="204" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L12: Automation</text>
+  <text x="65" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Python/SCPI/SSH</text>
+
+  <line x1="120" y1="208" x2="135" y2="208" stroke="#00d4a0" stroke-width="1.5"/>
+  <polygon points="133,204 143,208 133,212" fill="#00d4a0"/>
+
+  <rect x="143" y="188" width="110" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="5"/>
+  <text x="198" y="204" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L13: RF Hardware</text>
+  <text x="198" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/PLL/ADC/DAC</text>
+
+  <line x1="253" y1="208" x2="268" y2="208" stroke="#ff6b6b" stroke-width="1.5"/>
+  <polygon points="266,204 276,208 266,212" fill="#ff6b6b"/>
+
+  <rect x="276" y="188" width="110" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
+  <text x="331" y="204" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L14: Standards</text>
+  <text x="331" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">3GPP 36/38.xxx</text>
+
+  <line x1="386" y1="208" x2="401" y2="208" stroke="#5bc4ef" stroke-width="1.5"/>
+  <polygon points="399,204 409,208 399,212" fill="#5bc4ef"/>
+
+  <rect x="409" y="188" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
+  <text x="464" y="204" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L15: Product Know.</text>
+  <text x="464" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Ericsson/Qual/Apple</text>
+
+  <line x1="519" y1="208" x2="534" y2="208" stroke="#9b8cf8" stroke-width="1.5"/>
+  <polygon points="532,204 542,208 532,212" fill="#9b8cf8"/>
+
+  <rect x="542" y="188" width="110" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
+  <text x="597" y="204" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L16: Advanced RF</text>
+  <text x="597" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">BF/DPD/CFR/ET</text>
+
+  <line x1="652" y1="208" x2="667" y2="208" stroke="#c8b800" stroke-width="1.5"/>
+  <polygon points="665,204 675,208 665,212" fill="#c8b800"/>
+
+  <rect x="675" y="188" width="115" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="5"/>
+  <text x="732" y="201" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L17: Interview Prep</text>
+  <text x="732" y="213" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">⭐ Master All Above</text>
+  <text x="732" y="224" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scenario questions</text>
+
+  <!-- WHERE YOU ARE marker -->
+  <rect x="10" y="255" width="780" height="55" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="6"/>
+  <text x="400" y="274" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">📍 WHERE YOU ARE NOW — Pardha Saradhi @ Parallel Wireless</text>
+  <text x="400" y="291" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L3 RF Measurements ✓ · L7 O-RAN RF ✓ · L8 RCT ✓ · L9 Test Equipment ✓ (EXA/EXM/VNA)</text>
+  <text x="400" y="305" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Hands-on: Metro AAU B1/B3/B8/B28/B41 · RuAuto · FHGW · DPD/CFR · ACLR/EVM/RSSI · uSleep · PA Protection</text>
+
+  <!-- What to study next -->
+  <rect x="10" y="325" width="780" height="55" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="6"/>
+  <text x="400" y="344" fill="#f5a623" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">🎯 NEXT FOCUS AREAS</text>
+  <text x="400" y="360" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L0 deepen: Smith Chart · Mixers · Filters → L2 deepen: S-parameters · NF theory → L6: 5G NR SSB/CSI-RS/PRACH</text>
+  <text x="400" y="374" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">L12: Python SCPI automation → L14: Read 38.104 §6 (TX power) §7 (RX) → L16: Doherty PA · Envelope Tracking</text>
+
+  <!-- Study framework -->
+  <rect x="10" y="395" width="780" height="118" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="6"/>
+  <text x="400" y="414" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📚 MASTER REFERENCE FRAMEWORK (for every topic)</text>
+  <text x="30"  y="432" fill="#9b8cf8" font-size="9" font-family="monospace">① Theory</text>
+  <text x="30"  y="445" fill="#4a5470" font-size="8" font-family="monospace">   Why does this exist? What problem does it solve?</text>
+  <text x="200" y="432" fill="#5bc4ef" font-size="9" font-family="monospace">② Standards</text>
+  <text x="200" y="445" fill="#4a5470" font-size="8" font-family="monospace">   3GPP spec, section, limit value</text>
+  <text x="380" y="432" fill="#00d4a0" font-size="9" font-family="monospace">③ Hardware</text>
+  <text x="380" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Which blocks involved? Signal path?</text>
+  <text x="570" y="432" fill="#f5a623" font-size="9" font-family="monospace">④ Measurement</text>
+  <text x="570" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Equipment setup, procedure, SCPI</text>
+  <text x="30"  y="465" fill="#c8b800" font-size="9" font-family="monospace">⑤ Pass/Fail</text>
+  <text x="30"  y="478" fill="#4a5470" font-size="8" font-family="monospace">   Acceptance limits, typical values</text>
+  <text x="200" y="465" fill="#ff6b6b" font-size="9" font-family="monospace">⑥ Troubleshoot</text>
+  <text x="200" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Typical failures, symptoms, root cause</text>
+  <text x="380" y="465" fill="#9b8cf8" font-size="9" font-family="monospace">⑦ Interview Qs</text>
+  <text x="380" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Conceptual + scenario based</text>
+  <text x="570" y="465" fill="#8892b0" font-size="9" font-family="monospace">⑧ Lab Notes</text>
+  <text x="570" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Commands, screenshots, real data</text>
+  <text x="400" y="505" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">This HTML guide follows this framework for every module — theory + diagram + formula + real lab data from your EXA/EXM/VNA</text>
+</svg>
+
+<!-- ══════════════ LEVEL CARDS ══════════════ -->
+
+<!-- L0 -->
+
+<div class="div-line"></div>
 <div class="sec-hdr" id="features" style="background:linear-gradient(90deg,#ff6b6b11,transparent);border-left:4px solid #ff6b6b;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">⚙️</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#ff6b6b">Features</span><span style="background:#ff6b6b22;color:#ff6b6b;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">RCT FEATURES</span></div><div style="font-size:12px;color:#4a5470">All RCT features in-depth · uSleep · PA Protection · RSSI Accuracy · IQ Playback · Dynamic Range · NF · DSA · TDD Trigger · RuAuto</div></div></div>
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
@@ -12159,194 +13149,7 @@ They are the same operation from opposite ends of the RX chain. RSSI cal (ADC_AD
 
 <!-- ═══════════════ SENSITIVITY & DSA ═══════════════ -->
 <div class="div-line"></div>
-<div id="careermap" class="sec">
-  <div class="sec-hdr">
-    <div class="badge a">🗺</div>
-    <div class="sec-hdr-txt">
-      <h2 style="color:#f5a623">RF Engineering Mastery — Complete 17-Level Roadmap</h2>
-      <p>From electronics foundations to advanced RF · Every topic with theory, hardware, measurement, troubleshooting · Your personal master reference</p>
-    </div>
-  </div>
-
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- ROADMAP OVERVIEW SVG -->
-<!-- ══════════════════════════════════════════════════════ -->
-<svg width="100%" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:20px">
-  <rect width="800" height="520" fill="#0d0f14" rx="10"/>
-  <text x="400" y="28" fill="#f5a623" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">RF Engineer Mastery Path — 17 Levels</text>
-
-  <!-- Level boxes arranged in a flow -->
-  <!-- Row 1 -->
-  <rect x="10"  y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
-  <text x="65"  y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L0: Electronics</text>
-  <text x="65"  y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Foundation</text>
-
-  <line x1="120" y1="65" x2="135" y2="65" stroke="#4a5470" stroke-width="1.5"/>
-  <polygon points="133,61 143,65 133,69" fill="#4a5470"/>
-
-  <rect x="143" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
-  <text x="198" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L1: Digital Comms</text>
-  <text x="198" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Modulation/Coding</text>
-
-  <line x1="253" y1="65" x2="268" y2="65" stroke="#4a5470" stroke-width="1.5"/>
-  <polygon points="266,61 276,65 266,69" fill="#4a5470"/>
-
-  <rect x="276" y="45" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
-  <text x="331" y="61" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L2: RF Fundamentals</text>
-  <text x="331" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Freq/Power/Noise/Ant</text>
-
-  <line x1="386" y1="65" x2="401" y2="65" stroke="#00d4a0" stroke-width="1.5"/>
-  <polygon points="399,61 409,65 399,69" fill="#00d4a0"/>
-
-  <rect x="409" y="45" width="110" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
-  <text x="464" y="58" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L3: RF Measurements</text>
-  <text x="464" y="70" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ CORE</text>
-  <text x="464" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EVM/ACLR/RSSI/PA</text>
-
-  <line x1="519" y1="65" x2="534" y2="65" stroke="#f5a623" stroke-width="1.5"/>
-  <polygon points="532,61 542,65 532,69" fill="#f5a623"/>
-
-  <rect x="542" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
-  <text x="597" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L4: RF Components</text>
-  <text x="597" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/DAC/Mixer</text>
-
-  <line x1="652" y1="65" x2="667" y2="65" stroke="#4a5470" stroke-width="1.5"/>
-  <polygon points="665,61 675,65 665,69" fill="#4a5470"/>
-
-  <rect x="675" y="45" width="115" height="40" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
-  <text x="732" y="61" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L5: LTE RF</text>
-  <text x="732" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">EARFCN/CA/MIMO</text>
-
-  <!-- Row 2 -->
-  <line x1="732" y1="85" x2="732" y2="110" stroke="#5bc4ef" stroke-width="1.5"/>
-  <polygon points="728,108 736,108 732,118" fill="#5bc4ef"/>
-
-  <rect x="675" y="118" width="115" height="40" fill="#0d1a2a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
-  <text x="732" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L6: 5G NR RF</text>
-  <text x="732" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">SSB/PRACH/BF/FR1-2</text>
-
-  <line x1="675" y1="138" x2="660" y2="138" stroke="#9b8cf8" stroke-width="1.5"/>
-  <polygon points="662,134 652,138 662,142" fill="#9b8cf8"/>
-
-  <rect x="540" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
-  <text x="600" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L7: O-RAN RF</text>
-  <text x="600" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ YOUR WORK</text>
-  <text x="600" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RU/M-C-U-S Plane</text>
-
-  <line x1="540" y1="138" x2="525" y2="138" stroke="#f5a623" stroke-width="1.5"/>
-  <polygon points="527,134 517,138 527,142" fill="#f5a623"/>
-
-  <rect x="405" y="118" width="120" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
-  <text x="465" y="131" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L8: RF Conformance</text>
-  <text x="465" y="143" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ RCT</text>
-  <text x="465" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR/EVM/SEM/RSSI</text>
-
-  <line x1="405" y1="138" x2="390" y2="138" stroke="#c8b800" stroke-width="1.5"/>
-  <polygon points="392,134 382,138 392,142" fill="#c8b800"/>
-
-  <rect x="270" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
-  <text x="330" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L9: Test Equipment</text>
-  <text x="330" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ DAILY</text>
-  <text x="330" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EXA/EXM/VNA/CMW</text>
-
-  <line x1="270" y1="138" x2="255" y2="138" stroke="#f5a623" stroke-width="1.5"/>
-  <polygon points="257,134 247,138 257,142" fill="#f5a623"/>
-
-  <rect x="135" y="118" width="120" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
-  <text x="195" y="134" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L10: Telecom Logs</text>
-  <text x="195" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">QXDM/Wireshark/NETCONF</text>
-
-  <line x1="135" y1="138" x2="120" y2="138" stroke="#00d4a0" stroke-width="1.5"/>
-  <polygon points="122,134 112,138 122,142" fill="#00d4a0"/>
-
-  <rect x="10" y="118" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
-  <text x="65" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L11: RF Debug</text>
-  <text x="65" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Fault→Root Cause</text>
-
-  <!-- Row 3 -->
-  <line x1="65" y1="158" x2="65" y2="180" stroke="#9b8cf8" stroke-width="1.5"/>
-  <polygon points="61,178 69,178 65,188" fill="#9b8cf8"/>
-
-  <rect x="10"  y="188" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
-  <text x="65" y="204" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L12: Automation</text>
-  <text x="65" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Python/SCPI/SSH</text>
-
-  <line x1="120" y1="208" x2="135" y2="208" stroke="#00d4a0" stroke-width="1.5"/>
-  <polygon points="133,204 143,208 133,212" fill="#00d4a0"/>
-
-  <rect x="143" y="188" width="110" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="5"/>
-  <text x="198" y="204" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L13: RF Hardware</text>
-  <text x="198" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/PLL/ADC/DAC</text>
-
-  <line x1="253" y1="208" x2="268" y2="208" stroke="#ff6b6b" stroke-width="1.5"/>
-  <polygon points="266,204 276,208 266,212" fill="#ff6b6b"/>
-
-  <rect x="276" y="188" width="110" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
-  <text x="331" y="204" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L14: Standards</text>
-  <text x="331" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">3GPP 36/38.xxx</text>
-
-  <line x1="386" y1="208" x2="401" y2="208" stroke="#5bc4ef" stroke-width="1.5"/>
-  <polygon points="399,204 409,208 399,212" fill="#5bc4ef"/>
-
-  <rect x="409" y="188" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
-  <text x="464" y="204" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L15: Product Know.</text>
-  <text x="464" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Ericsson/Qual/Apple</text>
-
-  <line x1="519" y1="208" x2="534" y2="208" stroke="#9b8cf8" stroke-width="1.5"/>
-  <polygon points="532,204 542,208 532,212" fill="#9b8cf8"/>
-
-  <rect x="542" y="188" width="110" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
-  <text x="597" y="204" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L16: Advanced RF</text>
-  <text x="597" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">BF/DPD/CFR/ET</text>
-
-  <line x1="652" y1="208" x2="667" y2="208" stroke="#c8b800" stroke-width="1.5"/>
-  <polygon points="665,204 675,208 665,212" fill="#c8b800"/>
-
-  <rect x="675" y="188" width="115" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="5"/>
-  <text x="732" y="201" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L17: Interview Prep</text>
-  <text x="732" y="213" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">⭐ Master All Above</text>
-  <text x="732" y="224" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scenario questions</text>
-
-  <!-- WHERE YOU ARE marker -->
-  <rect x="10" y="255" width="780" height="55" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="6"/>
-  <text x="400" y="274" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">📍 WHERE YOU ARE NOW — Pardha Saradhi @ Parallel Wireless</text>
-  <text x="400" y="291" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L3 RF Measurements ✓ · L7 O-RAN RF ✓ · L8 RCT ✓ · L9 Test Equipment ✓ (EXA/EXM/VNA)</text>
-  <text x="400" y="305" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Hands-on: Metro AAU B1/B3/B8/B28/B41 · RuAuto · FHGW · DPD/CFR · ACLR/EVM/RSSI · uSleep · PA Protection</text>
-
-  <!-- What to study next -->
-  <rect x="10" y="325" width="780" height="55" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="6"/>
-  <text x="400" y="344" fill="#f5a623" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">🎯 NEXT FOCUS AREAS</text>
-  <text x="400" y="360" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L0 deepen: Smith Chart · Mixers · Filters → L2 deepen: S-parameters · NF theory → L6: 5G NR SSB/CSI-RS/PRACH</text>
-  <text x="400" y="374" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">L12: Python SCPI automation → L14: Read 38.104 §6 (TX power) §7 (RX) → L16: Doherty PA · Envelope Tracking</text>
-
-  <!-- Study framework -->
-  <rect x="10" y="395" width="780" height="118" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="6"/>
-  <text x="400" y="414" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📚 MASTER REFERENCE FRAMEWORK (for every topic)</text>
-  <text x="30"  y="432" fill="#9b8cf8" font-size="9" font-family="monospace">① Theory</text>
-  <text x="30"  y="445" fill="#4a5470" font-size="8" font-family="monospace">   Why does this exist? What problem does it solve?</text>
-  <text x="200" y="432" fill="#5bc4ef" font-size="9" font-family="monospace">② Standards</text>
-  <text x="200" y="445" fill="#4a5470" font-size="8" font-family="monospace">   3GPP spec, section, limit value</text>
-  <text x="380" y="432" fill="#00d4a0" font-size="9" font-family="monospace">③ Hardware</text>
-  <text x="380" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Which blocks involved? Signal path?</text>
-  <text x="570" y="432" fill="#f5a623" font-size="9" font-family="monospace">④ Measurement</text>
-  <text x="570" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Equipment setup, procedure, SCPI</text>
-  <text x="30"  y="465" fill="#c8b800" font-size="9" font-family="monospace">⑤ Pass/Fail</text>
-  <text x="30"  y="478" fill="#4a5470" font-size="8" font-family="monospace">   Acceptance limits, typical values</text>
-  <text x="200" y="465" fill="#ff6b6b" font-size="9" font-family="monospace">⑥ Troubleshoot</text>
-  <text x="200" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Typical failures, symptoms, root cause</text>
-  <text x="380" y="465" fill="#9b8cf8" font-size="9" font-family="monospace">⑦ Interview Qs</text>
-  <text x="380" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Conceptual + scenario based</text>
-  <text x="570" y="465" fill="#8892b0" font-size="9" font-family="monospace">⑧ Lab Notes</text>
-  <text x="570" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Commands, screenshots, real data</text>
-  <text x="400" y="505" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">This HTML guide follows this framework for every module — theory + diagram + formula + real lab data from your EXA/EXM/VNA</text>
-</svg>
-
-<!-- ══════════════ LEVEL CARDS ══════════════ -->
-
-<!-- L0 -->
-
-<div class="div-line"></div>
-<div id="sensitivity_dsa" class="sec">
+<div id="sensitivity_dsa_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge a">DSA</div>
     <div class="sec-hdr-txt">
@@ -13090,7 +13893,7 @@ LNA gain = +20 dB = ×100 linear. Post-BPF NF = 1.0 dB → linear 1.259. Its Fri
 
 <!-- ═══════════════ RF FUNDAMENTALS Q&A ═══════════════ -->
 <div class="div-line"></div>
-<div id="pwcourse" class="sec">
+<div id="pwcourse_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge g">PW</div>
     <div class="sec-hdr-txt">
@@ -13273,7 +14076,7 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
 
 <!-- ═══════════════ FULL PARALLEL WIRELESS RF COURSE ═══════════════ -->
 <div class="div-line"></div>
-<div id="noisefigure" class="sec">
+<div id="noisefigure_hidden" style="display:none">
   <div class="sec-hdr">
     <div class="badge c">NF</div>
     <div class="sec-hdr-txt">
@@ -13546,196 +14349,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
 
 
 <div class="div-line"></div>
-<div class="sec-hdr" id="careermap" style="background:linear-gradient(90deg,#f5a62311,transparent);border-left:4px solid #f5a623;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🗺</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#f5a623">Career Roadmap</span><span style="background:#f5a62322;color:#f5a623;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">CAREER</span></div><div style="font-size:12px;color:#4a5470">Interview prep · L-series roadmap · WHY framework · 17-level mastery path</div></div></div>
-<div class="div-line"></div>
-<div id="careermap_visual" class="sec">
-  <div class="sec-hdr">
-    <div class="badge a">🗺</div>
-    <div class="sec-hdr-txt">
-      <h2 style="color:#f5a623">RF Engineering Mastery — Complete 17-Level Roadmap</h2>
-      <p>From electronics foundations to advanced RF · Every topic with theory, hardware, measurement, troubleshooting · Your personal master reference</p>
-    </div>
-  </div>
-
-<!-- ══════════════════════════════════════════════════════ -->
-<!-- ROADMAP OVERVIEW SVG -->
-<!-- ══════════════════════════════════════════════════════ -->
-<svg width="100%" viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:20px">
-  <rect width="800" height="520" fill="#0d0f14" rx="10"/>
-  <text x="400" y="28" fill="#f5a623" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">RF Engineer Mastery Path — 17 Levels</text>
-
-  <!-- Level boxes arranged in a flow -->
-  <!-- Row 1 -->
-  <rect x="10"  y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
-  <text x="65"  y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L0: Electronics</text>
-  <text x="65"  y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Foundation</text>
-
-  <line x1="120" y1="65" x2="135" y2="65" stroke="#4a5470" stroke-width="1.5"/>
-  <polygon points="133,61 143,65 133,69" fill="#4a5470"/>
-
-  <rect x="143" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
-  <text x="198" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L1: Digital Comms</text>
-  <text x="198" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Modulation/Coding</text>
-
-  <line x1="253" y1="65" x2="268" y2="65" stroke="#4a5470" stroke-width="1.5"/>
-  <polygon points="266,61 276,65 266,69" fill="#4a5470"/>
-
-  <rect x="276" y="45" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
-  <text x="331" y="61" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L2: RF Fundamentals</text>
-  <text x="331" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Freq/Power/Noise/Ant</text>
-
-  <line x1="386" y1="65" x2="401" y2="65" stroke="#00d4a0" stroke-width="1.5"/>
-  <polygon points="399,61 409,65 399,69" fill="#00d4a0"/>
-
-  <rect x="409" y="45" width="110" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
-  <text x="464" y="58" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L3: RF Measurements</text>
-  <text x="464" y="70" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ CORE</text>
-  <text x="464" y="81" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EVM/ACLR/RSSI/PA</text>
-
-  <line x1="519" y1="65" x2="534" y2="65" stroke="#f5a623" stroke-width="1.5"/>
-  <polygon points="532,61 542,65 532,69" fill="#f5a623"/>
-
-  <rect x="542" y="45" width="110" height="40" fill="#1a0d0d" stroke="#4a5470" stroke-width="1.5" rx="5"/>
-  <text x="597" y="61" fill="#8892b0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L4: RF Components</text>
-  <text x="597" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/DAC/Mixer</text>
-
-  <line x1="652" y1="65" x2="667" y2="65" stroke="#4a5470" stroke-width="1.5"/>
-  <polygon points="665,61 675,65 665,69" fill="#4a5470"/>
-
-  <rect x="675" y="45" width="115" height="40" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
-  <text x="732" y="61" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L5: LTE RF</text>
-  <text x="732" y="75" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">EARFCN/CA/MIMO</text>
-
-  <!-- Row 2 -->
-  <line x1="732" y1="85" x2="732" y2="110" stroke="#5bc4ef" stroke-width="1.5"/>
-  <polygon points="728,108 736,108 732,118" fill="#5bc4ef"/>
-
-  <rect x="675" y="118" width="115" height="40" fill="#0d1a2a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
-  <text x="732" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L6: 5G NR RF</text>
-  <text x="732" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">SSB/PRACH/BF/FR1-2</text>
-
-  <line x1="675" y1="138" x2="660" y2="138" stroke="#9b8cf8" stroke-width="1.5"/>
-  <polygon points="662,134 652,138 662,142" fill="#9b8cf8"/>
-
-  <rect x="540" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
-  <text x="600" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L7: O-RAN RF</text>
-  <text x="600" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ YOUR WORK</text>
-  <text x="600" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RU/M-C-U-S Plane</text>
-
-  <line x1="540" y1="138" x2="525" y2="138" stroke="#f5a623" stroke-width="1.5"/>
-  <polygon points="527,134 517,138 527,142" fill="#f5a623"/>
-
-  <rect x="405" y="118" width="120" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
-  <text x="465" y="131" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L8: RF Conformance</text>
-  <text x="465" y="143" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ RCT</text>
-  <text x="465" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR/EVM/SEM/RSSI</text>
-
-  <line x1="405" y1="138" x2="390" y2="138" stroke="#c8b800" stroke-width="1.5"/>
-  <polygon points="392,134 382,138 392,142" fill="#c8b800"/>
-
-  <rect x="270" y="118" width="120" height="40" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="5"/>
-  <text x="330" y="131" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L9: Test Equipment</text>
-  <text x="330" y="143" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">⭐⭐⭐⭐⭐ DAILY</text>
-  <text x="330" y="154" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">EXA/EXM/VNA/CMW</text>
-
-  <line x1="270" y1="138" x2="255" y2="138" stroke="#f5a623" stroke-width="1.5"/>
-  <polygon points="257,134 247,138 257,142" fill="#f5a623"/>
-
-  <rect x="135" y="118" width="120" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
-  <text x="195" y="134" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L10: Telecom Logs</text>
-  <text x="195" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">QXDM/Wireshark/NETCONF</text>
-
-  <line x1="135" y1="138" x2="120" y2="138" stroke="#00d4a0" stroke-width="1.5"/>
-  <polygon points="122,134 112,138 122,142" fill="#00d4a0"/>
-
-  <rect x="10" y="118" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
-  <text x="65" y="134" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L11: RF Debug</text>
-  <text x="65" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Fault→Root Cause</text>
-
-  <!-- Row 3 -->
-  <line x1="65" y1="158" x2="65" y2="180" stroke="#9b8cf8" stroke-width="1.5"/>
-  <polygon points="61,178 69,178 65,188" fill="#9b8cf8"/>
-
-  <rect x="10"  y="188" width="110" height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="5"/>
-  <text x="65" y="204" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L12: Automation</text>
-  <text x="65" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Python/SCPI/SSH</text>
-
-  <line x1="120" y1="208" x2="135" y2="208" stroke="#00d4a0" stroke-width="1.5"/>
-  <polygon points="133,204 143,208 133,212" fill="#00d4a0"/>
-
-  <rect x="143" y="188" width="110" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="5"/>
-  <text x="198" y="204" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L13: RF Hardware</text>
-  <text x="198" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA/LNA/PLL/ADC/DAC</text>
-
-  <line x1="253" y1="208" x2="268" y2="208" stroke="#ff6b6b" stroke-width="1.5"/>
-  <polygon points="266,204 276,208 266,212" fill="#ff6b6b"/>
-
-  <rect x="276" y="188" width="110" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="5"/>
-  <text x="331" y="204" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L14: Standards</text>
-  <text x="331" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">3GPP 36/38.xxx</text>
-
-  <line x1="386" y1="208" x2="401" y2="208" stroke="#5bc4ef" stroke-width="1.5"/>
-  <polygon points="399,204 409,208 399,212" fill="#5bc4ef"/>
-
-  <rect x="409" y="188" width="110" height="40" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="5"/>
-  <text x="464" y="204" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L15: Product Know.</text>
-  <text x="464" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Ericsson/Qual/Apple</text>
-
-  <line x1="519" y1="208" x2="534" y2="208" stroke="#9b8cf8" stroke-width="1.5"/>
-  <polygon points="532,204 542,208 532,212" fill="#9b8cf8"/>
-
-  <rect x="542" y="188" width="110" height="40" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="5"/>
-  <text x="597" y="204" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L16: Advanced RF</text>
-  <text x="597" y="218" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">BF/DPD/CFR/ET</text>
-
-  <line x1="652" y1="208" x2="667" y2="208" stroke="#c8b800" stroke-width="1.5"/>
-  <polygon points="665,204 675,208 665,212" fill="#c8b800"/>
-
-  <rect x="675" y="188" width="115" height="40" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="5"/>
-  <text x="732" y="201" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">L17: Interview Prep</text>
-  <text x="732" y="213" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">⭐ Master All Above</text>
-  <text x="732" y="224" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Scenario questions</text>
-
-  <!-- WHERE YOU ARE marker -->
-  <rect x="10" y="255" width="780" height="55" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="6"/>
-  <text x="400" y="274" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">📍 WHERE YOU ARE NOW — Pardha Saradhi @ Parallel Wireless</text>
-  <text x="400" y="291" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L3 RF Measurements ✓ · L7 O-RAN RF ✓ · L8 RCT ✓ · L9 Test Equipment ✓ (EXA/EXM/VNA)</text>
-  <text x="400" y="305" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Hands-on: Metro AAU B1/B3/B8/B28/B41 · RuAuto · FHGW · DPD/CFR · ACLR/EVM/RSSI · uSleep · PA Protection</text>
-
-  <!-- What to study next -->
-  <rect x="10" y="325" width="780" height="55" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="6"/>
-  <text x="400" y="344" fill="#f5a623" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">🎯 NEXT FOCUS AREAS</text>
-  <text x="400" y="360" fill="#8892b0" font-size="10" text-anchor="middle" font-family="monospace">L0 deepen: Smith Chart · Mixers · Filters → L2 deepen: S-parameters · NF theory → L6: 5G NR SSB/CSI-RS/PRACH</text>
-  <text x="400" y="374" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">L12: Python SCPI automation → L14: Read 38.104 §6 (TX power) §7 (RX) → L16: Doherty PA · Envelope Tracking</text>
-
-  <!-- Study framework -->
-  <rect x="10" y="395" width="780" height="118" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="6"/>
-  <text x="400" y="414" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📚 MASTER REFERENCE FRAMEWORK (for every topic)</text>
-  <text x="30"  y="432" fill="#9b8cf8" font-size="9" font-family="monospace">① Theory</text>
-  <text x="30"  y="445" fill="#4a5470" font-size="8" font-family="monospace">   Why does this exist? What problem does it solve?</text>
-  <text x="200" y="432" fill="#5bc4ef" font-size="9" font-family="monospace">② Standards</text>
-  <text x="200" y="445" fill="#4a5470" font-size="8" font-family="monospace">   3GPP spec, section, limit value</text>
-  <text x="380" y="432" fill="#00d4a0" font-size="9" font-family="monospace">③ Hardware</text>
-  <text x="380" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Which blocks involved? Signal path?</text>
-  <text x="570" y="432" fill="#f5a623" font-size="9" font-family="monospace">④ Measurement</text>
-  <text x="570" y="445" fill="#4a5470" font-size="8" font-family="monospace">   Equipment setup, procedure, SCPI</text>
-  <text x="30"  y="465" fill="#c8b800" font-size="9" font-family="monospace">⑤ Pass/Fail</text>
-  <text x="30"  y="478" fill="#4a5470" font-size="8" font-family="monospace">   Acceptance limits, typical values</text>
-  <text x="200" y="465" fill="#ff6b6b" font-size="9" font-family="monospace">⑥ Troubleshoot</text>
-  <text x="200" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Typical failures, symptoms, root cause</text>
-  <text x="380" y="465" fill="#9b8cf8" font-size="9" font-family="monospace">⑦ Interview Qs</text>
-  <text x="380" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Conceptual + scenario based</text>
-  <text x="570" y="465" fill="#8892b0" font-size="9" font-family="monospace">⑧ Lab Notes</text>
-  <text x="570" y="478" fill="#4a5470" font-size="8" font-family="monospace">   Commands, screenshots, real data</text>
-  <text x="400" y="505" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">This HTML guide follows this framework for every module — theory + diagram + formula + real lab data from your EXA/EXM/VNA</text>
-</svg>
-
-<!-- ══════════════ LEVEL CARDS ══════════════ -->
-
-<!-- L0 -->
-
-<div class="div-line"></div>
-<div class="sec-hdr" id="instruments" style="background:linear-gradient(90deg,#5bc4ef11,transparent);border-left:4px solid #5bc4ef;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔬</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#5bc4ef">Instruments</span><span style="background:#5bc4ef22;color:#5bc4ef;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">KEYSIGHT</span></div><div style="font-size:12px;color:#4a5470">EXM E6640A · EXA N9010B · VNA E5071C · Live EXA · VNA Phase Cal · RCT Bench Setup</div></div></div>
+<div class="sec-hdr" id="instruments_tab" style="background:linear-gradient(90deg,#5bc4ef11,transparent);border-left:4px solid #5bc4ef;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔬</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#5bc4ef">Instruments</span><span style="background:#5bc4ef22;color:#5bc4ef;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">KEYSIGHT</span></div><div style="font-size:12px;color:#4a5470">EXM E6640A · EXA N9010B · VNA E5071C · Live EXA · VNA Phase Cal · RCT Bench Setup</div></div></div>
 <div class="div-line"></div>
 <div style="max-width:960px;margin:0 auto;padding:48px 24px">
   <div class="sec-hdr" style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)">
@@ -13746,7 +14360,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
     </div>
   </div>
     <!-- ═══ INSTRUMENT TABS ═══ -->
-  <div id="instruments_tab">
+  <div id="instruments">
   <div class="tab-row">
     <button class="itab exa sel" id="tab-exa" onclick="switchTab('exa')">📡 EXA N9010B — Signal Analyzer</button>
     <button class="itab exm" id="tab-exm" onclick="switchTab('exm')">📻 EXM E6640A — Wireless Test Set</button>
@@ -15850,617 +16464,6 @@ Group delay variation: 0.09 ns (2.29–2.38 ns) → PASS (target ≤ 2 ns)</div>
   </div>
 
 
-<div class="div-line"></div>
-<div style="max-width:960px;margin:0 auto;padding:48px 24px">
-  <div class="sec-hdr" style="display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid var(--border)">
-    <div class="badge g">INST</div>
-    <div class="sec-hdr-txt">
-      <h2 style="color:#7fffd0;font-size:20px;font-weight:700;margin-bottom:3px">RF Instruments — Interactive Panel Guide</h2>
-      <p style="font-size:13px;color:var(--text2)">Click any tab to switch instrument · Click any button on the panel to see full explanation with your B1/B3/B8/B28/B41 context</p>
-    </div>
-  </div>
-    <!-- ═══ INSTRUMENT TABS ═══ -->
-  <div id="instruments">
-  <div class="tab-row">
-    <button class="itab exa sel" id="tab-exa" onclick="switchTab('exa')">📡 EXA N9010B — Signal Analyzer</button>
-    <button class="itab exm" id="tab-exm" onclick="switchTab('exm')">📻 EXM E6640A — Wireless Test Set</button>
-    <button class="itab vna" id="tab-vna" onclick="switchTab('vna')">🔬 VNA E5071C — Network Analyzer</button>
-  </div>
-
-  <!-- ═══ EXA PANEL ═══ -->
-  <div class="inst-panel active" id="panel-exa">
-    <div class="diagram-side">
-      <div class="hint">Click any button below — explanation appears on the right →</div>
-
-      <div style="margin-bottom:12px;border-radius:8px;overflow:hidden;border:1px solid #232840">
-        <img src="https://keysight-h.assetsadobe.com/is/image/content/dam/keysight/en/img/prd/scopes-analyzers-meters/spectrumanalyzers/x-series/n9010b/N9010B_EXA_15_1600x900.png?wid=560&hei=315&fmt=webp-alpha&resMode=sharp2&op_sharpen=1"
-          alt="Keysight EXA N9010B Signal Analyzer front panel"
-          style="width:100%;display:block"
-          onerror="this.style.display='none';document.getElementById('exa-img-fallback').style.display='block'">
-        <div id="exa-img-fallback" style="display:none;background:#141720;padding:10px;font-size:11px;color:#4a5470;text-align:center">
-          Image loads when online — keysight.com/N9010B
-        </div>
-      </div>
-      <div style="font-size:11px;color:#4a5470;margin-bottom:8px">
-        ↑ Real Keysight EXA N9010B front panel &nbsp;·&nbsp;
-        <strong style="color:#00d4a070">Click the buttons below</strong> to learn each key
-      </div>
-      <div class="device-graphic">
-        <div class="device-label">KEYSIGHT</div>
-        <div class="device-brand">EXA N9010B &nbsp; Signal Analyzer &nbsp; 10 Hz – 26.5 GHz</div>
-        <div class="device-screen">
-          <div style="color:#4a5470;font-size:10px">CF: 1842.5 MHz &nbsp; SPAN: 50 MHz &nbsp; RBW: 100kHz &nbsp; RefLvl: 0dBm</div>
-          <div style="color:#00d4a0;margin-top:4px;font-size:10px">▂▃▅▇██▇▅▃▂ &nbsp; LTE B3 ACLR: -46.3 dBc ✓</div>
-          <div style="color:#f5a623;font-size:10px">Mkr1: 1842.5 MHz &nbsp; -12.3 dBm</div>
-        </div>
-        <div class="port-row">
-          <div class="port" style="border-color:#f5a623;color:#f5a623">RF<br>IN</div>
-          <span style="font-size:10px;color:#4a5470">50Ω main input &nbsp;|&nbsp;</span>
-          <div class="port" style="border-color:#363d5a;color:#8892b0">EXT<br>10M</div>
-          <span style="font-size:10px;color:#4a5470">10MHz ref</span>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#00d4a020;color:#00d4a0">FREQUENCY</div>
-        <div class="keys">
-          <button class="kbtn gc-freq" onclick="show('exa','freq')">Freq</button>
-          <button class="kbtn gc-freq" onclick="show('exa','span')">Span</button>
-          <button class="kbtn gc-freq" onclick="show('exa','start_stop')">Start / Stop</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#f5a62320;color:#f5a623">AMPLITUDE</div>
-        <div class="keys">
-          <button class="kbtn gc-amp" onclick="show('exa','amptd')">AMPTD</button>
-          <button class="kbtn gc-amp" onclick="show('exa','attn')">Attn</button>
-          <button class="kbtn gc-amp" onclick="show('exa','preamp')">Preamp</button>
-          <button class="kbtn gc-amp" onclick="show('exa','extgain')">Ext Gain ⚠</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#9b8cf820;color:#9b8cf8">BW / SWEEP</div>
-        <div class="keys">
-          <button class="kbtn gc-bw" onclick="show('exa','bw')">BW</button>
-          <button class="kbtn gc-bw" onclick="show('exa','sweep')">Sweep</button>
-          <button class="kbtn gc-bw" onclick="show('exa','avg')">Avg</button>
-          <button class="kbtn gc-bw" onclick="show('exa','trig')">Trig ⚠</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#ff6b6b20;color:#ff6b6b">MEASURE</div>
-        <div class="keys">
-          <button class="kbtn gc-meas" onclick="show('exa','meas')">Meas</button>
-          <button class="kbtn gc-meas" onclick="show('exa','meas_setup')">Meas Setup ⚠</button>
-          <button class="kbtn gc-meas" onclick="show('exa','mode')">Mode</button>
-          <button class="kbtn gc-meas" onclick="show('exa','mode_setup')">Mode Setup</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#5bc4ef20;color:#5bc4ef">MARKER</div>
-        <div class="keys">
-          <button class="kbtn gc-mkr" onclick="show('exa','marker')">Marker</button>
-          <button class="kbtn gc-mkr" onclick="show('exa','peak')">Peak Search</button>
-          <button class="kbtn gc-mkr" onclick="show('exa','delta')">Delta Mkr</button>
-          <button class="kbtn gc-mkr" onclick="show('exa','mkr_to')">Mkr →</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#e879a020;color:#e879a0">INPUT / FILE / NAV</div>
-        <div class="keys">
-          <button class="kbtn gc-file" onclick="show('exa','input')">Input</button>
-          <button class="kbtn gc-file" onclick="show('exa','save')">Save</button>
-          <button class="kbtn gc-file" onclick="show('exa','recall')">Recall</button>
-          <button class="kbtn gc-nav" onclick="show('exa','knob')">Rotary Knob</button>
-          <button class="kbtn gc-nav" onclick="show('exa','numeric')">0–9 Keypad</button>
-          <button class="kbtn gc-nav" onclick="show('exa','units')">GHz MHz kHz Hz</button>
-          <button class="kbtn gc-nav" onclick="show('exa','system')">System</button>
-        </div>
-      </div>
-
-      <div class="quick-ref">
-        <div class="qcard">
-          <div class="qcard-title" style="color:#00d4a0">Your B3 ACLR setup</div>
-          <div class="qcard-text">
-            Freq: <span>1842.5 MHz</span><br>
-            Span: <span>50 MHz</span><br>
-            Meas: <span>ACLR</span><br>
-            ExtGain: <span>−77 dB</span><br>
-            Trig: <span>Free Run</span>
-          </div>
-        </div>
-        <div class="qcard">
-          <div class="qcard-title" style="color:#ff6b6b">Critical warnings</div>
-          <div class="qcard-text">
-            ⚠ Never 0 dB Attn on RU TX<br>
-            ⚠ Always set Ext Gain<br>
-            ⚠ Frame Trig for B41 TDD<br>
-            ⚠ Set EARFCN before EVM
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-panel" id="info-exa">
-      <div id="explain-exa" style="min-height:60px">
-        <div class="info-empty" style="color:#4a5470;font-size:13px;padding:20px">← Click any button on the left to see a full explanation for your RF tests</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ EXM PANEL ═══ -->
-  <div class="inst-panel" <div class="inst-panel" id="panel-exm">
-  <div class="diagram-side">
-    <div class="hint">Click any button — explanation appears below</div>
-
-    <!-- Front panel image from screenshot -->
-    <div style="margin-bottom:10px;border-radius:8px;overflow:hidden;border:1px solid #232840;background:#c8c8c0;padding:6px">
-      <div style="font-size:10px;color:#333;text-align:center;margin-bottom:4px;font-weight:700">TRX2 — EXM E6640A Front Panel (your lab)</div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px;font-size:9px;font-family:sans-serif">
-        <!-- Row 1 -->
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('freq_ch')">FREQ<br>Channel</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('input_output')">Input/<br>Output</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('auto_couple')">Auto<br>Couple</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('marker')">Marker</div>
-        <div style="background:#00aa00;color:#fff;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('mode_preset')">Mode<br>Preset</div>
-        <!-- Row 2 -->
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('span_xscale')">SPAN<br>X Scale</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('view_display')">View/<br>Display</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('bw')">BW</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('peak_search')">Peak<br>Search</div>
-        <div style="background:#ffffaa;border:1px solid #cc9900;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer" onclick="exmBtn('user_preset')"><b>User<br>Preset</b></div>
-        <!-- Row 3 -->
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('amptd_yscale')">AMPTD<br>Y Scale</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('trace_detector')">Trace/<br>Detector</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('source')">Source</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('marker_arrow')">Marker ›</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('save')">Save</div>
-        <!-- Row 4 -->
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('mode')">Mode</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('mode_setup')">Mode<br>Setup</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('trigger')">Trigger</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('marker_fn')">Marker<br>Function</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('recall')">Recall</div>
-        <!-- Row 5 -->
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('meas')">Meas</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('meas_setup')">Meas<br>Setup</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('sweep_control')">Sweep/<br>Control</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('restart')">Restart</div>
-        <div style="background:#e0e0d8;border:1px solid #999;border-radius:3px;padding:4px 2px;text-align:center;cursor:pointer;color:#1a1a2e;font-weight:600" onclick="exmBtn('single')">Single</div>
-      </div>
-      <div style="font-size:9px;color:#666;text-align:center;margin-top:4px">Click any key above for explanation</div>
-    </div>
-
-    <!-- Explanation panel — shows on click -->
-    <div id="explain-exm" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px;min-height:80px;font-size:13px;line-height:1.6">
-      <span style="color:#4a5470">Click any front panel key above — full explanation for your lab work appears here.</span>
-    </div>
-
-  </div>
-
-  <!-- Right side: Quick reference -->
-  <div class="info-panel" id="info-exm">
-    <div style="font-size:12px">
-
-      <!-- FDD vs TDD quick setup -->
-      <div style="background:#001a00;border:1px solid #00d4a0;border-radius:8px;padding:14px;margin-bottom:12px">
-        <div style="color:#00d4a0;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">FDD vs TDD SETUP — KEY DIFFERENCES</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-          <div style="background:#0d1a0d;padding:10px;border-radius:6px;border-left:3px solid #5bc4ef">
-            <div style="color:#5bc4ef;font-weight:700;font-size:12px;margin-bottom:6px">FDD (B1/B3/B8/B28)</div>
-            <div style="color:#8892b0;line-height:1.8;font-size:11px">
-              <b style="color:#c8c8d8">FREQ Channel:</b> set DL freq<br>
-              <b style="color:#c8c8d8">Mode:</b> FDD LTE (e.g. B3)<br>
-              <b style="color:#c8c8d8">Mode Setup:</b> DL or UL direction<br>
-              <b style="color:#c8c8d8">Source → Freq:</b> set UL freq<br>
-              <b style="color:#c8c8d8">Trigger polarity:</b> Positive<br>
-              <b style="color:#ff6b6b">Trigger delay:</b> OFF<br>
-              <div style="margin-top:6px;padding:6px;background:#0a2010;border-radius:4px;color:#4a5470;font-size:10px">DL and UL are different frequencies → no timing dependency between them</div>
-            </div>
-          </div>
-          <div style="background:#1a1a0d;padding:10px;border-radius:6px;border-left:3px solid #f5a623">
-            <div style="color:#f5a623;font-weight:700;font-size:12px;margin-bottom:6px">TDD (B41)</div>
-            <div style="color:#8892b0;line-height:1.8;font-size:11px">
-              <b style="color:#c8c8d8">FREQ Channel:</b> same freq DL/UL<br>
-              <b style="color:#c8c8d8">Mode:</b> TDD LTE (B41)<br>
-              <b style="color:#c8c8d8">Mode Setup:</b> TDD pattern (e.g. 2,6 or 3,8)<br>
-              <b style="color:#c8c8d8">Source → Freq:</b> same as DL<br>
-              <b style="color:#c8c8d8">Trigger polarity:</b> Positive<br>
-              <b style="color:#f5a623">Trigger delay:</b> ON → <b style="color:#ff6b6b">9.965 ms</b><br>
-              <div style="margin-top:6px;padding:6px;background:#1a1500;border-radius:4px;color:#f5a623;font-size:10px">DL and UL share same freq → delay aligns injection to correct UL subframe window</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Source setup -->
-      <div style="background:#1a0d2a;border:1px solid #9b8cf8;border-radius:8px;padding:12px;margin-bottom:12px">
-        <div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">SOURCE SETUP — STEP BY STEP</div>
-        <div style="color:#8892b0;font-size:11px;line-height:2;font-family:monospace">
-          <span style="color:#9b8cf8">1.</span> Source → RF Output: <span style="color:#ff6b6b">OFF</span> (before connecting cable)<br>
-          <span style="color:#9b8cf8">2.</span> Source → Amplitude: set injection power (e.g. <span style="color:#f5a623">−95 dBm</span>)<br>
-          <span style="color:#9b8cf8">3.</span> Source → Frequency: set UL band centre<br>
-          <span style="color:#9b8cf8">4.</span> Source → Modulation: <span style="color:#00d4a0">ON</span><br>
-          <span style="color:#9b8cf8">5.</span> Modulation Setup → <span style="color:#00d4a0">ARB</span><br>
-          <span style="color:#9b8cf8">6.</span> ARB → <span style="color:#00d4a0">ON</span><br>
-          <span style="color:#9b8cf8">7.</span> ARB → Select ARB → choose <span style="color:#c8b800">.bin file</span><br>
-          <span style="color:#9b8cf8">8.</span> ARB → Sample Rate: match BW<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;5 MHz→7.68 MHz · 10→15.36 · 15→23.04 · 20→30.72<br>
-          <span style="color:#9b8cf8">9.</span> Verify output with EXA (±0.5 dB)<br>
-          <span style="color:#9b8cf8">10.</span> Source → RF Output: <span style="color:#00d4a0">ON</span>
-        </div>
-      </div>
-
-      <!-- ARB bin file reference -->
-      <div style="background:#141720;border:1px solid #4a5470;border-radius:8px;padding:12px;margin-bottom:12px">
-        <div style="color:#c8b800;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">ARB BIN FILE → SIGNAL MAPPING</div>
-        <table style="width:100%;font-size:11px;border-collapse:collapse">
-          <tr style="border-bottom:1px solid #2a3050">
-            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Bin file</th>
-            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Signal</th>
-            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">BW</th>
-            <th style="color:#5bc4ef;text-align:left;padding:4px 6px">Mode</th>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW10_FDD_RNTI_0.bin</td>
-            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
-            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
-            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_off_25_49_BW10_FDD_RNTI_0</td>
-            <td style="color:#00d4a0;padding:3px 6px">A1-3 offset 25</td>
-            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
-            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW20_FDD_RNTI_0.bin</td>
-            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
-            <td style="color:#8892b0;padding:3px 6px">20 MHz</td>
-            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A2-3_BW10_FDD_RNTI_0.bin</td>
-            <td style="color:#5bc4ef;padding:3px 6px">A2-3 (16QAM 1/3)</td>
-            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
-            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A5-5_BW10_FDD_RNTI_0.bin</td>
-            <td style="color:#f5a623;padding:3px 6px">A5-5 (64QAM 4/5)</td>
-            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
-            <td style="color:#5bc4ef;padding:3px 6px">FDD</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035;background:#0d1020">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">PRACH_Bw10[Mhz]_PID32_FreqOffset35_ZCZ8_1UEs.bin</td>
-            <td style="color:#9b8cf8;padding:3px 6px">PRACH ZCZ8</td>
-            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
-            <td style="color:#f5a623;padding:3px 6px">TDD</td>
-          </tr>
-          <tr style="border-bottom:1px solid #1a2035">
-            <td style="color:#8892b0;padding:3px 6px;font-family:monospace;font-size:10px">A1-3_BW10_FDD_RNTI_0.bin</td>
-            <td style="color:#00d4a0;padding:3px 6px">A1-3 (QPSK 1/3)</td>
-            <td style="color:#8892b0;padding:3px 6px">10 MHz</td>
-            <td style="color:#f5a623;padding:3px 6px">TDD</td>
-          </tr>
-        </table>
-        <div style="color:#4a5470;font-size:10px;margin-top:6px">Full bin file list → see PHY Tests card (3rd-party test list)</div>
-      </div>
-
-      <!-- Input/Output ports -->
-      <div style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:12px">
-        <div style="color:#5bc4ef;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px">INPUT/OUTPUT PORT REFERENCE</div>
-        <div style="display:grid;gap:6px;font-size:11px">
-          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #ff6b6b">
-            <b style="color:#ff6b6b">RF Input</b> — signal coming IN from the RU (DL measurement). Connect RU BOB SMA → 30 dB pad → EXM RF Input. Used when EXM is measuring RU TX signal.
-          </div>
-          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #00d4a0">
-            <b style="color:#00d4a0">RF Output</b> — signal going OUT to RU (UL injection). Connect EXM RF Output → cable → RU BOB SMA. Used for RSSI cal and sensitivity tests. Verify power with EXA before connecting.
-          </div>
-          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #c8b800">
-            <b style="color:#c8b800">External Gain (BTS setting)</b> — for LTE, select <b>BTS</b> here. This applies the correct gain reference for base station measurements. Sets the measurement context so EXM knows it is measuring a BTS (base station transmitter) rather than a UE.
-          </div>
-          <div style="background:#141720;padding:8px;border-radius:4px;border-left:3px solid #9b8cf8">
-            <b style="color:#9b8cf8">Test Set Config → RF Port</b> — select RF Port here to route signal to the front panel RF connector. Required before any injection or measurement.
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-  <div class="inst-panel" id="panel-vna">
-    <div class="diagram-side">
-      <div class="hint">Click any button below →</div>
-
-      <div style="margin-bottom:12px;border-radius:8px;overflow:hidden;border:1px solid #232840">
-        <img src="https://www.keysight.com/us/en/assets/3120-01251/photos/E5071C.png"
-          alt="Keysight E5071C ENA Network Analyzer"
-          style="width:100%;display:block;background:#1a1e2c"
-          onerror="this.style.display='none';document.getElementById('vna-img-fallback').style.display='block'">
-        <div id="vna-img-fallback" style="display:none;background:#141720;padding:10px;font-size:11px;color:#4a5470;text-align:center">
-          Image loads when online — keysight.com/E5071C
-        </div>
-      </div>
-      <div style="font-size:11px;color:#4a5470;margin-bottom:8px">
-        ↑ Keysight E5071C ENA Network Analyzer &nbsp;·&nbsp;
-        <strong style="color:#f5a62370">Click the buttons below</strong> to learn each key
-      </div>
-      <div class="device-graphic">
-        <div class="device-brand" style="color:#f5a623">KEYSIGHT E5071C &nbsp; ENA Network Analyzer &nbsp; 100kHz – 8.5GHz</div>
-        <div class="device-screen" style="background:#020800;border-color:#332200;color:#f5a623;min-height:90px">
-          <div style="font-size:9px;color:#664400">S21 Log Mag 10dB/div &nbsp; Ref 0.000 &nbsp; Cal: C ✓</div>
-          <div style="margin:6px 0;font-size:10px">
-            <span style="color:#f5a623">▓▓▓▓▓▓▄▄▄▄</span><span style="color:#4a3a00">————————————————</span>
-          </div>
-          <div style="font-size:9px;color:#664400">Passband: ~−0.8dB IL &nbsp;|&nbsp; Stopband: −55dB rejection</div>
-          <div style="font-size:9px;color:#00d4a0">Mkr1: 900MHz &nbsp; −0.8dB &nbsp; (B8 filter centre)</div>
-        </div>
-        <div class="port-row">
-          <div class="port" style="border-color:#f5a623;color:#f5a623">P1</div>
-          <div class="port" style="border-color:#f5a623;color:#f5a623">P2</div>
-          <div class="port" style="border-color:#664400;color:#886600">P3</div>
-          <span style="font-size:10px;color:#4a5470;margin-left:4px">Calibrate AT the DUT connector — not at VNA port!</span>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#f5a62320;color:#f5a623">RESPONSE — what to measure</div>
-        <div class="keys">
-          <button class="kbtn gv-resp" onclick="show('vna','meas')">Meas (S11/S21)</button>
-          <button class="kbtn gv-resp" onclick="show('vna','format')">Format</button>
-          <button class="kbtn gv-resp" onclick="show('vna','scale')">Scale</button>
-          <button class="kbtn gv-resp" onclick="show('vna','display')">Display</button>
-          <button class="kbtn gv-resp" onclick="show('vna','avg')">Avg / IF BW</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#ff6b6b30;color:#ff8888">CALIBRATION — never skip this</div>
-        <div class="keys">
-          <button class="kbtn gv-cal" onclick="show('vna','cal')">Cal ⚠</button>
-          <button class="kbtn gv-cal" onclick="show('vna','solt')">SOLT Steps</button>
-          <button class="kbtn gv-cal" onclick="show('vna','calrecall')">Cal Recall</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#9b8cf820;color:#9b8cf8">STIMULUS — sweep setup</div>
-        <div class="keys">
-          <button class="kbtn gv-stim" onclick="show('vna','start')">Start</button>
-          <button class="kbtn gv-stim" onclick="show('vna','stop')">Stop</button>
-          <button class="kbtn gv-stim" onclick="show('vna','center')">Center</button>
-          <button class="kbtn gv-stim" onclick="show('vna','span')">Span</button>
-          <button class="kbtn gv-stim" onclick="show('vna','points')">Points</button>
-          <button class="kbtn gv-stim" onclick="show('vna','power')">Power ⚠</button>
-          <button class="kbtn gv-stim" onclick="show('vna','ifbw')">IF BW</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#00d4a020;color:#00d4a0">MARKER / ANALYSIS</div>
-
-
-        <div class="keys">
-          <button class="kbtn gv-mkr" onclick="show('vna','marker')">Marker</button>
-          <button class="kbtn gv-mkr" onclick="show('vna','search')">Marker Search</button>
-          <button class="kbtn gv-mkr" onclick="show('vna','bwsearch')">BW Search</button>
-          <button class="kbtn gv-mkr" onclick="show('vna','timedomain')">Time Domain</button>
-          <button class="kbtn gv-mkr" onclick="show('vna','memtrace')">Mem Trace</button>
-        </div>
-      </div>
-
-      <div class="key-group">
-        <div class="group-label" style="background:#88809020;color:#aaa098">NAVIGATION / ENTRY</div>
-<div id="explain-vna" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:16px;margin-top:12px;display:none;min-height:60px">Click any button above to see what it does and how to set it for your RF tests.</div>
-
-        <div class="keys">
-          <button class="kbtn gv-nav" onclick="show('vna','knob')">Rotary Knob</button>
-          <button class="kbtn gv-nav" onclick="show('vna','numeric')">0–9 Keypad</button>
-          <button class="kbtn gv-nav" onclick="show('vna','units')">GHz MHz kHz</button>
-          <button class="kbtn gv-nav" onclick="show('vna','chtr')">Ch/Trace Prev Next</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-panel" id="info-vna">
-      <div class="info-empty">← Click any button on the left</div>
-    </div>
-  </div>
-  </div><!-- end instruments -->
-</div>
-<!-- ═══════════════════════════════════════════════════ -->
-<!-- LTE RCT TESTS -->
-<!-- ═══════════════════════════════════════════════════ -->
-<div class="div-line"></div>
-<div id="exa_live" class="sec">
-  <div class="sec-hdr">
-    <div class="badge a">LIVE</div>
-    <div class="sec-hdr-txt">
-      <h2 style="color:#00d4a0">Your EXA N9010B — Live Instrument Data (captured Jul 15 2026 21:25)</h2>
-      <p>Real SCPI query results pulled directly from your EXA at 10.62.2.135 · B1 ACP measurement active · All parameters decoded</p>
-    </div>
-  </div>
-
-<div class="module-card">
-<div class="module-hdr" onclick="toggleModule(this)">
-  <span class="mod-num">WHY</span>
-  <span class="mod-title">The "Why?" Framework — For every topic: Why does it exist? What problem? Which hardware? Which spec? How measured? Pass/fail? Debug? Interview? Customer impact?</span>
-  <span class="mod-level adv">Master Framework</span>
-  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
-</div>
-<div class="module-body">
-<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
-  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
-  <text x="400" y="22" fill="#f5a623" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">The "Why?" Framework — Applied to Every Topic</text>
-  <text x="400" y="38" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Transforms definitions into engineering understanding. Use this for every module in this guide.</text>
-
-  <!-- 10 question boxes in 2 rows of 5 -->
-  <rect x="10"  y="50" width="148" height="90" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
-  <text x="84"  y="67" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① Why does it exist?</text>
-  <text x="20"  y="82" fill="#8892b0" font-size="8" font-family="monospace">What problem does this</text>
-  <text x="20"  y="94" fill="#8892b0" font-size="8" font-family="monospace">feature/measurement solve?</text>
-  <text x="20"  y="106" fill="#f5a623" font-size="8" font-family="monospace">e.g. DPD exists because PA</text>
-  <text x="20"  y="118" fill="#f5a623" font-size="8" font-family="monospace">is nonlinear → ACLR fails</text>
-  <text x="20"  y="133" fill="#4a5470" font-size="7" font-family="monospace">Without this: what would fail?</text>
-
-  <rect x="167" y="50" width="148" height="90" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
-  <text x="241" y="67" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② 3GPP Spec</text>
-  <text x="177" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which TS defines it?</text>
-  <text x="177" y="94" fill="#8892b0" font-size="8" font-family="monospace">Which section? Limit?</text>
-  <text x="177" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: 36.104 §6.6.2</text>
-  <text x="177" y="118" fill="#f5a623" font-size="8" font-family="monospace">EVM: 36.104 §6.5.2.2</text>
-  <text x="177" y="133" fill="#4a5470" font-size="7" font-family="monospace">Always cite the spec</text>
-
-  <rect x="324" y="50" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
-  <text x="398" y="67" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Hardware blocks</text>
-  <text x="334" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which blocks involved?</text>
-  <text x="334" y="94" fill="#8892b0" font-size="8" font-family="monospace">Signal path through each?</text>
-  <text x="334" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: PA → DPD → CFR</text>
-  <text x="334" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: LNA → ADC → FW</text>
-  <text x="334" y="133" fill="#4a5470" font-size="7" font-family="monospace">Draw the signal path</text>
-
-  <rect x="481" y="50" width="148" height="90" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
-  <text x="555" y="67" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Measurement</text>
-  <text x="491" y="82" fill="#8892b0" font-size="8" font-family="monospace">Equipment + setup?</text>
-  <text x="491" y="94" fill="#8892b0" font-size="8" font-family="monospace">SCPI commands?</text>
-  <text x="491" y="106" fill="#f5a623" font-size="8" font-family="monospace">EXA: CALC:MARK:ACLR</text>
-  <text x="491" y="118" fill="#f5a623" font-size="8" font-family="monospace">EXM: ul-rct-test run</text>
-  <text x="491" y="133" fill="#4a5470" font-size="7" font-family="monospace">Cable loss correction</text>
-
-  <rect x="638" y="50" width="152" height="90" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
-  <text x="714" y="67" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑤ Pass/Fail</text>
-  <text x="648" y="82" fill="#8892b0" font-size="8" font-family="monospace">Acceptance limits?</text>
-  <text x="648" y="94" fill="#8892b0" font-size="8" font-family="monospace">Typical good values?</text>
-  <text x="648" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: &gt;45dBc (3GPP)</text>
-  <text x="648" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: ±2dB (PW spec)</text>
-  <text x="648" y="133" fill="#4a5470" font-size="7" font-family="monospace">Also: PW internal gates</text>
-
-  <!-- Row 2 -->
-  <rect x="10"  y="152" width="148" height="90" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
-  <text x="84"  y="169" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑥ Troubleshoot</text>
-  <text x="20"  y="184" fill="#8892b0" font-size="8" font-family="monospace">Failure symptoms?</text>
-  <text x="20"  y="196" fill="#8892b0" font-size="8" font-family="monospace">First 3 checks?</text>
-  <text x="20"  y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail: wait 60s</text>
-  <text x="20"  y="220" fill="#f5a623" font-size="8" font-family="monospace">check DPD, CFR, PA temp</text>
-  <text x="20"  y="235" fill="#4a5470" font-size="7" font-family="monospace">Systematic isolation</text>
-
-  <rect x="167" y="152" width="148" height="90" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
-  <text x="241" y="169" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑦ Interview Qs</text>
-  <text x="177" y="184" fill="#8892b0" font-size="8" font-family="monospace">Conceptual questions?</text>
-  <text x="177" y="196" fill="#8892b0" font-size="8" font-family="monospace">Scenario questions?</text>
-  <text x="177" y="208" fill="#f5a623" font-size="8" font-family="monospace">"Walk me through how</text>
-  <text x="177" y="220" fill="#f5a623" font-size="8" font-family="monospace">you debug bad ACLR"</text>
-  <text x="177" y="235" fill="#4a5470" font-size="7" font-family="monospace">Practice out loud</text>
-
-  <rect x="324" y="152" width="148" height="90" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
-  <text x="398" y="169" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑧ Lab Notes</text>
-  <text x="334" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your real measurements?</text>
-  <text x="334" y="196" fill="#8892b0" font-size="8" font-family="monospace">Screenshots from EXA?</text>
-  <text x="334" y="208" fill="#f5a623" font-size="8" font-family="monospace">B28 ACLR: 49.14dBm</text>
-  <text x="334" y="220" fill="#f5a623" font-size="8" font-family="monospace">RSSI B1: -95.5dBm</text>
-  <text x="334" y="235" fill="#4a5470" font-size="7" font-family="monospace">Real data = credibility</text>
-
-  <rect x="481" y="152" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
-  <text x="555" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑨ Customer Impact</text>
-  <text x="491" y="184" fill="#8892b0" font-size="8" font-family="monospace">What fails for customer</text>
-  <text x="491" y="196" fill="#8892b0" font-size="8" font-family="monospace">if this test fails?</text>
-  <text x="491" y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail → regulator</text>
-  <text x="491" y="220" fill="#f5a623" font-size="8" font-family="monospace">fine + network shutdown</text>
-  <text x="491" y="235" fill="#4a5470" font-size="7" font-family="monospace">Always tie to business</text>
-
-  <rect x="638" y="152" width="152" height="90" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
-  <text x="714" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑩ Apply to your lab</text>
-  <text x="648" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your unit: 26050509</text>
-  <text x="648" y="196" fill="#8892b0" font-size="8" font-family="monospace">Your bands: B1-B41</text>
-  <text x="648" y="208" fill="#f5a623" font-size="8" font-family="monospace">Your instruments: EXA</text>
-  <text x="648" y="220" fill="#f5a623" font-size="8" font-family="monospace">EXM, VNA E5071C</text>
-  <text x="648" y="235" fill="#4a5470" font-size="7" font-family="monospace">Personalise every topic</text>
-</svg>
-<h4>The WHY framework — 11 questions to master any RF topic</h4>
-<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#00d4a0">How to use the WHY framework:</b><br>For every feature, measurement, or standard you study, answer these 11 questions. This transforms memorised definitions into real understanding. A person who only answers "what is ACLR?" (definition) loses to someone who answers all 11. Use for interview preparation — structure your answers using these questions for complete, impressive responses.</div>
-<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#5bc4ef">The 11 questions — apply to every topic:</b><br>1. Why does it exist? 2. What problem does it solve? 3. Where is it used? 4. Which hardware blocks? 5. Which spec/clause? 6. How measured (instrument + setup)? 7. Pass/fail criteria (exact numbers)? 8. Common failures? 9. Debug approach? 10. Interview Q that tests it? 11. Customer/business impact if it fails?</div>
-<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px"><b style="color:#c8b800">Example — ACLR through all 11:</b><br>1. Prevent adjacent channel interference. 2. PA nonlinearity causing spectral regrowth. 3. Every base station TX measurement. 4. PA, DPD engine, CFR. 5. 3GPP TS 36.141 clause 6.6.1. 6. EXA ACLR LTE mode, BOB SMA + 30 dB pad, after 60s DPD convergence. 7. < −45 dBc adj, < −50 dBc alt. 8. DPD not converged, over P1dB, CFR too aggressive. 9. ACLR suddenly fails after SW update — debug approach? 10. Interference → SINR down → throughput down. 11. Regulator fine, operator SLA penalty.</div>
-
-<div class="tip">This "Why?" framework is what separates senior RF engineers from those who only memorised concepts. A senior engineer can answer all 10 questions for any topic without notes. Practice answering them out loud for every module in this guide — that is your interview preparation.</div>
-</div>
-</div>
-
-
-<div class="module-card">
-<div class="module-hdr" onclick="toggleModule(this)">
-  <span class="mod-num">PATH</span>
-  <span class="mod-title">Your complete RF mastery path — all channels, all videos, ordered correctly</span>
-  <span class="mod-level beg">All Levels</span>
-  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
-</div>
-<div class="module-body">
-<h4>Complete RF mastery path — all channels, videos, reading order</h4>
-<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
-<b style="color:#5bc4ef">Recommended study order for your role:</b><br>
-1. DSA card (sensitivity, kTB, NF, formula) — the mathematical foundation of all your tests. 2. A05 (TX chain) + A06 (RX chain) — understand what you are measuring. 3. NCH (noise chain) — Friis formula, why LNA matters. 4. NF_CAL + GAIN_CAL — how calibration works. 5. VNA2-7 (phase cal) — beamforming validation. 6. M07 (ACLR) + M12 (RCT config) — your daily workflow. 7. A09 (automation) — RuAuto deep dive. 8. Everything else — depth on specific topics as needed.
-</div>
-<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
-<b style="color:#00d4a0">External resources:</b><br>
-Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwarz Knowledge Center: 5G NR, O-RAN. 3GPP TS 36.104 (LTE): base station conformance requirements. O-RAN Alliance: fronthaul specs, WG4 documents. YouTube: w2aew for practical RF, MATLAB for simulations. Your own lab: always the best learning — run the measurement, change one variable, observe the effect.
-</div>
-
-<div class="mod-section-title">4 YouTube videos you shared — what each teaches</div>
-<div class="mod-table-wrap"><table class="test-table">
-<tr><th>Video</th><th>Title</th><th>Core lesson</th><th>Module connection</th></tr>
-<tr><td><a href="https://www.youtube.com/watch?v=aQd_zBytid8" target="_blank" style="color:#f5a623">aQd_zBytid8</a></td><td>Interpreting Constellation Diagrams</td><td>How to diagnose signal impairments (phase noise, IQ imbalance, PA compression, DC offset) from the IQ scatter plot on your EXM</td><td>M05, VID1 above</td></tr>
-<tr><td><a href="https://www.youtube.com/watch?v=1xGncBvWv6U" target="_blank" style="color:#f5a623">1xGncBvWv6U</a></td><td>Understanding Spectrum Analyzers — ACLR</td><td>Complete ACLR measurement setup: RBW, cable loss, gating, reading dBc, what causes ACLR to fail</td><td>M07, VID2 above</td></tr>
-<tr><td><a href="https://www.youtube.com/watch?v=rMVAQsUudSs" target="_blank" style="color:#f5a623">rMVAQsUudSs</a></td><td>Understanding Spectrum Analyzers</td><td>FFT, RBW, VBW, dynamic range, DANL, noise floor — the fundamentals of how your EXA/EXM work</td><td>M07, VID3 above</td></tr>
-<tr><td><a href="https://www.youtube.com/watch?v=swjgr4YBhRM" target="_blank" style="color:#f5a623">swjgr4YBhRM</a></td><td>RF Signal Chain Topics</td><td>Signal chain overview, IQ architecture, mixer theory, noise figure — connects theory to your daily hardware</td><td>M03, M16, VID4 above</td></tr>
-</table></div>
-
-<div class="mod-section-title">15 YouTube channels — ordered for your background</div>
-<div class="mod-table-wrap"><table class="test-table">
-<tr><th>#</th><th>Channel</th><th>Link</th><th>Start with</th></tr>
-<tr><td>1</td><td>⭐ Keysight Labs</td><td><a href="https://www.youtube.com/@KeysightLabs" target="_blank" style="color:#00d4a0">@KeysightLabs</a></td><td>RF Back to Basics playlist → Spectrum Analysis Fundamentals</td></tr>
-<tr><td>2</td><td>⭐ Rohde &amp; Schwarz</td><td><a href="https://www.youtube.com/@RohdeSchwarz" target="_blank" style="color:#00d4a0">@RohdeSchwarz</a></td><td>Spectrum Analyzer Basics → ACLR → EVM → LTE → 5G NR</td></tr>
-<tr><td>3</td><td>⭐ The Signal Path</td><td><a href="https://www.youtube.com/@TheSignalPath" target="_blank" style="color:#00d4a0">@TheSignalPath</a></td><td>Mixers → PLL → ADC → Spectrum Analyzer teardowns</td></tr>
-<tr><td>4</td><td>⭐ Analog Devices</td><td><a href="https://www.youtube.com/@AnalogDevices" target="_blank" style="color:#00d4a0">@AnalogDevices</a></td><td>ADC/DAC fundamentals → IQ Signals → RF Front Ends</td></tr>
-<tr><td>5</td><td>⭐ Amarisoft</td><td><a href="https://www.youtube.com/@Amarisoft" target="_blank" style="color:#00d4a0">@Amarisoft</a></td><td>LTE PHY → 5G PHY → PRACH → PUSCH/PDSCH → DMRS</td></tr>
-<tr><td>6</td><td>⭐ MathWorks</td><td><a href="https://www.youtube.com/@MathWorks" target="_blank" style="color:#00d4a0">@MathWorks</a></td><td>OFDM simulation → LTE/5G Toolbox → Beamforming → MIMO</td></tr>
-<tr><td>7</td><td>Texas Instruments</td><td><a href="https://www.youtube.com/@TexasInstruments" target="_blank" style="color:#00d4a0">@TexasInstruments</a></td><td>RF Basics Getting Started (31 min) → TI Precision Labs ADC/DAC</td></tr>
-<tr><td>8</td><td>Neso Academy</td><td><a href="https://www.youtube.com/@NESOAcademy" target="_blank" style="color:#9b8cf8">@NESOAcademy</a></td><td>Digital Communication → FFT → Sampling → Nyquist</td></tr>
-<tr><td>9</td><td>All About Electronics</td><td><a href="https://www.youtube.com/@AllAboutElectronics" target="_blank" style="color:#9b8cf8">@AllAboutElectronics</a></td><td>ADC → DAC → PLL → Filters → OFDM → DSP</td></tr>
-<tr><td>10</td><td>Wireless Future</td><td><a href="https://www.youtube.com/@WirelessFuture" target="_blank" style="color:#9b8cf8">@WirelessFuture</a></td><td>LTE/5G architecture → MAC/RLC → RRC → call flows</td></tr>
-<tr><td>11</td><td>TelecomHall</td><td><a href="https://www.youtube.com/@TelecomHall" target="_blank" style="color:#9b8cf8">@TelecomHall</a></td><td>LTE/5G KPI → optimization → RAN architecture</td></tr>
-<tr><td>12</td><td>National Instruments</td><td><a href="https://www.youtube.com/@NIglobal" target="_blank" style="color:#9b8cf8">@NIglobal</a></td><td>SDR → RF Testing → Signal Processing</td></tr>
-<tr><td>13</td><td>free5GC</td><td><a href="https://www.youtube.com/@free5GC" target="_blank" style="color:#9b8cf8">@free5GC</a></td><td>5G Core → PDU Session → NGAP → GTP</td></tr>
-<tr><td>14</td><td>NPTEL</td><td><a href="https://www.youtube.com/@nptel" target="_blank" style="color:#9b8cf8">@nptel</a></td><td>RF Systems playlist → Microwave Engineering → DSP</td></tr>
-<tr><td>15</td><td>W2AEW</td><td><a href="https://www.youtube.com/@w2aew" target="_blank" style="color:#9b8cf8">@w2aew</a></td><td>VNA use → S-parameters → Smith charts → oscilloscopes</td></tr>
-</table></div>
-
-<div class="mod-section-title">12-week expert learning plan</div>
-<div class="mod-table-wrap"><table class="test-table">
-<tr><th>Week</th><th>Focus</th><th>Channel/Resource</th><th>Self-check from this file</th></tr>
-<tr><td>1</td><td>dB, dBm, link budget, noise floor −174 dBm/Hz</td><td>Keysight RF Back to Basics</td><td>M01, EXP4</td></tr>
-<tr><td>2</td><td>LNA, PA classes, Doherty, VSWR, S-params</td><td>Keysight + The Signal Path</td><td>M02, M03, EXP3</td></tr>
-<tr><td>3</td><td>PLL, LO, IQ, ADC/DAC, dBFS↔dBm</td><td>Analog Devices + TI</td><td>EXP1, EXP6, VID4</td></tr>
-<tr><td>4</td><td>FFT, OFDM, sampling, spectrum analyzer RBW/VBW</td><td>Neso + All About Electronics</td><td>M05, VID2, VID3</td></tr>
-<tr><td>5</td><td>Constellation diagrams, EVM, IQ impairment diagnosis</td><td>Watch aQd_zBytid8</td><td>VID1, EXP2</td></tr>
-<tr><td>6</td><td>ACLR, SEM, DPD, CFR — full Tx chain</td><td>Watch 1xGncBvWv6U + R&amp;S ACLR</td><td>M06, M07, VID2</td></tr>
-<tr><td>7</td><td>LTE PHY — resource grid, PDSCH, PRACH, PUCCH</td><td>Amarisoft YouTube</td><td>M08, EXP5</td></tr>
-<tr><td>8</td><td>5G NR, TDD, beamforming, massive MIMO</td><td>Amarisoft + MathWorks</td><td>M09, M16-TDD</td></tr>
-<tr><td>9</td><td>RSSI calibration, ADC dynamic range, dBFS</td><td>Watch rMVAQsUudSs + David call</td><td>M14, M16b, EXP6</td></tr>
-<tr><td>10</td><td>O-RAN, eCPRI, FHGW, RuAuto framework</td><td>O-RAN Alliance videos</td><td>M15, RuAuto card</td></tr>
-<tr><td>11</td><td>Instruments deep dive — EXA/EXM/VNA all buttons</td><td>R&amp;S + Keysight</td><td>Instruments section</td></tr>
-<tr><td>12</td><td>Review weak areas — redo all self-checks</td><td>All modules above</td><td>All M01–M16 self-checks</td></tr>
-</table></div>
-</div>
-</div>
-
-</div><!-- end expertrf section -->
-
-<!-- ═══════════════ LIVE EXA DATA ═══════════════ -->
 <div class="div-line"></div>
 <div class="sec-hdr" id="test_configurations" style="background:linear-gradient(90deg,#c8b80011,transparent);border-left:4px solid #c8b800;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🧪</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#c8b800">Test Configurations</span><span style="background:#c8b80022;color:#c8b800;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">RCT + OTA + CONFIG</span></div><div style="font-size:12px;color:#4a5470">RCT Tests · OTA Tests · Test Config JSON · All test procedures</div></div></div>
 <div class="div-line"></div>
