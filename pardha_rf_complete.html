@@ -13212,14 +13212,16 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
     </div>
 
     <!-- Explanation panel — shows on click -->
-    <div id="explain-exm" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px;min-height:80px;font-size:13px;line-height:1.6">
-      <span style="color:#4a5470">Click any front panel key above — full explanation for your lab work appears here.</span>
-    </div>
+
 
   </div>
 
   <!-- Right side: Quick reference -->
   <div class="info-panel" id="info-exm">
+<div id="explain-exm" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:14px;min-height:80px;font-size:13px;line-height:1.6">
+      <span style="color:#4a5470">Click any front panel key above — full explanation for your lab work appears here.</span>
+    </div>
+
     <div style="font-size:12px">
 
       <!-- FDD vs TDD quick setup -->
@@ -13432,7 +13434,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
 
       <div class="key-group">
         <div class="group-label" style="background:#88809020;color:#aaa098">NAVIGATION / ENTRY</div>
-<div id="explain-vna" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:16px;margin-top:0;min-height:80px">Click any button above to see what it does and how to set it for your RF tests.</div>
+
 
         <div class="keys">
           <button class="kbtn gv-nav" onclick="show('vna','knob')">Rotary Knob</button>
@@ -13444,7 +13446,7 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
     </div>
 
     <div class="info-panel" id="info-vna">
-      <div class="info-empty">← Click any button on the left</div>
+      <div id="explain-vna" style="background:#0d1a2a;border:1px solid #5bc4ef;border-radius:8px;padding:16px;margin-top:0;min-height:80px">Click any button above to see what it does and how to set it for your RF tests.</div>
     </div>
   </div>
   </div><!-- end instruments -->
@@ -15766,7 +15768,6 @@ Converting dBFS → dBm:
 let activeTag = 'all';
 function tagFilter(tag) {
   activeTag = tag;
-  // Update button states
   document.querySelectorAll('.tag-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tag === tag);
   });
@@ -15784,13 +15785,17 @@ function tagFilter(tag) {
     }
   });
   const countEl = document.getElementById('tag-count');
-  if (countEl) countEl.textContent = tag === 'all' ? '' : visible + ' cards';
-  // If filtering, scroll to first visible card
+  if (countEl) {
+    countEl.textContent = tag === 'all'
+      ? visible + ' cards total'
+      : visible + ' cards';
+  }
   if (tag !== 'all') {
     const first = document.querySelector('.module-card:not(.tag-hidden)');
     if (first) first.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
+
 
 const infoData = {
   exa: {
@@ -15900,7 +15905,8 @@ function toggleModule(el) {
 // ── Section expand / collapse ──────────────────────────────────────────
 function getSectionCards(sectionId) {
   const allCards = Array.from(document.querySelectorAll('.module-card'));
-  const allSecHdrs = Array.from(document.querySelectorAll('.sec-hdr'));
+  // Only top-level section headers (those with an id attribute)
+  const allSecHdrs = Array.from(document.querySelectorAll('.sec-hdr[id]'));
   const myHdr = document.getElementById(sectionId);
   if (!myHdr) return [];
   const myY = myHdr.offsetTop;
@@ -15909,6 +15915,7 @@ function getSectionCards(sectionId) {
   const nextY = nextHdr ? nextHdr.offsetTop : Infinity;
   return allCards.filter(card => card.offsetTop > myY && card.offsetTop < nextY);
 }
+
 function expandSection(sectionId) {
   getSectionCards(sectionId).forEach(card => {
     const body = card.querySelector('.module-body');
@@ -16057,6 +16064,8 @@ function show(inst, key) {
 
 // Init: collapse all, ensure EXA tab shown
 document.addEventListener('DOMContentLoaded', () => {
+  // Activate All tag filter button
+  tagFilter('all');
   // Collapse all cards
   document.querySelectorAll('.module-body').forEach(b => {
     b.style.display = 'none';
