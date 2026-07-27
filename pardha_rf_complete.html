@@ -1464,7 +1464,7 @@ body.light-mode .sec-hdr {
 <div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16a</span>
-    <span class="mod-title">RF path components — duplexer, BPF, LNA, VGA, mixer (every stage)</span>
+    <span class="mod-title">RF Signal Path — TX/RX building blocks explained: LNA, PA, Duplexer, Mixer, Filter</span>
     <span class="mod-level beg">Beginner–Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
@@ -1639,7 +1639,7 @@ SQNR = 6.02 × N + 1.76 dB
   </div><div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16c</span>
-    <span class="mod-title">RSSI: two methods (CLI dBFS vs DU dBm), sensitivity point, your task</span>
+    <span class="mod-title">RSSI Measurement — CLI dBFS vs OAM dBm: two methods, calibration, what they tell you</span>
     <span class="mod-level mid">Intermediate</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
@@ -1720,7 +1720,7 @@ CLI accurate, DU off by 2–3 dB → FHGW BFP decompression issue or eCPRI timin
   </div><div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">16d</span>
-    <span class="mod-title">FHGW internals — FFT, BFP compression, eCPRI fronthaul timing</span>
+    <span class="mod-title">Fronthaul Gateway (FHGW) — how it processes IQ data: eCPRI, BFP compression, timing</span>
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
@@ -1807,7 +1807,7 @@ BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are w
   </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">KTB</span>
-  <span class="mod-title">K × T × B explained — what each constant is, why room temp is the reference</span>
+  <span class="mod-title">Thermal Noise Floor — kTB = −174 dBm/Hz, the absolute limit of all receivers</span>
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -2286,7 +2286,7 @@ VSWR = (1 + |Γ|) / (1 − |Γ|)           ← near 1 is better</div>
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M03</span>
-  <span class="mod-title">The RF Chain — TX/RX flow, gain cascade, noise figure, sensitivity</span>
+  <span class="mod-title">The RF Signal Chain — how TX and RX work: every stage from baseband to antenna</span>
   <span class="mod-level beg">Beginner–Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -2425,7 +2425,7 @@ Sensitivity = −174 + 10×log₁₀(BW_Hz) + NF + required_SNR</div>
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M04</span>
-  <span class="mod-title">Key Radio Metrics — RSSI, sensitivity, dynamic range, EIRP, TRP</span>
+  <span class="mod-title">Radio Performance Metrics — RSSI, RSRP, SINR, EIRP, TRP, Sensitivity explained</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -2519,7 +2519,7 @@ TRP = EIRP integrated over the full sphere</div>
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M05</span>
-  <span class="mod-title">Modulation & IQ — constellations, OFDM, EVM, IQ playback</span>
+  <span class="mod-title">Modulation & OFDM — IQ constellations, QPSK to 256QAM, resource grid, EVM</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -2772,7 +2772,7 @@ If the I and Q paths have amplitude or phase mismatch, the constellation rotates
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M06</span>
-  <span class="mod-title">DL TX Chain — Power scaling, CFR, DPD, DAC scale</span>
+  <span class="mod-title">Downlink TX Chain — CFR, DPD and the GaN PA: how the signal becomes clean RF power</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -2888,7 +2888,7 @@ DPD adapts its pre-distortion polynomial coefficients by comparing the PA output
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M07</span>
-  <span class="mod-title">ACLR & Spectrum Analysis — RBW, cable loss, TDD gating, SEM</span>
+  <span class="mod-title">ACLR — Adjacent Channel Leakage Ratio: why it matters, how to measure, pass/fail</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -2983,7 +2983,7 @@ B41 is TDD — the PA transmits only during DL subframes. EXA must be gated to m
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M08</span>
-  <span class="mod-title">PRACH — Zadoff-Chu, Ncs/ZCZ/K, detector, timing advance</span>
+  <span class="mod-title">PRACH — Random Access: how a UE knocks on the cell door, ZC sequences, timing advance</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3077,7 +3077,7 @@ When a PRACH is detected, the RU measures the arrival time of the correlation pe
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09</span>
-  <span class="mod-title">AAU Architecture — board split, single DPD observation loop, beamforming</span>
+  <span class="mod-title">AAU Architecture — FHGW + RFFE internals, DPD observation loop, beamforming split</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3230,7 +3230,7 @@ DPD needs to observe the PA output to adapt. A single observation receiver (ORX)
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09b</span>
-  <span class="mod-title">RFFE TX Block Diagram — B7/B1/B3 three-band TX_A path decoded stage by stage</span>
+  <span class="mod-title">RFFE TX Block Diagram — RF Front End transmit path: every stage from DAC to antenna</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3374,7 +3374,7 @@ The directional coupler taps a fixed fraction of the main TX signal (−30 dB = 
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09c</span>
-  <span class="mod-title">FHGW DL Chain — LowPHY → DFE → DAC with real register values and power taps</span>
+  <span class="mod-title">FHGW Downlink Signal Chain — from BBU IQ to antenna: LowPHY, DFE, DAC with real values</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3518,7 +3518,7 @@ DFE performs interpolation (upsampling from symbol rate to DAC rate) and frequen
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M09d</span>
-  <span class="mod-title">Real Lab Screenshots Decoded — EXM ACP / Modulation Analysis / TRX1 ACLR (B28, Jul 13 2026)</span>
+  <span class="mod-title">Lab Screenshots Decoded — reading EXM ACP and Modulation Analysis results in real time</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3712,7 +3712,7 @@ EVM is shown as a percentage. Lower = better. Limits: QPSK &lt; 17.5%, 16QAM &lt
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M10</span>
-  <span class="mod-title">Lab & Measurement Practice — bench setup, instruments, platform bring-up</span>
+  <span class="mod-title">Lab Measurement Practice — bench setup, RU bring-up, EXA/EXM connection, first measurement</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3859,7 +3859,7 @@ All Keysight instruments listen on TCP port 5025 for SCPI commands. Connect via 
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M11</span>
-  <span class="mod-title">PA Efficiency & Power Optimization — Dynamic Vdd, gate bias, sequencing</span>
+  <span class="mod-title">PA Efficiency — how GaN PAs work, efficiency classes, Dynamic Vdd, what you can tune</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -3960,7 +3960,7 @@ GaN PA junction temperature limit: typically 150–200°C. At 20W output and 35%
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M12</span>
-  <span class="mod-title">Reading the RCT Config — tc_cadence, Group-IDs, Test-IDs, KPI limits</span>
+  <span class="mod-title">RCT Test Configuration — how tc_cadence.json controls which tests run, groups, KPI limits</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -4090,7 +4090,7 @@ When RuAuto reports a failure, it includes Group-ID and Test-ID. Group_TX_POWER 
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M13</span>
-  <span class="mod-title">RU Features & Operations — uSleep, PA protection, RSSI accuracy, IQ playback</span>
+  <span class="mod-title">RU Features & Operations — uSleep (power save), PA Protection, RSSI accuracy, IQ Playback</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -4876,7 +4876,7 @@ IQ playback captures raw ADC samples (IQ data) from the RX chain and stores them
 <div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M14</span>
-  <span class="mod-title">RSSI & Receive Chain — dBFS vs dBm, ADC calibration, dynamic range results</span>
+  <span class="mod-title">RX Receive Chain Deep Dive — ADC calibration, dBFS↔dBm, real dynamic range measurements</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -4978,7 +4978,7 @@ All three (EXM, CLI, DU) off → EXM not calibrated, or cable loss not subtracte
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M15</span>
-  <span class="mod-title">UL RCT Embedded & Dynamic Test — ul-rct-test, 4-stage pipeline, real results</span>
+  <span class="mod-title">Uplink RCT Testing — embedded sensitivity pipeline, 4-stage search, real results</span>
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5086,7 +5086,7 @@ ul-rct-test 10 a34 0                   # → BLER 0.00%  SNR 24.6 dB</div>
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">M16</span>
-  <span class="mod-title">TDD LTE & PHY DU Impact — frame structure, special subframe, HARQ, PSS/SSS</span>
+  <span class="mod-title">TDD Frame Structure & PHY — LTE/NR slot layout, HARQ timing, how BBU timing affects RCT</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5260,7 +5260,7 @@ B41 ACLR must be measured with EXA gating on DL subframes only. PRACH arrives in
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A01</span>
-  <span class="mod-title">RF fundamentals — signals, power, frequency, wavelength</span>
+  <span class="mod-title">RF Fundamentals Reference — signals, frequency, wavelength, power: the complete picture</span>
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5377,7 +5377,7 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A02</span>
-  <span class="mod-title">Noise, noise figure, sensitivity, dynamic range</span>
+  <span class="mod-title">Noise & Sensitivity — complete: NF, Friis chain, kTB, dynamic range, your RU numbers</span>
   <span class="mod-level beg">Beginner–Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5424,7 +5424,7 @@ A sine wave is fully described by: amplitude (power level in dBm), frequency (ca
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A03</span>
-  <span class="mod-title">Filters, S-parameters, VNA measurements in depth</span>
+  <span class="mod-title">S-Parameters & Filters — S11/S21/S22, what VNA measures, filter types in your RF path</span>
   <span class="mod-level beg">Beginner–Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5534,7 +5534,7 @@ S11 (cable/connector quality): both ports, check S11 < −20 dB at band frequenc
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A04</span>
-  <span class="mod-title">LTE/NR air interface — OFDM, resource blocks, FDD/TDD, physical channels</span>
+  <span class="mod-title">LTE/NR Air Interface — OFDM, resource grid, FDD vs TDD, physical channels (PDSCH/PUSCH)</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5649,7 +5649,7 @@ Benefits: flat fading per subcarrier (simple equalisation), flexible resource al
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A05</span>
-  <span class="mod-title">TX chain — PA, linearity, EVM, ACLR, DPD in full depth</span>
+  <span class="mod-title">TX Chain Mastery — PA linearity, EVM, ACLR, DPD: the complete transmit picture</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5828,7 +5828,7 @@ ACLR (Adjacent Channel Leakage Ratio) measures how much of the TX signal power s
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A06</span>
-  <span class="mod-title">RX chain — LNA, mixer, ADC, AGC, sensitivity in depth</span>
+  <span class="mod-title">RX Chain Mastery — LNA, mixer, ADC, AGC: why each stage determines your sensitivity</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -5986,7 +5986,7 @@ The 12-bit ADC samples the analog baseband IQ signal at 122.88 MSPS (mega sample
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A07</span>
-  <span class="mod-title">Massive MIMO, beamforming, OTA physics in full depth</span>
+  <span class="mod-title">Massive MIMO & Beamforming — spatial multiplexing, beam weights, OTA radiation patterns</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -6084,7 +6084,7 @@ Each column's TX path (from digital beamformer output to antenna element) has sl
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A08</span>
-  <span class="mod-title">Propagation channel models — AWGN, EPA, EVA, ETU, PropSim</span>
+  <span class="mod-title">Propagation Models — AWGN, fading (EPA/EVA/ETU), PropSim: how channels are emulated in lab</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -6211,7 +6211,7 @@ PropSim is a hardware channel emulator that sits between EXM and RU. It applies 
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A09</span>
-  <span class="mod-title">Test automation, cadence design, ETM, measurement architecture</span>
+  <span class="mod-title">RCT Automation Framework — cadence design, ETM selection, test architecture, CI/CD pipeline</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -6303,7 +6303,7 @@ ETM allows running some RCT tests without a full DU connection — the RU itself
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">A10</span>
-  <span class="mod-title">Expert: troubleshooting, root cause analysis, RF pathology patterns</span>
+  <span class="mod-title">RF Troubleshooting — systematic RCA: from symptom to root cause with failure patterns</span>
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -6597,7 +6597,7 @@ Without MRC (single column): sensitivity = −93.25 dBm (6 dB worse). UL margin 
   </div><div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A13</span>
-    <span class="mod-title">5G NR CSI-RS, SSB, SRS, beam management — how the gNB knows where to point</span>
+    <span class="mod-title">5G Beam Management — how gNB finds the best beam: CSI-RS, SSB, SRS, PMI/RI feedback</span>
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
@@ -6780,7 +6780,7 @@ RG316 (flexible, your lab cables): 2.5 dB/m @ 2 GHz. A 1m cable = −2.5 dB. LMR
   </div><div class="module-card">
   <div class="module-hdr" onclick="toggleModule(this)">
     <span class="mod-num">A15</span>
-    <span class="mod-title">Open RAN architecture, O-RU/O-DU/O-CU split, fronthaul, your RU in context</span>
+    <span class="mod-title">Open RAN Architecture — O-RU/O-DU/O-CU split, eCPRI fronthaul, where your RU fits</span>
     <span class="mod-level adv">Advanced</span>
     <span class="mod-status">click to expand</span><span class="chevron">▾</span>
   </div>
@@ -6991,7 +6991,7 @@ O-RAN's open interfaces mean the O-RU (your AAU) must interoperate with any comp
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP1</span>
-  <span class="mod-title">Expert RF topics — PLL/LO, mixers, filters deep dive, phase noise, IQ imbalance</span>
+  <span class="mod-title">PLL, Mixers & IQ Imbalance — RF building blocks that determine signal quality</span>
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -7836,7 +7836,7 @@ For B1 10 MHz:
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EXP5</span>
-  <span class="mod-title">PRACH detector internals — noise estimator, peak multiplier, timing advance math</span>
+  <span class="mod-title">PRACH Detector Internals — noise estimator, correlation peak, TA calculation from ZC root</span>
   <span class="mod-level exp">Expert</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -8069,7 +8069,7 @@ If hardware.json is wrong (offset not calibrated for your unit):
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L0</span>
-  <span class="mod-title">Foundation — Electronics: Ohm's Law, Impedance, dB/dBm/dBc, VSWR, Smith Chart, Filters, Mixers</span>
+  <span class="mod-title">Electronics Foundation ⭐⭐⭐⭐⭐ — Ohm's Law to Smith Chart: everything before RF starts</span>
   <span class="mod-level beg">Foundation</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -8490,7 +8490,7 @@ Antenna → duplexer/T-R switch → pre-BPF → LNA → post-BPF → mixer → V
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L7</span>
-  <span class="mod-title">O-RAN RF ⭐⭐⭐⭐⭐ — RU Architecture, M/C/U/S Plane, RU Capabilities, Tilt, RET, RSSI, IQ Playback, DPD, uSleep, Carrier Activation</span>
+  <span class="mod-title">O-RAN Architecture ⭐⭐⭐⭐⭐ — M/C/U/S Plane, RU Capabilities, DPD, uSleep, Carrier Activation</span>
   <span class="mod-level adv">Your Work ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -8741,7 +8741,7 @@ ACLR: EXA, atten 20dB, preamp OFF, ACLR mode LTE. Power: EXA, atten 20dB, preamp
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L17</span>
-  <span class="mod-title">Interview Preparation — Master all 17 levels · Scenario questions · ACLR/EVM/RSSI/DPD/PA/S-parameters/Smith Chart</span>
+  <span class="mod-title">Interview Preparation ⭐⭐⭐⭐⭐ — Scenario Q&A, ACLR/EVM/RSSI/DPD/PA, system design rounds</span>
   <span class="mod-level adv">Interview ⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -8779,7 +8779,7 @@ RF knowledge is secondary — they want to see: (1) Do you think systematically?
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L18</span>
-  <span class="mod-title">RF System Architecture ⭐⭐⭐⭐⭐ — Complete signal chain: L2/L3→PHY→Baseband→IQ→DAC→Upconverter→PLL→PA→Duplexer→Antenna + reverse RX path</span>
+  <span class="mod-title">RF System Architecture ⭐⭐⭐⭐⭐ — MAC→PHY→Baseband→IQ→DAC→PA→Antenna: complete chain</span>
   <span class="mod-level adv">Core ⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -9332,7 +9332,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L25</span>
-  <span class="mod-title">Temperature testing — RF performance at −40°C to +70°C</span>
+  <span class="mod-title">Temperature Testing — RF performance at −40°C to +70°C: what degrades and why</span>
   <span class="mod-level adv">L25 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -9375,7 +9375,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L26</span>
-  <span class="mod-title">Environmental testing — thermal, humidity, rain, salt fog, dust</span>
+  <span class="mod-title">Environmental Testing — humidity, vibration, rain, salt fog: real failure modes</span>
   <span class="mod-level adv">L26 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -9419,7 +9419,7 @@ TX power wrong → TX gain cal. RSSI wrong → RSSI cal. Beam pointing wrong →
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L27</span>
-  <span class="mod-title">Power supply — sequencing, inrush current, ripple, brownout</span>
+  <span class="mod-title">Power Supply — sequencing, inrush, ripple, brownout: the hidden RF performance killers</span>
   <span class="mod-level adv">L27 ⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -9530,7 +9530,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L29</span>
-  <span class="mod-title">Network management — NETCONF, YANG, O1 interface, M-plane</span>
+  <span class="mod-title">Network Management — NETCONF/YANG, O1/M-plane: how you configure and monitor the RU</span>
   <span class="mod-level adv">L29 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -9572,7 +9572,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L30</span>
-  <span class="mod-title">Transport — eCPRI, Ethernet, VLAN, QoS, fronthaul/backhaul</span>
+  <span class="mod-title">Fronthaul Transport — eCPRI, Ethernet, VLAN, QoS: how IQ data travels BBU↔RU</span>
   <span class="mod-level adv">L30 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -9732,7 +9732,7 @@ This specific fault caused your ~6 dB B41 power deficit on unit 26050509. The RU
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L34</span>
-  <span class="mod-title">Standards — 3GPP, O-RAN, ETSI, FCC, CE, PTCRB, GCF</span>
+  <span class="mod-title">Regulatory Standards — 3GPP/O-RAN/ETSI (specs), FCC/CE/PTCRB/GCF (certifications)</span>
   <span class="mod-level adv">L34 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -10404,7 +10404,7 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">L45</span>
-  <span class="mod-title">Company knowledge — Ericsson, Nokia, Apple, Qualcomm focus areas</span>
+  <span class="mod-title">Company Knowledge — Ericsson/Nokia (RAN), Qualcomm/Apple (chipsets): what each focuses on</span>
   <span class="mod-level adv">L45 ⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -10609,7 +10609,21 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
 <tr><td>11</td><td>Instruments deep dive — EXA/EXM/VNA all buttons</td><td>R&amp;S + Keysight</td><td>Instruments section</td></tr>
 <tr><td>12</td><td>Review weak areas — redo all self-checks</td><td>All modules above</td><td>All M01–M16 self-checks</td></tr>
 </table></div>
+<div style="padding:0 24px 20px">
+<div style="margin:16px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px">
+  <div style="font-weight:700;color:#00d4a0;margin-bottom:12px;font-size:13px">🔗 Essential Study Links — Use these alongside this guide</div>
+  <div style="font-size:13px;color:#c8c8d8;line-height:1.8">
+    <b style="color:#5bc4ef">LTE:</b> <a href="https://www.techplayon.com/lte-a-lte/" target="_blank" style="color:#5bc4ef">TechPlayOn LTE</a> · 
+    <a href="https://www.sharetechnote.com/html/Handbook_LTE.html" target="_blank" style="color:#5bc4ef">ShareTechNote LTE Handbook</a><br>
+    <b style="color:#5bc4ef">5G:</b> <a href="https://www.techplayon.com/5gnr/" target="_blank" style="color:#5bc4ef">TechPlayOn 5G NR</a> · 
+    <a href="https://www.sharetechnote.com/html/5G/Handbook_5G_Index.html" target="_blank" style="color:#5bc4ef">ShareTechNote 5G Handbook</a><br>
+    <b style="color:#5bc4ef">LTE-A / CA:</b> <a href="https://www.sharetechnote.com/html/Handbook_LteAdv.html" target="_blank" style="color:#5bc4ef">ShareTechNote LTE-Advanced</a><br>
+    <b style="color:#5bc4ef">VoLTE / IMS:</b> <a href="https://www.sharetechnote.com/html/Handbook_IMS_Index.html" target="_blank" style="color:#5bc4ef">ShareTechNote IMS</a><br>
+    <b style="color:#5bc4ef">RF Design:</b> <a href="https://www.techplayon.com/rf-design/" target="_blank" style="color:#5bc4ef">TechPlayOn RF</a> · 
+    <a href="https://www.microwavejournal.com/articles/41810-fundamentals-of-rf" target="_blank" style="color:#5bc4ef">Microwave Journal Fundamentals</a>
+  </div>
 </div>
+</div></div>
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="features" style="background:linear-gradient(90deg,#ff6b6b11,transparent);border-left:4px solid #ff6b6b;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">⚙️</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#ff6b6b">Features</span><span style="background:#ff6b6b22;color:#ff6b6b;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">RCT FEATURES</span></div><div style="font-size:12px;color:#4a5470">All RCT features in-depth · PA Protection · RSSI · NF · DSA · TDD Trigger · Cadence Groups</div></div></div>
@@ -10649,7 +10663,7 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">FC03</span>
-  <span class="mod-title">BS Output Power — Channel Power Accuracy</span>
+  <span class="mod-title">Base Station Output Power — measuring channel power accuracy vs rated level</span>
   <span class="mod-tag intermediate">Intermediate</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -10767,7 +10781,7 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">FC11</span>
-  <span class="mod-title">PA Protection — test_Tx_Pa_Protection</span>
+  <span class="mod-title">PA Protection — 3 dB power reduction on carrier activation: how it works and is tested</span>
   <span class="mod-tag intermediate">Intermediate</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -10851,7 +10865,7 @@ Keysight RF Academy (free online): noise figure, ACLR measurement. Rohde & Schwa
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF1</span>
-  <span class="mod-title">Thermal noise foundation — kTB, −174 dBm/Hz, Johnson-Nyquist, noise voltage</span>
+  <span class="mod-title">Thermal Noise Foundation — kTB = −174 dBm/Hz: the noise floor that nothing can beat</span>
   <span class="mod-level beg">Beginner</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -11048,7 +11062,7 @@ The duplexer and pre-BPF are fixed inside the RFFE — you cannot change them. T
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF4</span>
-  <span class="mod-title">NF of passive devices — attenuators, mixers, filters, cables, your test setup</span>
+  <span class="mod-title">NF of Passive Devices — how attenuators, cables and filters add noise to the chain</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -11198,7 +11212,7 @@ Every ADC rounds the analog signal to the nearest discrete level. With 12 bits, 
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">NF6</span>
-  <span class="mod-title">NF applied to your work — EXA preamp, sensitivity testing, RSSI calibration, EXM overrange</span>
+  <span class="mod-title">NF in Practice — EXA preamp, sensitivity testing, RSSI calibration, avoiding EXM saturation</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -11556,7 +11570,7 @@ A wider channel (wider bandwidth) collects more thermal noise — like a wider b
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">DSA2</span>
-  <span class="mod-title">Modulation vs sensitivity — FRC, SNR_required, why QPSK gives best sensitivity</span>
+  <span class="mod-title">Modulation vs Sensitivity — FRC (Fixed Reference Channel), SNR needed, why QPSK wins</span>
   <span class="mod-level mid">Intermediate</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -11617,7 +11631,7 @@ QPSK has only 4 constellation points — they are spread far apart in the IQ pla
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">DSA3</span>
-  <span class="mod-title">DSA — complete picture: kTB → sensitivity → per-band offset → rev paths → before/after → MRC combining</span>
+  <span class="mod-title">DSA Complete Picture — kTB → NF → sensitivity → per-band offset → UL path → MRC combining</span>
   <span class="mod-level adv">Advanced</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -12407,7 +12421,7 @@ So <code>get_rssi 0</code> reads B1 Column A. <code>get_rssi 2</code> reads B3 C
 </div><div class="module-card">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">B41T</span>
-  <span class="mod-title">B41 TDD Trigger Delay — 9.9765 ms explained, why it affects sensitivity</span>
+  <span class="mod-title">B41 TDD Trigger Timing — the exact 9.9765 ms delay: what it is and what breaks if wrong</span>
   <span class="mod-level adv">⭐⭐⭐⭐⭐</span>
   <span class="mod-status">click to expand</span><span class="chevron">▾</span>
 </div>
@@ -12657,7 +12671,62 @@ If your cable run differs from the ~3 µs assumed when the delay was calibrated,
 <b>TA</b>: Timing Advance — propagation delay correction sent by gNB to UE
 </div>
 
+<div style="padding:0 24px 20px">
+<div style="margin:16px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px">
+  <div style="font-weight:700;color:#5bc4ef;margin-bottom:12px;font-size:13px">📚 Deep Reference Links — Open in new tab while studying</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">LTE & LTE-Advanced</div>
+      <a href="https://www.techplayon.com/lte-a-lte/" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">TechPlayOn — LTE/LTE-A</a>
+      <div style="color:#4a5470;font-size:11px">Architecture, procedures, KPIs — well organized</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">5G NR</div>
+      <a href="https://www.techplayon.com/5gnr/" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">TechPlayOn — 5G NR</a>
+      <div style="color:#4a5470;font-size:11px">5G architecture, numerology, beamforming</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">RF Design</div>
+      <a href="https://www.techplayon.com/rf-design/" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">TechPlayOn — RF Design</a>
+      <div style="color:#4a5470;font-size:11px">PA, antenna, propagation, link budget</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">LTE Handbook</div>
+      <a href="https://www.sharetechnote.com/html/Handbook_LTE.html" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">ShareTechNote — LTE</a>
+      <div style="color:#4a5470;font-size:11px">Best single reference for LTE details — bookmarkable</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">5G Handbook</div>
+      <a href="https://www.sharetechnote.com/html/5G/Handbook_5G_Index.html" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">ShareTechNote — 5G NR</a>
+      <div style="color:#4a5470;font-size:11px">NR numerology, SSB, PDSCH, beamforming — very deep</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">LTE Advanced</div>
+      <a href="https://www.sharetechnote.com/html/Handbook_LteAdv.html" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">ShareTechNote — LTE-Advanced</a>
+      <div style="color:#4a5470;font-size:11px">CA, CoMP, eICIC, eMBMS — needed for CA testing</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">IMS & VoLTE</div>
+      <a href="https://www.sharetechnote.com/html/Handbook_IMS_Index.html" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">ShareTechNote — IMS</a>
+      <div style="color:#4a5470;font-size:11px">VoLTE, SIP, IMS architecture, call flows</div>
+    </div>
+
+    <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px">
+      <div style="color:#f5a623;font-weight:700;margin-bottom:6px">RF Fundamentals</div>
+      <a href="https://www.microwavejournal.com/articles/41810-fundamentals-of-rf" target="_blank" style="color:#5bc4ef;display:block;margin:4px 0">Microwave Journal — RF Fundamentals</a>
+      <div style="color:#4a5470;font-size:11px">Propagation, antennas, modulation — industry source</div>
+    </div>
+
+  </div>
 </div>
+</div></div>
 </div>
 <div class="div-line"></div>
 <div class="sec-hdr" id="instruments" style="background:linear-gradient(90deg,#5bc4ef11,transparent);border-left:4px solid #5bc4ef;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔬</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#5bc4ef">Instruments</span><span style="background:#5bc4ef22;color:#5bc4ef;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">KEYSIGHT</span></div><div style="font-size:12px;color:#4a5470">EXM E6640A · EXA N9010B · VNA E5071C · Live EXA · VNA Phase Cal · RCT Bench Setup</div></div></div>
