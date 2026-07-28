@@ -324,12 +324,13 @@ body.light-mode .sec-hdr {
 .tag-btn{opacity:0.7;transition:opacity .15s,box-shadow .15s}
 .tag-btn:hover{opacity:1}
 .module-card.tag-hidden{display:none!important}
+.module-card,.sec-hdr[id],[id]{scroll-margin-top:112px}
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="nav-brand">⬡ PARDHA RF</span>
+  <span class="nav-brand">⬡ TELECOM LEARNING</span>
   <div class="nav-links">
     <a href="#start_here" style="color:#00d4a0;font-weight:700">★ Start Here</a>
     <a href="#foundation">Foundation</a>
@@ -343,7 +344,6 @@ body.light-mode .sec-hdr {
     <a href="#docs_videos">Docs</a>
   </div>
   
-</nav>
 </nav>
 <div id="tag-filter-bar" style="background:rgba(11,13,18,.96);border-bottom:1px solid #1e2535;padding:6px 20px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;position:sticky;top:50px;z-index:99">
   <span style="color:#4a5470;font-size:11px;font-weight:600;white-space:nowrap">FILTER:</span>
@@ -15795,7 +15795,7 @@ function tagFilter(tag) {
   }
   if (tag !== 'all') {
     const first = document.querySelector('.module-card:not(.tag-hidden)');
-    if (first) first.scrollIntoView({behavior:'smooth', block:'start'});
+    if (first) setTimeout(()=>first.scrollIntoView({behavior:'smooth', block:'start'}), 60);
   }
 }
 
@@ -15924,6 +15924,26 @@ function getSectionCards(sectionId) {
 }
 
 
+function expandAll() {
+  document.querySelectorAll('.module-card').forEach(card => {
+    const body = card.querySelector('.module-body');
+    const chevron = card.querySelector('.chevron');
+    const status = card.querySelector('.mod-status,.mod-expand');
+    if (body) { body.style.display = 'block'; body.classList.add('open'); }
+    if (chevron) chevron.textContent = '▴';
+    if (status) status.textContent = 'expanded';
+  });
+}
+function collapseAll() {
+  document.querySelectorAll('.module-card').forEach(card => {
+    const body = card.querySelector('.module-body');
+    const chevron = card.querySelector('.chevron');
+    const status = card.querySelector('.mod-status,.mod-expand');
+    if (body) { body.style.display = 'none'; body.classList.remove('open'); }
+    if (chevron) chevron.textContent = '▾';
+    if (status) status.textContent = 'click to expand';
+  });
+}
 function expandSection(sectionId) {
   getSectionCards(sectionId).forEach(card => {
     const body = card.querySelector('.module-body');
