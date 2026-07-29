@@ -324,46 +324,52 @@ body.light-mode .sec-hdr {
 .tag-btn{opacity:0.7;transition:opacity .15s,box-shadow .15s}
 .tag-btn:hover{opacity:1}
 .module-card.tag-hidden{display:none!important}
-.module-card,.sec-hdr[id],[id]{scroll-margin-top:112px}
+.module-card,.sec-hdr[id],[id]{scroll-margin-top:128px}
+#topbar{flex-wrap:wrap;gap:5px 8px;padding:8px 20px;align-items:center}
+#topbar .tb-links{display:flex;flex-wrap:wrap;gap:2px;overflow:visible}
+#topbar .tb-filter{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.topbar-link{padding:4px 9px;border-radius:6px;font-size:12px;color:var(--text2);white-space:nowrap;text-decoration:none;transition:all .15s}
+.topbar-link:hover,.topbar-link.active{color:var(--text);background:var(--bg3)}
+.tb-div{width:1px;align-self:stretch;min-height:20px;background:#2a3050;margin:0 4px}
+#topbar #tag-count{color:#4a5470;font-size:11px;margin-left:2px}
 </style>
 </head>
 <body>
 
-<nav>
+<nav id="topbar">
   <span class="nav-brand">⬡ TELECOM LEARNING</span>
-  <div class="nav-links">
-    <a href="#start_here" style="color:#00d4a0;font-weight:700">★ Start Here</a>
-    <a href="#foundation">Foundation</a>
-    <a href="#course_beginner">Beginner</a>
-    <a href="#course_intermediate">Intermediate</a>
-    <a href="#course_expert">Expert</a>
-    <a href="#protocol_testing" style="color:#f5a623">Protocol</a>
-    <a href="#features">Features</a>
-    <a href="#instruments">Instruments</a>
-    <a href="#test_configurations">Test Config</a>
-    <a href="#docs_videos">Docs</a>
+  <div class="tb-links">
+    <a href="#start_here" class="topbar-link" style="color:#00d4a0;font-weight:700">★ Start Here</a>
+    <a href="#foundation" class="topbar-link">Foundation</a>
+    <a href="#course_beginner" class="topbar-link">Beginner</a>
+    <a href="#course_intermediate" class="topbar-link">Intermediate</a>
+    <a href="#course_expert" class="topbar-link">Expert</a>
+    <a href="#protocol_testing" class="topbar-link" style="color:#f5a623">Protocol</a>
+    <a href="#features" class="topbar-link">Features</a>
+    <a href="#instruments" class="topbar-link">Instruments</a>
+    <a href="#test_configurations" class="topbar-link">Test Config</a>
+    <a href="#docs_videos" class="topbar-link">Docs</a>
   </div>
-  
-</nav>
-<div id="tag-filter-bar" style="background:rgba(11,13,18,.96);border-bottom:1px solid #1e2535;padding:6px 20px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;position:sticky;top:50px;z-index:99">
-  <span style="color:#4a5470;font-size:11px;font-weight:600;white-space:nowrap">FILTER:</span>
-  <button class="tag-btn" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;font-weight:600">All</button>
-  <button class="tag-btn" onclick="tagFilter('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
-  <button class="tag-btn" onclick="tagFilter('measurements')" data-tag="measurements" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Measurements</button>
-  <button class="tag-btn" onclick="tagFilter('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
-  <button class="tag-btn" onclick="tagFilter('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
-  <button class="tag-btn" onclick="tagFilter('lte')" data-tag="lte" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">LTE</button>
-  <button class="tag-btn" onclick="tagFilter('5g')" data-tag="5g" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">5G</button>
-  <button class="tag-btn" onclick="tagFilter('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
-  <button class="tag-btn" onclick="tagFilter('rct')" data-tag="rct" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RCT</button>
-  <button class="tag-btn" onclick="tagFilter('protocol')" data-tag="protocol" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Protocol</button>
-  <button class="tag-btn" onclick="tagFilter('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
-  <button class="tag-btn" onclick="tagFilter('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
-  <button class="tag-btn" onclick="tagFilter('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
-  <button class="tag-btn" onclick="tagFilter('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab/Instruments</button>
-  <button class="tag-btn" onclick="tagFilter('interview')" data-tag="interview" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Interview</button>
-  <span id="tag-count" style="color:#4a5470;font-size:11px;margin-left:4px"></span>
-
+  <span class="tb-div"></span>
+  <div class="tb-filter">
+    <span style="color:#4a5470;font-size:11px;font-weight:600;white-space:nowrap">FILTER:</span>
+    <button class="tag-btn" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;font-weight:600">All</button>
+    <button class="tag-btn" onclick="tagFilter('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
+    <button class="tag-btn" onclick="tagFilter('measurements')" data-tag="measurements" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Measurements</button>
+    <button class="tag-btn" onclick="tagFilter('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
+    <button class="tag-btn" onclick="tagFilter('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
+    <button class="tag-btn" onclick="tagFilter('lte')" data-tag="lte" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">LTE</button>
+    <button class="tag-btn" onclick="tagFilter('5g')" data-tag="5g" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">5G</button>
+    <button class="tag-btn" onclick="tagFilter('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
+    <button class="tag-btn" onclick="tagFilter('rct')" data-tag="rct" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RCT</button>
+    <button class="tag-btn" onclick="tagFilter('protocol')" data-tag="protocol" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Protocol</button>
+    <button class="tag-btn" onclick="tagFilter('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
+    <button class="tag-btn" onclick="tagFilter('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
+    <button class="tag-btn" onclick="tagFilter('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
+    <button class="tag-btn" onclick="tagFilter('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab/Instruments</button>
+    <button class="tag-btn" onclick="tagFilter('interview')" data-tag="interview" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Interview</button>
+    <span id="tag-count" style="color:#4a5470;font-size:11px;margin-left:4px"></span>
+  </div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
     <input id="card-search" type="text" placeholder="🔍 Search cards…"
            oninput="filterCards(this.value)"
@@ -372,7 +378,7 @@ body.light-mode .sec-hdr {
             style="background:none;border:1px solid #2a3050;border-radius:50%;color:#4a5470;width:22px;height:22px;cursor:pointer;font-size:10px;line-height:1">✕</button>
     <span id="search-count" style="color:#4a5470;font-size:11px;min-width:50px"></span>
   </div>
-</div>
+</nav>
 
 <!-- HERO -->
 <div class="hero">
