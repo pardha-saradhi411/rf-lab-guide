@@ -353,7 +353,7 @@ body.light-mode .sec-hdr {
   <span class="tb-div"></span>
   <div class="tb-filter">
     <span style="color:#4a5470;font-size:11px;font-weight:600;white-space:nowrap">FILTER:</span>
-    <button class="tag-btn" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;font-weight:600">All</button>
+    <button class="tag-btn active" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;font-weight:600">All</button>
     <button class="tag-btn" onclick="tagFilter('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
     <button class="tag-btn" onclick="tagFilter('measurements')" data-tag="measurements" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Measurements</button>
     <button class="tag-btn" onclick="tagFilter('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
@@ -16082,11 +16082,14 @@ function show(inst, key) {
 // Init: collapse all, ensure EXA tab shown
 document.addEventListener('DOMContentLoaded', () => {
   // Activate All tag filter button
-  tagFilter('all');
   // Collapse all cards
   document.querySelectorAll('.module-body').forEach(b => {
     b.style.display = 'none';
+  // Ensure All filter is active after full render
+  requestAnimationFrame(() => {
+    tagFilter('all');
   });
+});;
   // Show EXA tab by default
   switchTab('exa');
   // Keyboard shortcut
