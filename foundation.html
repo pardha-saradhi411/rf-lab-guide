@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5bc4ef">
+<title>Foundation — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/rf-lab-guide/sw.js').catch(()=>{});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="index.html">◀ Home</a>
+    <a class="nav-chip nc-star" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <span class="tb-div"></span>
+    <button class="tag-btn active" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;font-weight:600;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">All</button>
+    <button class="tag-btn" onclick="tagFilter('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
+    <button class="tag-btn" onclick="tagFilter('measurements')" data-tag="measurements" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Measurements</button>
+    <button class="tag-btn" onclick="tagFilter('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
+    <button class="tag-btn" onclick="tagFilter('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
+    <button class="tag-btn" onclick="tagFilter('lte')" data-tag="lte" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">LTE</button>
+    <button class="tag-btn" onclick="tagFilter('5g')" data-tag="5g" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">5G</button>
+    <button class="tag-btn" onclick="tagFilter('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
+    <button class="tag-btn" onclick="tagFilter('rct')" data-tag="rct" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RCT</button>
+    <button class="tag-btn" onclick="tagFilter('protocol')" data-tag="protocol" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Protocol</button>
+    <button class="tag-btn" onclick="tagFilter('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
+    <button class="tag-btn" onclick="tagFilter('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
+    <button class="tag-btn" onclick="tagFilter('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
+    <button class="tag-btn" onclick="tagFilter('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab/Instruments</button>
+    <button class="tag-btn" onclick="tagFilter('interview')" data-tag="interview" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Interview</button>
+    <button class="tag-btn" onclick="tagFilter('framework')" data-tag="framework" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Framework</button>
+    <button class="tag-btn" onclick="tagFilter('handover')" data-tag="handover" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Handover</button>
+    <button class="tag-btn" onclick="tagFilter('ca')" data-tag="ca" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">CA</button>
+    <button class="tag-btn" onclick="tagFilter('csi')" data-tag="csi" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">CSI/KPI</button>
+    <span id="tag-count" style="color:#4a5470;font-size:11px;margin-left:4px"></span>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="card-search" type="text" placeholder="🔍 Search this page…" oninput="filterCards(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:150px">
+    <button onclick="clearSearch()" title="Clear" style="background:none;border:1px solid #2a3050;border-radius:50%;color:#4a5470;width:22px;height:22px;cursor:pointer;font-size:10px;line-height:1">✕</button>
+    <span id="search-count" style="color:#4a5470;font-size:11px;min-width:50px"></span>
+  </div>
+</nav>
+<div style="max-width:1200px;margin:8px auto 0;padding:0 24px;display:flex;gap:8px;align-items:center">
+  <a href="index.html" style="color:#5bc4ef;font-size:12px;text-decoration:none">◀ Back to index</a>
+  <span style="flex:1"></span>
+  <button onclick="expandAll()" style="background:#141720;border:1px solid #2a3050;border-radius:6px;color:#c8c8d8;padding:4px 12px;font-size:11px;cursor:pointer">Expand All</button>
+  <button onclick="collapseAll()" style="background:#141720;border:1px solid #2a3050;border-radius:6px;color:#c8c8d8;padding:4px 12px;font-size:11px;cursor:pointer">Collapse All</button>
+</div>
+<div class="sec-hdr" id="foundation" style="background:linear-gradient(90deg,#9b8cf811,transparent);border-left:4px solid #9b8cf8;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔧</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#9b8cf8">RF Foundation</span><span style="background:#9b8cf822;color:#9b8cf8;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">BASICS FIRST</span></div><div style="font-size:12px;color:#4a5470">Basic definitions · TX/RX chain · ADC · RSSI · NF · DSA · KTB</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('foundation')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('foundation')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
+<div class="module-card" id="16a" data-tags="rf fundamentals signal-chain">
+  <div class="module-hdr" onclick="toggleModule(this)">
+    <span class="mod-num">16a</span>
+    <span class="mod-title">RF Signal Path — TX/RX building blocks explained: LNA, PA, Duplexer, Mixer, Filter</span>
+    <span class="mod-level beg">Beginner–Intermediate</span>
+    <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+  </div>
+  <div class="module-body" style="display:none">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Path Components — Duplexer, BPF, LNA, VGA, Mixer</text>
+  <!-- 5 components -->
+  <rect x="10"  y="35" width="140" height="140" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="80"  y="57" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="80"  y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">TX+RX share antenna</text>
+  <text x="80"  y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">via frequency separation</text>
+  <text x="80"  y="103" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Ins. loss: 0.5 dB</text>
+  <text x="80"  y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">TX→RX isol: &gt;50 dB</text>
+  <text x="80"  y="133" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">FDD only — TDD uses</text>
+  <text x="80"  y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">T/R switch instead</text>
+  <text x="80"  y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: VSWR alarm</text>
+
+  <rect x="160" y="35" width="140" height="140" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="230" y="57" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">BPF</text>
+  <text x="230" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Bandpass Filter</text>
+  <text x="230" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Passes only wanted</text>
+  <text x="230" y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">frequency band</text>
+  <text x="230" y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Pre-LNA: 0.3 dB loss</text>
+  <text x="230" y="129" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Rejects blockers</text>
+  <text x="230" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Selectivity spec</text>
+  <text x="230" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: blocking test</text>
+
+  <rect x="310" y="25" width="140" height="160" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="380" y="48" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">LNA ★</text>
+  <text x="380" y="63" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Low Noise Amplifier</text>
+  <text x="380" y="77" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">MOST IMPORTANT</text>
+  <text x="380" y="91" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">RX component</text>
+  <text x="380" y="108" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">NF=2dB, G=+20dB</text>
+  <text x="380" y="122" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Sets system NF</text>
+  <text x="380" y="136" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Gain ÷ post NF</text>
+  <text x="380" y="155" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">pHEMT or GaAs FET</text>
+  <text x="380" y="168" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: sensitivity</text>
+  <text x="380" y="180" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">blocker compresses</text>
+
+  <rect x="460" y="35" width="140" height="140" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="530" y="57" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">VGA / AGC</text>
+  <text x="530" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Variable Gain Amp</text>
+  <text x="530" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Auto Gain Control</text>
+  <text x="530" y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Keeps ADC in range</text>
+  <text x="530" y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Range: −20 to +40 dB</text>
+  <text x="530" y="130" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RSSI feedback loop</text>
+  <text x="530" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Settles in &lt;10μs</text>
+  <text x="530" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: ADC overrange</text>
+
+  <rect x="610" y="35" width="180" height="140" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="700" y="57" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Mixer</text>
+  <text x="700" y="72" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">fout = |fRF ± fLO|</text>
+  <text x="700" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Downconverts to BB</text>
+  <text x="700" y="100" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">IQ mixer: I+Q outputs</text>
+  <text x="700" y="116" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">NF=7dB (÷100 after LNA)</text>
+  <text x="700" y="130" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Effective: 0.05 dB</text>
+  <text x="700" y="145" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">IIP3 matters for blockers</text>
+  <text x="700" y="160" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: IQ imbalance EVM</text>
+</svg>
+<h4>RF path components — duplexer, BPF, LNA, VGA, mixer, ADC</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Component purpose and NF contribution (B1 RX chain):</b><br>
+<b>Duplexer</b>: separates TX and RX paths at antenna port. Insertion loss 0.5 dB → NF contribution 0.5 dB. TX rejection >50 dB (prevents PA from entering LNA).<br><b>Pre-BPF</b>: rejects out-of-band blockers before LNA. Loss 0.3 dB → NF 0.3 dB. Worth it — without it, a strong blocker could compress LNA.<br><b>LNA</b>: NF 2.0 dB, gain +20 dB. Most critical component. Sets system NF. GaAs pHEMT.<br><b>Mixer</b>: NF 7 dB, but after LNA gain ÷100 = 0.07 dB contribution. Negligible.<br><b>VGA</b>: variable gain ±30 dB range. AGC-controlled. Keeps ADC at −12 dBFS.<br><b>ADC</b>: 12-bit, 74 dB SQNR, 122.88 MSPS.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">TX path components — FHGW to PA:</b><br>
+<b>DAC</b>: converts digital IQ to analog. 16-bit, 122.88 MSPS. Clock from GPS-locked reference.<br><b>Upconverter</b>: baseband IQ → RF. Mixer × LO frequency. IQ imbalance here → constellation rotation.<br><b>PA</b>: GaN, Class AB, +43 dBm output, ~35% efficiency. Protected by: thermal shutdown, VSWR protection, over-current detection.<br><b>Duplexer</b>: TX side routes PA output to antenna. Loss 0.5 dB from rated power.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Failure modes per component:</b><br>
+LNA dead → sensitivity fails, all columns for that band. LNA compressed (blocker) → NF increases, sensitivity degrades but LNA not dead. VGA/AGC stuck → RSSI reads wrong, may clip ADC. ADC_ADJUST wrong → RSSI off by fixed offset. PA degraded → TX power low, ACLR may worsen. Duplexer cracked → TX-to-RX leakage → RX desensitisation, possible LNA damage.
+</div>
+
+<div class="mod-section-title">Duplexer / T-R Switch — first after antenna</div>
+<div class="mod-p">In FDD (B1/B3/B8/B28): the duplexer simultaneously passes UL and DL on separate ports with >50 dB TX→RX isolation. It stops the PA's +43 dBm TX power from flooding the LNA input and desensitising the receiver. In TDD (B41): a T/R switch replaces the duplexer — faster switching, but cannot transmit and receive simultaneously on the same antenna.</div>
+<div class="mod-section-title">BPF — Band-pass filter</div>
+<div class="mod-p">Placed after the duplexer (and sometimes again after the LNA) to provide additional out-of-band rejection. Blockers passing through the duplexer with only 50 dB suppression are further attenuated, protecting the LNA from strong interferers that would cause compression and desensitisation. Also suppresses the image frequency before downconversion.</div>
+<div class="mod-section-title">LNA — the most critical component</div>
+<div class="mod-p">David: "you have here the LNA, right? Low noise amplifier... if we receive the signal in low power, we amplify it. This is why we have the LNA here."</div>
+<div class="mod-p">The LNA amplifies the weak incoming signal (maybe −80 dBm from a distant UE) while adding minimal noise. By Friis formula: the first stage dominates system NF. A 3 dB NF LNA before a 10 dB NF mixer gives system NF ≈ 3.3 dB. Swap them, and system NF ≈ 10 dB — 6.7 dB worse sensitivity.</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Parameter</th><th>Typical value</th><th>What it means for your tests</th></tr>
+<tr><td>Noise Figure (NF)</td><td>1–3 dB</td><td>Direct hit on REFSENS. +1 dB NF = −1 dBm sensitivity (worse). If REFSENS fails, check LNA NF first.</td></tr>
+<tr><td>Gain</td><td>15–25 dB</td><td>Amplifies signal so ADC and mixer see it clearly above their own noise floors.</td></tr>
+<tr><td>IIP3</td><td>−5 to +10 dBm input</td><td>Linearity. Determines blocking performance (ACS test). Higher IIP3 = better ACS.</td></tr>
+<tr><td>P1dB</td><td>−10 to 0 dBm input</td><td>If a strong interferer exceeds P1dB, the LNA compresses → receiver goes blind → desensitisation.</td></tr>
+</table></div>
+<div class="warn">NEVER put any lossy component (attenuator, switch, long cable) before the LNA. A 2 dB attenuator before the LNA adds exactly 2 dB to system NF — halving effective coverage range. This is why your test cable connects directly to the RU antenna port for sensitivity tests.</div>
+
+<div class="mod-section-title">VGA — Variable Gain Amplifier (AGC engine)</div>
+<div class="mod-p">After the LNA, the VGA provides adjustable gain (typically −20 dB to +20 dB range). The AGC loop reads RSSI and adjusts VGA gain to keep the signal level at the ADC input within the optimal range — not too strong (clipping) and not too weak (buried in quantisation noise). David: "we calibrate the RF chain to make sure we are not compressing the ADC and we are not transmitting in too much low power."</div>
+
+<div class="mod-section-title">Mixer + Local Oscillator (LO) — frequency downconversion</div>
+<div class="mod-p">The mixer multiplies the RF signal (e.g. 1747.5 MHz for B3 UL) by the LO signal at the same frequency → output is the difference frequency = baseband (0 Hz for direct conversion / zero-IF architecture). Modern RUs use zero-IF: I and Q channels come out at baseband, 90° apart. Together they fully represent the complex baseband signal including both amplitude and phase.</div>
+<div class="tip">LO phase noise directly limits EVM. Phase noise at 10 kHz offset from the LO causes ICI between adjacent LTE subcarriers (spaced 15 kHz apart). This is why EVM tests fail when the reference oscillator ages or runs too hot.</div>
+  </div>
+  </div><div class="module-card" id="16b" data-tags="rf fundamentals adc digital">
+  <div class="module-hdr" onclick="toggleModule(this)">
+    <span class="mod-num">16b</span>
+    <span class="mod-title">ADC — 11-12 bit resolution, dynamic range, dBFS, clipping</span>
+    <span class="mod-level mid">Intermediate</span>
+    <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+  </div>
+  <div class="module-body" style="display:none">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">ADC — 12-bit, Dynamic Range, dBFS, Clipping, SQNR</text>
+  <!-- ADC properties visual -->
+  <rect x="10" y="35" width="380" height="150" fill="#141720" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="200" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">12-bit ADC Properties</text>
+  <text x="20"  y="73"  fill="#8892b0" font-size="9" font-family="monospace">Levels:   2¹² = 4096 discrete levels</text>
+  <text x="20"  y="88"  fill="#8892b0" font-size="9" font-family="monospace">SQNR:     6.02×12 + 1.76 = 74 dB</text>
+  <text x="20"  y="103" fill="#8892b0" font-size="9" font-family="monospace">Full scale: 0 dBFS (clips above this)</text>
+  <text x="20"  y="118" fill="#8892b0" font-size="9" font-family="monospace">Noise floor: −74 dBFS (quantisation)</text>
+  <text x="20"  y="133" fill="#f5a623" font-size="9" font-family="monospace">Operating point: −12 dBFS (headroom)</text>
+  <text x="20"  y="148" fill="#f5a623" font-size="9" font-family="monospace">Sample rate: 122.88 MSPS typical</text>
+  <text x="20"  y="163" fill="#4a5470" font-size="8" font-family="monospace">Clock: external GPS-locked reference</text>
+  <text x="20"  y="177" fill="#ff6b6b" font-size="8" font-family="monospace">Clip: input &gt;0 dBFS → distortion, wrong RSSI</text>
+  <!-- Dynamic range diagram -->
+  <rect x="400" y="35" width="390" height="150" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="595" y="55" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Dynamic Range in Your RU</text>
+  <rect x="415" y="63" width="35" height="15" fill="#2a0d0d" rx="2"/>
+  <text x="455" y="74"  fill="#ff6b6b" font-size="8" font-family="monospace">0 dBFS: strong UE &lt;10m (clip risk)</text>
+  <rect x="415" y="83" width="35" height="35" fill="#1a1a0d" rx="2"/>
+  <text x="455" y="97"  fill="#c8b800" font-size="8" font-family="monospace">−6 to −20 dBFS: operating zone (AGC target)</text>
+  <rect x="415" y="123" width="35" height="55" fill="#0d1a0d" rx="2"/>
+  <text x="455" y="140" fill="#00d4a0" font-size="8" font-family="monospace">−20 to −60 dBFS: normal UE range</text>
+  <text x="455" y="154" fill="#00d4a0" font-size="8" font-family="monospace">−60 to −74 dBFS: weak UE near sens.</text>
+  <rect x="415" y="178" width="35" height="5"  fill="#0d0d2a" rx="2"/>
+  <text x="455" y="183" fill="#9b8cf8" font-size="8" font-family="monospace">−74 dBFS: quantisation noise floor</text>
+</svg>
+<h4>12-bit ADC — dynamic range, SQNR, dBFS, clipping</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">SQNR and what 12 bits gives you:</b><br>
+SQNR (Signal to Quantisation Noise Ratio) = 6.02×N + 1.76 dB where N = number of bits. For 12 bits: SQNR = 6.02×12 + 1.76 = 74 dB. This is the ratio between the full-scale signal and the quantisation noise floor. 74 dB of dynamic range means signals up to 74 dB above the quantisation noise floor are cleanly digitised. A 16-bit ADC would give 98 dB — used in audio. RF systems use 12–16 bits because the VGA/AGC keeps the signal in a narrow range.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Operating point — why −12 dBFS is the target:</b><br>
+Operating at 0 dBFS (full scale) means any instantaneous peak clips → severe distortion → wrong RSSI, high EVM. Operating too low (−40 dBFS) wastes dynamic range — more quantisation noise relative to signal. −12 dBFS is the standard operating point: 12 dB of headroom for signal peaks above average, and 62 dB of SQNR still available below the signal. The VGA/AGC loop constantly adjusts gain to maintain this target.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Clipping — what happens and how to detect:</b><br>
+When input exceeds full scale (0 dBFS), the ADC output saturates at the maximum code (all 1s). RSSI reading wraps around or saturates at a wrong value. On EXA: flat-top distortion visible on spectrum (compressed waveform). In CLI: get_rssi returns a value close to 0 dBFS regardless of actual input power. Fix: reduce gain (check VGA/AGC settings, check if LNA is in compression from a strong blocker).
+</div>
+
+<div class="mod-section-title">What the ADC does</div>
+<div class="mod-p">The ADC (Analog-to-Digital Converter) is the boundary between the analog RF world and digital processing. It samples the baseband IQ signal at the Nyquist rate and converts each sample to a binary number. David: "we are working with 12 bits. Sorry, 11 bits. It means 2 by 11 steps of resolution."</div>
+<div class="mod-formula">Resolution: N bits → 2^N amplitude levels
+11-bit ADC: 2^11 = 2048 levels
+12-bit ADC: 2^12 = 4096 levels
+SQNR = 6.02 × N + 1.76 dB
+11-bit: SQNR = 68 dB dynamic range
+12-bit: SQNR = 74 dB dynamic range</div>
+<div class="mod-section-title">Dynamic range — exactly what David drew on the whiteboard</div>
+<div class="mod-p">The ADC has a fixed input voltage range from minimum (noise floor) to maximum (full scale). David's explanation: "the dynamic range is the minimum value that the ADC is starting to see some power from the noise itself — to separate the signal from the noise. And the maximum value. This is called dynamic range."</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>ADC point</th><th>dBFS value</th><th>What happens</th></tr>
+<tr><td>Full scale (clipping)</td><td>0 dBFS</td><td>ADC output saturates. All values above this are clipped. Waveform peaks go flat. Severe EVM and ACLR degradation.</td></tr>
+<tr><td>Operating target</td><td>−6 to −10 dBFS</td><td>Signal is well within range with headroom for PAPR peaks.</td></tr>
+<tr><td>AGC target (typical)</td><td>−20 to −30 dBFS</td><td>Comfortable operating point with large PAPR headroom.</td></tr>
+<tr><td>Noise floor</td><td>−68 to −74 dBFS</td><td>Quantisation noise. Signals below this cannot be distinguished from noise.</td></tr>
+<tr><td>Sensitivity point</td><td>~−60 to −68 dBFS</td><td>Where signal just emerges from quantisation noise — the "blur" point David described.</td></tr>
+</table></div>
+<div class="mod-section-title">dBFS — decibels relative to Full Scale</div>
+<div class="mod-p">David: "DBFS is DB to full scale related to the maximum dynamic range of the ADC." All dBFS values are ≤ 0 dBFS. 0 dBFS = at the clipping threshold. −20 dBFS = 10% of full-scale voltage. −74 dBFS = at the ADC noise floor for a 12-bit converter.</div>
+<div class="mod-p">The get_rssi CLI command returns RSSI in both dBm AND dBFS. The dBFS reading tells you where the signal sits inside the ADC's operating range. If dBFS is close to 0 → near clipping, reduce VGA gain. If very negative (−60 dBFS or below) → signal is weak, near noise floor.</div>
+<div class="warn">David's clipping explanation: "you're cutting the information if you're transmitting too high. You got the information — if this is the time domain and this is the amplitude domain — you're cutting the information." The ADC chops the sine wave peaks flat → massive harmonic distortion → EVM and ACLR both fail catastrophically.</div>
+  </div>
+  </div><div class="module-card" id="16c" data-tags="rssi rx measurements">
+  <div class="module-hdr" onclick="toggleModule(this)">
+    <span class="mod-num">16c</span>
+    <span class="mod-title">RSSI Measurement — CLI dBFS vs OAM dBm: two methods, calibration, what they tell you</span>
+    <span class="mod-level mid">Intermediate</span>
+    <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+  </div>
+  <div class="module-body" style="display:none">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RSSI — Two Methods (CLI dBFS vs DU dBm), ±2 dB Pass Criterion</text>
+  <!-- Method 1: CLI -->
+  <rect x="10" y="35" width="370" height="150" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="195" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Method 1: CLI get_rssi</text>
+  <text x="20"  y="72"  fill="#8892b0" font-size="9" font-family="monospace">Command: get_rssi 0 (B1 ADC channel 0)</text>
+  <text x="20"  y="86"  fill="#f5a623" font-size="9" font-family="monospace">Returns:  −12.5 dBFS</text>
+  <text x="20"  y="100" fill="#8892b0" font-size="9" font-family="monospace">Convert:  −12.5 + ADC_ADJUST = dBm</text>
+  <text x="20"  y="114" fill="#f5a623" font-size="9" font-family="monospace">ADC_ADJUST in /etc/rru/hardware.json</text>
+  <text x="20"  y="128" fill="#8892b0" font-size="9" font-family="monospace">Example:  ADC_ADJUST = −82.5</text>
+  <text x="20"  y="142" fill="#00d4a0" font-size="9" font-family="monospace">Result:   −12.5 + (−82.5) = −95 dBm</text>
+  <text x="20"  y="158" fill="#4a5470" font-size="8" font-family="monospace">ADC channels: B1=0,1,4,5 · B3=2,3,6,7</text>
+  <text x="20"  y="172" fill="#ff6b6b" font-size="8" font-family="monospace">If wrong: recalibrate ADC_ADJUST from EXM</text>
+
+  <!-- Method 2: DU -->
+  <rect x="390" y="35" width="400" height="150" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="590" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Method 2: DU/testmac</text>
+  <text x="400" y="72"  fill="#8892b0" font-size="9" font-family="monospace">Command:  testmac&gt; rssi (on FHGW)</text>
+  <text x="400" y="86"  fill="#f5a623" font-size="9" font-family="monospace">Returns:  −94.8 dBm (per RB, all chains)</text>
+  <text x="400" y="100" fill="#8892b0" font-size="9" font-family="monospace">Source:   after FFT processing in DU L1</text>
+  <text x="400" y="114" fill="#8892b0" font-size="9" font-family="monospace">Includes: interference + signal + noise</text>
+  <text x="400" y="130" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">Pass criterion: |CLI − DU| ≤ 2 dB</text>
+  <text x="400" y="148" fill="#4a5470" font-size="8" font-family="monospace">And: |EXM_injected − CLI_result| ≤ 2 dB</text>
+  <text x="400" y="162" fill="#f5a623" font-size="8" font-family="monospace">All 3 sources must agree within ±2 dB</text>
+  <text x="400" y="178" fill="#ff6b6b" font-size="8" font-family="monospace">Fail sources: wrong offset, temp drift, bad cable</text>
+</svg>
+<h4>RSSI — CLI dBFS method vs DU dBm method, when they disagree</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">CLI method — get_rssi N:</b><br>
+Reads the ADC digital output directly. Returns dBFS value (e.g. −12.5). Converted to dBm via: P_dBm = dBFS + ADC_ADJUST. Fast, per-column, direct hardware reading. Does not go through DU processing. Useful for: initial calibration, column-by-column fault isolation, debugging without DU. Limit: only as accurate as ADC_ADJUST calibration.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">DU method — testmac rssi:</b><br>
+Reads RSSI computed inside the DU baseband after FFT processing. Averages power across active subcarriers. Includes interference contributions. Goes through eCPRI fronthaul → FHGW → DU. More representative of what the scheduler sees. More affected by fronthaul issues. Useful for: validating end-to-end chain, checking FHGW BFP accuracy, confirming what the network actually "sees".
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Disagreement diagnosis — what each pattern means:</b><br>
+CLI accurate, DU off by 2–3 dB → FHGW BFP decompression issue or eCPRI timing problem → check FHGW firmware.<br>Both off from EXM by same amount → ADC_ADJUST wrong → re-run RSSI cal.<br>One column CLI wrong → hardware fault on that column (LNA, cable, connector) → inspect physically.<br>All columns drift together as unit warms → temperature compensation not set → check TEMP_COMP in hardware.json.<br>CLI varies but DU is stable → ADC channel mapping wrong in configuration.
+</div>
+
+<div class="mod-section-title">Two RSSI measurement methods</div>
+<div class="mod-p">David described two independent ways the system measures RSSI:</div>
+<div class="mod-p"><b>Method 1 — DU RSSI (dBm):</b> After FFT processing, IQ samples flow to the DU via eCPRI fronthaul. The DU sums power across all subcarriers and computes RSSI in dBm. This is what your test automation reads from the OAM portal or DU CLI. Also: the DU calculates the "blur" (sensitivity point) from these same samples.</div>
+<div class="mod-p"><b>Method 2 — CLI RSSI at ADC (dBFS + dBm):</b> The FHGW firmware measures power directly at the ADC output, before FFT or compression. Command: <code style="background:#0d0f14;border:1px solid #232840;padding:1px 5px;border-radius:3px;font-size:11px">get_rssi</code>. Returns 8 readings (ADC channels 0–7) in both dBm (gain-corrected) and dBFS (raw ADC reference). One reading per antenna element/RX chain.</div>
+<div class="mod-section-title">The gap — and how it was closed</div>
+<div class="mod-p">David: "We had a gap between the readings from the DU and the readings from the CLI. So we managed to close this gap by adding new features from the software side to the DU." The gap existed because the two methods have different reference planes, different gain compensation tables, and different averaging windows. The DU software update added calibration offsets to align them.</div>
+<div class="mod-section-title">Your task from David</div>
+<div class="mod-p">"Start first with basic uplink test to measure the sensitivity point, measure the RSSI point manually, and then provide the automation. We need to do it for each flavor, we need to do it for each band."</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Step</th><th>Action</th><th>Record</th></tr>
+<tr><td>1</td><td>Connect signal generator UL freq → RU port via calibrated cable</td><td>Band, freq, cable_loss_dB</td></tr>
+<tr><td>2</td><td>Start at very low power (below noise floor)</td><td>Gen output power + cable_loss = RU input power (dBm)</td></tr>
+<tr><td>3</td><td>Run get_rssi → read all 8 ADC channels dBm + dBFS</td><td>RSSI_CLI_dBm, RSSI_CLI_dBFS per channel</td></tr>
+<tr><td>4</td><td>Read DU RSSI (OAM or DU CLI)</td><td>RSSI_DU_dBm</td></tr>
+<tr><td>5</td><td>Increase power +1 dB. Repeat 3–4.</td><td>Full table: input vs CLI vs DU</td></tr>
+<tr><td>6</td><td>Find sensitivity: first level where RSSI > noise floor AND throughput ≥ 95%</td><td>Sensitivity point dBm (must be ≤ −69 dBm)</td></tr>
+<tr><td>7</td><td>Increase to max. Record where RSSI_CLI approaches 0 dBFS.</td><td>Upper limit, dynamic range = max−min dB</td></tr>
+<tr><td>8</td><td>Check gap: |RSSI_CLI_dBm − RSSI_DU_dBm| at each level</td><td>Gap dB. Must be ≤ ±2 dB across range.</td></tr>
+</table></div>
+<div class="mod-section-title">Your EXM screenshot (Image 1) — decoded</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Screen field</th><th>Value</th><th>What it means</th></tr>
+<tr><td>Carrier Ref Freq</td><td>1.000 GHz</td><td>B8 UL region — 1 GHz uplink test frequency</td></tr>
+<tr><td>Direction</td><td>Uplink</td><td>Measuring RU receive path (what comes from UE)</td></tr>
+<tr><td>Carrier Power</td><td>−86.36 dBm / 4.5 MHz</td><td>Total received power in 4.5 MHz integration BW — very close to noise floor</td></tr>
+<tr><td>ACP Lower/Upper</td><td>−0.135 / +0.121 dBc</td><td>Adjacent channels same as carrier = pure noise, no real signal present</td></tr>
+<tr><td>PASS</td><td>Green</td><td>Within limit lines (limit lines set at noise floor level for this test)</td></tr>
+<tr><td>Yellow trace at −101 dBm</td><td>RMS average of noise floor</td><td>This is the RSSI you compare against get_rssi CLI reading</td></tr>
+</table></div>
+<div class="tip">The −86.36 dBm carrier power here is near the B8 noise floor. This is exactly the sensitivity test David described — starting at minimum power and looking for the signal to emerge above noise. The RSSI_CLI from get_rssi should match the EXM reading within ±2 dB at this level.</div>
+  </div>
+  </div><div class="module-card" id="16d" data-tags="fhgw oran fronthaul">
+  <div class="module-hdr" onclick="toggleModule(this)">
+    <span class="mod-num">16d</span>
+    <span class="mod-title">Fronthaul Gateway (FHGW) — how it processes IQ data: eCPRI, BFP compression, timing</span>
+    <span class="mod-level adv">Advanced</span>
+    <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+  </div>
+  <div class="module-body" style="display:none">
+
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW Internals — FFT, BFP Compression, eCPRI Fronthaul</text>
+  <!-- eCPRI in -->
+  <rect x="10"  y="50" width="100" height="50" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="60"  y="72" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">eCPRI</text>
+  <text x="60"  y="85" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">10GbE SFP+</text>
+  <text x="60"  y="95" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">from DU</text>
+  <line x1="110" y1="75" x2="130" y2="75" stroke="#9b8cf8" stroke-width="1.5"/>
+
+  <rect x="130" y="40" width="110" height="70" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="185" y="62" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BFP decomp</text>
+  <text x="185" y="76" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Block Floating</text>
+  <text x="185" y="88" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Point expand</text>
+  <text x="185" y="100" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">9-bit → 16-bit IQ</text>
+  <line x1="240" y1="75" x2="260" y2="75" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="260" y="40" width="110" height="70" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="315" y="62" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">IFFT</text>
+  <text x="315" y="76" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">freq → time</text>
+  <text x="315" y="88" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">domain conv</text>
+  <text x="315" y="100" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">OFDM symbols</text>
+  <line x1="370" y1="75" x2="390" y2="75" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="390" y="40" width="110" height="70" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="445" y="59" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Add CP</text>
+  <text x="445" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Cyclic Prefix</text>
+  <text x="445" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">protects vs ISI</text>
+  <text x="445" y="99" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4.69μs normal CP</text>
+  <line x1="500" y1="75" x2="520" y2="75" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="520" y="40" width="110" height="70" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="575" y="59" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">CFR + DPD</text>
+  <text x="575" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Crest factor</text>
+  <text x="575" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">reduce + preD</text>
+  <text x="575" y="99" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Linearise PA</text>
+  <line x1="630" y1="75" x2="650" y2="75" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="650" y="40" width="140" height="70" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="3"/>
+  <text x="720" y="59" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DAC → RF</text>
+  <text x="720" y="73" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">D→A convert</text>
+  <text x="720" y="86" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Upconvert to</text>
+  <text x="720" y="99" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">2140/1842/942 MHz</text>
+
+  <!-- BFP compression explanation -->
+  <rect x="10" y="130" width="780" height="60" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="148" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">BFP Compression (O-RAN 7.2x split — what it compresses):</text>
+  <text x="20"  y="163" fill="#8892b0" font-size="8" font-family="monospace">Full IQ: 16-bit I + 16-bit Q per subcarrier × 3276 RBs × 14 symbols = 147 Mbps per antenna — too much for fronthaul</text>
+  <text x="20"  y="177" fill="#00d4a0" font-size="8" font-family="monospace">BFP compressed: 9-bit mantissa + 4-bit exponent shared per RB → ~50% reduction → fits in 10GbE eCPRI</text>
+  <text x="20"  y="187" fill="#4a5470" font-size="7" font-family="monospace">Quality check: expansion error &lt;0.1 dB · EVM impact &lt;0.5% · Verified by your EVM test passing</text>
+</svg>
+<h4>FHGW internals — BFP compression, IFFT, eCPRI, what can go wrong</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">BFP compression — why it is needed:</b><br>
+Raw 16-bit IQ for a 20 MHz 4T4R system: 4 columns × 2 (I+Q) × 1200 subcarriers × 14 symbols/ms × 16 bits = ~430 Mbps. Standard 10GbE fronthaul supports 10 Gbps — but with overhead, practical is ~8 Gbps. With BFP: each resource block (12 subcarriers) shares one 4-bit exponent, and each sample uses 9-bit mantissa instead of 16-bit. Compression ratio ≈ 9/16 = 56% → bandwidth = ~240 Mbps. Fits easily in 10GbE with margin.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">IFFT — frequency to time domain:</b><br>
+The DU schedules which UEs get which subcarriers (resource blocks). It passes the frequency-domain IQ values per subcarrier to the FHGW. The FHGW performs IFFT (Inverse FFT) to convert this to a time-domain OFDM symbol. Then adds cyclic prefix (4.69 μs for normal CP). The resulting time-domain waveform goes to the DAC and then to the RF chain. For UL: the FHGW performs FFT (removes CP first) to convert received time-domain samples back to frequency-domain subcarriers for the DU to decode.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">FHGW faults that cause RSSI discrepancies:</b><br>
+BFP expansion error: if the exponent bits are corrupted, the IQ amplitudes are wrong by a power of 2 → RSSI off by 6 dB steps.<br>IFFT timing: if FHGW IFFT timing drifts, the cyclic prefix overlaps with the data → inter-symbol interference → EVM increase.<br>eCPRI packet loss: dropped eCPRI packets cause missing subcarriers → DU sees lower RSSI.<br>Clock reference loss: FHGW loses GPS/PTP sync → frame timing drifts → TDD B41 DL/UL collision.
+</div>
+
+<div class="mod-section-title">FHGW digital processing blocks</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Block</th><th>UL function</th><th>DL function</th><th>Why it matters</th></tr>
+<tr><td>FFT / iFFT</td><td>Time→frequency (OFDM demod)</td><td>Frequency→time (OFDM mod)</td><td>Converts between IQ samples and resource elements. FFT size = N subcarriers.</td></tr>
+<tr><td>CP removal / insertion</td><td>Removes cyclic prefix</td><td>Adds cyclic prefix</td><td>CP absorbs multipath delay. LTE normal CP = 4.69 µs.</td></tr>
+<tr><td>BFP compression</td><td>14→9 bit IQ samples</td><td>9→14 bit decompression</td><td>Reduces fronthaul BW. Small EVM floor from quantisation.</td></tr>
+<tr><td>eCPRI framing</td><td>Wraps IQ in Ethernet+timestamp</td><td>Unwraps, extracts timing</td><td>Timing accuracy &lt;260 ns. Errors cause time_offset test failures.</td></tr>
+<tr><td>RSSI at ADC</td><td>Power measured before FFT</td><td>—</td><td>get_rssi CLI reads this raw ADC power in dBFS.</td></tr>
+</table></div>
+<div class="mod-section-title">BFP compression — why it matters for your tests</div>
+<div class="mod-p">Block Floating Point (BFP) encodes a block of 12 IQ samples (one resource block) with a shared 4-bit exponent and individual mantissas. Going from 14-bit raw to 9-bit BFP adds quantisation noise equivalent to ~5 bits of resolution loss. This contributes a small but real EVM floor (~0.1–0.3% EVM) even with a perfect PA. Your EVM spec limits must account for this irreducible floor.</div>
+<div class="tip">The IQ compression ratio directly affects fronthaul bandwidth. A 20 MHz LTE channel (100 RBs × 12 subcarriers) at 30.72 Msps, 14-bit IQ, 2 antennas = ~3.7 Gbps raw. With 9-bit BFP: ~2.4 Gbps. eCPRI over 10GbE handles this comfortably. This is why the fronthaul is specified at 10G/25G in O-RAN deployments.</div>
+  </div>
+  </div><div class="module-card" id="KTB" data-tags="noise fundamentals">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">KTB</span>
+  <span class="mod-title">Thermal Noise Floor — kTB = −174 dBm/Hz, the absolute limit of all receivers</span>
+  <span class="mod-level beg">Beginner</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="background:#1a0d1a;border-left:4px solid #9b8cf8;padding:12px 16px;margin:0 0 14px 0;border-radius:6px;font-size:14px;line-height:1.7">
+<span style="color:#9b8cf8;font-weight:700;font-size:11px;letter-spacing:1px;display:block;margin-bottom:6px">PLAIN ENGLISH FIRST</span>
+<b style="color:#9b8cf8">kTB in one sentence:</b> −174 dBm/Hz is the absolute minimum noise any radio can have — it comes from the random jiggling of electrons in any warm object. You cannot engineer away from this limit. Every sensitivity calculation starts here.
+</div>
+
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:8px 14px;margin:0 0 12px 0;border-radius:4px;font-size:13px">
+<b style="color:#5bc4ef">Quick link — how this connects to DSA:</b><br>
+kTB = −174 dBm/Hz is the first term in the sensitivity formula. This card derives it from first principles. The full chain showing how kTB feeds into sensitivity and then DSA is in the DSA card.<br>
+<span style="color:#4a5470">→ For the complete chain (kTB → NF → Sensitivity → DSA → PRACH), open the <b style="color:#f5a623">DSA</b> card.</span>
+</div>
+<svg width="100%" viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="170" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">kTB = Boltzmann × Temperature × Bandwidth — Full Derivation</text>
+  <rect x="8"   y="28" width="168" height="98" fill="#1a0d2a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="92"  y="50" fill="#9b8cf8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">k — Boltzmann</text>
+  <text x="92"  y="66" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">1.38 × 10⁻²³ J/K</text>
+  <text x="92"  y="82" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Links temp to energy</text>
+  <text x="92"  y="96" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Physical constant — fixed</text>
+  <text x="92"  y="110" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">Cannot be engineered away</text>
+  <text x="182" y="80" fill="#f5a623" font-size="20" text-anchor="middle" font-family="monospace">×</text>
+  <rect x="194" y="28" width="168" height="98" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="278" y="50" fill="#c8b800" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">T — Temperature</text>
+  <text x="278" y="66" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">290 K = 17°C</text>
+  <text x="278" y="82" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">IEEE reference standard</text>
+  <text x="278" y="96" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Real lab: ~298–308 K</text>
+  <text x="278" y="110" fill="#c8b800" font-size="8" text-anchor="middle" font-family="monospace">+0.15 dB at 310 K vs 290 K</text>
+  <text x="368" y="80" fill="#f5a623" font-size="20" text-anchor="middle" font-family="monospace">×</text>
+  <rect x="380" y="28" width="168" height="98" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="464" y="50" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">B — Bandwidth</text>
+  <text x="464" y="66" fill="#c8c8d8" font-size="10" text-anchor="middle" font-family="monospace">Must be in Hz</text>
+  <text x="464" y="82" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">5M→67 · 10M→70 · 20M→73 dB</text>
+  <text x="464" y="96" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Double BW = +3 dB noise</text>
+  <text x="464" y="110" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">You set this in test config</text>
+  <text x="554" y="80" fill="#f5a623" font-size="20" text-anchor="middle" font-family="monospace">=</text>
+  <rect x="566" y="22" width="226" height="110" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="679" y="44" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">−174 dBm/Hz</text>
+  <text x="679" y="62" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">1.38e-23 × 290 × 1 = 4e-21 W</text>
+  <text x="679" y="78" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">= 4e-18 mW = −173.98 dBm</text>
+  <text x="679" y="96" fill="#00d4a0" font-size="9" text-anchor="middle" font-family="monospace">+70 dB (10 MHz)</text>
+  <text x="679" y="112" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">= −104 dBm noise floor</text>
+  <rect x="8" y="136" width="784" height="28" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="400" y="150" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">BW → noise floor: 5 MHz=−107 dBm · 10 MHz=−104 dBm · 15 MHz=−102.2 dBm · 20 MHz=−101 dBm</text>
+  <text x="400" y="162" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">+NF (5.75 dB) and +SNR_req (−1 dB for QPSK 1/3) to get final sensitivity — see DSA card</text>
+</svg>
+
+<h4>Why −174 dBm/Hz is the absolute floor</h4>
+<div style="background:#001a00;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Full numerical derivation:</b><br>
+<code>P = kTB = 1.38×10⁻²³ × 290 × 1 = 4.002×10⁻²¹ watts</code><br>
+<code>= 4.002×10⁻¹⁸ milliwatts</code><br>
+<code>= 10·log(4.002×10⁻¹⁸) = −173.98 dBm ≈ −174 dBm/Hz</code><br><br>
+This is noise power in 1 Hz bandwidth. For any real channel add 10·log(BW_Hz). Common mistake: entering BW in MHz — 10·log(10) = 10 dB, not 70 dB. Always convert to Hz first.
+</div>
+
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Why 290 K is used even though your lab is warmer:</b><br>
+IEEE Std 60268 defines 290 K as the standard noise temperature for all NF and sensitivity specs. This is a measurement convention — it makes results from different labs and manufacturers directly comparable. At your actual lab temperature of ~298 K (25°C), the real noise floor is about 10·log(298/290) = +0.12 dB higher. This is small enough that all 3GPP specs are written using 290 K as the reference without correction.
+</div>
+
+
+<svg width="100%" viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:14px 0 8px">
+  <rect width="800" height="130" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">kTB — Thermal Noise Across Different Bandwidths</text>
+  <rect x="8" y="28" width="784" height="90" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <!-- Formula -->
+  <text x="200" y="50" fill="#f5a623" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">P_noise = k × T × B</text>
+  <text x="20"  y="68" fill="#9b8cf8" font-size="9" font-family="monospace">k = 1.38×10⁻²³ J/K  (Boltzmann constant)</text>
+  <text x="20"  y="82" fill="#5bc4ef" font-size="9" font-family="monospace">T = 290 K           (room temp = 17°C)</text>
+  <text x="20"  y="96" fill="#00d4a0" font-size="9" font-family="monospace">B = bandwidth (Hz)  (the channel you receive)</text>
+  <text x="20"  y="110" fill="#f5a623" font-size="9" font-family="monospace">kTB = −174 dBm/Hz   (per Hz bandwidth at 290K)</text>
+  <!-- Bandwidth examples -->
+  <line x1="395" y1="30" x2="395" y2="115" stroke="#2a3050" stroke-width="1"/>
+  <text x="590" y="50" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">kTB for your bands (10 MHz)</text>
+  <text x="410" y="68" fill="#8892b0" font-size="9" font-family="monospace">B =   200 kHz (GSM):  −174 + 53 = −121 dBm</text>
+  <text x="410" y="82" fill="#8892b0" font-size="9" font-family="monospace">B =  1.25 MHz (CDMA): −174 + 61 = −113 dBm</text>
+  <text x="410" y="96" fill="#f5a623" font-size="9" font-weight="bold" font-family="monospace">B =    10 MHz (LTE):  −174 + 70 = −104 dBm ←yours</text>
+  <text x="410" y="110" fill="#8892b0" font-size="9" font-family="monospace">B =    20 MHz (LTE):  −174 + 73 = −101 dBm</text>
+</svg>
+
+<div style="background:#1a0d1a;border:1px solid #9b8cf8;border-radius:8px;padding:12px;margin:10px 0">
+<b style="color:#9b8cf8">🎯 Analogy: kTB is the sound of the universe itself</b>
+<p style="color:#8892b0;font-size:13px;margin:8px 0">Imagine you are in a quiet room trying to hear someone whisper. Even if the room is completely soundproofed, you still hear a faint hiss — the hiss of air molecules randomly vibrating against your eardrum. That is thermal noise. In electronics: electrons in any resistor randomly jiggle because they have thermal energy (k×T). This jiggling creates tiny random voltages — the noise you can never eliminate unless you cool the component to absolute zero (−273°C). At 290K (room temp), this noise is exactly −174 dBm per Hz of bandwidth. <b style="color:#9b8cf8">Every RF receiver starts its noise calculation from this floor — it cannot do better.</b></p>
+</div>
+
+
+
+<div class="mod-section-title">Yes — −174 dBm/Hz is the minimum noise at room temperature</div>
+<div class="mod-p">You said it exactly right. kTB = −174 dBm/Hz is the minimum possible noise at room temperature. It is not something you can engineer away. As long as your receiver is at 290 K (room temperature), every 1 Hz of bandwidth will contain at least −174 dBm of thermal noise power. The only way to go below this is to physically cool the receiver (cryogenic LNAs used in radio telescopes operate at 4–20 K and achieve noise floors approaching −190 dBm/Hz).</div>
+
+<div class="mod-section-title">Why 290 K and not 300 K (25°C)?</div>
+<div class="mod-p">IEEE defined 290 K as the standard noise temperature reference because it makes kT a round number: kT = 4.0×10⁻²¹ W/Hz exactly. At 300 K it would be 4.14×10⁻²¹ — messier. The difference is only 0.15 dB, negligible for engineering purposes. All 3GPP specs, all Keysight instruments, and all noise figure calculations use 290 K as the reference.</div>
+
+</div>
+</div>
+
+<!-- NOISE CHAIN VISUAL CARD -->
+
+<div class="div-line"></div>
+
+</body>
+</html>

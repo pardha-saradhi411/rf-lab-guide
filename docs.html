@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5bc4ef">
+<title>Test Config &amp; Docs — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/rf-lab-guide/sw.js').catch(()=>{});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="index.html">◀ Home</a>
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip nc-star" href="docs.html">Docs</a>
+    <span class="tb-div"></span>
+    <button class="tag-btn active" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;font-weight:600;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">All</button>
+    <button class="tag-btn" onclick="tagFilter('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
+    <button class="tag-btn" onclick="tagFilter('measurements')" data-tag="measurements" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Measurements</button>
+    <button class="tag-btn" onclick="tagFilter('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
+    <button class="tag-btn" onclick="tagFilter('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
+    <button class="tag-btn" onclick="tagFilter('lte')" data-tag="lte" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">LTE</button>
+    <button class="tag-btn" onclick="tagFilter('5g')" data-tag="5g" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">5G</button>
+    <button class="tag-btn" onclick="tagFilter('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
+    <button class="tag-btn" onclick="tagFilter('rct')" data-tag="rct" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RCT</button>
+    <button class="tag-btn" onclick="tagFilter('protocol')" data-tag="protocol" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Protocol</button>
+    <button class="tag-btn" onclick="tagFilter('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
+    <button class="tag-btn" onclick="tagFilter('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
+    <button class="tag-btn" onclick="tagFilter('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
+    <button class="tag-btn" onclick="tagFilter('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab/Instruments</button>
+    <button class="tag-btn" onclick="tagFilter('interview')" data-tag="interview" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Interview</button>
+    <button class="tag-btn" onclick="tagFilter('framework')" data-tag="framework" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Framework</button>
+    <button class="tag-btn" onclick="tagFilter('handover')" data-tag="handover" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Handover</button>
+    <button class="tag-btn" onclick="tagFilter('ca')" data-tag="ca" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">CA</button>
+    <button class="tag-btn" onclick="tagFilter('csi')" data-tag="csi" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">CSI/KPI</button>
+    <span id="tag-count" style="color:#4a5470;font-size:11px;margin-left:4px"></span>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="card-search" type="text" placeholder="🔍 Search this page…" oninput="filterCards(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:150px">
+    <button onclick="clearSearch()" title="Clear" style="background:none;border:1px solid #2a3050;border-radius:50%;color:#4a5470;width:22px;height:22px;cursor:pointer;font-size:10px;line-height:1">✕</button>
+    <span id="search-count" style="color:#4a5470;font-size:11px;min-width:50px"></span>
+  </div>
+</nav>
+<div style="max-width:1200px;margin:8px auto 0;padding:0 24px;display:flex;gap:8px;align-items:center">
+  <a href="index.html" style="color:#5bc4ef;font-size:12px;text-decoration:none">◀ Back to index</a>
+  <span style="flex:1"></span>
+  <button onclick="expandAll()" style="background:#141720;border:1px solid #2a3050;border-radius:6px;color:#c8c8d8;padding:4px 12px;font-size:11px;cursor:pointer">Expand All</button>
+  <button onclick="collapseAll()" style="background:#141720;border:1px solid #2a3050;border-radius:6px;color:#c8c8d8;padding:4px 12px;font-size:11px;cursor:pointer">Collapse All</button>
+</div>
+<div class="sec-hdr" id="test_configurations" style="background:linear-gradient(90deg,#c8b80011,transparent);border-left:4px solid #c8b800;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🧪</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#c8b800">Test Configurations</span><span style="background:#c8b80022;color:#c8b800;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">RCT + OTA + CONFIG</span></div><div style="font-size:12px;color:#4a5470">RCT Tests · OTA Tests · Test Config JSON · All test procedures</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('test_configurations')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('test_configurations')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
+<div class="div-line"></div>
+<div id="testconfig" class="sec">
+  <div class="sec-hdr">
+    <div class="badge b">CFG</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#a0dff5">Test Config — JSON Reference Decoder</h2>
+      <p>Test-IDs · Group-IDs · Cadence-IDs · Thresholds · rx_limits — what every field means</p>
+    </div>
+  </div>
+
+  <div class="glabel">Frequency point meanings (fm / fb / ft)</div>
+  <div class="grid">
+    <div class="card b"><span class="klabel b">fm — mid-band</span><div class="card-title">Channel center frequency</div><div class="card-desc">The nominal center of the operating band. For B3: 1800 MHz DL. This is the most representative operating frequency. All CI and smoke tests use fm only — fewest variables, fastest result.</div></div>
+    <div class="card b"><span class="klabel b">fb — band-bottom</span><div class="card-title">Lower band edge frequency</div><div class="card-desc">First channel in the operating band. Most affected by the high-pass response of the band-select filter. RSSI accuracy and blocking tests at fb reveal filter roll-off effects on receiver performance.</div></div>
+    <div class="card b"><span class="klabel b">ft — band-top</span><div class="card-title">Upper band edge frequency</div><div class="card-desc">Last channel in the operating band. Affected by the low-pass response of the band-select filter. Together fb/fm/ft give full coverage of performance variation across the band.</div></div>
+  </div>
+
+  <div class="glabel" style="margin-top:24px">ETM — E-UTRA Test Model meanings</div>
+  <div class="grid">
+    <div class="card b"><span class="klabel b">ETM 1.1</span><div class="card-title">Full allocation 64QAM</div><div class="card-desc">All resource blocks allocated, 64QAM modulation, full power. Used for ACLR, EVM, output power — represents peak stress on the PA and spectral performance.</div></div>
+    <div class="card b"><span class="klabel b">ETM 2a</span><div class="card-title">Partial allocation</div><div class="card-desc">Sub-set of RBs allocated. Used for dynamic range tests where partial loading is required. Also used for time offset testing to see offset behavior under partial load.</div></div>
+    <div class="card b"><span class="klabel b">ETM 3.1a</span><div class="card-title">Multi-antenna reference signal</div><div class="card-desc">Includes cell-specific reference signals across multiple antenna ports. Used for EVM and ACLR OTA tests — the reference signal structure is needed for beam coherence measurements.</div></div>
+  </div>
+
+  <div class="glabel" style="margin-top:24px">RRH power thresholds from your config</div>
+  <div class="card b" style="margin-bottom:0">
+    <table class="test-table">
+      <tr><th>Condition</th><th>Band (MHz)</th><th>Pass criteria (dB)</th><th>Min criteria (dB)</th></tr>
+      <tr><td>Normal</td><td>0–3000</td><td>−1.5 to +1.5</td><td>−1.5 to +1.5</td></tr>
+      <tr><td>Normal</td><td>3000–4200</td><td>−1.5 to +1.5</td><td>−1.5 to +1.5</td></tr>
+      <tr><td>Extreme</td><td>0–3000</td><td>−3.2 to +3.2</td><td>−2.5 to +2.5</td></tr>
+      <tr><td>Extreme</td><td>3000–4200</td><td>−3.5 to +3.5</td><td>−2.5 to +2.5</td></tr>
+    </table>
+    <div class="note" style="margin-top:8px">Extreme conditions = temperature extremes (+55°C / −5°C), power supply variations, or vibration. Same test, wider pass window.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- RF COURSE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="div-line"></div>
+<div id="rct" class="sec">
+  <div class="sec-hdr">
+    <div class="badge p">RCT</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#c4b9ff">LTE Radio Conformance Tests — What You Run Daily</h2>
+      <p>TS 36.141 · PUSCH/PUCCH/PRACH waveforms · B3 (1747.5/1842.5 MHz) · PropSim channel emulation · ETM 1.1</p>
+    </div>
+  </div>
+
+  <!-- TEST CADENCE -->
+  <div class="glabel">Test cadence hierarchy (from your config)</div>
+  <div class="grid">
+    <div class="card p">
+      <span class="klabel p">P0 — CI</span>
+      <div class="card-title">Continuous Integration gate</div>
+      <div class="card-desc">Runs on every commit. Fastest possible validation. TS_DL_CI + TS_UL_CI only.</div>
+      <div class="subs">
+        <div class="sub"><span><b>DL:</b> ACLR only — fm frequency, ETM 1.1, 1 BW per band</span></div>
+        <div class="sub"><span><b>UL:</b> Reference Sensitivity Level only — fm, ETM 1.1</span></div>
+        <div class="sub"><span><b>Bands:</b> b0103=10MHz · b0307=20MHz · b41=10MHz · b082028=10MHz</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">P1 — Nightly</span>
+      <div class="card-title">Nightly regression build</div>
+      <div class="card-desc">Broader coverage, all three frequency points (fb/fm/ft), no ETM on DL.</div>
+      <div class="subs">
+        <div class="sub"><span><b>DL:</b> PA Protection + modulation analysis + ACLR + dynamic range</span></div>
+        <div class="sub"><span><b>UL:</b> Sensitivity + RSSI + PRACH · ETM 1.1</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">P2 — Regression</span>
+      <div class="card-title">Full regression — all BWs</div>
+      <div class="card-desc">All bandwidth variants: b0103=[5,10,15,20], b0307=[5,20], b41=[5,10,15,20]</div>
+      <div class="subs">
+        <div class="sub"><span><b>DL:</b> Output Power + Freq Error + EVM + time offset + ACLR</span></div>
+        <div class="sub"><span><b>UL:</b> Sensitivity + RSSI + PRACH · all 3 frequency points</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">P3 — Sanity</span>
+      <div class="card-title">Quick sanity check</div>
+      <div class="card-desc">Single BW per band, fm only, ETM 1.1. Fast go/no-go check after config changes.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">P4 — Smoke</span>
+      <div class="card-title">Smoke test — pre-checks only</div>
+      <div class="card-desc">test_PreChecks only. Verifies hardware is alive, firmware loads, ports are responsive.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">P5 — RSSI Accuracy</span>
+      <div class="card-title">RSSI accuracy — fb (band edge)</div>
+      <div class="card-desc">TS_UL_RSSI_ACC. Runs at fb (band-edge frequency) — the hardest frequency for RSSI accuracy. ETM 1.1.</div>
+    </div>
+  </div>
+
+  <!-- TX TESTS -->
+  <div class="glabel" style="margin-top:28px">Tx test deep-dive — downlink (base station transmit)</div>
+  <div class="grid">
+    <div class="card p">
+      <span class="klabel p">test_Tx_BS_Output_Power</span>
+      <div class="card-title">BS output power accuracy</div>
+      <div class="card-desc">Verifies RU transmits at declared output power within ±1.5 dB tolerance (normal conditions) or ±3.2 dB (extreme). Measured using EXM channel power measurement at fm.</div>
+      <div class="subs">
+        <div class="sub"><span>Normal band 0–3 GHz: pass ±1.5 dB · extreme: ±3.2 dB</span></div>
+        <div class="sub"><span>Normal band 3–4.2 GHz: pass ±1.5 dB · extreme: ±3.5 dB</span></div>
+      </div>
+      <div class="tip">Tolerance from your RRH-Thresholds config: channelPower normal band_0_3000: min -1.5 max +1.5</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_EVM</span>
+      <div class="card-title">Error vector magnitude</div>
+      <div class="card-desc">Modulation quality. 3GPP TS 36.141 limits per ETM: ETM 1.1 tests 64QAM EVM. Measured at fm. Also run OTA (test_Tx_EVM_OTA) for ETM 3.1a.</div>
+      <div class="subs">
+        <div class="sub"><span>QPSK: ≤ 17.5% EVM</span></div>
+        <div class="sub"><span>16QAM: ≤ 12.5% EVM</span></div>
+        <div class="sub"><span>64QAM: ≤ 8% EVM</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_ACLR</span>
+      <div class="card-title">Adjacent channel leakage ratio</div>
+      <div class="card-desc">How much TX power leaks into adjacent LTE/UTRA channels. Most frequently run test (CI, Nightly, Regression, Sanity). ETM 1.1, fm.</div>
+      <div class="subs">
+        <div class="sub"><span>E-UTRA ACLR ≥ 45 dBc (±1 carrier offset)</span></div>
+        <div class="sub"><span>UTRA ACLR ≥ 50 dBc (±5/10 MHz offset)</span></div>
+      </div>
+      <div class="tip">Also runs OTA (test_Tx_ACLR_OTA) at ETM 3.1a. OTA ACLR accounts for beam pattern effects.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_FrequencyError</span>
+      <div class="card-title">Carrier frequency error</div>
+      <div class="card-desc">How accurately the RU hits the target center frequency. 3GPP limit: ±0.05 ppm (Wide Area BS). At B3 (1800 MHz) that's ±90 Hz. Caused by oscillator drift, temperature, aging.</div>
+      <div class="subs">
+        <div class="sub"><span>Wide Area BS: ±0.05 ppm</span></div>
+        <div class="sub"><span>Local Area BS: ±0.1 ppm</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_time_offset</span>
+      <div class="card-title">Transmit time offset</div>
+      <div class="card-desc">Timing accuracy of the transmitted frame vs. expected timing reference. Runs at ETM 1.1, 2a, and 3.1a — broadest ETM coverage of any single test. fm only.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Tx_Mask</span>
+      <div class="card-title">Spectrum emission mask (SEM)</div>
+      <div class="card-desc">Checks TX spectrum against 3GPP emission mask out to ±30 MHz and beyond the carrier. ETM 1.1 and 1.2. Broader than ACLR — covers all out-of-band emissions.</div>
+      <div class="warn">SEM failures can cause regulatory non-compliance — blocks deployment approval.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Tx_Spurious</span>
+      <div class="card-title">Transmitter spurious emissions</div>
+      <div class="card-desc">Measures harmonic and intermodulation products appearing outside the operating band. TS 36.141 clause checked by spectrum sweep across 30 MHz–12.75 GHz range.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_dynamic_range</span>
+      <div class="card-title">Output power dynamic range</div>
+      <div class="card-desc">Tests the RU can accurately produce power from maximum down to minimum (−6 dB, −10 dB, etc.). ETM 2a, 3.1a, 2.0, 3.1. Nightly and Sanity only. Verifies PA linearity across its range.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_DLRS</span>
+      <div class="card-title">Downlink reference signal quality</div>
+      <div class="card-desc">Checks the Cell Reference Signal (CRS) EVM and power accuracy. ETM 1.1 only. CRS must be accurate for UE channel estimation — degraded CRS = UE cannot decode DL data.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_TimeAlignment</span>
+      <div class="card-title">Time alignment error (TAE)</div>
+      <div class="card-desc">For multi-antenna MIMO: maximum timing difference between antenna branches. 3GPP limit: ≤ 65 ns (intra-band) for release 8+. Critical for MIMO spatial multiplexing quality.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Tx_modulation_analysis</span>
+      <div class="card-title">Modulation analysis bundle</div>
+      <div class="card-desc">Compound test = [Output Power + EVM + Freq Error + DLRS + time offset] in one run. Used in Nightly and Sanity. Efficient: 5 measurements from one captured waveform.</div>
+    </div>
+  </div>
+
+  <!-- RX TESTS -->
+  <div class="glabel" style="margin-top:28px">Rx test deep-dive — uplink (base station receive)</div>
+  <div class="grid">
+    <div class="card p">
+      <span class="klabel p">test_Rx_Reference_Sensitivity_Level</span>
+      <div class="card-title">Reference sensitivity (REFSENS)</div>
+      <div class="card-desc">The minimum signal level the RU can correctly receive. 3GPP defines this as the power level at which PUSCH throughput ≥ 95% of max for a fixed reference channel (FRC).</div>
+      <div class="subs">
+        <div class="sub"><span>Wide Area BS: −69 dBm (1.4/3/5/10/15/20 MHz) — from your rx_limits_validation_conditions</span></div>
+        <div class="sub"><span>Test signal: PUSCH QPSK, 1 layer, specific FRC</span></div>
+        <div class="sub"><span>Channel: AWGN (baseline), EPA5, EVA70 for fading</span></div>
+      </div>
+      <div class="tip">Most critical UL test. If REFSENS fails, coverage shrinks — cell edge users cannot connect.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Rx_RSSI</span>
+      <div class="card-title">Received signal strength indicator</div>
+      <div class="card-desc">Verifies the RU accurately reports RSSI — the total received power across the channel bandwidth including signal, interference, and noise.</div>
+      <div class="subs">
+        <div class="sub"><span>Measured at fm (mid-band frequency)</span></div>
+        <div class="sub"><span>Compared against expected value with ±2 dB typical tolerance</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_Rx_RSSI_Accuracy</span>
+      <div class="card-title">RSSI accuracy at band edge</div>
+      <div class="card-desc">Tests RSSI accuracy specifically at fb (band-edge frequency) — where filter roll-off causes the most measurement error. P5 cadence only. ETM 1.1.</div>
+      <div class="warn">Band-edge is hardest: filter response is not flat, RU must still accurately report RSSI within spec. Most RUs show highest RSSI error here.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Rx_ACS</span>
+      <div class="card-title">Adjacent channel selectivity (ACS)</div>
+      <div class="card-desc">RU's ability to receive a wanted signal in the presence of a strong adjacent channel interferer. Tests all 3 frequency points (fb/fm/ft). Signal is on wanted channel, interferer is ±1 channel offset.</div>
+      <div class="subs">
+        <div class="sub"><span>Wanted signal at REFSENS + 3 dB</span></div>
+        <div class="sub"><span>Interferer: +16 dB above wanted signal (adjacent channel)</span></div>
+        <div class="sub"><span>Pass: throughput ≥ 95% of max</span></div>
+      </div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Rx_ICS</span>
+      <div class="card-title">In-channel selectivity (ICS)</div>
+      <div class="card-desc">Ability to receive a weak wanted resource block allocation in the presence of a strong interferer within the same channel bandwidth. Tests all 3 freq points.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Rx_NB_blocking</span>
+      <div class="card-title">Narrowband blocking</div>
+      <div class="card-desc">RU must correctly receive wanted signal when a strong CW (narrowband) interferer is present just outside the operating band. Tests fb/fm/ft. Models real-world out-of-band interference.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Rx_blocking</span>
+      <div class="card-title">In-band blocking</div>
+      <div class="card-desc">Blocking by a strong signal anywhere within the operating band but on a different channel. fm only. Tests AGC and front-end linearity when a nearby strong signal is present.</div>
+    </div>
+    <div class="card p">
+      <span class="klabel p">test_lte_Rx_intermodulation</span>
+      <div class="card-title">Receiver intermodulation</div>
+      <div class="card-desc">Two interfering signals create an intermodulation product that falls on the wanted signal's frequency. Tests the RU receiver's third-order intercept point (IIP3) — a measure of linearity.</div>
+      <div class="subs">
+        <div class="sub"><span>Two interferers: f1 and f2, spaced so 2f1−f2 or 2f2−f1 falls on wanted channel</span></div>
+        <div class="sub"><span>Tests fb/fm/ft</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUCCH CONFIG -->
+  <div class="glabel" style="margin-top:28px">Test waveform config — from your PUCCH JSON (B3, 1747.5/1842.5 MHz)</div>
+  <div class="card p" style="margin-bottom:0">
+    <div class="card-title" style="margin-bottom:10px">What each field means in your PUCCH test vectors</div>
+    <table class="test-table">
+      <tr><th>Field</th><th>Value (example)</th><th>Meaning</th></tr>
+      <tr><td class="spec-ref">DL_Freq_ant</td><td>1842.5,0</td><td>DL center = 1842.5 MHz (B3 DL), ant port 0</td></tr>
+      <tr><td class="spec-ref">UL_Freq_ant</td><td>1747.5,0</td><td>UL center = 1747.5 MHz (B3 UL). FDD duplex gap = 95 MHz</td></tr>
+      <tr><td class="spec-ref">BW</td><td>5/10/15/20</td><td>Channel bandwidth in MHz</td></tr>
+      <tr><td class="spec-ref">ant</td><td>2 or 4</td><td>Number of RX antenna ports at the RU (2T2R or 4T4R)</td></tr>
+      <tr><td class="spec-ref">Channel</td><td>AWGN/EPA5/EVA70/ETU300</td><td>Propagation channel model via PropSim. AWGN=no fading, EPA/EVA/ETU=fading profiles</td></tr>
+      <tr><td class="spec-ref">format</td><td>1/1a/1b/1b_cs</td><td>PUCCH format. Format 1=scheduling request only. 1a=1-bit ACK/NACK. 1b=2-bit ACK/NACK. 1b_cs=channel selection</td></tr>
+      <tr><td class="spec-ref">num_users</td><td>1/10/20/18/36</td><td>Number of simultaneous PUCCH users in the waveform — tests capacity and interference</td></tr>
+      <tr><td class="spec-ref">num_resource</td><td>1_of_1, 10_of_18</td><td>Which PUCCH resource out of how many available — tests resource allocation across the band edges</td></tr>
+      <tr><td class="spec-ref">delta_shfit</td><td>1 or 2</td><td>PUCCH delta shift (ΔShift). Controls spreading code spacing in the PUCCH CDM grid. δshift=2 gives capacity 18 users, δshift=1 gives 36</td></tr>
+      <tr><td class="spec-ref">ETM</td><td>1.1</td><td>E-UTRA Test Model — defines the downlink signal structure. ETM 1.1 = full allocation 64QAM</td></tr>
+      <tr><td class="spec-ref">cable_loss</td><td>-77</td><td>Total cable + attenuator loss in dB between PropSim output and RU antenna port. Used to set correct signal level at RU input.</td></tr>
+      <tr><td class="spec-ref">ext_delay</td><td>0.009997485</td><td>External cable group delay in seconds (~10 ms — PropSim to RU round-trip timing compensation for TA)</td></tr>
+    </table>
+    <div class="tip" style="margin-top:10px">Channel profiles: EPA5 = Extended Pedestrian A at 5 km/h (low mobility, 3 taps). EVA70 = Extended Vehicular A at 70 km/h (medium mobility, 9 taps). ETU300 = Extended Typical Urban at 300 km/h (high speed, 9 taps). These model real-world propagation for receiver sensitivity testing under fading.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- NR OTA TESTS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="div-line"></div>
+<div id="ota" class="sec">
+  <div class="sec-hdr">
+    <div class="badge c">OTA</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#ffbbbb">NR OTA Tests — TS 38.141-2 (Radiated Conformance)</h2>
+      <p>Massive MIMO / AAS base stations · EIRP · TRP · EIS · CATR anechoic chamber · FR1 (sub-6 GHz)</p>
+    </div>
+  </div>
+
+  <!-- OTA FUNDAMENTALS -->
+  <div class="glabel">OTA testing fundamentals — before any test</div>
+  <div class="grid">
+    <div class="card c">
+      <span class="klabel c">WHY OTA?</span>
+      <div class="card-title">Why radiated testing exists</div>
+      <div class="card-desc">Modern 5G NR massive MIMO (AAS — Active Antenna Systems) has the antenna array integrated inside the RU with no external RF connectors. You cannot plug in a cable to the antenna port. The only way to measure the RU's radiated performance is over the air.</div>
+      <div class="note">Your RU (Metro AAU) is exactly this type — the 3GPP calls it BS Type 1-O (FR1 OTA only) or BS Type 1-H (hybrid — some conducted TAB connectors + OTA at RIB).</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">EIRP</span>
+      <div class="card-title">Effective isotropic radiated power</div>
+      <div class="card-desc">The power that a hypothetical isotropic (radiating equally in all directions) antenna would need to emit to match the power the DUT radiates in its peak beam direction. EIRP = TX Power + Antenna Gain.</div>
+      <div class="subs">
+        <div class="sub"><span>Measured in the far field in the beam peak direction</span></div>
+        <div class="sub"><span>Units: dBm (absolute) or dBi relative to isotropic</span></div>
+        <div class="sub"><span>Used for TX conformance: output power, ACLR, EVM</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">TRP</span>
+      <div class="card-title">Total radiated power</div>
+      <div class="card-desc">Integral of radiated power over the entire sphere (all angles). TRP is lower than peak EIRP — it captures the efficiency of the whole antenna pattern. Requires 3D sphere scan.</div>
+      <div class="subs">
+        <div class="sub"><span>TRP = sum of EIRP in all measured directions, weighted by solid angle</span></div>
+        <div class="sub"><span>Radiated transmit power test (TS 38.141-2 §6.2)</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">EIS</span>
+      <div class="card-title">Effective isotropic sensitivity</div>
+      <div class="card-desc">Minimum signal power density (W/m²) from a far-field source that the receiver can successfully decode. EIS is the OTA analogue of conducted REFSENS. Lower EIS = more sensitive receiver.</div>
+      <div class="subs">
+        <div class="sub"><span>Used for RX conformance: sensitivity, ACS, blocking</span></div>
+        <div class="sub"><span>Measured in beam peak direction</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">CATR</span>
+      <div class="card-title">Compact antenna test range</div>
+      <div class="card-desc">The anechoic chamber method used for OTA testing. A parabolic reflector converts the near-field spherical wave from a feed antenna into a plane wave (far-field equivalent) in a much shorter distance. The quiet zone (QZ) is where the DUT sits.</div>
+      <div class="subs">
+        <div class="sub"><span>Far-field distance = 2D²/λ. At 2 GHz a 30 cm array needs 60m — CATR reduces this to 2-3m</span></div>
+        <div class="sub"><span>3GPP-approved method per TR 38.810</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">BS TYPES</span>
+      <div class="card-title">3GPP base station type taxonomy</div>
+      <div class="card-desc">3GPP defines which test standard applies based on BS type. Your Metro AAU is most likely Type 1-H or 1-O.</div>
+      <div class="subs">
+        <div class="sub"><span><b>Type 1-C:</b> conducted only (traditional macro BTS with external antenna) → TS 38.141-1</span></div>
+        <div class="sub"><span><b>Type 1-H:</b> hybrid — has TAB connectors AND OTA RIB → both TS 38.141-1 and 38.141-2</span></div>
+        <div class="sub"><span><b>Type 1-O:</b> FR1, OTA only, no connectors → TS 38.141-2 only</span></div>
+        <div class="sub"><span><b>Type 2-O:</b> FR2 (mmWave), OTA only → TS 38.141-2 only</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTA TX TESTS -->
+  <div class="glabel" style="margin-top:28px">OTA transmitter tests — TS 38.141-2 Chapter 6</div>
+  <div class="grid">
+    <div class="card c">
+      <span class="klabel c">§6.2 — Radiated TX Power</span>
+      <div class="card-title">OTA base station output power (TRP)</div>
+      <div class="card-desc">Measures total radiated power across the full sphere. Compares measured TRP against the manufacturer's declared TRP value within the specified accuracy window. Requires full 3D sphere measurement.</div>
+      <div class="subs">
+        <div class="sub"><span>Declared EIRP per beam identity and beam direction pair</span></div>
+        <div class="sub"><span>Rated beam EIRP = max power at beam peak direction</span></div>
+        <div class="sub"><span>Accuracy window specified per operating band in TS 38.104</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.3 — OTA Output Power</span>
+      <div class="card-title">OTA base station output power (EIRP)</div>
+      <div class="card-desc">Measured at the beam peak direction using EIRP. Verifies the RU hits its declared EIRP within the specified tolerance. Single direction measurement — faster than TRP but less complete.</div>
+      <div class="subs">
+        <div class="sub"><span>Test at declared beam peak direction</span></div>
+        <div class="sub"><span>EIRP tolerance: typically ±3 dB for normal conditions</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.4 — Output Power Dynamics</span>
+      <div class="card-title">OTA output power dynamics</div>
+      <div class="card-desc">Tests accurate power control across the full dynamic range. RU must hit target power at all levels from maximum down to minimum (−6/−10/−30 dB below max). Tests PA linearity and power control accuracy.</div>
+      <div class="subs">
+        <div class="sub"><span>On/off power ratio: ratio of TX-ON to TX-OFF power level</span></div>
+        <div class="sub"><span>Transient period: time for power to ramp up/down within spec</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.5.1 — OTA Frequency Error</span>
+      <div class="card-title">OTA carrier frequency accuracy</div>
+      <div class="card-desc">Same concept as conducted freq error but measured OTA. The radiated carrier must be within ±0.05 ppm of the declared frequency. Measured by demodulating the received OFDM signal and comparing subcarrier positions to nominal.</div>
+      <div class="subs">
+        <div class="sub"><span>Wide Area BS: ±0.05 ppm (same as conducted)</span></div>
+        <div class="sub"><span>At 3.5 GHz: ±0.05 ppm = ±175 Hz</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.5.2 — OTA EVM</span>
+      <div class="card-title">OTA error vector magnitude</div>
+      <div class="card-desc">Modulation quality measured OTA in the beam peak direction. Uses a probe antenna in the CATR quiet zone connected to the signal analyzer. Same EVM limits as conducted, but now includes antenna array effects.</div>
+      <div class="subs">
+        <div class="sub"><span>QPSK: ≤ 17.5% · 16QAM: ≤ 12.5% · 64QAM: ≤ 8%</span></div>
+        <div class="sub"><span>256QAM: ≤ 3.5% (where supported)</span></div>
+        <div class="sub"><span>Uses NR test models (NR-TM 1.1, 2, 3.1 etc.)</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.5.3 — OTA TAE</span>
+      <div class="card-title">OTA time alignment error</div>
+      <div class="card-desc">Maximum timing difference between antenna branches, measured OTA. For AAS systems the timing of all antenna elements must be coordinated for correct beamforming. TAE error degrades MIMO and beamforming gain.</div>
+      <div class="subs">
+        <div class="sub"><span>Intra-band: ≤ 65 ns (Rel-15/16)</span></div>
+        <div class="sub"><span>Measured between beam pairs at known angular positions</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.6.2 — OTA OBW</span>
+      <div class="card-title">OTA occupied bandwidth</div>
+      <div class="card-desc">Bandwidth containing 99% of total radiated power. Must remain within the allocated channel bandwidth. For a 100 MHz NR channel: OBW ≤ 99 MHz (leaving 0.5 MHz guard each side).</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.6.3 — OTA ACLR</span>
+      <div class="card-title">OTA adjacent channel leakage ratio</div>
+      <div class="card-desc">Measured OTA in beam peak direction. Power leaking into adjacent NR/LTE channels. Adds beamforming pattern effects on top of conducted PA nonlinearity.</div>
+      <div class="subs">
+        <div class="sub"><span>NR ACLR: ≥ 45 dBc (sub-6 GHz)</span></div>
+        <div class="sub"><span>UTRA ACLR: ≥ 45 dBc</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.6.4 — OTA OBUE</span>
+      <div class="card-title">OTA operating band unwanted emissions</div>
+      <div class="card-desc">Spectrum emission mask measured OTA — checks unwanted emissions across the operating band from the carrier edge out to the channel edge. Tests the overall spectral cleanliness of the radiated signal.</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.6.5 — OTA Spurious</span>
+      <div class="card-title">OTA transmitter spurious emissions</div>
+      <div class="card-desc">Harmonic and intermodulation products measured OTA across the full spurious domain (9 kHz–12.75 GHz). These can interfere with completely different services (GPS, aviation, emergency services). Strict absolute power limits.</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§6.7 — OTA Tx Intermod</span>
+      <div class="card-title">OTA transmitter intermodulation</div>
+      <div class="card-desc">A second signal is injected into the RU transmitter path. The resulting intermodulation products (2f1−f2, etc.) are measured OTA. Tests PA linearity when the antenna port faces a strong reflected signal (antenna mismatch or nearby transmitter).</div>
+      <div class="warn">Requires a second signal generator injecting into the antenna port — different test setup from all other TX tests.</div>
+    </div>
+  </div>
+
+  <!-- OTA RX TESTS -->
+  <div class="glabel" style="margin-top:28px">OTA receiver tests — TS 38.141-2 Chapter 7</div>
+  <div class="grid">
+    <div class="card c">
+      <span class="klabel c">§7.2 — OTA Sensitivity</span>
+      <div class="card-title">OTA reference sensitivity (EIS)</div>
+      <div class="card-desc">OTA equivalent of conducted REFSENS. The signal generator illuminates the RU via a probe antenna in the CATR. Level is swept down until PUSCH throughput falls below 95%. The level at which this happens (expressed as EIS in dBm/m²) is the sensitivity.</div>
+      <div class="subs">
+        <div class="sub"><span>EIS = EIRP of source − path gain + DUT sensitivity angle correction</span></div>
+        <div class="sub"><span>Measured in beam peak direction</span></div>
+        <div class="sub"><span>Equivalent to conducted: −69 dBm for Wide Area BS</span></div>
+      </div>
+      <div class="tip">This is the single hardest OTA test to pass — any beamforming loss, PA noise leakage, or antenna inefficiency shows up directly as degraded EIS.</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§7.3 — OTA Dynamic Range</span>
+      <div class="card-title">OTA receiver dynamic range</div>
+      <div class="card-desc">Tests the RU can receive correctly when a strong in-band signal is present simultaneously. AGC must handle the level difference. Measured OTA with wanted signal and interferer both transmitted from the CATR.</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§7.4/7.5 — OTA ACS/IB Blocking</span>
+      <div class="card-title">OTA in-band selectivity and blocking</div>
+      <div class="card-desc">ACS: wanted signal + adjacent channel interferer transmitted simultaneously from different angles (DFF chamber) or same angle (CATR). RU must correctly receive the wanted signal at 95% throughput.</div>
+      <div class="subs">
+        <div class="sub"><span>Wanted: fm at REFSENS + 3 dB</span></div>
+        <div class="sub"><span>Interferer: +16 dBm above wanted, ±1 channel offset</span></div>
+      </div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§7.6 — OTA OOB Blocking</span>
+      <div class="card-title">OTA out-of-band blocking</div>
+      <div class="card-desc">Strong CW interferer well outside the operating band. Tests the RU receiver front-end filter rejection. If the filter is inadequate, the interferer desensitizes the LNA or saturates the ADC.</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§7.7 — OTA Rx Spurious</span>
+      <div class="card-title">OTA receiver spurious emissions</div>
+      <div class="card-desc">The RU receiver can itself radiate spurious signals via the antenna (LO leakage, oscillator harmonics). These must be below specified absolute limits. Unique to OTA — the antenna is radiating these spurious signals into free space.</div>
+    </div>
+    <div class="card c">
+      <span class="klabel c">§7.8 — OTA Rx Intermod</span>
+      <div class="card-title">OTA receiver intermodulation</div>
+      <div class="card-desc">Two strong interferers at f1 and f2 create an intermodulation product at 2f1−f2 that falls on the wanted channel. Tests RU receiver front-end IIP3. Critical for deployments near existing base stations on adjacent bands.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TEST CONFIG REFERENCE -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="div-line"></div>
+<div class="sec-hdr" id="docs_videos" style="background:linear-gradient(90deg,#4a547011,transparent);border-left:4px solid #4a5470;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📁</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#4a5470">Docs & Videos</span><span style="background:#4a547022;color:#4a5470;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">REFERENCE</span></div><div style="font-size:12px;color:#4a5470">PPT/Docs · Operations guides · Expert video series · Channels</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:4px 24px 8px;display:flex;gap:8px;justify-content:flex-end"><button onclick="expandSection('docs_videos')" style="background:#1e2535;color:#5bc4ef;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer;font-weight:600">▼ Expand All</button><button onclick="collapseSection('docs_videos')" style="background:#1e2535;color:#4a5470;border:1px solid #2a3050;border-radius:6px;padding:4px 12px;font-size:11px;cursor:pointer">▲ Collapse All</button></div>
+
+<div class="module-card" id="PPT1" data-tags="rssi calibration lab">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PPT1</span>
+  <span class="mod-title">RSSI ADC Adjustment Results — actual calibration data from your hardware</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>RSSI ADC calibration results — actual data from your units</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">What this document contains:</b><br>
+Per-unit, per-band, per-column ADC_ADJUST values measured during factory calibration. Shows pre- and post-calibration RSSI error for units 26050508 and 26050509. Reference for expected ADC_ADJUST ranges per band — if a field-measured value deviates > 3 dB from factory, the RU has drifted and needs recalibration.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How to use this data:</b><br>
+Compare your get_rssi readings against the factory ADC_ADJUST baseline. Systematic offset = ADC_ADJUST wrong. Per-column variation > 3 dB from others = that column has hardware issue. Temperature-correlated drift = TEMP_COMP table needs updating.
+</div>
+
+<div class="mod-section-title">Firmware version tested</div>
+<div class="mod-formula">Build Label: gc1e2cb17-b0103
+Git Branch: develop
+Git Commit: c1e2cb1780e82622a1811b95c1e046395bf58eed
+PL Build Date: 2025-05-27 19:48:52
+XSA: vvdn_dbru_4cc_top.bit</div>
+
+<div class="mod-section-title">Calibration procedure (verbatim from the deck)</div>
+<div class="mod-p">The calculation of the required offset correction was done by setting a known power level at the signal generator, measuring the RSSI that is read, and repeating the process for 3 different power levels. Measurements were done using a CW tone at the center frequency of each band.</div>
+<div class="mod-p">After 3 measurements, an approximated linear line is fitted and an average offset is determined. This offset is written to <code style="background:#0d0f14;border:1px solid #232840;padding:1px 5px;border-radius:3px">/etc/configs/hardware.json</code> — the ADC_ADJUST vector, one entry per ADC (0–7). Then automation sweeps: <code style="background:#0d0f14;border:1px solid #232840;padding:1px 5px;border-radius:3px">[-40 dBm : 1 dB step : -120 dBm]</code></div>
+
+<div class="mod-section-title">Summary results — ALL RFFEs summed, Antenna 0</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>ADC Index</th><th>Band</th><th>ANT</th><th>ADC RMS at sensitivity point (dBFS)</th><th>2 dB Error Margin point (dBm)</th></tr>
+<tr><td>0</td><td>B1</td><td>0</td><td>−44.9</td><td>−95.5</td></tr>
+<tr><td>2</td><td>B3</td><td>0</td><td>−43.3</td><td>−93.5</td></tr>
+</table></div>
+
+<div class="mod-section-title">Full per-antenna results (RFFE0, all antennas)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>ADC</th><th>Band</th><th>ADC_Adj (dBFS)</th><th>3dB Sensitivity Point (dBFS)</th><th>2dB Margin Point (dBm)</th></tr>
+<tr><td>0</td><td>B1</td><td>−20.9</td><td>−59.2</td><td>−84.5</td></tr>
+<tr><td>1</td><td>B1</td><td>−24.6</td><td>−59.5</td><td>−82.5</td></tr>
+<tr><td>2</td><td>B3</td><td>−20.8</td><td>−55.7</td><td>−86.5</td></tr>
+<tr><td>3</td><td>B3</td><td>−23.1</td><td>−58.0</td><td>−84.5</td></tr>
+<tr><td>4</td><td>B1</td><td>−21.6</td><td>−60.7</td><td>−80.5</td></tr>
+<tr><td>5</td><td>B1</td><td>−24.2</td><td>−58.9</td><td>−88.5</td></tr>
+<tr><td>6</td><td>B3</td><td>−28.3</td><td>−54.9</td><td>−82.5</td></tr>
+<tr><td>7</td><td>B3</td><td>−30.5</td><td>−54.0</td><td>−88.5</td></tr>
+</table></div>
+<div class="tip">2 dB error margin = the power level at which the RSSI reading deviates from the linear fit by 2 dB. This is the practical sensitivity point of the RSSI measurement — below this, the readout is no longer reliable. The per-ADC spread (−80.5 to −88.5 dBm) is exactly why each ADC needs its own ADC_ADJUST offset in hardware.json.</div>
+<div class="tip">3 dB point = the power level just above the ADC noise floor — the deepest the ADC can still "see" any signal at all. The 2 dB error margin is always higher (less negative) than the 3 dB point, since you need some margin above the noise floor before RSSI readings become meaningful.</div>
+</div>
+</div><div class="module-card" id="PPT2" data-tags="pa efficiency testing">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PPT2</span>
+  <span class="mod-title">PA Efficiency Test Plan — 5-band AAU, Dynamic Vdd, test procedure</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>PA efficiency test plan — 5-band AAU, Dynamic Vdd</h4>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">PA efficiency test method:</b><br>
+Measure DC input power (V × I) and RF output power simultaneously. Efficiency = P_RF_out / P_DC_in × 100%. Test at: rated power, 3 dB backoff, 6 dB backoff. Repeat with Dynamic Vdd enabled and disabled. Expected: Dynamic Vdd improves average efficiency by 10–15 percentage points at 6 dB backoff.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Dynamic Vdd step configuration:</b><br>
+Vdd steps are configured in the PA_VDD_TABLE register. Each step corresponds to an output power range. Number of steps and threshold power levels are configurable. More steps = smoother efficiency curve but more switching transients. Typical: 4–8 steps from minimum Vdd (low power) to maximum Vdd (rated power).
+</div>
+
+<div class="mod-section-title">RF signal data per band (real power targets)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Band</th><th>CC BW (MHz)</th><th>DL Freq (MHz)</th><th>Ant Tx Power per PA (dBm)</th><th>TRP (dBm)</th><th>Tx with BF Gain (dBm)</th></tr>
+<tr><td>B1</td><td>10</td><td>2140</td><td>38.4</td><td>44.4</td><td>50.4</td></tr>
+<tr><td>B3</td><td>10</td><td>1842.5</td><td>38.5</td><td>44.5</td><td>50.5</td></tr>
+<tr><td>B8</td><td>10</td><td>942.5</td><td>40.2</td><td>43.2</td><td>46.2</td></tr>
+<tr><td>B28</td><td>10</td><td>780.5</td><td>41.3</td><td>44.3</td><td>47.3</td></tr>
+<tr><td>B41</td><td>10</td><td>2593</td><td>38.6</td><td>44.6</td><td>50.6</td></tr>
+</table></div>
+
+<div class="mod-section-title">Dynamic Vdd settings (all bands)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Band</th><th>Vdd Nominal</th><th>Vdd_Low1 (50% occupancy)</th><th>Vdd_Low2 (30% occupancy)</th></tr>
+<tr><td>B1</td><td>40 V</td><td>32 V</td><td>25 V</td></tr>
+<tr><td>B3</td><td>40 V</td><td>32 V</td><td>25 V</td></tr>
+<tr><td>B8</td><td>48 V</td><td>TBD</td><td>TBD</td></tr>
+<tr><td>B28</td><td>48 V</td><td>TBD</td><td>TBD</td></tr>
+<tr><td>B41</td><td>45 V</td><td>TBD</td><td>TBD</td></tr>
+</table></div>
+
+<div class="mod-section-title">Configuration variables</div>
+<div class="mod-formula">Vgg3_p: −6.5 V (datasheet), −5.5 V, −4.5 V
+Occupancy: 100%, 50%, 30%, 0% (Traffic Static Load Types)
+Pre-CFR Gain register 0xb0290000:
+  Occupancy > 50%: 0xD7
+  Occupancy ≤ 50%: 0x128</div>
+
+<div class="mod-section-title">Measurement procedure (B1B3 example)</div>
+<div class="mbullet">Vdd_Nominal = 40 V: Measure ACLR/EVM/Tx Power at 100%, 50%, 30%, 0% occupancy — this is the reference.</div>
+<div class="mbullet">Vdd_Low1 = 32 V, Occupancy = 50%: Compensate CFR and adjust Tx power via DAC Current to match 40 V reference. Measure 50%, 30%, 0% occupancy.</div>
+<div class="mbullet">Vdd_Low2 = 25 V, Occupancy = 50%: Same — compensate CFR + DAC, measure all occupancies.</div>
+<div class="mbullet">For each Vdd point: measure current from main PSU (−48 V), PSU #1–3, DC-DC converters (via CB-MCU). Calculate drain efficiency = RF power out / DC power in.</div>
+<div class="mbullet">Also measure: temperature sensors (FHGW / RFFE / Common-Board). Verify ACLR/EVM stay within 3GPP spec throughout all Vdd transitions.</div>
+
+<div class="mod-section-title">What the measurements prove</div>
+<div class="mod-p">Beamforming gain verification: at coherent phases across all elements, verify ~+12 dB gain for B1/B3/B41 (12-element arrays) and ~+6 dB for B8/B28 (6-element arrays) relative to single PA TX power. This is the antenna array gain in action — phase alignment across all branches producing constructive interference in the beam direction.</div>
+</div>
+</div><div class="module-card" id="PPT3" data-tags="rct embedded ul">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PPT3</span>
+  <span class="mod-title">FHGW Embedded RCT — standalone UL test, CLI, memory management, real timing</span>
+  <span class="mod-level adv">Advanced</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>FHGW embedded RCT — standalone UL test, CLI commands</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">FHGW standalone mode:</b><br>
+FHGW can run a subset of RCT without full DU connection. In this mode: FHGW generates its own timing, enables RU RF, configures EXM via SCPI, reads get_rssi, and compares against embedded limits. Useful for: initial hardware bring-up, field deployment without full lab setup, quick smoke test.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Key CLI commands in FHGW mode:</b><br>
+<code>fhgw_rct start --band B1 --bw 10M</code>: starts embedded RCT for B1.<br><code>fhgw_rct status</code>: shows current test progress.<br><code>fhgw_rct results</code>: prints PASS/FAIL per test case.<br><code>fhgw_rf_enable B1</code>: enables B1 RF path.<br><code>fhgw_exm_set --freq 1950e6 --power -95</code>: configures EXM.
+</div>
+
+<div class="mod-section-title">Why it exists</div>
+<div class="mod-p">Traditional UL RCT needs: DU + PHY Docker + FHSRV Docker + RU + signal generator + grandmaster + networking. The embedded RCT removes everything except the RU and signal generator. One CLI command. Catches RX-chain regressions at the box level, fast, before DU integration.</div>
+
+<div class="mod-section-title">Prerequisites</div>
+<div class="mbullet">FHGW with embedded RCT firmware image (includes ru-ulsim and ru-dvt-cli)</div>
+<div class="mbullet">Signal generator with 3GPP FRC waveforms (A1-3, A3-x, A5-x at target bandwidth)</div>
+<div class="mbullet">RF cabling from signal generator to target antenna port</div>
+<div class="mbullet">NO DU required · NO external test PC required for execution · NO external test scripts</div>
+
+<div class="mod-section-title">4-stage pipeline (with real timing data)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Stage</th><th>Component</th><th>What it does</th><th>% of processing time</th></tr>
+<tr><td>1</td><td>IQ Record</td><td>Captures raw IQ from FPGA channel-filter tap into tmpfs. ~2.5 MB/frame at 61.44 Msps.</td><td>~25%</td></tr>
+<tr><td>2</td><td>Downsample (lte_downsample)</td><td>Converts FHGW sample rate to PHY decoder input rate</td><td>~24%</td></tr>
+<tr><td>3</td><td>PHY Decode (test_ulsim)</td><td>O-RAN 7.2x low-PHY: FFT, channel estimation, demap, decode, CRC</td><td>~49%</td></tr>
+<tr><td>4</td><td>Results</td><td>BLER, SNR, RSSI to shell and per-run log files</td><td>~2%</td></tr>
+</table></div>
+<div class="mod-p">Total time per sensitivity step: ~33 seconds. PHY decode dominates at 49% — this is the bottleneck. Memory: 768 MB pre-reserved as 2 MB hugepages for PHY decoder, 1 GB tmpfs at boot for binaries + IQ. Auto-cleanup keeps only the 5 most recent runs.</div>
+
+<div class="mod-section-title">CLI modes and examples</div>
+<div class="mod-formula">ul-rct-test 35 a13 10 0 100 --debug   # Full run, all params, with debug output
+ul-rct-test -sc 4 2                    # Shortcut mode, positional args
+ul-rct-test -l                         # List all supported scenarios (18 total)
+ul-rct-test 10 a34 0                   # → Result: BLER 0.00%  SNR 24.6 dB
+
+Modes:
+Normal: summary only (BLER, SNR, RSSI) — built for Python automation
+Debug: per-stage timing + full PHY logs + constellation output</div>
+
+<div class="mod-section-title">Supported scenarios</div>
+<div class="mod-p">18 scenarios total: A1-3 QPSK (sensitivity cases) and A3/A5 QPSK/64QAM (PUSCH performance cases), across B1/B3 at 5/10/15/20 MHz. A1 = Rx sensitivity. A3/A5 = PUSCH throughput performance. The framework is band-agnostic — extensible to NR FRCs.</div>
+
+<div class="mod-section-title">Power monitor limits you validate against</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Band</th><th>Max output (dBm)</th><th>Sensitivity (dBm)</th><th>Power monitor (dBFS)</th></tr>
+<tr><td>B1</td><td>−16.7</td><td>−69</td><td>−16.7 dBFS · −8.8 dBFS [dpd_i]</td></tr>
+<tr><td>B3</td><td>−15.7</td><td>−69</td><td>−16.7 dBFS · −8.8 dBFS [dpd_i]</td></tr>
+<tr><td>B41 (TDD)</td><td>−23</td><td>—</td><td>−16.7 dBFS · −8.8 dBFS [dpd_i]</td></tr>
+</table></div>
+</div>
+</div><div class="module-card" id="OPS1" data-tags="rct lte test-plan">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">OPS1</span>
+  <span class="mod-title">4G Test Plan — band mapping, rated power, antenna ports, NETCONF bring-up</span>
+  <span class="mod-level exp">Expert</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>4G test plan — band mapping, rated power, antenna ports</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Band to BOB SMA port mapping:</b><br>
+ B1 DL (2140 MHz): BOB SMA J1 (Column A), J2 (B), J3 (C), J4 (D). B3 DL (1843 MHz): same ports, band-selected by RFFE. B8 DL (942 MHz): BOB SMA J5 (A), J6 (B) — only 2 columns for LB. B28 DL (758 MHz): J5, J6. B41 DL (2545 MHz): J1–J4 (shares HB RFFE with B1/B3). Check unit-specific drawing — port labels vary by AAU revision.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">Rated power targets (coupler output at BOB SMA):</b><br>
+B1: −16.7 dBm · B3: −15.7 dBm · B8: −18.0 dBm · B28: −27.3 dBm · B41: −23.0 dBm. These already account for the −30 dB coupler ratio. Add 30 dB to get antenna port power: B1 antenna = +13.3 dBm per column = 21 mW. Full system with 4 columns coherent BF: +13.3 + 6 = +19.3 dBm EIRP (before antenna element gain).
+</div>
+
+<div class="mod-section-title">FHGW + BOB antenna mapping (real port assignments)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Band group</th><th>Band</th><th>Active TX ports</th><th>Active RX ports</th></tr>
+<tr><td>b0103</td><td>B1</td><td>Tx4, Tx1, Tx8, Tx5</td><td>Rx1, Rx2, Rx5, Rx6</td></tr>
+<tr><td>b0103</td><td>B3</td><td>Tx3, Tx2, Tx7, Tx6</td><td>Rx3, Rx4, Rx7, Rx8</td></tr>
+<tr><td>b0307</td><td>B3</td><td>Tx6, Tx7</td><td>Rx6, Rx7</td></tr>
+<tr><td>b0307</td><td>B7</td><td>Tx5, Tx8</td><td>Rx5, Rx8</td></tr>
+<tr><td>b082028</td><td>B8</td><td>Tx1, Tx2, Tx3, Tx4</td><td>Rx1, Rx2, Rx5, Rx6</td></tr>
+<tr><td>b082028</td><td>B20</td><td>Tx5, Tx6, Tx7, Tx8</td><td>Rx1, Rx2, Rx3, Rx4</td></tr>
+<tr><td>b082028</td><td>B28</td><td>Tx5, Tx6, Tx7, Tx8</td><td>Rx3, Rx4, Rx7, Rx8</td></tr>
+<tr><td>b41</td><td>B41</td><td>Tx5, Tx6, Tx7, Tx8</td><td>Rx1, Rx2, Rx5, Rx6</td></tr>
+</table></div>
+
+<div class="mod-section-title">Rated output power at FHGW BOB SMA ports (conducted, no RFFE)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Band group</th><th>Band</th><th>P_rated (dBm)</th></tr>
+<tr><td>b0103</td><td>B1</td><td>−16.7</td></tr>
+<tr><td>b0103</td><td>B3</td><td>−15.7</td></tr>
+<tr><td>b0307</td><td>B3</td><td>−23.4</td></tr>
+<tr><td>b0307</td><td>B7</td><td>−26.4</td></tr>
+<tr><td>b082028</td><td>B8</td><td>−18.0</td></tr>
+<tr><td>b082028</td><td>B20</td><td>−19.2</td></tr>
+<tr><td>b082028</td><td>B28</td><td>−27.3</td></tr>
+<tr><td>b41</td><td>B41</td><td>−23.0</td></tr>
+</table></div>
+<div class="tip">Pass criterion: |P_meas − P_rated| ≤ ±1.5 dB (PW internal gate, tighter than 3GPP's ±2.7 dB). Worked example B3: P_rated = −15.7 dBm, P_meas = −15.3 dBm → diff = 0.4 dB → PASS.</div>
+
+<div class="mod-section-title">FHGW platform classes — which can host which band group</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>FHGW class</th><th>Active DACs</th><th>Supported band groups</th></tr>
+<tr><td>ME class</td><td>8 active DACs</td><td>b0103, b082028</td></tr>
+<tr><td>MM class</td><td>4 active DACs (rfdc_ids 4–7)</td><td>b0307, b0407, n78, n78l</td></tr>
+<tr><td>B41 class</td><td>4 active DACs (tile 0)</td><td>b41</td></tr>
+</table></div>
+<div class="warn">Do NOT rewrite EEPROM to a band group outside the chassis hardware class. The radio will boot but the personality won't match the silicon — carriers won't activate and RF tests will all fail with no obvious reason.</div>
+
+<div class="mod-section-title">Bench bring-up sequence (condensed)</div>
+<div class="mod-formula">Step 1:  ssh root@&lt;DU_IP&gt;
+Step 2:  arp -n  →  find FHGW IP under fronthaul interface
+Step 3:  EXM: *RST; INST:SEL LTEAFDD (or LTEATDD for B41)
+Step 4:  Calibrate cable loss per (antenna × freq point) → store in cable_loss.json
+Step 5:  SSH to FHGW: personality-app --flavour  →  verify matches band group
+Step 6:  netopeer2-cli → connect localhost → edit-config with ConfigID_LTE.xml
+Step 7:  Push PTP profile: set-ru-ptp-config-G8275-1.xml
+Step 8:  Push processing elements: set-processing-elements.xml
+Step 9:  Activate carriers: ACTIVE_B03C00A0A1.xml + ACTIVE_B03C00A2A3.xml
+Step 10: LRCP: r lrcp_rru_cfg_4ant.js  →  confirm radio_broadcast_ready
+Step 11: DU shell: ./l1.sh -rct  (foreground, leave open)
+Step 12: DU shell: ./l2.sh  →  testmac> prompt</div>
+
+<div class="mod-section-title">Firmware installation (from Artifactory)</div>
+<div class="mod-formula"># Download from Artifactory:
+# pw-products/ru-app/release/REL_2025.4.x/&lt;version&gt;/ruapp/PWAAU-2025.4.1-100-g4a7799f1-b0103.zip
+
+# On FHGW:
+cd /run/media/mmcblk0p4
+# SCP the zip from NUC to FHGW via DU
+./upgrade.sh PWAAU-2025.4.1-100-g4a7799f1-b0103.zip 0
+# Verify version:
+cat /etc/rfsoc_fru_detail.txt
+# Verify PTP sync:
+tail -f /var/log/synctimingptp2.log  # should show synchronized + errors &lt;10 ns</div>
+</div>
+</div><div class="module-card" id="OPS2" data-tags="rct automation ci-cd">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">OPS2</span>
+  <span class="mod-title">Validation Team Handbook — Agile, CI/CD, PreChecks, Jenkins, Bitbucket</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>Validation team handbook — Agile, CI/CD, PreChecks</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Pre-check before any test session:</b><br>
+PreCheck = automated script that verifies instrument connectivity, RU boot status, GPS lock, DPD convergence, cable connections. Run before every RCT session. PreCheck failure stops the test and reports which item failed — saves hours of debugging measurements taken with wrong setup.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">CI/CD for firmware testing:</b><br>
+Every firmware commit triggers automated RCT smoke test on the bench unit. Jenkins pipeline: build firmware → flash to RU → run PreCheck → run abbreviated RCT (key tests only, 15 min) → pass/fail report posted to Slack. Full RCT (2–3 hours) run on release candidates. If CI fails: firmware commit reverted automatically.
+</div>
+
+<div class="mod-section-title">Development process</div>
+<div class="mod-formula">Branch: private/&lt;user&gt;/&lt;JIRA-TICKET&gt;-&lt;description&gt;
+Flow:
+1. Open private branch from develop
+2. Commit + push significant changes
+3. Merge DEV into private (resolve conflicts)
+4. Run CI pipelines — verify no degradation
+5. Open Pull Request to Adiel and Dor for review
+6. Fix any notes → merge to DEV → run CI regression
+7. If all pass → merge DEV to Integ/CI</div>
+
+<div class="mod-section-title">CI/CD Jenkins jobs per band</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Bands</th><th>Nightly Job</th><th>CI Job</th></tr>
+<tr><td>B1B3</td><td>RCT-4G-GR-Nightly-TRX1</td><td>RCT-GR-CI-B1B3</td></tr>
+<tr><td>B8</td><td>RCT-4G-GR-Nightly-TRX1</td><td>RCT-GR-CI-B82028</td></tr>
+<tr><td>B3B7</td><td>RCT-4G-GR-Nightly-TRX2</td><td>RCT-GR-CI-B3B7</td></tr>
+<tr><td>B4B7</td><td>RCT-4G-GR-Nightly-TRX2</td><td>RCT-GR-CI-B4B7</td></tr>
+<tr><td>N78</td><td>RCT-5G-GR-Nightly-TRX4</td><td>RCT-GR-CI-N78</td></tr>
+<tr><td>B41 (TDD)</td><td>RCT-4G-GR-Nightly-TRX5</td><td>RCT-GR-CI-B41</td></tr>
+</table></div>
+
+<div class="mod-section-title">8 PreChecks that run on every CI merge</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>#</th><th>PreCheck</th><th>What it verifies</th></tr>
+<tr><td>1</td><td>Version Release Information</td><td>Correct SW/FW loaded on unit</td></tr>
+<tr><td>2</td><td>Power Monitor DL</td><td>DL digital power (dBFS) in normal range (−25 to −18 dBFS)</td></tr>
+<tr><td>3</td><td>CFR Input Power</td><td>CFR input level correct for working point</td></tr>
+<tr><td>4</td><td>DPD Gain Register</td><td>DPD configured with correct register values</td></tr>
+<tr><td>5</td><td>DPD Input Power + PAPR</td><td>DPD being fed correct level and seeing expected PAPR</td></tr>
+<tr><td>6</td><td>Activation File Verification</td><td>Right activation XML present and valid</td></tr>
+<tr><td>7</td><td>Factory XMLs Directory</td><td>Calibration data present and correct</td></tr>
+<tr><td>8</td><td>Model Name EEPROM Verification</td><td>Unit identifies as expected model/flavor</td></tr>
+</table></div>
+<div class="tip">All 8 PreChecks must pass before any RF test runs. Failure at PreCheck saves hours — it catches misconfiguration, wrong firmware, or hardware state issues before the 45-minute test suite runs and gives confusing failures.</div>
+</div>
+</div><div class="module-card" id="VID" data-tags="learning resources">
+  <div class="module-hdr" onclick="toggleModule(this)">
+    <span class="mod-num">VID</span>
+    <span class="mod-title">Week-by-week learning plan — tailored for RF test engineer at Parallel Wireless</span>
+    <span class="mod-level mid">All Levels</span>
+    <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+  </div>
+  <div class="module-body" style="display:none">
+<h4>Week-by-week learning plan</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">How to use this plan:</b><br>
+Each week focuses on one layer of the RF stack. Week 1: dB/dBm, impedance, basic chain. Week 2: modulation, OFDM, IQ. Week 3: TX chain, PA, DPD, ACLR. Week 4: RX chain, LNA, NF, sensitivity. Week 5: VNA, S-parameters, phase cal. Week 6: automation, SCPI, RuAuto. Lab alongside each week — theory and lab always together.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Priority cards for your current work:</b><br>
+DSA (sensitivity and test thresholds), A05 (TX chain), A06 (RX chain), NCH (noise chain), NF_CAL, GAIN_CAL, VNA4-7 (phase cal), M07 (ACLR), M12 (RCT config), SET1 (bench setup). These 11 cards cover 80% of what you do daily. Master these first, then expand to the rest.
+</div>
+
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Week</th><th>Topics</th><th>Best resource</th><th>Why</th></tr>
+<tr><td>1</td><td>RF Basics, dBm, Gain, Loss, Noise Figure</td><td>Keysight RF Back to Basics</td><td>Closest to your bench work — EXA/EXM context</td></tr>
+<tr><td>2</td><td>LNA, PA, Filters, Mixers, Duplexer</td><td>Keysight + The Signal Path</td><td>The Signal Path does real teardowns of real instruments</td></tr>
+<tr><td>3</td><td>PLL, LO, IQ signals, ADC, DAC</td><td>Analog Devices + TI</td><td>ADI invented half these chips — authoritative</td></tr>
+<tr><td>4</td><td>FFT, OFDM, Sampling, DSP</td><td>Neso Academy + All About Electronics</td><td>Clear step-by-step math with animations</td></tr>
+<tr><td>5</td><td>LTE PHY — resource grid, PDSCH, PRACH, PUCCH</td><td>Amarisoft YouTube</td><td>Protocol level detail matching TS 36.141</td></tr>
+<tr><td>6</td><td>5G NR PHY — numerology, beamforming, massive MIMO</td><td>Amarisoft + MathWorks</td><td>MathWorks has interactive 5G simulations</td></tr>
+<tr><td>7</td><td>MAC, RLC, PDCP — upper layers</td><td>Wireless Future YouTube</td><td>Best LTE/5G call flow explanations</td></tr>
+<tr><td>8</td><td>RRC, NAS, complete call flow</td><td>TelecomHall YouTube</td><td>End-to-end from UE attach to data flow</td></tr>
+<tr><td>9</td><td>O-RAN architecture — O-RU, O-DU, O-CU, RIC</td><td>O-RAN Alliance videos + PW resources</td><td>Your daily work context</td></tr>
+<tr><td>10</td><td>RF Validation — spectrum analyzer, EVM, ACLR, cable loss</td><td>Rohde & Schwarz YouTube</td><td>Best instrument measurement tutorials</td></tr>
+<tr><td>11</td><td>Spectrum Analyzer deep dive — VNA, EXA, EXM</td><td>Rohde & Schwarz + Keysight</td><td>Direct application to your instruments</td></tr>
+<tr><td>12</td><td>Interview/expert review — all topics</td><td>All of the above</td><td>Revisit weak areas, do self-checks from modules</td></tr>
+</table></div>
+  </div>
+  </div><div class="module-card" id="CH" data-tags="learning resources">
+  <div class="module-hdr" onclick="toggleModule(this)">
+    <span class="mod-num">CH</span>
+    <span class="mod-title">Top channels and videos — direct links with what to watch</span>
+    <span class="mod-level beg">Reference</span>
+    <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+  </div>
+  <div class="module-body" style="display:none">
+<h4>Top channels and videos — RF learning resources</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Best YouTube channels for RF:</b><br>
+<b>Keysight</b>: official EXA/EXM/VNA tutorials, measurement techniques. <b>National Instruments</b>: RF fundamentals, spectrum analysis. <b>w2aew</b>: practical RF, antenna measurements, component testing. <b>Rohde & Schwarz</b>: 5G NR measurements, O-RAN testing. <b>MATLAB</b>: signal processing, OFDM simulation, beamforming animations.
+</div>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Key video topics to watch:</b><br>
+How DPD works (Keysight application notes). VNA calibration procedure (Keysight ENA series videos). OFDM explained visually (MATLAB channel). 5G NR UL/DL structure (R&S 5G videos). Noise figure measurement (Keysight NF analyser tutorial). PA load pull for efficiency (Maury Microwave).
+</div>
+
+
+<div class="mod-section-title">⭐⭐⭐⭐⭐ Must-watch channels</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Channel</th><th>Best videos for you</th><th>Why</th></tr>
+<tr><td><a href="https://www.youtube.com/@KeysightLabs" target="_blank" style="color:#00d4a0">Keysight Labs</a></td><td>RF Back to Basics · RF Microwave Signal Chain · Spectrum Analysis Fundamentals · Signal Generation</td><td>Closest to your EXA/EXM/VNA daily work. Topics: Signal Chain, LNA, PA, Mixers, Filters, ADC, DAC, Spectrum Analyzer, FFT, RBW, VBW, Dynamic Range, S-Parameters, VNA, Phase Noise, PLL. This is the #1 channel for your job.</td></tr>
+<tr><td><a href="https://www.youtube.com/@RohdeSchwarz" target="_blank" style="color:#00d4a0">Rohde & Schwarz</a></td><td>Spectrum Analyzer Basics · Vector Signal Analyzer · OFDM · IQ Signals · EVM · ACLR · LTE · 5G NR · Precision in Under 5 Minutes playlist</td><td>Best measurement tutorials. R&S instruments are equivalent to your Keysight — same concepts, great teaching.</td></tr>
+<tr><td><a href="https://www.youtube.com/@TheSignalPath" target="_blank" style="color:#00d4a0">The Signal Path</a></td><td>Mixers, PLL, ADC, DAC, RF Filters, Spectrum Analyzer, VNA, SDR, RF Measurements</td><td>One of the best RF channels ever. Real equipment teardowns and deep technical analysis. Watch after Keysight basics.</td></tr>
+<tr><td><a href="https://www.youtube.com/@AnalogDevices" target="_blank" style="color:#00d4a0">Analog Devices</a></td><td>ADC, DAC, Sampling, IQ Signals, DSP, RF Front Ends</td><td>Authoritative on data converters. ADI makes the ADCs/DACs in most RFSoCs. Their tutorials on dBFS, dynamic range, and IQ directly apply to your FHGW.</td></tr>
+<tr><td><a href="https://www.youtube.com/@Amarisoft" target="_blank" style="color:#00d4a0">Amarisoft</a></td><td>LTE PHY, 5G PHY, Resource Grid, PDSCH, PUSCH, PRACH, DMRS</td><td>Protocol-level LTE/5G detail matching TS 36.141. Watch for PRACH, PUCCH formats, and resource grid mapping to your test waveforms.</td></tr>
+<tr><td><a href="https://www.youtube.com/@MathWorks" target="_blank" style="color:#00d4a0">MathWorks</a></td><td>LTE Toolbox, 5G Toolbox, OFDM, FFT, Beamforming, Massive MIMO</td><td>Interactive simulations. Shows what happens to the signal at each stage — visualise things you can only measure at work.</td></tr>
+</table></div>
+
+<div class="mod-section-title">Your 3 specific YouTube links</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Link</th><th>Topic</th><th>Watch for</th></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=aQd_zBytid8" target="_blank" style="color:#f5a623">youtube.com/watch?v=aQd_zBytid8</a></td><td>RF Signal Chain fundamentals</td><td>LNA → mixer → filter → ADC chain — exactly what David drew on the whiteboard. Reinforces M03 and M16.</td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=1xGncBvWv6U" target="_blank" style="color:#f5a623">youtube.com/watch?v=1xGncBvWv6U</a></td><td>Spectrum Analyzer — ACLR measurement</td><td>How ACLR is set up on a real spectrum analyzer. RBW, VBW, reference level, cable loss. Directly applies to your EXA daily use.</td></tr>
+<tr><td><a href="https://www.youtube.com/watch?v=rMVAQsUudSs" target="_blank" style="color:#f5a623">youtube.com/watch?v=rMVAQsUudSs</a></td><td>Understanding Spectrum Analyzers</td><td>FFT, RBW, noise floor, dynamic range — why these settings matter. Watch before your next ACLR or EVM measurement session.</td></tr>
+</table></div>
+
+<div class="mod-section-title">Additional channels worth bookmarking</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Channel</th><th>Best use</th></tr>
+<tr><td><a href="https://www.youtube.com/@NESOAcademy" target="_blank" style="color:#9b8cf8">Neso Academy</a></td><td>Digital Communication, FFT, Sampling, Nyquist — clear math with examples</td></tr>
+<tr><td><a href="https://www.youtube.com/@AllAboutElectronics" target="_blank" style="color:#9b8cf8">All About Electronics</a></td><td>ADC, DAC, PLL, Filters, OFDM — visual explanations</td></tr>
+<tr><td><a href="https://www.youtube.com/@WirelessFuture" target="_blank" style="color:#9b8cf8">Wireless Future</a></td><td>LTE/5G architecture, RRC, MAC, PHY, call flows</td></tr>
+<tr><td><a href="https://www.youtube.com/@TelecomHall" target="_blank" style="color:#9b8cf8">TelecomHall</a></td><td>LTE/5G network optimization, KPI, RAN architecture</td></tr>
+<tr><td><a href="https://www.youtube.com/@TexasInstruments" target="_blank" style="color:#9b8cf8">Texas Instruments</a></td><td>RF Basics Getting Started (31 min) · TI Precision Labs for ADC/DAC deep dives</td></tr>
+<tr><td><a href="https://www.youtube.com/@NIglobal" target="_blank" style="color:#9b8cf8">National Instruments</a></td><td>SDR, RF Testing, LabVIEW, Signal Processing</td></tr>
+<tr><td><a href="https://www.youtube.com/@w2aew" target="_blank" style="color:#9b8cf8">W2AEW</a></td><td>VNA use, S-parameters, Smith charts, oscilloscopes — best hands-on RF channel</td></tr>
+</table></div>
+
+<div class="mod-section-title">Key Rohde & Schwarz resources</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Resource</th><th>URL</th></tr>
+<tr><td>How to measure cable loss</td><td><a href="https://www.rohde-schwarz.com/us/products/test-and-measurement/essentials-test-equipment/spectrum-analyzers/how-to-measure-cable-loss_258130.html" target="_blank" style="color:#00d4a0">rohde-schwarz.com → cable loss measurement</a></td></tr>
+<tr><td>Testing Fundamentals Hub</td><td><a href="https://www.rohde-schwarz.com/us/solutions/wireless-communications-testing/" target="_blank" style="color:#00d4a0">R&S Testing Fundamentals</a></td></tr>
+<tr><td>Keysight LTE overview</td><td><a href="https://helpfiles.keysight.com/csg/89600B/Webhelp/Subsystems/lte/content/lte_overview.htm" target="_blank" style="color:#00d4a0">Keysight LTE overview (VSA)</a></td></tr>
+</table></div>
+
+<div class="mod-section-title">LinkedIn resource</div>
+<div class="mod-p">Your LinkedIn link on RSSI: <a href="https://www.linkedin.com/posts/techlte-world-ba58071b7_rssi-received-signal-strength-indicator-activity-7434096402265464832-hWam" target="_blank" style="color:#00d4a0">TechLTE World — RSSI Explained</a>. Good visual explainer of RSSI vs RSRP vs SINR — the three metrics that confuse most engineers. RSSI = total wideband power (M04). RSRP = reference signal power per RE (much cleaner signal quality indicator). SINR = wanted / (noise + interference) — the quality metric schedulers actually use.</div>
+  </div>
+  </div><div class="module-card" id="VID1" data-tags="modulation measurements video">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">VID1</span>
+  <span class="mod-title">Constellation Diagram Diagnosis — reading impairments from IQ plots (YouTube aQd_zBytid8)</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>Constellation diagram diagnosis — reading IQ impairments</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">Constellation shape → root cause:</b><br>
+<b>Tight clusters at ideal points</b>: excellent EVM, all good. <b>Spread/fuzzy clusters</b>: phase noise (LO quality) or thermal noise (SNR too low). <b>Offset from grid</b>: DC offset / LO leakage. <b>One axis compressed</b>: IQ amplitude imbalance. <b>Grid rotated</b>: IQ phase imbalance. <b>All points compressed inward</b>: PA compression (DPD failure or over-driven). <b>Asymmetric spread</b>: phase noise on one sideband (LO filtering issue).
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">EVM floor — what sets it:</b><br>
+Phase noise: LO quality sets the irreducible EVM floor regardless of SNR. Better SNR will not improve EVM once phase-noise-limited. Quantisation: 12-bit ADC SQNR = 74 dB → EVM floor from ADC ≈ 0.02% (negligible). Nonlinearity: P1dB compression → EVM increases sharply. At rated power with DPD: EVM < 3% typically. Without DPD: EVM > 10%.
+</div>
+
+<div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=aQd_zBytid8" target="_blank" style="color:#f5a623">Watch: Interpreting Constellation Diagrams (YouTube)</a> — covers how to diagnose signal impairments from the IQ scatter plot. Here is everything the video teaches, applied to your EXM and RU work.</div>
+
+<div class="mod-section-title">What a constellation diagram is</div>
+<div class="mod-p">A constellation diagram plots received IQ samples as dots on a 2D plane. The ideal symbol positions are shown as reference points (circles or crosses). Every received sample should land exactly on an ideal point. The spread, shape, and position of the cloud around each ideal point tells you exactly what is wrong with the signal.</div>
+
+<div class="mod-section-title">How to read it on your EXM</div>
+<div class="mod-p">On the E6640A EXM: Meas → EVM → Display → Constellation. You see all received symbols as dots. Perfect signal: tight clusters at each constellation point. Impaired signal: clouds, rings, rotations, or asymmetric spreads.</div>
+
+<div class="mod-section-title">Complete impairment diagnosis table</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>What you see on constellation</th><th>Root cause</th><th>Where to look in your RU</th></tr>
+<tr><td>All dots rotated by a fixed angle (whole constellation spun)</td><td>Carrier frequency offset — LO is not exactly on channel center. The constellation spins at a rate = frequency error × 2π.</td><td>Check EARFCN config. Measure frequency error in EVM Meas Setup. LO PLL lock status.</td></tr>
+<tr><td>Dots expand outward (concentric rings instead of tight clusters)</td><td>Phase noise on LO — random phase jitter smears each point into an arc.</td><td>Check EXA Phase Noise measurement on LO output. Clean up 10 MHz reference. Temperature of oscillator.</td></tr>
+<tr><td>Uniform cloud (all points equally smeared in all directions)</td><td>AWGN / thermal noise — signal level too low relative to noise floor. Too much NF in the chain, or signal too weak.</td><td>Check received power level. Check LNA NF. Check cable loss and external attenuation.</td></tr>
+<tr><td>Cross-shaped smear (points elongated along I or Q axis)</td><td>IQ imbalance — gain mismatch between I and Q paths. One axis has more noise than the other.</td><td>Run IQ calibration on FHGW. Check I/Q gain balance in baseband. ADC channel offset.</td></tr>
+<tr><td>Points split — each ideal point becomes two ghost points</td><td>Phase imbalance (quadrature error) — I and Q paths are not exactly 90° apart.</td><td>Run IQ calibration. Check LO quadrature hybrid splitter.</td></tr>
+<tr><td>Inner constellation points OK, outer points smeared</td><td>AM-AM compression — PA or ADC compressing on the high-power symbols. High PAPR peaks hit P1dB.</td><td>Reduce TX power. Check DPD convergence. Verify CFR threshold. Check ADC not clipping (dBFS near 0).</td></tr>
+<tr><td>Points in a curved arc instead of a straight line</td><td>AM-PM distortion — phase shifts with amplitude. PA nonlinearity that DPD hasn't corrected.</td><td>Check DPD model. Reduce TX power. DPD observation path may be saturated.</td></tr>
+<tr><td>Entire constellation shifted off-centre (DC offset)</td><td>DC offset in baseband — LO leakage in direct-conversion (zero-IF) mixer appears as DC component.</td><td>Run DC offset calibration. Check zero-IF calibration registers in FHGW.</td></tr>
+<tr><td>Every other point wrong — 2-point ambiguity</td><td>Pilot contamination or wrong cell ID (PCI) — EXM descrambling wrong reference signals.</td><td>Set correct PCI in EXM Meas Setup. Verify RU PCI in YANG model.</td></tr>
+<tr><td>Columns of points compressed horizontally</td><td>Memory effects in PA — the distortion depends on recent signal history, not just current amplitude. DPD doesn't fully correct.</td><td>Memory DPD (longer filter taps). Check PA temperature — thermal effects cause memory.</td></tr>
+<tr><td>Specific RBs have bad EVM, others OK</td><td>Frequency-selective fading or filter notch — affects only certain subcarriers.</td><td>Check cable connector quality. Check duplexer/filter response on VNA. Multipath in test setup.</td></tr>
+<tr><td>EVM bad at start of each subframe, improves later</td><td>PA startup transient — PA not fully settled after TDD switch-on. Bias sequencing issue.</td><td>Check uSleep wake timing. Check RENESAS bias sequence. Increase guard period.</td></tr>
+</table></div>
+
+<div class="mod-section-title">EVM floor breakdown (what limits your minimum EVM)</div>
+<div class="mod-formula">Total EVM² = EVM_noise² + EVM_phase² + EVM_IQ² + EVM_BFP² + EVM_DPD²
+
+EVM_noise:  from thermal noise and receiver NF
+EVM_phase:  from LO phase noise (at subcarrier offsets within channel BW)
+EVM_IQ:     from IQ imbalance (gain + phase mismatch)
+EVM_BFP:    from BFP compression in eCPRI fronthaul (~0.1–0.3%)
+EVM_DPD:    residual from imperfect DPD model
+
+Practical floor: a perfectly calibrated system still has ~0.3–0.5% EVM from noise + BFP alone.
+If you see EVM > 1% with everything calibrated → DPD or PA issue.</div>
+
+<div class="tip">When EVM is exactly at the 3GPP limit (e.g. 8% for 64QAM) — reduce TX power by 3 dB. If EVM drops significantly → PA compression. If EVM stays the same → noise or IQ calibration issue.</div>
+</div>
+</div><div class="module-card" id="VID2" data-tags="aclr measurements video">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">VID2</span>
+  <span class="mod-title">Spectrum Analyzer ACLR Measurement Setup — complete step-by-step (YouTube 1xGncBvWv6U)</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>Spectrum analyser ACLR measurement — step by step setup</h4>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">EXA ACLR setup procedure:</b><br>
+1. Connect BOB SMA + 30 dB attenuator pad to EXA input. 2. Press Mode → LTE. 3. Set centre freq = DL band centre (e.g. 2140 MHz for B1). 4. Press Meas → ACLR. 5. Set channel BW = 10 MHz. 6. Set atten = 10 dB (total input atten = 10 + 30 = 40 dB). 7. Preamp: OFF. 8. Set averaging = 10 sweeps. 9. Wait 60s for DPD convergence. 10. Read ACLR result. Pass: ACLR_adj < −45 dBc.
+</div>
+<div style="background:#1a0d0d;border-left:3px solid #ff6b6b;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#ff6b6b">Common ACLR measurement errors:</b><br>
+Preamp ON with TX signal → input compresses → ACLR appears 10 dB better than reality (false pass). Insufficient attenuation → same error. Not waiting for DPD → ACLR is 10–15 dB worse than final (false fail or premature debugging). Wrong channel BW setting → integration bands wrong → wrong result. Always double-check: atten total, preamp OFF, DPD converged, correct channel BW.
+</div>
+
+<div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=1xGncBvWv6U" target="_blank" style="color:#f5a623">Watch: Understanding Spectrum Analyzers — ACLR (YouTube)</a> — how ACLR is set up on a real analyzer. Everything from that video applied to your EXA/EXM.</div>
+
+<div class="mod-section-title">What ACLR actually measures (the physics)</div>
+<div class="mod-p">When a PA amplifies an OFDM signal, its nonlinearity creates intermodulation products. These fall at frequencies outside the original channel — in the adjacent channels. ACLR measures how much power leaked out: it is the ratio of the power in the adjacent channel to the power in the main channel, expressed in dBc (negative = adjacent is quieter). Higher dBc value = less leakage = better.</div>
+<div class="mod-formula">ACLR = 10×log₁₀(P_adjacent / P_carrier)  [dBc, always negative]
+3GPP limit for LTE Wide Area BS:
+  E-UTRA offset (±1 carrier BW):  ≥ 45 dBc
+  UTRA offset (5/10 MHz offset):  ≥ 50 dBc
+PW internal gate: typically 54–55 dBc (tighter than 3GPP)</div>
+
+<div class="mod-section-title">Step-by-step setup on your EXA (for manual ACLR)</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>Step</th><th>Key</th><th>Setting</th><th>Why</th></tr>
+<tr><td>1</td><td>Mode</td><td>LTE FDD (or TDD for B41)</td><td>Loads LTE measurement personality</td></tr>
+<tr><td>2</td><td>Freq</td><td>Center = carrier freq (e.g. 1842.5 MHz for B3 fm)</td><td>Centers the display on your carrier</td></tr>
+<tr><td>3</td><td>AMPTD</td><td>Ref Level = expected power + 10 dB</td><td>Signal fits in screen without clipping</td></tr>
+<tr><td>4</td><td>AMPTD → Ext Gain</td><td>Enter your cable loss as negative (e.g. −77)</td><td>De-embeds path loss — all readings now at RU port</td></tr>
+<tr><td>5</td><td>Meas</td><td>ACP (Adjacent Channel Power)</td><td>Selects ACLR measurement mode</td></tr>
+<tr><td>6</td><td>Meas Setup → Radio Std</td><td>LTE FDD</td><td>Sets LTE-specific channel definitions</td></tr>
+<tr><td>7</td><td>Meas Setup → BW</td><td>10 or 20 MHz (match your RU)</td><td>Defines the carrier and adjacent channel widths</td></tr>
+<tr><td>8</td><td>BW → RBW</td><td>100 kHz (3GPP spec for E-UTRA ACLR)</td><td>Wrong RBW = wrong result — 3GPP mandates this</td></tr>
+<tr><td>9</td><td>Trig</td><td>Free Run (FDD) or Frame (B41 TDD)</td><td>TDD: must sync to frame or you average UL+DL</td></tr>
+<tr><td>10</td><td>BW → Average</td><td>20–50 sweeps</td><td>Reduces noise on the adjacent channel measurement</td></tr>
+<tr><td>11</td><td>Read result</td><td>Lower ACLR and Upper ACLR values in dBc</td><td>Must both be ≥ 45 dBc (E-UTRA) to pass</td></tr>
+</table></div>
+
+<div class="mod-section-title">Why ACLR fails and how to debug it</div>
+<div class="mod-table-wrap"><table class="test-table">
+<tr><th>ACLR failure pattern</th><th>Most likely cause</th><th>Fix</th></tr>
+<tr><td>Both sides fail symmetrically (Lower and Upper same value)</td><td>DPD not converged or PA compression</td><td>Wait for DPD convergence (30–60 s). Reduce TX power 1 dB. Check DPD Input Power PreCheck.</td></tr>
+<tr><td>One side worse than the other</td><td>Memory effects or mixer spur</td><td>Check for LO harmonics. Memory DPD issue. PA temperature.</td></tr>
+<tr><td>ACLR fails only at B41</td><td>TDD gating not set — averaging over UL slots</td><td>Enable Frame trigger. Set gate delay ~3.1 ms, gate length ~2.8 ms.</td></tr>
+<tr><td>ACLR passes but EVM fails</td><td>Different impairments — ACLR = spectral regrowth, EVM = in-channel quality</td><td>IQ calibration, frequency error, phase noise issue inside channel.</td></tr>
+<tr><td>ACLR suddenly degrades 10+ dB from previous good result</td><td>DPD has diverged or PA protection tripped and recovered badly</td><td>Reboot RU. Check DPD Gain Register PreCheck. Verify CFR register.</td></tr>
+</table></div>
+
+<div class="mod-section-title">Automatic ACLR in RuAuto (what happens under the hood)</div>
+<div class="mod-formula">sa_set_ACP_mode()           # Set EXA to ACP measurement mode
+sa_set_radio_standard('LTE_FDD')
+sa_set_channel_bw(10e6)     # 10 MHz channel BW
+sa_set_averaging(20)        # 20 sweeps
+cable_loss = extract_cable_loss(band, freq)
+sa_set_gain_correction(-cable_loss)  # de-embed path
+result = sa_read_aclr()     # returns [carrier_dBm, lower_dBc, upper_dBc]
+verdict = 'PASS' if min(abs(result[1]), abs(result[2])) >= aclr_kpi else 'FAIL'</div>
+</div>
+</div><div class="module-card" id="VID3" data-tags="spectrum measurements video">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">VID3</span>
+  <span class="mod-title">Spectrum Analyzer Deep Dive — FFT, RBW, dynamic range, noise floor (YouTube rMVAQsUudSs)</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>Spectrum analyser deep dive — FFT, RBW, VBW, dynamic range</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">RBW — Resolution Bandwidth:</b><br>
+RBW sets the width of the IF filter. Narrow RBW = fine frequency resolution, slow sweep, lower noise floor. Wide RBW = coarse resolution, fast sweep, higher noise floor. Rule: RBW ≤ signal bandwidth / 100 for spectrum mask tests. For ACLR: 100 kHz RBW (standard LTE measurement). For power: 1 MHz RBW OK. Never use RBW wider than the signal you are measuring.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">VBW — Video Bandwidth and trace averaging:</b><br>
+VBW averages the detected power over time — reduces trace noise but does not affect measurement accuracy. VBW < RBW: smooth trace but slower. VBW = 3×RBW: typical for signals. VBW >> RBW: use for CW carriers. For noise floor measurements: reduce VBW to average out noise and see the true noise floor level clearly.
+</div>
+<div style="background:#1a1a0d;border-left:3px solid #c8b800;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#c8b800">DANL — how to find the true noise floor:</b><br>
+DANL (Displayed Average Noise Level) is the EXA noise floor in dBm in the current RBW. DANL_total = DANL_per_Hz + 10·log(RBW). With preamp ON, 1 Hz RBW: DANL ≈ −130 dBm/Hz. At 100 kHz RBW: DANL = −130 + 50 = −80 dBm. If your signal is near this level, EXA is measuring its own noise — turn on preamp or narrow RBW. Your RX chain noise floor at 10 MHz BW: −98.25 dBm — well above EXA DANL.
+</div>
+
+<div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=rMVAQsUudSs" target="_blank" style="color:#f5a623">Watch: Understanding Spectrum Analyzers (YouTube)</a> — FFT, RBW, dynamic range. Here is the complete teaching from that video.</div>
+
+<div class="mod-section-title">How a spectrum analyzer works internally</div>
+<div class="mod-p">A modern spectrum analyzer (your EXA N9010B) is a swept heterodyne receiver combined with an FFT engine. The signal is downconverted to IF, filtered (RBW filter), detected (RMS power detector), and the result plotted as power vs frequency. Modern instruments also do FFT-based analysis for speed.</div>
+
+<div class="mod-section-title">RBW — the most important setting to understand</div>
+<div class="mod-formula">RBW (Resolution Bandwidth) = bandwidth of the IF filter before detection
+
+Effect on noise floor:
+  Noise floor (dBm) = DANL + 10×log₁₀(RBW_Hz)
+  EXA DANL ≈ −163 dBm/Hz (with preamp ON)
+  
+  RBW = 1 MHz:  Noise floor = −163 + 60 = −103 dBm
+  RBW = 100 kHz: Noise floor = −163 + 50 = −113 dBm  ← ACLR standard
+  RBW = 1 kHz:  Noise floor = −163 + 30 = −133 dBm  ← spurious search
+  RBW = 100 Hz: Noise floor = −163 + 20 = −143 dBm  ← phase noise meas</div>
+
+<div class="mod-p">Narrower RBW = lower noise floor = can see weaker signals AND spurs. But narrower RBW = slower sweep (sweep time ∝ span/RBW²). For ACLR: 3GPP mandates 100 kHz RBW to match the integration bandwidth correctly. Using wrong RBW changes ACLR reading by exactly 10×log₁₀(RBW_used/RBW_correct).</div>
+
+<div class="mod-section-title">VBW — Video Bandwidth (trace smoothing)</div>
+<div class="mod-p">VBW is a post-detection filter that smooths the displayed trace. It does NOT change the noise floor — it only averages the noise fluctuations visually. Rule: VBW ≥ RBW always. Setting VBW &lt; RBW suppresses noise peaks that could actually be real spurs — dangerous for spurious emission tests.</div>
+
+<div class="mod-section-title">Dynamic range of a spectrum analyzer</div>
+<div class="mod-formula">Dynamic range = displayed range you can measure simultaneously without errors
+
+Limited from below: DANL (noise floor) — sets the minimum detectable signal
+Limited from above: mixer compression — too strong input causes clipping, false spurs
+
+Practical dynamic range:
+  EXA with 30 dB attenuator: ≈ 70–80 dB simultaneous range
+  EXA with 0 dB attenuator + preamp: ≈ 80–90 dB range but compression at −30 dBm input
+
+For ACLR of 55 dBc: if carrier = −15 dBm at EXA input, adjacent = −70 dBm
+  Need noise floor below −70 dBm → use RBW 100 kHz → floor ≈ −113 dBm ✓</div>
+
+<div class="mod-section-title">Sweep time — the trade-off</div>
+<div class="mod-formula">Swept analyzer sweep time ≥ k × Span / RBW²
+  k ≈ 2 for most analyzers
+  
+Example: Span = 100 MHz, RBW = 100 kHz → min sweep time = 2 × 100e6 / (100e3)² = 0.02 s = 20 ms
+Example: Span = 100 MHz, RBW = 10 kHz → min sweep time = 2 s (100× slower!)</div>
+
+<div class="mod-section-title">Zero Span mode — time domain at one frequency</div>
+<div class="mod-p">Setting Span = 0 Hz converts the spectrum analyzer into a power-vs-time recorder at one fixed frequency. Used for: viewing TDD frame structure (DL on, UL off), measuring PA switch-on transient, seeing DPD convergence in real time. Critical for B41 TDD debugging.</div>
+
+<div class="mod-section-title">Noise figure of the spectrum analyzer itself</div>
+<div class="mod-formula">EXA N9010B typical DANL:
+  Without preamp: −135 dBm/Hz (NF ≈ 39 dB — too noisy for sensitivity testing)
+  With preamp:    −163 dBm/Hz (NF ≈ 15 dB — usable for Rx sensitivity)
+  
+For REFSENS test (−69 dBm in 10 MHz):
+  Signal at EXA ≈ −69 − cable_loss dBm
+  Need noise floor well below signal → always use preamp for Rx tests</div>
+
+<div class="tip">The −174 dBm/Hz figure: this is thermal noise at room temperature (290K) — kTB where k=1.38×10⁻²³ J/K, T=290K, B=1 Hz → kT = 4×10⁻²¹ W = −174 dBm. Every 3 dB increase in temperature adds 3 dB to this floor. Every 10× bandwidth increase adds 10 dB. This is the absolute physical minimum noise any receiver can ever achieve.</div>
+</div>
+</div><div class="module-card" id="VID4" data-tags="rf fundamentals video">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">VID4</span>
+  <span class="mod-title">RF Engineering Topics — signal chain, IQ, mixers (YouTube swjgr4YBhRM)</span>
+  <span class="mod-level mid">Intermediate</span>
+  <span class="mod-status">click to expand</span><span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<h4>RF engineering topics — signal chain, IQ, mixers</h4>
+<div style="background:#0d1a2a;border-left:3px solid #5bc4ef;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#5bc4ef">Signal chain mental model:</b><br>
+Every RF system is a chain of blocks: source → TX chain (gain up) → channel (loss) → RX chain (amplify) → ADC. dB rule: track power level through chain by adding gains (+) and losses (−) in dB. Noise figure accumulates — dominated by first lossy/noisy element. Dynamic range: difference between maximum signal and noise floor. Design goal: maintain signal > noise floor through entire chain from source to ADC.
+</div>
+<div style="background:#0d1a0d;border-left:3px solid #00d4a0;padding:10px 14px;margin:8px 0;border-radius:4px">
+<b style="color:#00d4a0">IQ representation — why everything is I+Q:</b><br>
+Any narrowband RF signal can be written as: s(t) = I(t)cos(2πft) − Q(t)sin(2πft) where f is carrier frequency. I and Q capture full amplitude and phase information. Demodulation: multiply received signal by cos(2πft) and sin(2πft), low-pass filter → get I and Q separately. All modern radio systems — LTE, 5G, WiFi — use IQ representation internally. EXM generates IQ waveforms. EXA demodulates to IQ for constellation display.
+</div>
+
+<div class="mod-p">▶ <a href="https://www.youtube.com/watch?v=swjgr4YBhRM" target="_blank" style="color:#f5a623">Watch: RF Topics — signal chain overview (YouTube)</a> — complete RF signal chain from antenna to ADC, covering all major components. Key concepts from this video:</div>
+
+<div class="mod-section-title">The complete receiver signal chain — component by component</div>
+<div class="mod-p">Antenna → Duplexer/Switch → BPF (image reject) → LNA → BPF (channel select) → VGA → Mixer+LO → BPF (IF/baseband) → ADC → DSP. Each stage has a specific job and adds specific impairments. Understanding this chain is the foundation of every RF test you run.</div>
+
+<div class="mod-section-title">Why component ORDER in the chain matters so much</div>
+<div class="mod-formula">System NF dominated by FIRST stage (Friis):
+  NF_sys ≈ NF_1 + (NF_2 − 1)/G_1 + ...
+
+Put a 3 dB attenuator BEFORE the LNA:
+  NF_sys = 3 + (NF_LNA − 1)/0.5 ← the attenuator's loss is added directly
+  If LNA NF = 2 dB, G = 20 dB:
+  With attenuator: NF_sys ≈ 3 + (1.58−1)/0.5 = 3 + 1.16 = 4.16 dB
+  Without attenuator: NF_sys ≈ 2 + tiny = 2.01 dB
+  → The 3 dB attenuator before LNA costs 2.15 dB in system NF = significantly worse sensitivity</div>
+
+<div class="mod-section-title">IQ architecture — how direct conversion works</div>
+<div class="mod-p">In a direct-conversion (zero-IF) receiver, the LO runs exactly at the carrier frequency. Two mixers multiply the RF signal by the LO and by the LO shifted 90°, producing the I (in-phase) and Q (quadrature) baseband components. These are the two outputs of the ADC — both are needed to recover amplitude and phase information.</div>
+<div class="mod-formula">RF input: A·cos(2π·f_RF·t + φ)
+LO_I: cos(2π·f_RF·t)
+LO_Q: sin(2π·f_RF·t)  ← 90° shifted
+
+I output = A·cos(φ)   ← amplitude × cosine of phase
+Q output = A·sin(φ)   ← amplitude × sine of phase
+
+From I and Q: amplitude = √(I²+Q²), phase = arctan(Q/I)</div>
+
+<div class="mod-section-title">How IQ data relates to RSSI and dBFS</div>
+<div class="mod-formula">RSSI from IQ samples:
+  P_IQ = (1/N) × Σ(I_n² + Q_n²)   [linear, sum of squared amplitudes]
+  RSSI_dBFS = 10×log₁₀(P_IQ / FS²)  [relative to ADC full scale]
+
+Converting dBFS → dBm:
+  RSSI_dBm = RSSI_dBFS + ADC_offset
+  ADC_offset = known gain from antenna port to ADC input
+  
+  Example: RSSI_dBFS = −44.9 dBFS, ADC_offset = +50.6 dB (RF chain gain)
+  RSSI_dBm = −44.9 + 50.6 = −(100 - 44.9 - 50.6) ... 
+  
+  Actual calculation uses the ADC_ADJUST table in hardware.json
+  ADC_ADJUST accounts for: RF gain, cable loss, analog filter, ADC scale factor
+  This is why the calibration sets a fixed CW tone and measures the offset directly</div>
+</div>
+</div><div class="div-line"></div>
+<div id="opsdocs" class="sec">
+  <div class="sec-hdr">
+    <div class="badge a">OPS</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#ffd080">Operational Docs — PPT Decks, FHGW Guide, 4G Test Plan</h2>
+      <p>From your D:\Learning\RCT folder · RSSI Results deck · PA Efficiency Test Plan · FHGW User Guide · 4G Test Plan · Validation Handbook · TDD LTE PHY · FHGW Embedded RCT</p>
+    </div>
+  </div>
+
+<!-- RSSI Results PPT -->
+<div class="div-line"></div>
+<div id="expertvideos" class="sec">
+  <div class="sec-hdr">
+    <div class="badge pk">▶</div>
+    <div class="sec-hdr-txt">
+      <h2 style="color:#f5a0c8">Expert Learning Resources — YouTube · LinkedIn · Channels</h2>
+      <p>Curated for your specific background · Ordered by impact · Week-by-week learning plan included</p>
+    </div>
+  </div>
+
+  
+
+</body>
+</html>
