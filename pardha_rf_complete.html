@@ -17185,7 +17185,7 @@ function tagFilter(tag) {
       visible++;
     } else {
       const tags = (card.dataset.tags || '').split(' ');
-      const match = tags.some(t => t === tag || t.startsWith(tag));
+      const match = tags.some(t => t === tag);
       card.classList.toggle('tag-hidden', !match);
       if (match) visible++;
     }
