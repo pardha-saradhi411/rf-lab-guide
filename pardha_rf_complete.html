@@ -10542,7 +10542,114 @@ ACLR fail with correct power = PA is on but DPD is not working for the new PA. S
 
 <div style="background:#0a0a1a;border:1px solid #9b8cf8;border-radius:8px;padding:14px;margin:12px 0"><div style="color:#9b8cf8;font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px">THE WHY FRAMEWORK</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px"><div><b style="color:#c8b800">Why it exists</b><br><span style="color:#6a7060">Different companies have different RF domains</span></div><div><b style="color:#c8b800">Problem solved</b><br><span style="color:#6a7060">Tailored prep shows research and genuine interest</span></div><div><b style="color:#c8b800">Hardware</b><br><span style="color:#6a7060">Company-specific hardware + test systems</span></div><div><b style="color:#c8b800">Standard</b><br><span style="color:#6a7060">Company-specific + 3GPP/O-RAN/FCC</span></div><div><b style="color:#c8b800">How measured</b><br><span style="color:#6a7060">Company-specific test procedures</span></div><div><b style="color:#c8b800">Pass/fail</b><br><span style="color:#6a7060">Meeting company's specific quality bar</span></div><div><b style="color:#c8b800">Common failures</b><br><span style="color:#6a7060">Wrong focus area for the specific company</span></div><div><b style="color:#c8b800">Debug</b><br><span style="color:#6a7060">Research company products and tech focus before interview</span></div><div><b style="color:#c8b800">Interview Q</b><br><span style="color:#6a7060">What does this company test that others don't?</span></div><div><b style="color:#c8b800">Customer impact</b><br><span style="color:#6a7060">Interviewer sees you understand their specific domain</span></div></div></div>
 </div>
-</div><div class="module-card" data-tags="fundamentals framework">
+</div><div class="module-card" data-tags="fundamentals propagation lte 5g">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PROP01</span>
+  <span class="mod-title">Free Space Path Loss (FSPL) — why low bands cover further</span>
+  <span class="mod-tag advanced">Propagation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="mod-arrow">+</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<p style="color:#4a5470;font-size:12px;margin-bottom:16px">The baseline loss just from distance + frequency · explains why B28/B8 give coverage and B41 gives capacity</p>
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px">Formula &amp; worked numbers</div><code style="background:#0a0c10;color:#00d4a0;font-size:11px;white-space:pre-wrap;padding:8px 12px;border-radius:4px;display:block">FSPL(dB) = 20·log10(d) + 20·log10(f) + 32.44    (d in km, f in MHz)
+
+B1  @ 1 km:  20log(1) + 20log(2140) + 32.44 = 0 + 66.6 + 32.44 = 99 dB
+B28 @ 1 km:  20log(1) + 20log(758)  + 32.44 = 0 + 57.6 + 32.44 = 90 dB
+=> B28 sees ~9 dB LESS path loss than B1 at the same range</code></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px">FSPL at 1 km, your 5 bands</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><table style="width:100%;border-collapse:collapse;margin:8px 0;border-radius:6px;overflow:hidden"><thead><tr style="background:#0a0c10"><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Band</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Freq (MHz)</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">FSPL @1 km</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Role</th></tr></thead><tbody><tr style="background:#0d0f14"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">B28</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">758</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~90 dB</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">deep coverage</td></tr><tr style="background:#111420"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">B8</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">942.5</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~92 dB</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">coverage</td></tr><tr style="background:#0d0f14"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">B3</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">1842.5</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~98 dB</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">capacity/coverage</td></tr><tr style="background:#111420"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">B1</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">2140</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~99 dB</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">capacity</td></tr><tr style="background:#0d0f14"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">B41</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">2545</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~101 dB</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">capacity (TDD)</td></tr></tbody></table>Add 6 dB per doubling of distance (20log rule): B1 @2 km ≈ 105 dB, @4 km ≈ 111 dB.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px">Lab context &amp; link budget tie-in</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On the bench you're <b>cable-connected</b>, so FSPL doesn't apply — but it's why your per-band <b>sensitivity</b> targets and DSA offsets differ: a coverage band (B28, DSA +13) is expected to reach further, so its link budget leans on lower path loss. Over the air: <code>total loss = FSPL + shadow-fade margin + building penetration + body loss</code> (see PROP04).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><span style="color:#f5a623">Q: Why do operators put coverage on low bands?</span> <span style="color:#c8c8d8">FSPL rises 20log(f) with frequency, so B28 has ~9 dB less loss than B1 at the same range → larger cells, better indoor penetration.</span><br><span style="color:#f5a623">Q: How much does FSPL grow when you double the distance?</span> <span style="color:#c8c8d8">+6 dB (20·log10(2)).</span></div></div>
+<div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px;margin:10px 0"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:6px">Study Links</div><div style="font-size:12px;line-height:1.9"><a href="https://www.techplayon.com/rf-design/" target="_blank" style="color:#5bc4ef;text-decoration:none">TechPlayOn — RF Design</a> <span style="color:#4a5470">· path loss, link budget fundamentals</span><br><a href="https://www.microwavejournal.com/articles/41810-fundamentals-of-rf" target="_blank" style="color:#5bc4ef;text-decoration:none">Microwave Journal — Fundamentals of RF</a> <span style="color:#4a5470">· propagation &amp; RF basics</span></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" data-tags="fundamentals propagation lte 5g">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PROP02</span>
+  <span class="mod-title">Fading — slow (shadow), fast (multipath), channel models</span>
+  <span class="mod-tag advanced">Propagation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="mod-arrow">+</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<p style="color:#4a5470;font-size:12px;margin-bottom:16px">Two time-scales of signal variation — and the 3GPP channel models (EPA/EVA/ETU) you'd use to reproduce them</p>
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px">Slow vs fast fading</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Slow / shadow fading</b> — large obstacles (buildings, hills). Log-normal, std dev <b>6–10 dB</b>, coherence distance tens–hundreds of metres. Handled by a <b>shadow-fade margin</b> (~8–10 dB) in the link budget.<br><b>Fast / multipath fading</b> — many reflected paths combine. <b>Rayleigh</b> (no LOS) or <b>Rician</b> (with LOS). Coherence time is in the ms range at vehicular speed; coherence bandwidth ≈ 1/delay-spread (~200 kHz urban).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px">3GPP fading channel models</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><table style="width:100%;border-collapse:collapse;margin:8px 0;border-radius:6px;overflow:hidden"><thead><tr style="background:#0a0c10"><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Model</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Delay spread</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Use</th></tr></thead><tbody><tr style="background:#0d0f14"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">EPA</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~43 ns</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">Extended Pedestrian A — mild</td></tr><tr style="background:#111420"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">EVA</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~357 ns</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">Extended Vehicular A — moderate</td></tr><tr style="background:#0d0f14"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">ETU</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~5 µs</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">Extended Typical Urban — worst case</td></tr></tbody></table></div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px">Lab context</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Your cabled bench is an <b>AWGN channel — no fading</b>, which is exactly why RI stays at 1 (see CSI03): no multipath to decorrelate MIMO layers. To test fading you need a <b>channel emulator</b> (e.g. PropSim) playing EPA/EVA/<b>ETU</b>; ETU (5 µs delay spread) is the stress case for equalizer/CP robustness.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><span style="color:#f5a623">Q: Rayleigh vs Rician?</span> <span style="color:#c8c8d8">Rayleigh = no dominant/LOS path (deep fades common); Rician = a strong LOS component plus scatter (shallower fades), described by the K-factor.</span><br><span style="color:#f5a623">Q: Why doesn't your bench show rank-2?</span> <span style="color:#c8c8d8">AWGN cable = no multipath richness → channel matrix is effectively rank-1; you need a fading emulator to see spatial multiplexing.</span></div></div>
+<div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px;margin:10px 0"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:6px">Study Links</div><div style="font-size:12px;line-height:1.9"><a href="https://www.sharetechnote.com/html/Handbook_LTE.html" target="_blank" style="color:#5bc4ef;text-decoration:none">ShareTechNote — LTE Handbook</a> <span style="color:#4a5470">· fading, channel models, multipath</span></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" data-tags="fundamentals propagation lte 5g">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PROP03</span>
+  <span class="mod-title">Doppler Effect — ICI and why higher SCS tolerates speed</span>
+  <span class="mod-tag advanced">Propagation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="mod-arrow">+</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<p style="color:#4a5470;font-size:12px;margin-bottom:16px">Movement shifts frequency; too much Doppler breaks OFDM subcarrier orthogonality (ICI)</p>
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px">Formula &amp; worked numbers</div><code style="background:#0a0c10;color:#00d4a0;font-size:11px;white-space:pre-wrap;padding:8px 12px;border-radius:4px;display:block">fd = (v/c) · f_carrier · cos(θ)      v in m/s, c = 3×10^8 m/s
+
+120 km/h on B1 (2140 MHz):  (33.33 / 3e8) · 2140e6 = 238 Hz
+120 km/h on B28 (758 MHz):  (33.33 / 3e8) · 758e6  =  84 Hz
+=> lower band = less Doppler at the same speed</code></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px">ICI limit vs subcarrier spacing</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Doppler spread causes Inter-Carrier Interference once <b>fd &gt; SCS/10</b>:<table style="width:100%;border-collapse:collapse;margin:8px 0;border-radius:6px;overflow:hidden"><thead><tr style="background:#0a0c10"><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">SCS</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">~ICI limit (SCS/10)</th><th style="padding:7px 10px;text-align:left;color:#5bc4ef;font-size:12px;border-bottom:1px solid #1e2535">Safe up to</th></tr></thead><tbody><tr style="background:#0d0f14"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">LTE 15 kHz</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~1500 Hz</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~120 km/h on all bands (comfortably)</td></tr><tr style="background:#111420"><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">NR 30 kHz</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~3000 Hz</td><td style="padding:7px 10px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">~250 km/h</td></tr></tbody></table>That's a core reason 5G NR added higher numerologies — bigger SCS shrugs off more Doppler.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><span style="color:#f5a623">Q: Why does higher SCS help at high speed?</span> <span style="color:#c8c8d8">ICI appears when Doppler is a significant fraction of the subcarrier spacing; a larger SCS (30/60 kHz) keeps fd/SCS small, so orthogonality holds at higher speeds.</span><br><span style="color:#f5a623">Q: Same speed, B41 vs B28 — which sees more Doppler?</span> <span style="color:#c8c8d8">B41 (higher carrier) — Doppler scales with f_carrier, so B41 ≈ 3× B28's shift at the same velocity.</span></div></div>
+<div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px;margin:10px 0"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:6px">Study Links</div><div style="font-size:12px;line-height:1.9"><a href="https://www.sharetechnote.com/html/Handbook_LTE.html" target="_blank" style="color:#5bc4ef;text-decoration:none">ShareTechNote — LTE Handbook</a> <span style="color:#4a5470">· Doppler, OFDM, ICI, subcarrier spacing</span></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" data-tags="fundamentals propagation lte 5g">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">PROP04</span>
+  <span class="mod-title">Link Budget — full worked example for B1 Metro AAU</span>
+  <span class="mod-tag advanced">Propagation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="mod-arrow">+</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<p style="color:#4a5470;font-size:12px;margin-bottom:16px">Add up every gain and loss from PA to UE decoder — the number that decides "does it work at this range?"</p>
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px">B1 downlink, UE at 500 m indoor</div><code style="background:#0a0c10;color:#00d4a0;font-size:11px;white-space:pre-wrap;padding:8px 12px;border-radius:4px;display:block">TX side
+  PA output power       +37.0 dBm
+  Duplexer loss         -0.5 dB
+  Antenna gain          +15.0 dBi   (4T4R beamforming)
+  ---------------------------------
+  EIRP                  +51.5 dBm
+
+Path
+  FSPL @ 500 m (B1)     -93.0 dB
+  Shadow-fade margin     -8.0 dB
+  Building penetration  -20.0 dB    (indoor)
+  Body loss              -3.0 dB
+  ---------------------------------
+  RX power at UE   51.5 -93 -8 -20 -3 = -72.5 dBm
+
+RX side (UE)
+  UE noise figure         7 dB
+  Required SNR (QPSK)    -1 dB
+  UE sensitivity  -174 +10log(10MHz) +7 +(-1) = -98 dBm
+  ---------------------------------
+  MARGIN  -72.5 - (-98) = +25.5 dB   -> solid coverage (QPSK)
+
+64QAM case
+  Required SNR          +18 dB
+  UE sensitivity        -79 dBm
+  MARGIN  -72.5 - (-79) = +6.5 dB    -> marginal indoors</code></div>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px">What it tells you</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The same physical link comfortably supports QPSK (+25 dB margin) but is <b>marginal for 64QAM</b> (+6.5 dB) indoors — which is exactly why CQI/MCS drop as a UE moves indoors/away. It also shows why the RCT TX-quality tests matter: any EVM/ACLR degradation eats directly into the SNR margin that this budget assumes.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><span style="color:#f5a623">Q: Why does a link pass QPSK but fail 64QAM at the same spot?</span> <span style="color:#c8c8d8">64QAM needs ~19 dB more SNR than QPSK, which raises the required sensitivity by ~19 dB — the margin can go from +25 dB to marginal.</span><br><span style="color:#f5a623">Q: Where does UE sensitivity −98 dBm come from?</span> <span style="color:#c8c8d8">Thermal floor −174 dBm/Hz + 10log(BW) + NF + required SNR = −174 + 70 + 7 − 1 = −98 dBm for 10 MHz QPSK.</span></div></div>
+<div style="background:#0d0f14;border:1px solid #1e2535;border-radius:8px;padding:12px;margin:10px 0"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:6px">Study Links</div><div style="font-size:12px;line-height:1.9"><a href="https://www.techplayon.com/rf-design/" target="_blank" style="color:#5bc4ef;text-decoration:none">TechPlayOn — RF Design</a> <span style="color:#4a5470">· link budget, EIRP, sensitivity, margin</span></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" data-tags="fundamentals framework">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">WHY</span>
   <span class="mod-title">The "Why?" Framework — For every topic: Why does it exist? What problem? Which hardware? Which spec? How measured? Pass/fail? Debug? Interview? Customer impact?</span>
