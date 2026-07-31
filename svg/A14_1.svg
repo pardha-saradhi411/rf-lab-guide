@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 170" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="170" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Connectors, Cables, Torque Specs — Zero Tolerance for Defects</text>
+  <!-- Connector types -->
+  <rect x="10" y="35" width="600" height="80" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="310" y="53" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Connector Reference:</text>
+  <text x="20"  y="70"  fill="#8892b0" font-size="9" font-family="monospace">SMA:    DC-18GHz · 0.9 N·m (8 in·lb) · Most common in lab · Your BOB ports use SMA</text>
+  <text x="20"  y="85"  fill="#8892b0" font-size="9" font-family="monospace">N-type: DC-11GHz · 1.36 N·m (12 in·lb) · High power, outdoor · Antenna feed cables</text>
+  <text x="20"  y="100" fill="#8892b0" font-size="9" font-family="monospace">2.92mm: DC-40GHz · 0.9 N·m · Precision, mmWave · EXA/VNA ports use this</text>
+  <text x="20"  y="115" fill="#4a5470" font-size="7" font-family="monospace">NEVER hand-tighten precision connectors — always use calibrated torque wrench. Over-torque destroys center pin. Under-torque = bad VSWR, data scatter.</text>
+  <!-- Cable types -->
+  <rect x="10" y="125" width="600" height="38" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="20" y="141" fill="#00d4a0" font-size="9" font-family="monospace">SF141: VF=0.696, 1.56dB/m@2GHz · LMR400: VF=0.85, 0.55dB/m@2GHz · RG316: flexible, 2.5dB/m (your lab cables)</text>
+  <text x="20" y="156" fill="#4a5470" font-size="7" font-family="monospace">Inspect every connection: bent pin → replace immediately. Dirty center pin → clean with isopropanol. Scratch on mating face → replace.</text>
+  <!-- Inspection checklist -->
+  <rect x="620" y="35" width="170" height="128" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="705" y="53" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Inspect before use:</text>
+  <text x="630" y="70"  fill="#8892b0" font-size="8" font-family="monospace">□ Center pin straight?</text>
+  <text x="630" y="84"  fill="#8892b0" font-size="8" font-family="monospace">□ No scratches on face?</text>
+  <text x="630" y="98"  fill="#8892b0" font-size="8" font-family="monospace">□ Outer thread clean?</text>
+  <text x="630" y="112" fill="#8892b0" font-size="8" font-family="monospace">□ Use torque wrench?</text>
+  <text x="630" y="126" fill="#00d4a0" font-size="8" font-family="monospace">□ Verify S11&lt;−20dB</text>
+  <text x="630" y="140" fill="#4a5470" font-size="7" font-family="monospace">1 bad connector = 1</text>
+  <text x="630" y="152" fill="#4a5470" font-size="7" font-family="monospace">week of chasing ghost</text>
+</svg>

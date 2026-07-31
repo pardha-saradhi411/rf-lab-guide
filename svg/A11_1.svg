@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="240" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Link Budget — TX Power to RX Sensitivity, Every Step Accounted</text>
+  <!-- DL Link Budget -->
+  <text x="200" y="42" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">DL Link Budget (eNB → UE)</text>
+  <rect x="10" y="50" width="380" height="175" fill="#141720" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="20"  y="68"  fill="#8892b0" font-size="9" font-family="monospace">TX power (per port):        +23 dBm</text>
+  <text x="20"  y="82"  fill="#8892b0" font-size="9" font-family="monospace">TX antenna gain (BF):       +15 dBi</text>
+  <text x="20"  y="96"  fill="#8892b0" font-size="9" font-family="monospace">EIRP:                       +38 dBm</text>
+  <line x1="20"  y1="103" x2="385" y2="103" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20"  y="116" fill="#ff6b6b" font-size="9" font-family="monospace">FSPL @ 1km, 2140MHz:        −99.6 dB</text>
+  <text x="20"  y="130" fill="#ff6b6b" font-size="9" font-family="monospace">Building penetration loss:  −20 dB (indoor)</text>
+  <text x="20"  y="144" fill="#ff6b6b" font-size="9" font-family="monospace">Body/polarisation loss:     −3 dB</text>
+  <line x1="20"  y1="151" x2="385" y2="151" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20"  y="164" fill="#8892b0" font-size="9" font-family="monospace">Signal at UE antenna:       −84.6 dBm</text>
+  <text x="20"  y="178" fill="#00d4a0" font-size="9" font-family="monospace">UE sensitivity (QPSK):      −105 dBm</text>
+  <text x="20"  y="192" fill="#4a5470" font-size="8" font-family="monospace">Fade margin:                20.4 dB ✓</text>
+  <text x="20"  y="207" fill="#f5a623" font-size="8" font-family="monospace">Max path loss allowed:      143 dB</text>
+  <text x="20"  y="220" fill="#4a5470" font-size="7" font-family="monospace">Covers: 1km free space + 20dB building</text>
+
+  <!-- UL Link Budget -->
+  <text x="600" y="42" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">UL Link Budget (UE → eNB)</text>
+  <rect x="410" y="50" width="380" height="175" fill="#141720" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="420" y="68"  fill="#8892b0" font-size="9" font-family="monospace">UE TX power:                +23 dBm (PC3)</text>
+  <text x="420" y="82"  fill="#8892b0" font-size="9" font-family="monospace">UE antenna gain:            0 dBi (omni)</text>
+  <text x="420" y="96"  fill="#8892b0" font-size="9" font-family="monospace">EIRP:                       +23 dBm</text>
+  <line x1="420" y1="103" x2="785" y2="103" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="420" y="116" fill="#ff6b6b" font-size="9" font-family="monospace">FSPL @ 1km, 1950MHz:        −98.6 dB</text>
+  <text x="420" y="130" fill="#ff6b6b" font-size="9" font-family="monospace">Building penetration:       −20 dB</text>
+  <text x="420" y="144" fill="#ff6b6b" font-size="9" font-family="monospace">Body loss:                  −3 dB</text>
+  <line x1="420" y1="151" x2="785" y2="151" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="420" y="164" fill="#8892b0" font-size="9" font-family="monospace">Signal at eNB RU port:      −98.6 dBm</text>
+  <text x="420" y="178" fill="#00d4a0" font-size="9" font-family="monospace">RU sensitivity (QPSK FRC):  −99 dBm</text>
+  <text x="420" y="192" fill="#4a5470" font-size="8" font-family="monospace">Link margin:                0.4 dB ← barely!</text>
+  <text x="420" y="207" fill="#ff6b6b" font-size="8" font-family="monospace">Better antenna or MRC → +3-6 dB margin</text>
+  <text x="420" y="220" fill="#4a5470" font-size="7" font-family="monospace">UL is usually the limiting direction</text>
+</svg>

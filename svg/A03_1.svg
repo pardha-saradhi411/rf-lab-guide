@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">S-Parameters, Filters, VNA — Advanced Measurements</text>
+  <!-- S-param 2-port -->
+  <rect x="10" y="35" width="230" height="130" fill="#141720" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="125" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">S-Parameters</text>
+  <text x="20" y="72"  fill="#8892b0" font-size="8" font-family="monospace">S11: Return loss at Port 1 (VSWR)</text>
+  <text x="20" y="86"  fill="#8892b0" font-size="8" font-family="monospace">S21: Fwd transmission P1→P2 (gain/loss)</text>
+  <text x="20" y="100" fill="#8892b0" font-size="8" font-family="monospace">S12: Rev transmission P2→P1 (isolation)</text>
+  <text x="20" y="114" fill="#8892b0" font-size="8" font-family="monospace">S22: Return loss at Port 2</text>
+  <text x="20" y="132" fill="#f5a623" font-size="8" font-family="monospace">Cable: S11&lt;−20dB, S21=−loss dB</text>
+  <text x="20" y="146" fill="#f5a623" font-size="8" font-family="monospace">Amplifier: S11&lt;−15dB, S21=+gain dB</text>
+  <text x="20" y="160" fill="#4a5470" font-size="7" font-family="monospace">Always SOLT calibrate first → removes cable/connector error</text>
+  <!-- Filter responses -->
+  <rect x="250" y="35" width="260" height="130" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="380" y="55" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Filter Types</text>
+  <text x="260" y="72"  fill="#00d4a0" font-size="9" font-family="monospace">LPF: pass DC-fc, block &gt;fc</text>
+  <text x="260" y="86"  fill="#5bc4ef" font-size="9" font-family="monospace">HPF: block &lt;fc, pass &gt;fc</text>
+  <text x="260" y="100" fill="#f5a623" font-size="9" font-family="monospace">BPF: pass f1-f2 only ← your RU</text>
+  <text x="260" y="114" fill="#9b8cf8" font-size="9" font-family="monospace">BSF/Notch: block f1-f2</text>
+  <text x="260" y="132" fill="#4a5470" font-size="8" font-family="monospace">Key specs: insertion loss, passband ripple</text>
+  <text x="260" y="146" fill="#4a5470" font-size="8" font-family="monospace">rejection dB, group delay variation</text>
+  <text x="260" y="160" fill="#ff6b6b" font-size="7" font-family="monospace">Your B1 BPF: pass 2110-2170MHz, reject &gt;60dB outside</text>
+  <!-- VNA usage -->
+  <rect x="520" y="35" width="270" height="130" fill="#0d1a2a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="655" y="55" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">VNA E5071C Usage</text>
+  <text x="530" y="72"  fill="#8892b0" font-size="8" font-family="monospace">Freq range: 300kHz–8.5GHz</text>
+  <text x="530" y="86"  fill="#8892b0" font-size="8" font-family="monospace">Ports: 2 (can add external)</text>
+  <text x="530" y="100" fill="#f5a623" font-size="8" font-family="monospace">Your use cases:</text>
+  <text x="530" y="114" fill="#8892b0" font-size="8" font-family="monospace">· Cable loss measurement (S21)</text>
+  <text x="530" y="128" fill="#8892b0" font-size="8" font-family="monospace">· Antenna match (S11/VSWR)</text>
+  <text x="530" y="142" fill="#8892b0" font-size="8" font-family="monospace">· Duplexer isolation (S12)</text>
+  <text x="530" y="156" fill="#8892b0" font-size="8" font-family="monospace">· TX path phase (S21 phase)</text>
+  <text x="530" y="168" fill="#00d4a0" font-size="7" font-family="monospace">Cal first: SOLT at measurement plane</text>
+</svg>

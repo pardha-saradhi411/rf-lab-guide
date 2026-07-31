@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="110" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RF Test Automation Stack</text>
+  <rect x="8"   y="28" width="190" height="72" fill="#0a0a0a" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="103" y="46" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Python (main)</text>
+  <text x="18"  y="62" fill="#8892b0" font-size="8" font-family="monospace">SCPI via socket TCP 5025</text>
+  <text x="18"  y="76" fill="#8892b0" font-size="8" font-family="monospace">JSON parse/write results</text>
+  <text x="18"  y="90" fill="#4a5470" font-size="7" font-family="monospace">paramiko SSH · matplotlib plots</text>
+  <rect x="208" y="28" width="190" height="72" fill="#0a0a0a" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="303" y="46" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Shell / Bash</text>
+  <text x="218" y="62" fill="#8892b0" font-size="8" font-family="monospace">Batch overnight test runs</text>
+  <text x="218" y="76" fill="#8892b0" font-size="8" font-family="monospace">Log archiving + rotation</text>
+  <text x="218" y="90" fill="#4a5470" font-size="7" font-family="monospace">cron scheduled · grep/awk parse</text>
+  <rect x="408" y="28" width="190" height="72" fill="#0a0a0a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="503" y="46" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">SCPI Commands</text>
+  <text x="418" y="62" fill="#f5a623" font-size="8" font-family="monospace">:FREQ:CENT 2.14e9</text>
+  <text x="418" y="76" fill="#f5a623" font-size="8" font-family="monospace">:FETCH:ACLR?</text>
+  <text x="418" y="90" fill="#4a5470" font-size="7" font-family="monospace">port 5025 · all Keysight</text>
+  <rect x="608" y="28" width="184" height="72" fill="#0a0a0a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="700" y="46" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Data Formats</text>
+  <text x="618" y="62" fill="#8892b0" font-size="8" font-family="monospace">JSON: results + config</text>
+  <text x="618" y="76" fill="#8892b0" font-size="8" font-family="monospace">YAML: tc_cadence</text>
+  <text x="618" y="90" fill="#4a5470" font-size="7" font-family="monospace">XML: NETCONF · CSV: sweeps</text>
+</svg>

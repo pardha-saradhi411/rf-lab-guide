@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="320" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#f5a623" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">L3 RF Measurements — Complete Map (Your Daily Work)</text>
+
+  <!-- 4 categories -->
+  <!-- Power -->
+  <rect x="10" y="35" width="185" height="150" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="6"/>
+  <text x="102" y="55" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">⚡ POWER</text>
+  <text x="20" y="72"  fill="#8892b0" font-size="9" font-family="monospace">TX Power (rated output)</text>
+  <text x="20" y="85"  fill="#8892b0" font-size="9" font-family="monospace">RX Power (RSSI)</text>
+  <text x="20" y="98"  fill="#8892b0" font-size="9" font-family="monospace">Peak Power (PAPR related)</text>
+  <text x="20" y="111" fill="#8892b0" font-size="9" font-family="monospace">Average Power (conducted)</text>
+  <text x="20" y="124" fill="#8892b0" font-size="9" font-family="monospace">Radiated Power (TRP/OTA)</text>
+  <text x="20" y="140" fill="#f5a623" font-size="8" font-family="monospace">Tool: EXA Channel Power</text>
+  <text x="20" y="153" fill="#f5a623" font-size="8" font-family="monospace">B1 rated: -16.7dBm @BOB</text>
+  <text x="20" y="166" fill="#4a5470" font-size="8" font-family="monospace">3GPP: ±2dB of declared</text>
+  <text x="20" y="179" fill="#4a5470" font-size="8" font-family="monospace">SCPI: CALC:MARK:FUNC</text>
+
+  <!-- Quality -->
+  <rect x="205" y="35" width="185" height="150" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="6"/>
+  <text x="297" y="55" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📐 QUALITY</text>
+  <text x="215" y="72"  fill="#8892b0" font-size="9" font-family="monospace">EVM (modulation quality)</text>
+  <text x="215" y="85"  fill="#8892b0" font-size="9" font-family="monospace">Frequency Error (±PPM)</text>
+  <text x="215" y="98"  fill="#8892b0" font-size="9" font-family="monospace">IQ Offset (DC component)</text>
+  <text x="215" y="111" fill="#8892b0" font-size="9" font-family="monospace">IQ Imbalance (gain/phase)</text>
+  <text x="215" y="124" fill="#8892b0" font-size="9" font-family="monospace">Phase Error (per symbol)</text>
+  <text x="215" y="140" fill="#f5a623" font-size="8" font-family="monospace">Tool: EXM VSA / EXA MXA</text>
+  <text x="215" y="153" fill="#f5a623" font-size="8" font-family="monospace">EVM limit: &lt;8% (QPSK)</text>
+  <text x="215" y="166" fill="#4a5470" font-size="8" font-family="monospace">&lt;3.5% (64QAM) 3GPP</text>
+  <text x="215" y="179" fill="#4a5470" font-size="8" font-family="monospace">Fail→PA,DPD,cable,LO</text>
+
+  <!-- Spectrum -->
+  <rect x="400" y="35" width="185" height="150" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="6"/>
+  <text x="492" y="55" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">📡 SPECTRUM</text>
+  <text x="410" y="72"  fill="#8892b0" font-size="9" font-family="monospace">ACLR (adj channel leak)</text>
+  <text x="410" y="85"  fill="#8892b0" font-size="9" font-family="monospace">SEM (spectrum mask)</text>
+  <text x="410" y="98"  fill="#8892b0" font-size="9" font-family="monospace">OBUE (out-of-band emis.)</text>
+  <text x="410" y="111" fill="#8892b0" font-size="9" font-family="monospace">Occupied Bandwidth</text>
+  <text x="410" y="124" fill="#8892b0" font-size="9" font-family="monospace">Spurious Emissions</text>
+  <text x="410" y="140" fill="#f5a623" font-size="8" font-family="monospace">Tool: EXA w/ RBW=100kHz</text>
+  <text x="410" y="153" fill="#f5a623" font-size="8" font-family="monospace">ACLR limit: 45dBc (EUTRA)</text>
+  <text x="410" y="166" fill="#4a5470" font-size="8" font-family="monospace">PW gate: 54dBc internal</text>
+  <text x="410" y="179" fill="#4a5470" font-size="8" font-family="monospace">Your B28: 49.14dBm ✓</text>
+
+  <!-- Receiver / PA -->
+  <rect x="595" y="35" width="195" height="150" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="6"/>
+  <text x="692" y="55" fill="#f5a623" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">🎯 RX / PA / CAL</text>
+  <text x="605" y="72"  fill="#8892b0" font-size="9" font-family="monospace">RSSI Accuracy (±2dB)</text>
+  <text x="605" y="85"  fill="#8892b0" font-size="9" font-family="monospace">Sensitivity (-95dBm)</text>
+  <text x="605" y="98"  fill="#8892b0" font-size="9" font-family="monospace">Dynamic Range (~75dB)</text>
+  <text x="605" y="111" fill="#8892b0" font-size="9" font-family="monospace">PA Compression (P1dB)</text>
+  <text x="605" y="124" fill="#8892b0" font-size="9" font-family="monospace">PA Protection/Shutdown</text>
+  <text x="605" y="137" fill="#8892b0" font-size="9" font-family="monospace">DPD / Variable Load</text>
+  <text x="605" y="150" fill="#f5a623" font-size="8" font-family="monospace">Gain Cal / Temp comp</text>
+  <text x="605" y="163" fill="#4a5470" font-size="8" font-family="monospace">Tool: EXM+RuAuto+CLI</text>
+  <text x="605" y="176" fill="#4a5470" font-size="8" font-family="monospace">ul-rct-test: FRC A1-A5</text>
+
+  <!-- Measurement framework bottom -->
+  <rect x="10" y="195" width="780" height="55" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="211" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">For EVERY measurement: Theory → Standards → Hardware → Setup → Pass/Fail → Troubleshoot</text>
+  <text x="30"  y="228" fill="#ff6b6b" font-size="9" font-family="monospace">TX Power fail → check: DAC reg · VGA setting · PA bias · temp comp · cable connection · DL power scaling reg</text>
+  <text x="30"  y="241" fill="#00d4a0" font-size="9" font-family="monospace">EVM fail → check: DPD convergence (wait 60s) · ADC overrange · LO phase noise · cable loss · IQ imbalance</text>
+  <text x="30"  y="254" fill="#5bc4ef" font-size="9" font-family="monospace">ACLR fail → check: PA operating point · CFR threshold · DPD adaptation · ETM load level · PA temperature</text>
+
+  <!-- Interview key Qs -->
+  <rect x="10" y="260" width="780" height="52" fill="#0d0f14" stroke="#9b8cf8" stroke-width="1" rx="4"/>
+  <text x="400" y="276" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Interview Questions (L17 preview):</text>
+  <text x="20"  y="291" fill="#8892b0" font-size="8" font-family="monospace">Q: ACLR is -52dBc, limit is -45dBc. Why might it fail after you increase TX power? → PA approaches compression, DPD not yet adapted at new power point</text>
+  <text x="20"  y="304" fill="#8892b0" font-size="8" font-family="monospace">Q: EVM is 12% (limit 8%). List 5 possible root causes. → ADC overrange, DPD diverged, cable fault, LO phase noise, IQ imbalance, PA over-temp</text>
+</svg>

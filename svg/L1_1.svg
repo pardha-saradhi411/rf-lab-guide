@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">L1 Digital Communications — Modulation Comparison</text>
+
+  <!-- Modulation hierarchy -->
+  <rect x="330" y="35" width="140" height="28" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="400" y="53" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">MODULATION</text>
+  <line x1="400" y1="63" x2="400" y2="78" stroke="#4a5470" stroke-width="1.5"/>
+  <line x1="120" y1="78" x2="680" y2="78" stroke="#4a5470" stroke-width="1.5"/>
+
+  <!-- AM branch -->
+  <line x1="120" y1="78" x2="120" y2="93" stroke="#ff6b6b" stroke-width="1.5"/>
+  <rect x="60"  y="93" width="120" height="28" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="120" y="111" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Amplitude (AM)</text>
+  <text x="120" y="135" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">ASK, AM radio</text>
+
+  <!-- FM branch -->
+  <line x1="280" y1="78" x2="280" y2="93" stroke="#f5a623" stroke-width="1.5"/>
+  <rect x="220" y="93" width="120" height="28" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="280" y="111" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Frequency (FM)</text>
+  <text x="280" y="135" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FSK, FM radio</text>
+
+  <!-- PM/QAM branch -->
+  <line x1="460" y1="78" x2="460" y2="93" stroke="#9b8cf8" stroke-width="1.5"/>
+  <rect x="380" y="93" width="160" height="28" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="460" y="107" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Phase/QAM (LTE/5G)</text>
+  <text x="460" y="118" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">PSK→QPSK→16QAM→64QAM→256QAM</text>
+  <!-- Sub-branches -->
+  <line x1="400" y1="121" x2="400" y2="140" stroke="#9b8cf8" stroke-width="1"/>
+  <rect x="350" y="140" width="60" height="22" fill="#0d0a1a" stroke="#9b8cf8" stroke-width="1" rx="3"/>
+  <text x="380" y="154" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">QPSK 2bit</text>
+  <line x1="460" y1="121" x2="460" y2="140" stroke="#9b8cf8" stroke-width="1"/>
+  <rect x="420" y="140" width="70" height="22" fill="#0d0a1a" stroke="#9b8cf8" stroke-width="1" rx="3"/>
+  <text x="455" y="154" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">16QAM 4bit</text>
+  <line x1="520" y1="121" x2="520" y2="140" stroke="#9b8cf8" stroke-width="1"/>
+  <rect x="493" y="140" width="70" height="22" fill="#0d0a1a" stroke="#9b8cf8" stroke-width="1" rx="3"/>
+  <text x="528" y="154" fill="#9b8cf8" font-size="8" text-anchor="middle" font-family="monospace">64QAM 6bit</text>
+
+  <!-- OFDM branch -->
+  <line x1="620" y1="78" x2="620" y2="93" stroke="#00d4a0" stroke-width="1.5"/>
+  <rect x="558" y="93" width="120" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="618" y="107" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">OFDM (LTE DL)</text>
+  <text x="618" y="118" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Multi-carrier, 15kHz</text>
+  <text x="618" y="135" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">SC-FDMA (LTE UL)</text>
+
+  <!-- Multiple Access row -->
+  <text x="400" y="185" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Multiple Access Techniques:</text>
+  <rect x="10"  y="195" width="140" height="35" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="80"  y="210" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">FDMA</text>
+  <text x="80"  y="223" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Different frequency per user</text>
+  <rect x="160" y="195" width="140" height="35" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="230" y="210" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">TDMA</text>
+  <text x="230" y="223" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Time slots per user</text>
+  <rect x="310" y="195" width="140" height="35" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="380" y="210" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">CDMA</text>
+  <text x="380" y="223" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Unique code per user</text>
+  <rect x="460" y="195" width="155" height="35" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="537" y="210" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">OFDMA</text>
+  <text x="537" y="223" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Subcarrier groups → LTE/5G</text>
+  <rect x="625" y="195" width="165" height="35" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="707" y="210" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">SC-FDMA</text>
+  <text x="707" y="223" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">LTE UL — lower PAPR</text>
+
+  <!-- Coding -->
+  <text x="400" y="248" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Channel Coding: CRC (error detection) → Turbo (LTE) → LDPC (5G NR data) → Polar (5G NR control)</text>
+  <text x="400" y="264" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Coding adds redundancy → receiver can correct errors → enables BLER≤5% at sensitivity threshold</text>
+  <text x="400" y="276" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">QPSK 1/3 code rate → required SNR ≈ -1dB (signal CAN be below noise floor with coding gain)</text>
+</svg>

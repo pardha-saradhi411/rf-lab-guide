@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="300" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">RF Impairments — Source, Effect on Signal, How to Measure</text>
+
+  <!-- IQ Imbalance -->
+  <rect x="10"  y="35" width="185" height="80" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="102" y="52" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">IQ Imbalance</text>
+  <text x="20"  y="67" fill="#8892b0" font-size="8" font-family="monospace">Gain/phase mismatch between</text>
+  <text x="20"  y="79" fill="#8892b0" font-size="8" font-family="monospace">I and Q paths in mixer</text>
+  <text x="20"  y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: image signal appears</text>
+  <text x="20"  y="105" fill="#f5a623" font-size="8" font-family="monospace">at -f offset → IRR degrades</text>
+  <text x="20"  y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: EVM, constellation asymmetry</text>
+
+  <!-- LO Leakage -->
+  <rect x="205" y="35" width="185" height="80" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="297" y="52" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">LO Leakage / DC Offset</text>
+  <text x="215" y="67" fill="#8892b0" font-size="8" font-family="monospace">LO signal leaks to output</text>
+  <text x="215" y="79" fill="#8892b0" font-size="8" font-family="monospace">DC offset in baseband</text>
+  <text x="215" y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: carrier spike at f_carrier</text>
+  <text x="215" y="105" fill="#f5a623" font-size="8" font-family="monospace">→ IQ Offset metric fails</text>
+  <text x="215" y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: IQ Offset in EVM analysis</text>
+
+  <!-- Phase Noise -->
+  <rect x="400" y="35" width="185" height="80" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="492" y="52" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Phase Noise</text>
+  <text x="410" y="67" fill="#8892b0" font-size="8" font-family="monospace">Random phase fluctuation of LO</text>
+  <text x="410" y="79" fill="#8892b0" font-size="8" font-family="monospace">from VCO/PLL imperfections</text>
+  <text x="410" y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: "skirts" around carrier</text>
+  <text x="410" y="105" fill="#f5a623" font-size="8" font-family="monospace">→ EVM floor, ICI in OFDM</text>
+  <text x="410" y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: Phase Error, EVM vs subcarrier</text>
+
+  <!-- CFO -->
+  <rect x="595" y="35" width="195" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="692" y="52" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Carrier Freq Offset (CFO)</text>
+  <text x="605" y="67" fill="#8892b0" font-size="8" font-family="monospace">TX and RX reference clocks</text>
+  <text x="605" y="79" fill="#8892b0" font-size="8" font-family="monospace">slightly different frequencies</text>
+  <text x="605" y="93" fill="#f5a623" font-size="8" font-family="monospace">Effect: rotating constellation</text>
+  <text x="605" y="105" fill="#f5a623" font-size="8" font-family="monospace">ICI → EVM → BLER rises</text>
+  <text x="605" y="114" fill="#4a5470" font-size="7" font-family="monospace">Measure: Frequency Error (Hz/PPM)</text>
+
+  <!-- AM-AM / AM-PM -->
+  <rect x="10"  y="125" width="280" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="150" y="142" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">PA Nonlinearity: AM-AM + AM-PM</text>
+  <text x="20"  y="158" fill="#8892b0" font-size="8" font-family="monospace">AM-AM: Output amplitude ≠ linear fn of input (gain compression)</text>
+  <text x="20"  y="170" fill="#8892b0" font-size="8" font-family="monospace">AM-PM: Phase shift changes with input amplitude</text>
+  <text x="20"  y="184" fill="#f5a623" font-size="8" font-family="monospace">Effect: spectral regrowth (ACLR), EVM, signal distortion</text>
+  <text x="20"  y="196" fill="#4a5470" font-size="7" font-family="monospace">DPD corrects both: pre-distorts AM-AM and AM-PM inverse</text>
+
+  <!-- Gain Compression -->
+  <rect x="300" y="125" width="240" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="420" y="142" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Gain Compression (P1dB)</text>
+  <text x="310" y="158" fill="#8892b0" font-size="8" font-family="monospace">PA gain drops 1dB below linear at P1dB</text>
+  <text x="310" y="170" fill="#8892b0" font-size="8" font-family="monospace">Operating above P1dB → heavy distortion</text>
+  <text x="310" y="184" fill="#f5a623" font-size="8" font-family="monospace">P1dB_out ≈ Psat - 3 to 5 dB typically</text>
+  <text x="310" y="196" fill="#4a5470" font-size="7" font-family="monospace">Measure: power sweep → find where gain drops 1dB</text>
+
+  <!-- Group Delay / Timing -->
+  <rect x="550" y="125" width="240" height="80" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="670" y="142" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Group Delay + Timing Offset</text>
+  <text x="560" y="158" fill="#8892b0" font-size="8" font-family="monospace">Group delay: freq-dependent delay in filter</text>
+  <text x="560" y="170" fill="#8892b0" font-size="8" font-family="monospace">Timing offset: TX/RX not aligned in time</text>
+  <text x="560" y="184" fill="#f5a623" font-size="8" font-family="monospace">Effect: ISI, EVM, subcarrier phase error</text>
+  <text x="560" y="196" fill="#4a5470" font-size="7" font-family="monospace">Measure: VNA group delay, timing advance</text>
+
+  <!-- EVM impact summary -->
+  <rect x="10" y="215" width="780" height="75" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="232" fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EVM Budget — All impairments contribute to total EVM</text>
+  <text x="20"  y="248" fill="#ff6b6b" font-size="9" font-family="monospace">EVM_total = √(EVM_IQ² + EVM_LO² + EVM_PhaseNoise² + EVM_PA² + EVM_CFO² + ...)</text>
+  <text x="20"  y="262" fill="#8892b0" font-size="9" font-family="monospace">Each impairment adds quadratically → must budget all sources to meet total EVM spec</text>
+  <text x="20"  y="276" fill="#f5a623" font-size="8" font-family="monospace">LTE EVM limits: QPSK=17.5%, 16QAM=12.5%, 64QAM=8%, 256QAM=3.5% (3GPP TS 36.104 Table 6.5.2.2-1)</text>
+  <text x="20"  y="288" fill="#4a5470" font-size="8" font-family="monospace">Debug: disable DPD → measure PA-only EVM · enable DPD → measure improvement · identify dominant impairment source</text>
+</svg>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="150" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">MIMO Evolution — SISO → 2x2 → 4T4R → 64T64R → MU-MIMO</text>
+  <rect x="8"   y="28" width="130" height="110" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="73"  y="50" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SISO</text>
+  <text x="73"  y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">1 TX · 1 RX</text>
+  <text x="73"  y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">1 stream</text>
+  <text x="73"  y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Baseline 1×</text>
+  <text x="73"  y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">2G/3G era</text>
+  <rect x="148" y="28" width="130" height="110" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="213" y="50" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">2×2 MIMO</text>
+  <text x="213" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">2 TX · 2 RX</text>
+  <text x="213" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">2 streams</text>
+  <text x="213" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Capacity 2×</text>
+  <text x="213" y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LTE baseline</text>
+  <rect x="288" y="28" width="130" height="110" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="353" y="50" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">4T4R</text>
+  <text x="353" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">4 TX · 4 RX</text>
+  <text x="353" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">4 streams max</text>
+  <text x="353" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Capacity 4×</text>
+  <text x="353" y="108" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Your Metro AAU</text>
+  <rect x="428" y="28" width="130" height="110" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="493" y="50" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">64T64R</text>
+  <text x="493" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">64 TX · 64 RX</text>
+  <text x="493" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Massive MIMO</text>
+  <text x="493" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Capacity 20×+</text>
+  <text x="493" y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">5G NR flagship</text>
+  <rect x="568" y="28" width="224" height="110" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="680" y="50" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">MU-MIMO</text>
+  <text x="680" y="66" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Multiple UEs · same RB · same time</text>
+  <text x="680" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Spatial reuse → cell capacity ×</text>
+  <text x="680" y="94" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Needs accurate SRS measurements</text>
+  <text x="680" y="108" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RX MRC: 4 cols → +6 dB gain</text>
+</svg>

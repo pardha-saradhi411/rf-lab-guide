@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Environmental Tests — Making the RU Survive the Real World</text>
+  <rect x="8"   y="28" width="148" height="82" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="82"  y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">IP65/IP67 (Dust+Water)</text>
+  <text x="18"  y="64" fill="#8892b0" font-size="8" font-family="monospace">6=fully dust tight</text>
+  <text x="18"  y="78" fill="#8892b0" font-size="8" font-family="monospace">5=water jet · 7=immersion</text>
+  <text x="18"  y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60529</text>
+  <rect x="166" y="28" width="148" height="82" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="240" y="48" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Thermal Cycling</text>
+  <text x="176" y="64" fill="#8892b0" font-size="8" font-family="monospace">−40°C to +70°C cycles</text>
+  <text x="176" y="78" fill="#8892b0" font-size="8" font-family="monospace">Solder joint fatigue</text>
+  <text x="176" y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60068-2-14</text>
+  <rect x="324" y="28" width="148" height="82" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="398" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Salt Fog</text>
+  <text x="334" y="64" fill="#8892b0" font-size="8" font-family="monospace">5% NaCl · 96 hours</text>
+  <text x="334" y="78" fill="#8892b0" font-size="8" font-family="monospace">Coastal deployment</text>
+  <text x="334" y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60068-2-52</text>
+  <rect x="482" y="28" width="148" height="82" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="556" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Humidity</text>
+  <text x="492" y="64" fill="#8892b0" font-size="8" font-family="monospace">85% RH at 40°C</text>
+  <text x="492" y="78" fill="#8892b0" font-size="8" font-family="monospace">Tropical deployment</text>
+  <text x="492" y="92" fill="#f5a623" font-size="7" font-family="monospace">IEC 60068-2-78</text>
+  <rect x="640" y="28" width="152" height="82" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="716" y="48" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">After each test:</text>
+  <text x="650" y="64" fill="#8892b0" font-size="8" font-family="monospace">Full RF power + ACLR</text>
+  <text x="650" y="78" fill="#8892b0" font-size="8" font-family="monospace">Connector inspection</text>
+  <text x="650" y="92" fill="#00d4a0" font-size="7" font-family="monospace">All RF specs must pass</text>
+</svg>

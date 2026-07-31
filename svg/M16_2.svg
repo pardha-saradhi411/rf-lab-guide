@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 150" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:14px 0 8px">
+  <rect width="800" height="150" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">LTE TDD Frame Structure — Config 2 (your B41 default)</text>
+  <!-- 10ms frame -->
+  <rect x="8" y="28" width="784" height="30" fill="#141720" stroke="#4a5470" stroke-width="1" rx="2"/>
+  <text x="8" y="24" fill="#4a5470" font-size="8" font-family="monospace">10ms radio frame</text>
+  <!-- 10 subframes -->
+  <g font-family="monospace" font-size="8">
+  <!-- SF0 DL -->
+  <rect x="8"   y="30" width="78" height="26" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5"/>
+  <text x="47"  y="46" fill="#5bc4ef" font-weight="bold" text-anchor="middle">DL</text>
+  <text x="47"  y="57" fill="#4a5470" text-anchor="middle">SF0</text>
+  <!-- SF1 Special -->
+  <rect x="86"  y="30" width="78" height="26" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5"/>
+  <text x="125" y="46" fill="#c8b800" font-weight="bold" text-anchor="middle">S</text>
+  <text x="125" y="57" fill="#4a5470" text-anchor="middle">SF1</text>
+  <!-- SF2 UL -->
+  <rect x="164" y="30" width="78" height="26" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="203" y="46" fill="#00d4a0" font-weight="bold" text-anchor="middle">UL</text>
+  <text x="203" y="57" fill="#4a5470" text-anchor="middle">SF2</text>
+  <!-- SF3 UL -->
+  <rect x="242" y="30" width="78" height="26" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="281" y="46" fill="#00d4a0" font-weight="bold" text-anchor="middle">UL</text>
+  <text x="281" y="57" fill="#4a5470" text-anchor="middle">SF3</text>
+  <!-- SF4 UL -->
+  <rect x="320" y="30" width="78" height="26" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="359" y="46" fill="#00d4a0" font-weight="bold" text-anchor="middle">UL</text>
+  <text x="359" y="57" fill="#4a5470" text-anchor="middle">SF4</text>
+  <!-- SF5 DL -->
+  <rect x="398" y="30" width="78" height="26" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5"/>
+  <text x="437" y="46" fill="#5bc4ef" font-weight="bold" text-anchor="middle">DL</text>
+  <text x="437" y="57" fill="#4a5470" text-anchor="middle">SF5</text>
+  <!-- SF6 Special -->
+  <rect x="476" y="30" width="78" height="26" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5"/>
+  <text x="515" y="46" fill="#c8b800" font-weight="bold" text-anchor="middle">S</text>
+  <text x="515" y="57" fill="#4a5470" text-anchor="middle">SF6</text>
+  <!-- SF7 UL -->
+  <rect x="554" y="30" width="78" height="26" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="593" y="46" fill="#00d4a0" font-weight="bold" text-anchor="middle">UL</text>
+  <text x="593" y="57" fill="#4a5470" text-anchor="middle">SF7</text>
+  <!-- SF8 UL -->
+  <rect x="632" y="30" width="78" height="26" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="671" y="46" fill="#00d4a0" font-weight="bold" text-anchor="middle">UL</text>
+  <text x="671" y="57" fill="#4a5470" text-anchor="middle">SF8</text>
+  <!-- SF9 UL -->
+  <rect x="710" y="30" width="82" height="26" fill="#001a00" stroke="#00d4a0" stroke-width="1.5"/>
+  <text x="751" y="46" fill="#00d4a0" font-weight="bold" text-anchor="middle">UL</text>
+  <text x="751" y="57" fill="#4a5470" text-anchor="middle">SF9</text>
+  </g>
+  <!-- Special subframe detail -->
+  <rect x="8" y="68" width="350" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1" rx="3"/>
+  <text x="183" y="84" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Special Subframe (S) breakdown — 14 symbols total</text>
+  <rect x="18"  y="90" width="100" height="20" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="2"/>
+  <text x="68"  y="104" fill="#5bc4ef" font-size="8" text-anchor="middle" font-family="monospace">DwPTS (10 sym)</text>
+  <rect x="118" y="90" width="60" height="20" fill="#141720" stroke="#4a5470" stroke-width="1" rx="2"/>
+  <text x="148" y="104" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">GP (2 sym)</text>
+  <rect x="178" y="90" width="70" height="20" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="213" y="104" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">UpPTS (2 sym)</text>
+  <!-- Annotation -->
+  <text x="260" y="99" fill="#4a5470" font-size="7" font-family="monospace">GP = guard period</text>
+  <text x="260" y="111" fill="#4a5470" font-size="7" font-family="monospace">prevents DL→UL collision</text>
+  <!-- EXA gating reminder -->
+  <rect x="368" y="68" width="424" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1" rx="3"/>
+  <text x="580" y="84" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXA gating for B41 ACLR measurement</text>
+  <text x="378" y="100" fill="#8892b0" font-size="8" font-family="monospace">Gate ON: DL subframes (SF0, SF5) + DwPTS only</text>
+  <text x="378" y="113" fill="#ff6b6b" font-size="8" font-family="monospace">Without gating: UL silence included → ACLR appears 5-10 dB better than reality → FALSE PASS</text>
+  <!-- DL:UL ratio -->
+  <rect x="8" y="128" width="784" height="16" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <text x="400" y="140" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Config 2 ratio: 2 DL : 3 UL subframes (+ 2 Special) · DL-heavy config available: Config 5 = 6DL:2UL · set in DU</text>
+</svg>

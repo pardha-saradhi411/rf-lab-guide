@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">SCPI Automation — Python → EXA/EXM Control Flow</text>
+  <!-- Python script box -->
+  <rect x="10" y="35" width="150" height="160" fill="#0a0a0a" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="85" y="55" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Python Script</text>
+  <text x="20" y="72"  fill="#f5a623" font-size="8" font-family="monospace">import socket</text>
+  <text x="20" y="85"  fill="#f5a623" font-size="8" font-family="monospace">s = socket.socket()</text>
+  <text x="20" y="98"  fill="#f5a623" font-size="8" font-family="monospace">s.connect((ip, 5025))</text>
+  <text x="20" y="114" fill="#5bc4ef" font-size="8" font-family="monospace">s.send(b"*RST
+")</text>
+  <text x="20" y="127" fill="#5bc4ef" font-size="8" font-family="monospace">s.send(b":FREQ:CENT 2.14e9
+")</text>
+  <text x="20" y="140" fill="#5bc4ef" font-size="8" font-family="monospace">s.send(b":ACLR ON
+")</text>
+  <text x="20" y="153" fill="#9b8cf8" font-size="8" font-family="monospace">s.send(b":FETCH:ACLR?
+")</text>
+  <text x="20" y="166" fill="#9b8cf8" font-size="8" font-family="monospace">result = s.recv(1024)</text>
+  <text x="20" y="180" fill="#4a5470" font-size="7" font-family="monospace"># port 5025 always</text>
+
+  <!-- TCP arrow -->
+  <line x1="160" y1="115" x2="195" y2="115" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="193,111 203,115 193,119" fill="#5bc4ef"/>
+  <text x="177" y="108" fill="#5bc4ef" font-size="7" text-anchor="middle" font-family="monospace">TCP</text>
+  <text x="177" y="127" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">LAN</text>
+
+  <!-- EXA box -->
+  <rect x="203" y="60" width="130" height="110" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="268" y="80"  fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXA</text>
+  <text x="268" y="95"  fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">10.62.2.135</text>
+  <text x="268" y="110" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">ACLR, EVM, Power</text>
+  <text x="268" y="125" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SEM, Spectrum</text>
+  <text x="268" y="145" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Returns: -54.2,dBc</text>
+
+  <!-- TCP arrow to EXM -->
+  <line x1="333" y1="115" x2="368" y2="115" stroke="#ff6b6b" stroke-width="2"/>
+  <polygon points="366,111 376,115 366,119" fill="#ff6b6b"/>
+  <text x="350" y="108" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">TCP</text>
+
+  <!-- EXM box -->
+  <rect x="376" y="60" width="130" height="110" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="441" y="80"  fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">EXM</text>
+  <text x="441" y="95"  fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">VSG output</text>
+  <text x="441" y="110" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Set: −95 dBm</text>
+  <text x="441" y="123" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Freq: 1950 MHz</text>
+  <text x="441" y="136" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">FRC: A1 QPSK</text>
+  <text x="441" y="145" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Returns: OK</text>
+
+  <!-- Pass/Fail logic -->
+  <rect x="530" y="35" width="260" height="165" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="660" y="55" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Pass/Fail Logic</text>
+  <text x="540" y="72"  fill="#00d4a0" font-size="8" font-family="monospace">aclr = float(result)</text>
+  <text x="540" y="86"  fill="#00d4a0" font-size="8" font-family="monospace">if aclr &lt; -45.0:</text>
+  <text x="540" y="100" fill="#00d4a0" font-size="8" font-family="monospace">    print("PASS")</text>
+  <text x="540" y="114" fill="#ff6b6b" font-size="8" font-family="monospace">else:</text>
+  <text x="540" y="128" fill="#ff6b6b" font-size="8" font-family="monospace">    print("FAIL")</text>
+  <text x="540" y="142" fill="#ff6b6b" font-size="8" font-family="monospace">    log_failure(band, result)</text>
+  <line x1="540" y1="152" x2="780" y2="152" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="660" y="167" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RuAuto does this automatically</text>
+  <text x="660" y="180" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">tc_cadence.json defines all limits</text>
+  <text x="660" y="193" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Results saved to rct_results.json</text>
+</svg>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="260" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Fault Management — Alarm → Root Cause → Action</text>
+
+  <rect x="10"  y="35" width="225" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="122" y="53" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🌡 PA Over-Temperature</text>
+  <text x="20"  y="68" fill="#8892b0" font-size="8" font-family="monospace">Threshold: Tjunction &gt;85°C</text>
+  <text x="20"  y="80" fill="#8892b0" font-size="8" font-family="monospace">Cause: cooling blocked, high load</text>
+  <text x="20"  y="92" fill="#f5a623" font-size="8" font-family="monospace">Action: PA backs off → shutdown</text>
+  <text x="20"  y="104" fill="#4a5470" font-size="7" font-family="monospace">Debug: get_temp · check airflow</text>
+  <text x="20"  y="112" fill="#4a5470" font-size="7" font-family="monospace">Recovery: cool down + restart</text>
+
+  <rect x="245" y="35" width="225" height="80" fill="#2a1a0d" stroke="#f5a623" stroke-width="2" rx="4"/>
+  <text x="357" y="53" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">📡 VSWR Alarm</text>
+  <text x="255" y="68" fill="#8892b0" font-size="8" font-family="monospace">Threshold: reflected &gt;10% fwd</text>
+  <text x="255" y="80" fill="#8892b0" font-size="8" font-family="monospace">Cause: antenna disconnected</text>
+  <text x="255" y="92" fill="#8892b0" font-size="8" font-family="monospace">damaged cable, ice on antenna</text>
+  <text x="255" y="104" fill="#f5a623" font-size="8" font-family="monospace">Action: PA gates off immediately</text>
+  <text x="255" y="112" fill="#4a5470" font-size="7" font-family="monospace">Debug: VNA S11 · check cable torque</text>
+
+  <rect x="480" y="35" width="160" height="80" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="560" y="53" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🛰 GPS/PTP Loss</text>
+  <text x="490" y="68" fill="#8892b0" font-size="8" font-family="monospace">GPS antenna fault</text>
+  <text x="490" y="80" fill="#8892b0" font-size="8" font-family="monospace">Network timing lost</text>
+  <text x="490" y="92" fill="#f5a623" font-size="8" font-family="monospace">→ Holdover mode</text>
+  <text x="490" y="104" fill="#ff6b6b" font-size="8" font-family="monospace">TDD fails after hours</text>
+  <text x="490" y="112" fill="#4a5470" font-size="7" font-family="monospace">Debug: tcpdump PTP packets</text>
+
+  <rect x="650" y="35" width="140" height="80" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="720" y="53" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">🔥 Carrier Fail</text>
+  <text x="660" y="68" fill="#8892b0" font-size="8" font-family="monospace">Carrier activation</text>
+  <text x="660" y="80" fill="#8892b0" font-size="8" font-family="monospace">failed or dropped</text>
+  <text x="660" y="92" fill="#f5a623" font-size="8" font-family="monospace">Check: eCPRI link</text>
+  <text x="660" y="104" fill="#4a5470" font-size="7" font-family="monospace">NETCONF error log</text>
+  <text x="660" y="112" fill="#4a5470" font-size="7" font-family="monospace">get_faults CLI</text>
+
+  <!-- Fault Debug Flow -->
+  <rect x="10" y="125" width="780" height="125" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="142" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Fault Debug Procedure — Always Follow This Order:</text>
+  <text x="20" y="158" fill="#00d4a0" font-size="9" font-family="monospace">Step 1: SSH to RU → get_faults  → list all fault codes + descriptions</text>
+  <text x="20" y="171" fill="#5bc4ef" font-size="9" font-family="monospace">Step 2: journalctl -u rru --since "1 hour ago" → find first error occurrence and timestamp</text>
+  <text x="20" y="184" fill="#f5a623" font-size="9" font-family="monospace">Step 3: Correlate with instrument: EXA power drop? ACLR change? RX sensitivity change?</text>
+  <text x="20" y="197" fill="#9b8cf8" font-size="9" font-family="monospace">Step 4: Check environment: temperature reading · VSWR reading · PTP lock status · GPS signal</text>
+  <text x="20" y="210" fill="#8892b0" font-size="9" font-family="monospace">Step 5: Clear fault if condition resolved → test_recovery → measure ACLR/EVM → confirm clean</text>
+  <text x="20" y="223" fill="#ff6b6b" font-size="9" font-family="monospace">Step 6: If recurring: capture full PreChecks log → screenshot instrument → escalate to David/Korea</text>
+  <text x="20" y="240" fill="#4a5470" font-size="8" font-family="monospace">Fault codes: 12=missing tx_cal · 15=RFFE comm error · 22=PA protection · 31=PTP loss · 45=VSWR alarm</text>
+</svg>

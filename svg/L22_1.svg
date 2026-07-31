@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Beamforming Types — Analog vs Digital vs Hybrid</text>
+
+  <!-- Analog BF -->
+  <rect x="10" y="35" width="240" height="175" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="6"/>
+  <text x="130" y="55" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Analog Beamforming</text>
+  <text x="130" y="70" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">One RF chain → phase shifters</text>
+  <!-- Simple diagram -->
+  <rect x="20" y="78" width="50" height="22" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1" rx="2"/>
+  <text x="45" y="93" fill="#ff6b6b" font-size="8" text-anchor="middle" font-family="monospace">1 PA</text>
+  <line x1="70" y1="89" x2="90" y2="89" stroke="#ff6b6b" stroke-width="1.5"/>
+  <!-- Phase shifters and elements -->
+  <rect x="90" y="75" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="85" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ1</text>
+  <rect x="90" y="92" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="102" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ2</text>
+  <rect x="90" y="109" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="119" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ3</text>
+  <rect x="90" y="126" width="30" height="14" fill="#1a0d0d" stroke="#f5a623" stroke-width="1" rx="2"/>
+  <text x="105" y="136" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">φ4</text>
+  <!-- Antenna elements -->
+  <line x1="120" y1="82" x2="140" y2="82" stroke="#9b8cf8" stroke-width="1"/>
+  <line x1="120" y1="99" x2="140" y2="99" stroke="#9b8cf8" stroke-width="1"/>
+  <line x1="120" y1="116" x2="140" y2="116" stroke="#9b8cf8" stroke-width="1"/>
+  <line x1="120" y1="133" x2="140" y2="133" stroke="#9b8cf8" stroke-width="1"/>
+  <rect x="140" y="75" width="12" height="75" fill="#9b8cf8" rx="2"/>
+  <text x="130" y="170" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Single beam</text>
+  <text x="130" y="182" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Low cost, 1 user</text>
+  <text x="130" y="194" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Your AAU: PE44820DS</text>
+  <text x="130" y="206" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">phase shifter per element</text>
+
+  <!-- Digital BF -->
+  <rect x="280" y="35" width="240" height="175" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="6"/>
+  <text x="400" y="55" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Digital Beamforming</text>
+  <text x="400" y="70" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">One RF chain per element</text>
+  <!-- Multiple PA chains -->
+  <rect x="290" y="78" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="88" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <rect x="290" y="95" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="105" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <rect x="290" y="112" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="122" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <rect x="290" y="129" width="40" height="14" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1" rx="2"/>
+  <text x="310" y="139" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">PA+DAC</text>
+  <!-- Beamforming weights -->
+  <rect x="340" y="75" width="50" height="75" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="365" y="115" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace" transform="rotate(-90,365,115)">W×IQ digital</text>
+  <!-- Antenna elements -->
+  <rect x="400" y="75" width="12" height="75" fill="#9b8cf8" rx="2"/>
+  <text x="400" y="170" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Multiple beams</text>
+  <text x="400" y="182" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">MU-MIMO, flexible</text>
+  <text x="400" y="194" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Massive MIMO: 64T64R</text>
+  <text x="400" y="206" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">High cost, high perf</text>
+
+  <!-- Hybrid BF -->
+  <rect x="550" y="35" width="240" height="175" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="6"/>
+  <text x="670" y="55" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Hybrid Beamforming</text>
+  <text x="670" y="70" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Few chains + phase shifters</text>
+  <text x="670" y="100" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Digital precoder</text>
+  <text x="670" y="115" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">(NxM beams)</text>
+  <line x1="670" y1="120" x2="670" y2="133" stroke="#5bc4ef" stroke-width="1.5"/>
+  <text x="670" y="148" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Analog phase shifters</text>
+  <text x="670" y="163" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">(MxK elements)</text>
+  <text x="670" y="185" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Best of both worlds</text>
+  <text x="670" y="197" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">5G FR2 mmWave</text>
+  <text x="670" y="209" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Balance cost vs performance</text>
+
+  <!-- Beam management flow -->
+  <rect x="10" y="220" width="780" height="52" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="236" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Beam Management Lifecycle:</text>
+  <text x="400" y="252" fill="#8892b0" font-size="9" text-anchor="middle" font-family="monospace">Beam Sweeping (SSB burst) → Beam Measurement (RSRP per beam) → Beam Selection → Beam Refinement (CSI-RS) → Beam Tracking → Beam Failure Detection → Beam Failure Recovery (new beam request)</text>
+  <text x="400" y="266" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Beam Failure Recovery: UE sends PRACH on candidate beam → gNB acknowledges → new beam established · Recovery time target: &lt;50ms</text>
+</svg>

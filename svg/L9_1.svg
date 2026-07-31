@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="240" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">Test Equipment — Your Lab Arsenal</text>
+
+  <!-- Keysight -->
+  <rect x="10" y="35" width="230" height="145" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="6"/>
+  <text x="125" y="53" fill="#5bc4ef" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Keysight</text>
+  <text x="20" y="70"  fill="#00d4a0" font-size="9" font-family="monospace">EXA N9010B ← YOUR MAIN</text>
+  <text x="20" y="82"  fill="#4a5470" font-size="8" font-family="monospace">  IP: 10.62.2.135 · SN: MY59070653</text>
+  <text x="20" y="94"  fill="#4a5470" font-size="8" font-family="monospace">  Spectrum analyser · ACLR · SEM · EVM</text>
+  <text x="20" y="110" fill="#00d4a0" font-size="9" font-family="monospace">EXM E6640A ← RX/RSSI TESTS</text>
+  <text x="20" y="122" fill="#4a5470" font-size="8" font-family="monospace">  VSG+VSA combined · sensitivity tests</text>
+  <text x="20" y="138" fill="#8892b0" font-size="9" font-family="monospace">MXA N9020B</text>
+  <text x="20" y="150" fill="#4a5470" font-size="8" font-family="monospace">  Higher spec spectrum analyser</text>
+  <text x="20" y="162" fill="#00d4a0" font-size="9" font-family="monospace">VNA E5071C ← PHASE/S-PARAM</text>
+  <text x="20" y="174" fill="#4a5470" font-size="8" font-family="monospace">  SOLT cal · S11/S21 · beam phase meas.</text>
+
+  <!-- R&S -->
+  <rect x="250" y="35" width="175" height="145" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="6"/>
+  <text x="337" y="53" fill="#9b8cf8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Rohde &amp; Schwarz</text>
+  <text x="260" y="70"  fill="#8892b0" font-size="9" font-family="monospace">CMW500</text>
+  <text x="260" y="82"  fill="#4a5470" font-size="8" font-family="monospace">  All-in-one wideband tester</text>
+  <text x="260" y="94"  fill="#4a5470" font-size="8" font-family="monospace">  LTE/5G call box + analyser</text>
+  <text x="260" y="110" fill="#8892b0" font-size="9" font-family="monospace">CMW290</text>
+  <text x="260" y="122" fill="#4a5470" font-size="8" font-family="monospace">  Compact version CMW500</text>
+  <text x="260" y="138" fill="#8892b0" font-size="9" font-family="monospace">FSW</text>
+  <text x="260" y="150" fill="#4a5470" font-size="8" font-family="monospace">  High-end spectrum analyser</text>
+  <text x="260" y="162" fill="#4a5470" font-size="8" font-family="monospace">  Better phase noise than EXA</text>
+
+  <!-- Anritsu + VIAVI + LitePoint -->
+  <rect x="435" y="35" width="175" height="145" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="6"/>
+  <text x="522" y="53" fill="#c8b800" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Anritsu / VIAVI</text>
+  <text x="445" y="70"  fill="#8892b0" font-size="9" font-family="monospace">Anritsu MT8862A</text>
+  <text x="445" y="82"  fill="#4a5470" font-size="8" font-family="monospace">  WiFi/LTE/5G conformance</text>
+  <text x="445" y="98"  fill="#8892b0" font-size="9" font-family="monospace">VIAVI OneAdvisor</text>
+  <text x="445" y="110" fill="#4a5470" font-size="8" font-family="monospace">  Field test · Xpert/OTDRs</text>
+  <text x="445" y="126" fill="#8892b0" font-size="9" font-family="monospace">LitePoint IQxel</text>
+  <text x="445" y="138" fill="#4a5470" font-size="8" font-family="monospace">  WiFi/BT/ZigBee OTA</text>
+  <text x="445" y="154" fill="#4a5470" font-size="8" font-family="monospace">  High-volume production</text>
+
+  <!-- SCPI quick ref -->
+  <rect x="620" y="35" width="170" height="145" fill="#0a0a0a" stroke="#4a5470" stroke-width="1" rx="6"/>
+  <text x="705" y="53" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SCPI Quick Ref</text>
+  <text x="630" y="68"  fill="#00d4a0" font-size="8" font-family="monospace">*IDN?</text>
+  <text x="630" y="78"  fill="#4a5470" font-size="7" font-family="monospace">Identify instrument</text>
+  <text x="630" y="92"  fill="#00d4a0" font-size="8" font-family="monospace">:SENS:FREQ:CENT 2.14GHz</text>
+  <text x="630" y="102" fill="#4a5470" font-size="7" font-family="monospace">Set centre frequency</text>
+  <text x="630" y="116" fill="#00d4a0" font-size="8" font-family="monospace">:SENS:BWID:RES 100kHz</text>
+  <text x="630" y="126" fill="#4a5470" font-size="7" font-family="monospace">Set RBW (for ACLR)</text>
+  <text x="630" y="140" fill="#00d4a0" font-size="8" font-family="monospace">:CALC:MARK:FUNC:ACLR</text>
+  <text x="630" y="150" fill="#4a5470" font-size="7" font-family="monospace">Run ACLR measurement</text>
+  <text x="630" y="164" fill="#00d4a0" font-size="8" font-family="monospace">:FETCH:ACLR:CELL?</text>
+  <text x="630" y="174" fill="#4a5470" font-size="7" font-family="monospace">Read ACLR result</text>
+
+  <text x="400" y="200" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Know your instrument: DANL · RBW/VBW · Attenuator setting · Preamp · Trigger modes · Cal routines</text>
+  <text x="400" y="215" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">EXA DANL: preamp ON+0dBatten = -130dBm/Hz · EXM RF range must match input power to avoid ADC overrange</text>
+  <text x="400" y="228" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">SCPI: connect via TCP port 5025 (EXA: 10.62.2.135:5025) · Python: socket or pyvisa</text>
+</svg>

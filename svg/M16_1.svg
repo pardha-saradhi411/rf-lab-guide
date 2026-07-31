@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="220" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">LTE TDD Frame Structure — 10ms Frame, Config 1, SSF Config 7</text>
+  <!-- 10ms frame -->
+  <text x="15" y="48" fill="#4a5470" font-size="9" font-family="monospace">10ms:</text>
+  <!-- 10 subframes -->
+  <rect x="55"  y="35" width="72" height="28" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="2"/>
+  <text x="91"  y="52" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF0 DL</text>
+  <rect x="130" y="35" width="72" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="166" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF1 S</text>
+  <rect x="205" y="35" width="72" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="241" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF2 UL</text>
+  <rect x="280" y="35" width="72" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="316" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF3 UL</text>
+  <rect x="355" y="35" width="72" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="391" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF4 UL</text>
+  <rect x="430" y="35" width="72" height="28" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="2"/>
+  <text x="466" y="52" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF5 DL</text>
+  <rect x="505" y="35" width="72" height="28" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="2"/>
+  <text x="541" y="52" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF6 S</text>
+  <rect x="580" y="35" width="72" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="616" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF7 UL</text>
+  <rect x="655" y="35" width="72" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="691" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF8 UL</text>
+  <rect x="730" y="35" width="60" height="28" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="2"/>
+  <text x="760" y="52" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">SF9 UL</text>
+  <!-- 1ms label -->
+  <line x1="55"  y1="30" x2="127" y2="30" stroke="#4a5470" stroke-width="1"/>
+  <text x="91"  y="28" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">1ms</text>
+  <!-- Special subframe zoom (SF1) -->
+  <text x="166" y="82" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Special SF (S) zoom — SSF Config 7:</text>
+  <rect x="55"  y="90" width="222" height="40" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="166" y="108" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">DwPTS (11 symbols)</text>
+  <text x="166" y="122" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DL data (like normal DL subframe)</text>
+  <rect x="277" y="90" width="37"  height="40" fill="#1a1a1a" stroke="#4a5470" stroke-width="1.5" rx="3"/>
+  <text x="295" y="108" fill="#8892b0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">GP</text>
+  <text x="295" y="120" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Guard</text>
+  <rect x="314" y="90" width="74"  height="40" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="3"/>
+  <text x="351" y="108" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">UpPTS (2)</text>
+  <text x="351" y="120" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">UL PRACH/SRS</text>
+  <text x="220" y="148" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">GP = Guard Period — prevents DL/UL collision during propagation. Size determines max cell radius.</text>
+  <!-- FDD vs TDD -->
+  <rect x="430" y="78" width="360" height="100" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="610" y="96"  fill="#c8c8d8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">FDD vs TDD</text>
+  <text x="475" y="112" fill="#5bc4ef" font-size="9" font-weight="bold" font-family="monospace">FDD (B1/B3/B8/B28):</text>
+  <text x="475" y="126" fill="#8892b0" font-size="8" font-family="monospace">DL: 2140MHz  UL: 1950MHz</text>
+  <text x="475" y="138" fill="#8892b0" font-size="8" font-family="monospace">Simultaneous TX+RX — duplexer needed</text>
+  <text x="475" y="152" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">TDD (B41):</text>
+  <text x="475" y="165" fill="#8892b0" font-size="8" font-family="monospace">DL+UL: 2545MHz (same freq)</text>
+  <text x="475" y="178" fill="#8892b0" font-size="8" font-family="monospace">Time-divided — T/R switch, needs sync</text>
+  <text x="400" y="198" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">Your B41 AAU: TDD Config 1 (2DL:2UL:6DL:2UL) · Requires ±1.5μs phase sync via PTP · SSF config determines DwPTS/GP/UpPTS sizes</text>
+</svg>

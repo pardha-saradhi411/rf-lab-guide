@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">UL RCT / ul-rct-test — Sensitivity Test Pipeline</text>
+
+  <!-- 4-stage pipeline -->
+  <rect x="20"  y="45" width="155" height="110" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="97"  y="65" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① EXM Setup</text>
+  <text x="97"  y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Configure waveform:</text>
+  <text x="97"  y="93" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">FRC A1 (QPSK 1/3)</text>
+  <text x="97"  y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">BW = 10MHz B1 UL</text>
+  <text x="97"  y="119" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">freq = 1950 MHz</text>
+  <text x="97"  y="132" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Set power: -60 → -110 dBm</text>
+  <text x="97"  y="143" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">(sweep downward)</text>
+
+  <line x1="175" y1="100" x2="195" y2="100" stroke="#5bc4ef" stroke-width="2"/>
+  <polygon points="193,96 203,100 193,104" fill="#5bc4ef"/>
+
+  <rect x="203" y="45" width="155" height="110" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="280" y="65" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② Inject Signal</text>
+  <text x="280" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">EXM → cable → RU</text>
+  <text x="280" y="93" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">antenna port</text>
+  <text x="280" y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Cable loss measured</text>
+  <text x="280" y="119" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">separately (VNA)</text>
+  <text x="280" y="132" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">True RU power:</text>
+  <text x="280" y="143" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">EXM - cable_loss</text>
+
+  <line x1="358" y1="100" x2="378" y2="100" stroke="#00d4a0" stroke-width="2"/>
+  <polygon points="376,96 386,100 376,104" fill="#00d4a0"/>
+
+  <rect x="386" y="45" width="155" height="110" fill="#1a1a0d" stroke="#f5a623" stroke-width="2" rx="4"/>
+  <text x="463" y="65" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Measure BLER</text>
+  <text x="463" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">DU/testmac reads</text>
+  <text x="463" y="93" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Block Error Rate</text>
+  <text x="463" y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">at each power level</text>
+  <text x="463" y="119" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">Pass: BLER ≤ 5%</text>
+  <text x="463" y="132" fill="#ff6b6b" font-size="7" text-anchor="middle" font-family="monospace">Fail: BLER &gt; 5%</text>
+  <text x="463" y="143" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">→ find threshold power</text>
+
+  <line x1="541" y1="100" x2="561" y2="100" stroke="#f5a623" stroke-width="2"/>
+  <polygon points="559,96 569,100 559,104" fill="#f5a623"/>
+
+  <rect x="569" y="45" width="215" height="110" fill="#2a0000" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="676" y="65" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Report Sensitivity</text>
+  <text x="676" y="80" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Sensitivity =</text>
+  <text x="676" y="93" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">threshold - cable_loss</text>
+  <text x="676" y="106" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">Compare vs 3GPP:</text>
+  <text x="676" y="119" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Limit: -69 dBm (REFSENS)</text>
+  <text x="676" y="132" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">Typical: -95 to -102 dBm</text>
+  <text x="676" y="143" fill="#00d4a0" font-size="8" text-anchor="middle" font-family="monospace">→ 30dB better than limit ✓</text>
+
+  <text x="400" y="172" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">FRC scenarios: A1 (QPSK 1/3, best sens) · A2 (QPSK 1/2) · A3 (16QAM 1/2) · A4 · A5 (64QAM, worst sens)</text>
+  <text x="400" y="186" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Each FRC tested per band: B1/B3/B8/B28/B41 × A1-A5 = 25 test cases total per unit</text>
+</svg>

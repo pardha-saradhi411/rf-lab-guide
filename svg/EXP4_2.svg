@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:14px 0 8px">
+  <rect width="800" height="160" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Sensitivity Derivation — From Physics to Your Test Number</text>
+  <!-- Waterfall boxes -->
+  <rect x="8"   y="30" width="130" height="60" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="73"  y="52" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">−174 dBm/Hz</text>
+  <text x="73"  y="66" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">kTB at 290K</text>
+  <text x="73"  y="80" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Physics limit</text>
+  <line x1="138" y1="60" x2="158" y2="60" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="148" y="54" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">+70 dB</text>
+  <text x="148" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">10·log(10MHz)</text>
+
+  <rect x="158" y="30" width="130" height="60" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="223" y="52" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">−104 dBm</text>
+  <text x="223" y="66" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">In 10 MHz BW</text>
+  <text x="223" y="80" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">Ideal receiver</text>
+  <line x1="288" y1="60" x2="308" y2="60" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="298" y="54" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">+5.75 dB</text>
+  <text x="298" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">System NF</text>
+
+  <rect x="308" y="30" width="130" height="60" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="373" y="52" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">−98.25 dBm</text>
+  <text x="373" y="66" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">System noise floor</text>
+  <text x="373" y="80" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">With your NF</text>
+  <line x1="438" y1="60" x2="458" y2="60" stroke="#4a5470" stroke-width="1.5"/>
+  <text x="448" y="54" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">−1 dB</text>
+  <text x="448" y="72" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">SNR_req QPSK</text>
+
+  <rect x="458" y="22" width="140" height="76" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="4"/>
+  <text x="528" y="46" fill="#00d4a0" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">−99.25 dBm</text>
+  <text x="528" y="62" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">B1 SENSITIVITY</text>
+  <text x="528" y="78" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">5% BLER threshold</text>
+  <text x="528" y="90" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">DSA injects here</text>
+
+  <!-- Annotation lines -->
+  <rect x="608" y="22" width="184" height="76" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="700" y="42" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">What would improve it?</text>
+  <text x="618" y="58" fill="#00d4a0" font-size="8" font-family="monospace">Better LNA: NF 1.5→ sens −99.75</text>
+  <text x="618" y="72" fill="#5bc4ef" font-size="8" font-family="monospace">Wider BW: 20MHz→ sens −96.25</text>
+  <text x="618" y="86" fill="#ff6b6b" font-size="8" font-family="monospace">Short cable: NF 3.25→ sens −101.75</text>
+
+  <!-- EXM arrow -->
+  <rect x="8" y="108" width="784" height="42" fill="#0a1628" stroke="#5bc4ef" stroke-width="1" rx="4"/>
+  <text x="400" y="124" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">EXM injection: base (−95dBm) + DSA_B1(+3.35dB) − cable_loss(−2.5dB) = −94.15 dBm at RU port</text>
+  <text x="400" y="140" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">RU port receives −94.15 dBm · sensitivity threshold −99.25 dBm · margin = 5.1 dB · PRACH detects reliably ✓</text>
+</svg>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="300" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">TX Power Failure — Debug Decision Tree</text>
+
+  <!-- Root symptom -->
+  <rect x="280" y="35" width="240" height="30" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="400" y="54" fill="#ff6b6b" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ TX Power Failure (measured ≠ expected)</text>
+
+  <!-- Branch 1: PA -->
+  <line x1="300" y1="65" x2="130" y2="95" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="60"  y="95" width="140" height="30" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="130" y="115" fill="#ff6b6b" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">PA Issue</text>
+  <text x="130" y="140" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Gate bias wrong?</text>
+  <text x="130" y="152" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Vdd correct?</text>
+  <text x="130" y="164" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA fault tripped?</text>
+  <text x="130" y="176" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">→ get_faults CLI</text>
+
+  <!-- Branch 2: Calibration -->
+  <line x1="350" y1="65" x2="290" y2="95" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="220" y="95" width="140" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="290" y="115" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Calibration</text>
+  <text x="290" y="140" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Gain cal run?</text>
+  <text x="290" y="152" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Cal file valid?</text>
+  <text x="290" y="164" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Tx cal eeprom?</text>
+  <text x="290" y="176" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">→ check fault 12</text>
+
+  <!-- Branch 3: Temperature -->
+  <line x1="400" y1="65" x2="400" y2="95" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="345" y="95" width="110" height="30" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="400" y="115" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Temperature</text>
+  <text x="400" y="140" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Temp comp OK?</text>
+  <text x="400" y="152" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">PA hot?</text>
+  <text x="400" y="164" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Thermal table set?</text>
+  <text x="400" y="176" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">→ get_temp CLI</text>
+
+  <!-- Branch 4: Gain -->
+  <line x1="460" y1="65" x2="520" y2="95" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="460" y="95" width="120" height="30" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="520" y="115" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Gain/Register</text>
+  <text x="520" y="140" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">DL power scaling?</text>
+  <text x="520" y="152" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">V ATT setting?</text>
+  <text x="520" y="164" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">DAC register?</text>
+  <text x="520" y="176" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">→ power-monitor</text>
+
+  <!-- Branch 5: Hardware -->
+  <line x1="500" y1="65" x2="650" y2="95" stroke="#4a5470" stroke-width="1.5"/>
+  <rect x="590" y="95" width="120" height="30" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="650" y="115" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Hardware</text>
+  <text x="650" y="140" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Cable connected?</text>
+  <text x="650" y="152" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">RFFE fault?</text>
+  <text x="650" y="164" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">VSWR/connector?</text>
+  <text x="650" y="176" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">→ VNA S11 check</text>
+
+  <!-- Root cause boxes -->
+  <rect x="10" y="200" width="780" height="90" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="400" y="218" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Systematic Debug Approach (always follow this sequence):</text>
+  <text x="20" y="235" fill="#8892b0" font-size="8" font-family="monospace">1. Check faults first:   get_faults → list all active faults · fault 12 = missing tx_cal_eeprom.json → explains -6dB deficit</text>
+  <text x="20" y="248" fill="#8892b0" font-size="8" font-family="monospace">2. Check per-chain power: for i in {0..3}; do power-monitor 0$i dl; done → identify which chain is low</text>
+  <text x="20" y="261" fill="#8892b0" font-size="8" font-family="monospace">3. Check registers:      grep dl_power_scaling /tmp/config.json · check V ATT register · DAC current</text>
+  <text x="20" y="274" fill="#8892b0" font-size="8" font-family="monospace">4. Check temperature:    get_temp → compare to thermal compensation table · check if temp-comp ran</text>
+  <text x="20" y="287" fill="#8892b0" font-size="8" font-family="monospace">5. Escalate if needed:   capture PreChecks log · save ACLR screenshot · email David/Korea team with full context</text>
+</svg>

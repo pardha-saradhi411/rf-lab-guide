@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="300" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">End-to-End Troubleshooting Framework</text>
+
+  <!-- Vertical flow -->
+  <rect x="300" y="35" width="200" height="30" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+  <text x="400" y="54" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⚠ Alarm / Symptom</text>
+
+  <line x1="400" y1="65" x2="400" y2="80" stroke="#ff6b6b" stroke-width="2"/>
+
+  <rect x="280" y="80" width="240" height="30" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="400" y="99" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Logs (journalctl, dmesg, syslog)</text>
+
+  <line x1="400" y1="110" x2="400" y2="125" stroke="#f5a623" stroke-width="1.5"/>
+
+  <rect x="280" y="125" width="240" height="30" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="400" y="144" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Protocol (NETCONF, eCPRI, Wireshark)</text>
+
+  <line x1="400" y1="155" x2="400" y2="170" stroke="#c8b800" stroke-width="1.5"/>
+
+  <rect x="280" y="170" width="240" height="30" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="400" y="189" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">RF (EXA/EXM measurements)</text>
+
+  <line x1="400" y1="200" x2="400" y2="215" stroke="#00d4a0" stroke-width="1.5"/>
+
+  <rect x="280" y="215" width="240" height="30" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="400" y="234" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Hardware (VNA, visual inspection)</text>
+
+  <line x1="400" y1="245" x2="400" y2="260" stroke="#5bc4ef" stroke-width="1.5"/>
+
+  <rect x="280" y="260" width="240" height="30" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="400" y="279" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">ROOT CAUSE IDENTIFIED ✓</text>
+
+  <!-- Right side: interview scenarios -->
+  <rect x="550" y="35" width="240" height="255" fill="#0d0f14" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="670" y="53" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Interview Scenarios (L43):</text>
+  <text x="560" y="70"  fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q1: ACLR degrades after SW update</text>
+  <text x="560" y="82"  fill="#4a5470" font-size="7" font-family="monospace">→ Check: CFR params changed? DPD model reset?</text>
+  <text x="560" y="93"  fill="#4a5470" font-size="7" font-family="monospace">   Power scaling register changed? Wait 60s DPD</text>
+
+  <text x="560" y="110" fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q2: RSSI fails only at high temp</text>
+  <text x="560" y="122" fill="#4a5470" font-size="7" font-family="monospace">→ Temperature comp table missing/wrong</text>
+  <text x="560" y="133" fill="#4a5470" font-size="7" font-family="monospace">   ADC gain drifts with temp, needs re-cal</text>
+
+  <text x="560" y="150" fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q3: PA protection after 20 min</text>
+  <text x="560" y="162" fill="#4a5470" font-size="7" font-family="monospace">→ Thermal: PA heats up over 20min</text>
+  <text x="560" y="173" fill="#4a5470" font-size="7" font-family="monospace">   Check: airflow, heatsink, ambient temp</text>
+  <text x="560" y="184" fill="#4a5470" font-size="7" font-family="monospace">   Also: DPD diverging → more distortion → more heat</text>
+
+  <text x="560" y="201" fill="#ff6b6b" font-size="8" font-weight="bold" font-family="monospace">Q4: Dyn Range fails B3 not B1</text>
+  <text x="560" y="213" fill="#4a5470" font-size="7" font-family="monospace">→ B3 LNA NF slightly higher (freq-dependent)</text>
+  <text x="560" y="224" fill="#4a5470" font-size="7" font-family="monospace">   B3 ADC_ADJUST calibration wrong</text>
+  <text x="560" y="235" fill="#4a5470" font-size="7" font-family="monospace">   B3 duplexer insertion loss higher than B1</text>
+
+  <text x="560" y="252" fill="#00d4a0" font-size="8" font-weight="bold" font-family="monospace">Key skill: systematic isolation</text>
+  <text x="560" y="265" fill="#4a5470" font-size="7" font-family="monospace">→ Change one variable at a time</text>
+  <text x="560" y="276" fill="#4a5470" font-size="7" font-family="monospace">→ Document before and after</text>
+  <text x="560" y="287" fill="#4a5470" font-size="7" font-family="monospace">→ Root cause = smallest change that explains all symptoms</text>
+
+  <!-- Left side: Linux commands -->
+  <rect x="10" y="35" width="240" height="255" fill="#0a0a0a" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="130" y="53" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Linux Debug Commands (L31):</text>
+  <text x="20"  y="70"  fill="#f5a623" font-size="9" font-family="monospace">journalctl -u rru -f</text>
+  <text x="20"  y="81"  fill="#4a5470" font-size="7" font-family="monospace">  Live RU service log</text>
+  <text x="20"  y="96"  fill="#f5a623" font-size="9" font-family="monospace">dmesg | grep -i error</text>
+  <text x="20"  y="107" fill="#4a5470" font-size="7" font-family="monospace">  Kernel errors (hw faults)</text>
+  <text x="20"  y="122" fill="#f5a623" font-size="9" font-family="monospace">tcpdump -i eth0 port 319</text>
+  <text x="20"  y="133" fill="#4a5470" font-size="7" font-family="monospace">  PTP timing packets</text>
+  <text x="20"  y="148" fill="#f5a623" font-size="9" font-family="monospace">top / htop</text>
+  <text x="20"  y="159" fill="#4a5470" font-size="7" font-family="monospace">  CPU/memory load on RU</text>
+  <text x="20"  y="174" fill="#f5a623" font-size="9" font-family="monospace">grep "fault" /var/log/rru.log</text>
+  <text x="20"  y="185" fill="#4a5470" font-size="7" font-family="monospace">  Find fault entries in log</text>
+  <text x="20"  y="200" fill="#f5a623" font-size="9" font-family="monospace">ssh root@192.168.1.10</text>
+  <text x="20"  y="211" fill="#4a5470" font-size="7" font-family="monospace">  Access RU CLI</text>
+  <text x="20"  y="226" fill="#f5a623" font-size="9" font-family="monospace">get_faults</text>
+  <text x="20"  y="237" fill="#4a5470" font-size="7" font-family="monospace">  RU fault register list</text>
+  <text x="20"  y="252" fill="#f5a623" font-size="9" font-family="monospace">get_temp / get_rssi</text>
+  <text x="20"  y="263" fill="#4a5470" font-size="7" font-family="monospace">  Real-time RU readings</text>
+  <text x="20"  y="278" fill="#f5a623" font-size="9" font-family="monospace">power-monitor 00 dl</text>
+  <text x="20"  y="289" fill="#4a5470" font-size="7" font-family="monospace">  Per-chain DL power</text>
+</svg>

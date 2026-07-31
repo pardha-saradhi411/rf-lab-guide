@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">LTE Air Interface — OFDM, Resource Blocks, FDD vs TDD</text>
+  <!-- LTE bandwidth vs RBs -->
+  <rect x="10" y="35" width="280" height="130" fill="#141720" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="150" y="53" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">BW → Resource Blocks</text>
+  <text x="20" y="70"  fill="#8892b0" font-size="9" font-family="monospace">BW     RBs   Subcarriers  Data rate</text>
+  <line x1="20" y1="76" x2="285" y2="76" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="20" y="91"  fill="#5bc4ef" font-size="9" font-family="monospace">5 MHz   25     300        ~37 Mbps</text>
+  <text x="20" y="106" fill="#5bc4ef" font-size="9" font-family="monospace">10 MHz  50     600        ~75 Mbps</text>
+  <text x="20" y="121" fill="#f5a623" font-size="9" font-family="monospace">15 MHz  75     900        ~112 Mbps</text>
+  <text x="20" y="136" fill="#f5a623" font-size="9" font-family="monospace">20 MHz  100    1200       ~150 Mbps</text>
+  <text x="20" y="155" fill="#4a5470" font-size="8" font-family="monospace">1 RB = 12 subcarriers × 15kHz = 180kHz</text>
+  <!-- OFDM numerology -->
+  <rect x="300" y="35" width="230" height="130" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="415" y="53" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">OFDM Numerology</text>
+  <text x="310" y="70"  fill="#8892b0" font-size="9" font-family="monospace">Subcarrier spacing:  15 kHz (LTE)</text>
+  <text x="310" y="84"  fill="#8892b0" font-size="9" font-family="monospace">Symbol duration:     66.7 μs</text>
+  <text x="310" y="98"  fill="#8892b0" font-size="9" font-family="monospace">Cyclic prefix:       4.69 μs (normal)</text>
+  <text x="310" y="112" fill="#8892b0" font-size="9" font-family="monospace">Symbols/slot:        7 (normal CP)</text>
+  <text x="310" y="126" fill="#8892b0" font-size="9" font-family="monospace">Slot duration:       0.5 ms</text>
+  <text x="310" y="140" fill="#8892b0" font-size="9" font-family="monospace">Subframe:            1 ms = 2 slots</text>
+  <text x="310" y="155" fill="#f5a623" font-size="8" font-family="monospace">PAPR: ~10-12 dB → DPD needed</text>
+  <!-- FDD vs TDD -->
+  <rect x="540" y="35" width="250" height="130" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="665" y="53" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">FDD vs TDD</text>
+  <text x="550" y="70"  fill="#5bc4ef" font-size="9" font-weight="bold" font-family="monospace">FDD (B1/B3/B8/B28):</text>
+  <text x="550" y="84"  fill="#8892b0" font-size="8" font-family="monospace">DL and UL on different frequencies</text>
+  <text x="550" y="98"  fill="#8892b0" font-size="8" font-family="monospace">Simultaneous TX+RX → duplexer</text>
+  <text x="550" y="112" fill="#8892b0" font-size="8" font-family="monospace">Duplex gap: 45-190 MHz per band</text>
+  <text x="550" y="128" fill="#00d4a0" font-size="9" font-weight="bold" font-family="monospace">TDD (B41):</text>
+  <text x="550" y="142" fill="#8892b0" font-size="8" font-family="monospace">DL+UL share same frequency</text>
+  <text x="550" y="156" fill="#ff6b6b" font-size="8" font-family="monospace">Needs phase sync (PTP ±1.5μs)</text>
+</svg>

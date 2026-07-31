@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 195" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="195" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">RX Chain — Complete UL Signal Path (Antenna → LNA → ADC → DU)</text>
+
+  <!-- Signal from UE -->
+  <text x="8" y="52" fill="#4a5470" font-size="7" font-family="monospace">UE signal</text>
+  <line x1="8" y1="58" x2="24" y2="58" stroke="#9b8cf8" stroke-width="2"/>
+  <polygon points="22,54 32,58 22,62" fill="#9b8cf8"/>
+
+  <rect x="32"  y="33" width="68" height="50" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="66"  y="53" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Antenna</text>
+  <text x="66"  y="66" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">4×column</text>
+  <text x="66"  y="77" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">BF array</text>
+  <line x1="100" y1="58" x2="114" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="114" y="33" width="68" height="50" fill="#1a0d0d" stroke="#f5a623" stroke-width="1.5" rx="3"/>
+  <text x="148" y="51" fill="#f5a623" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Duplexer</text>
+  <text x="148" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RX path</text>
+  <text x="148" y="75" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">NF=0.5 dB</text>
+  <line x1="182" y1="58" x2="196" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="196" y="33" width="68" height="50" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="3"/>
+  <text x="230" y="51" fill="#c8b800" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Pre-BPF</text>
+  <text x="230" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">band select</text>
+  <text x="230" y="75" fill="#c8b800" font-size="7" text-anchor="middle" font-family="monospace">NF=0.3 dB</text>
+  <line x1="264" y1="58" x2="278" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="278" y="25" width="80" height="66" fill="#001a00" stroke="#00d4a0" stroke-width="2.5" rx="3"/>
+  <text x="318" y="47" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">LNA ★</text>
+  <text x="318" y="61" fill="#f5a623" font-size="8" text-anchor="middle" font-family="monospace">NF=2dB · G=+20dB</text>
+  <text x="318" y="74" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">GaAs pHEMT</text>
+  <text x="318" y="85" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">sets system NF</text>
+  <line x1="358" y1="58" x2="372" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="372" y="33" width="68" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="406" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Post-BPF</text>
+  <text x="406" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">image reject</text>
+  <text x="406" y="75" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">÷100=0.01dB</text>
+  <line x1="440" y1="58" x2="454" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="454" y="33" width="68" height="50" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="488" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">Mixer</text>
+  <text x="488" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">RF→BB IQ</text>
+  <text x="488" y="75" fill="#00d4a0" font-size="7" text-anchor="middle" font-family="monospace">÷100=0.07dB</text>
+  <line x1="522" y1="58" x2="536" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="536" y="33" width="68" height="50" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="3"/>
+  <text x="570" y="51" fill="#9b8cf8" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">VGA/AGC</text>
+  <text x="570" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">−20→+40dB</text>
+  <text x="570" y="75" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">keeps ADC safe</text>
+  <line x1="604" y1="58" x2="618" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="618" y="25" width="80" height="66" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="3"/>
+  <text x="658" y="47" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">ADC</text>
+  <text x="658" y="61" fill="#8892b0" font-size="8" text-anchor="middle" font-family="monospace">12-bit · 74dB</text>
+  <text x="658" y="74" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">dBFS reading</text>
+  <text x="658" y="85" fill="#4a5470" font-size="6" text-anchor="middle" font-family="monospace">get_rssi here</text>
+  <line x1="698" y1="58" x2="712" y2="58" stroke="#4a5470" stroke-width="1.5"/>
+
+  <rect x="712" y="33" width="80" height="50" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="3"/>
+  <text x="752" y="51" fill="#5bc4ef" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">FHGW/DU</text>
+  <text x="752" y="64" fill="#4a5470" font-size="7" text-anchor="middle" font-family="monospace">FFT→OFDM</text>
+  <text x="752" y="75" fill="#f5a623" font-size="7" text-anchor="middle" font-family="monospace">DU RSSI here</text>
+
+  <!-- NF accumulation bar -->
+  <text x="8" y="112" fill="#4a5470" font-size="7" font-family="monospace">NF contrib:</text>
+  <rect x="114" y="118" width="68" height="12" fill="#ff6b6b" rx="2"/>
+  <text x="148" y="128" fill="#fff" font-size="6" text-anchor="middle" font-family="monospace">Dup 0.5dB</text>
+  <rect x="196" y="118" width="68" height="12" fill="#c8b800" rx="2"/>
+  <text x="230" y="128" fill="#000" font-size="6" text-anchor="middle" font-family="monospace">BPF 0.3dB</text>
+  <rect x="278" y="110" width="80" height="20" fill="#00d4a0" rx="2"/>
+  <text x="318" y="123" fill="#000" font-size="7" font-weight="bold" text-anchor="middle" font-family="monospace">LNA 2.0dB ★</text>
+  <rect x="372" y="122" width="68" height="8" fill="#0d5420" rx="1"/>
+  <text x="406" y="130" fill="#00d4a0" font-size="5" text-anchor="middle" font-family="monospace">0.01</text>
+  <rect x="454" y="122" width="68" height="8" fill="#0d5420" rx="1"/>
+  <text x="488" y="130" fill="#00d4a0" font-size="5" text-anchor="middle" font-family="monospace">0.07</text>
+  <text x="400" y="150" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">System NF = 0.5 + 0.3 + 2.0 + ≈0 + ≈0 = 2.5dB(cable) + 2.8dB(RFFE) = 5.75 dB total</text>
+  <text x="400" y="165" fill="#4a5470" font-size="8" text-anchor="middle" font-family="monospace">Lab cable adds 2.5 dB before chain · RFFE components add 2.8 dB · LNA is the single most critical component</text>
+  <rect x="8" y="173" width="784" height="18" fill="#001a00" stroke="#00d4a0" stroke-width="1" rx="3"/>
+  <text x="400" y="185" fill="#00d4a0" font-size="8" font-weight="bold" text-anchor="middle" font-family="monospace">ADC channels: B1 cols A/B/C/D → ADC 0/1/4/5 · B3 cols A/B/C/D → ADC 2/3/6/7 · get_rssi 0 = B1 Col A</text>
+</svg>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="180" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">5G NR — SSB, CSI-RS, SRS, Beam Management</text>
+  <!-- SSB -->
+  <rect x="10" y="35" width="180" height="130" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="100" y="55" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SSB (Sync Signal Block)</text>
+  <text x="20" y="72" fill="#8892b0" font-size="8" font-family="monospace">PSS + SSS + PBCH</text>
+  <text x="20" y="86" fill="#8892b0" font-size="8" font-family="monospace">4 symbols, 20 RBs</text>
+  <text x="20" y="100" fill="#f5a623" font-size="8" font-family="monospace">Burst: up to 64 beams</text>
+  <text x="20" y="114" fill="#8892b0" font-size="8" font-family="monospace">Period: 20ms typical</text>
+  <text x="20" y="128" fill="#4a5470" font-size="7" font-family="monospace">UE uses RSRP per beam</text>
+  <text x="20" y="142" fill="#4a5470" font-size="7" font-family="monospace">to select best beam</text>
+  <text x="20" y="158" fill="#00d4a0" font-size="7" font-family="monospace">Initial access = SSB</text>
+  <!-- CSI-RS -->
+  <rect x="200" y="35" width="180" height="130" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="290" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">CSI-RS</text>
+  <text x="210" y="72" fill="#8892b0" font-size="8" font-family="monospace">Channel State Info</text>
+  <text x="210" y="86" fill="#8892b0" font-size="8" font-family="monospace">Reference Signal</text>
+  <text x="210" y="100" fill="#f5a623" font-size="8" font-family="monospace">Beam refinement</text>
+  <text x="210" y="114" fill="#8892b0" font-size="8" font-family="monospace">Finer than SSB sweep</text>
+  <text x="210" y="128" fill="#4a5470" font-size="7" font-family="monospace">UE reports CRI/RSRP</text>
+  <text x="210" y="142" fill="#4a5470" font-size="7" font-family="monospace">per CSI-RS beam</text>
+  <text x="210" y="158" fill="#00d4a0" font-size="7" font-family="monospace">gNB picks best beam</text>
+  <!-- SRS -->
+  <rect x="390" y="35" width="180" height="130" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="480" y="55" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">SRS</text>
+  <text x="400" y="72" fill="#8892b0" font-size="8" font-family="monospace">Sounding Reference</text>
+  <text x="400" y="86" fill="#8892b0" font-size="8" font-family="monospace">Signal (UL from UE)</text>
+  <text x="400" y="100" fill="#f5a623" font-size="8" font-family="monospace">UL beam management</text>
+  <text x="400" y="114" fill="#8892b0" font-size="8" font-family="monospace">gNB measures UL channel</text>
+  <text x="400" y="128" fill="#4a5470" font-size="7" font-family="monospace">Reciprocity: UL=DL</text>
+  <text x="400" y="142" fill="#4a5470" font-size="7" font-family="monospace">TDD assumption</text>
+  <text x="400" y="158" fill="#00d4a0" font-size="7" font-family="monospace">Used for MU-MIMO</text>
+  <!-- Beam lifecycle -->
+  <rect x="580" y="35" width="210" height="130" fill="#141720" stroke="#4a5470" stroke-width="1" rx="4"/>
+  <text x="685" y="52" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Beam Lifecycle</text>
+  <text x="590" y="68"  fill="#8892b0" font-size="8" font-family="monospace">1. SSB sweep → UE reports</text>
+  <text x="590" y="82"  fill="#8892b0" font-size="8" font-family="monospace">2. gNB selects TX beam</text>
+  <text x="590" y="96"  fill="#8892b0" font-size="8" font-family="monospace">3. CSI-RS refines beam</text>
+  <text x="590" y="110" fill="#8892b0" font-size="8" font-family="monospace">4. Track: periodic CSI-RS</text>
+  <text x="590" y="124" fill="#ff6b6b" font-size="8" font-family="monospace">5. Beam failure detected</text>
+  <text x="590" y="138" fill="#00d4a0" font-size="8" font-family="monospace">6. Recovery: PRACH new beam</text>
+  <text x="590" y="155" fill="#4a5470" font-size="7" font-family="monospace">Recovery target: &lt;50ms</text>
+</svg>

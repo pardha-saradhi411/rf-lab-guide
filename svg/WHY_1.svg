@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="280" fill="#0d0f14" rx="8"/>
+  <text x="400" y="22" fill="#f5a623" font-size="13" font-weight="bold" text-anchor="middle" font-family="monospace">The "Why?" Framework — Applied to Every Topic</text>
+  <text x="400" y="38" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Transforms definitions into engineering understanding. Use this for every module in this guide.</text>
+
+  <!-- 10 question boxes in 2 rows of 5 -->
+  <rect x="10"  y="50" width="148" height="90" fill="#1a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="67" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">① Why does it exist?</text>
+  <text x="20"  y="82" fill="#8892b0" font-size="8" font-family="monospace">What problem does this</text>
+  <text x="20"  y="94" fill="#8892b0" font-size="8" font-family="monospace">feature/measurement solve?</text>
+  <text x="20"  y="106" fill="#f5a623" font-size="8" font-family="monospace">e.g. DPD exists because PA</text>
+  <text x="20"  y="118" fill="#f5a623" font-size="8" font-family="monospace">is nonlinear → ACLR fails</text>
+  <text x="20"  y="133" fill="#4a5470" font-size="7" font-family="monospace">Without this: what would fail?</text>
+
+  <rect x="167" y="50" width="148" height="90" fill="#1a1a0d" stroke="#c8b800" stroke-width="1.5" rx="4"/>
+  <text x="241" y="67" fill="#c8b800" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">② 3GPP Spec</text>
+  <text x="177" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which TS defines it?</text>
+  <text x="177" y="94" fill="#8892b0" font-size="8" font-family="monospace">Which section? Limit?</text>
+  <text x="177" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: 36.104 §6.6.2</text>
+  <text x="177" y="118" fill="#f5a623" font-size="8" font-family="monospace">EVM: 36.104 §6.5.2.2</text>
+  <text x="177" y="133" fill="#4a5470" font-size="7" font-family="monospace">Always cite the spec</text>
+
+  <rect x="324" y="50" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="398" y="67" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">③ Hardware blocks</text>
+  <text x="334" y="82" fill="#8892b0" font-size="8" font-family="monospace">Which blocks involved?</text>
+  <text x="334" y="94" fill="#8892b0" font-size="8" font-family="monospace">Signal path through each?</text>
+  <text x="334" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: PA → DPD → CFR</text>
+  <text x="334" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: LNA → ADC → FW</text>
+  <text x="334" y="133" fill="#4a5470" font-size="7" font-family="monospace">Draw the signal path</text>
+
+  <rect x="481" y="50" width="148" height="90" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="555" y="67" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">④ Measurement</text>
+  <text x="491" y="82" fill="#8892b0" font-size="8" font-family="monospace">Equipment + setup?</text>
+  <text x="491" y="94" fill="#8892b0" font-size="8" font-family="monospace">SCPI commands?</text>
+  <text x="491" y="106" fill="#f5a623" font-size="8" font-family="monospace">EXA: CALC:MARK:ACLR</text>
+  <text x="491" y="118" fill="#f5a623" font-size="8" font-family="monospace">EXM: ul-rct-test run</text>
+  <text x="491" y="133" fill="#4a5470" font-size="7" font-family="monospace">Cable loss correction</text>
+
+  <rect x="638" y="50" width="152" height="90" fill="#1a1a0d" stroke="#f5a623" stroke-width="1.5" rx="4"/>
+  <text x="714" y="67" fill="#f5a623" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑤ Pass/Fail</text>
+  <text x="648" y="82" fill="#8892b0" font-size="8" font-family="monospace">Acceptance limits?</text>
+  <text x="648" y="94" fill="#8892b0" font-size="8" font-family="monospace">Typical good values?</text>
+  <text x="648" y="106" fill="#f5a623" font-size="8" font-family="monospace">ACLR: &gt;45dBc (3GPP)</text>
+  <text x="648" y="118" fill="#f5a623" font-size="8" font-family="monospace">RSSI: ±2dB (PW spec)</text>
+  <text x="648" y="133" fill="#4a5470" font-size="7" font-family="monospace">Also: PW internal gates</text>
+
+  <!-- Row 2 -->
+  <rect x="10"  y="152" width="148" height="90" fill="#2a0d0d" stroke="#ff6b6b" stroke-width="1.5" rx="4"/>
+  <text x="84"  y="169" fill="#ff6b6b" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑥ Troubleshoot</text>
+  <text x="20"  y="184" fill="#8892b0" font-size="8" font-family="monospace">Failure symptoms?</text>
+  <text x="20"  y="196" fill="#8892b0" font-size="8" font-family="monospace">First 3 checks?</text>
+  <text x="20"  y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail: wait 60s</text>
+  <text x="20"  y="220" fill="#f5a623" font-size="8" font-family="monospace">check DPD, CFR, PA temp</text>
+  <text x="20"  y="235" fill="#4a5470" font-size="7" font-family="monospace">Systematic isolation</text>
+
+  <rect x="167" y="152" width="148" height="90" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="1.5" rx="4"/>
+  <text x="241" y="169" fill="#9b8cf8" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑦ Interview Qs</text>
+  <text x="177" y="184" fill="#8892b0" font-size="8" font-family="monospace">Conceptual questions?</text>
+  <text x="177" y="196" fill="#8892b0" font-size="8" font-family="monospace">Scenario questions?</text>
+  <text x="177" y="208" fill="#f5a623" font-size="8" font-family="monospace">"Walk me through how</text>
+  <text x="177" y="220" fill="#f5a623" font-size="8" font-family="monospace">you debug bad ACLR"</text>
+  <text x="177" y="235" fill="#4a5470" font-size="7" font-family="monospace">Practice out loud</text>
+
+  <rect x="324" y="152" width="148" height="90" fill="#0d1a1a" stroke="#5bc4ef" stroke-width="1.5" rx="4"/>
+  <text x="398" y="169" fill="#5bc4ef" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑧ Lab Notes</text>
+  <text x="334" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your real measurements?</text>
+  <text x="334" y="196" fill="#8892b0" font-size="8" font-family="monospace">Screenshots from EXA?</text>
+  <text x="334" y="208" fill="#f5a623" font-size="8" font-family="monospace">B28 ACLR: 49.14dBm</text>
+  <text x="334" y="220" fill="#f5a623" font-size="8" font-family="monospace">RSSI B1: -95.5dBm</text>
+  <text x="334" y="235" fill="#4a5470" font-size="7" font-family="monospace">Real data = credibility</text>
+
+  <rect x="481" y="152" width="148" height="90" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="555" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑨ Customer Impact</text>
+  <text x="491" y="184" fill="#8892b0" font-size="8" font-family="monospace">What fails for customer</text>
+  <text x="491" y="196" fill="#8892b0" font-size="8" font-family="monospace">if this test fails?</text>
+  <text x="491" y="208" fill="#f5a623" font-size="8" font-family="monospace">ACLR fail → regulator</text>
+  <text x="491" y="220" fill="#f5a623" font-size="8" font-family="monospace">fine + network shutdown</text>
+  <text x="491" y="235" fill="#4a5470" font-size="7" font-family="monospace">Always tie to business</text>
+
+  <rect x="638" y="152" width="152" height="90" fill="#001a00" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="714" y="169" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">⑩ Apply to your lab</text>
+  <text x="648" y="184" fill="#8892b0" font-size="8" font-family="monospace">Your unit: 26050509</text>
+  <text x="648" y="196" fill="#8892b0" font-size="8" font-family="monospace">Your bands: B1-B41</text>
+  <text x="648" y="208" fill="#f5a623" font-size="8" font-family="monospace">Your instruments: EXA</text>
+  <text x="648" y="220" fill="#f5a623" font-size="8" font-family="monospace">EXM, VNA E5071C</text>
+  <text x="648" y="235" fill="#4a5470" font-size="7" font-family="monospace">Personalise every topic</text>
+</svg>

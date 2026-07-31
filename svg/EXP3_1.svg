@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="420" fill="#0d0f14" rx="10"/>
+  <text x="400" y="30" fill="#c8c8d8" font-size="14" font-weight="bold" text-anchor="middle" font-family="monospace">PA Conduction Angle — Class A/AB/B/C Comparison</text>
+
+  <!-- Class A: 360° full circle -->
+  <g transform="translate(100,210)">
+    <circle cx="0" cy="0" r="80" fill="#00d4a030" stroke="#00d4a0" stroke-width="2"/>
+    <path d="M 0,-80 A 80,80 0 1,1 0.001,-80 Z" fill="#00d4a060" stroke="none"/>
+    <text x="0" y="-90" fill="#00d4a0" font-size="11" text-anchor="middle" font-family="monospace">Class A</text>
+    <text x="0" y="0" fill="#00d4a0" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">360°</text>
+    <text x="0" y="16" fill="#4a5470" font-size="10" text-anchor="middle" font-family="monospace">Always ON</text>
+    <text x="0" y="105" fill="#00d4a0" font-size="11" text-anchor="middle" font-family="monospace">η ≤ 50%</text>
+    <text x="0" y="120" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Max linearity</text>
+    <text x="0" y="133" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Test instruments</text>
+  </g>
+
+  <!-- Class AB: 240° arc -->
+  <g transform="translate(280,210)">
+    <circle cx="0" cy="0" r="80" fill="#0d1a2a" stroke="#232840" stroke-width="1" stroke-dasharray="4,4"/>
+    <path d="M 0,-80 A 80,80 0 1,1 -69.28,40 L 0,0 Z" fill="#5bc4ef60" stroke="#5bc4ef" stroke-width="2"/>
+    <text x="0" y="-90" fill="#5bc4ef" font-size="11" text-anchor="middle" font-family="monospace">Class AB</text>
+    <text x="0" y="0" fill="#5bc4ef" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">240°</text>
+    <text x="0" y="16" fill="#4a5470" font-size="10" text-anchor="middle" font-family="monospace">Most of cycle</text>
+    <text x="0" y="105" fill="#5bc4ef" font-size="11" text-anchor="middle" font-family="monospace">η ≤ 65%</text>
+    <text x="0" y="120" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Good balance</text>
+    <text x="0" y="133" fill="#f5a623" font-size="9" text-anchor="middle" font-family="monospace">⭐ Your GaN PA</text>
+  </g>
+
+  <!-- Class B: 180° arc -->
+  <g transform="translate(460,210)">
+    <circle cx="0" cy="0" r="80" fill="#0d1a2a" stroke="#232840" stroke-width="1" stroke-dasharray="4,4"/>
+    <path d="M 0,-80 A 80,80 0 0,1 0,80 L 0,0 Z" fill="#f5a62360" stroke="#f5a623" stroke-width="2"/>
+    <text x="0" y="-90" fill="#f5a623" font-size="11" text-anchor="middle" font-family="monospace">Class B</text>
+    <text x="0" y="0" fill="#f5a623" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">180°</text>
+    <text x="0" y="16" fill="#4a5470" font-size="10" text-anchor="middle" font-family="monospace">Half cycle</text>
+    <text x="0" y="105" fill="#f5a623" font-size="11" text-anchor="middle" font-family="monospace">η ≤ 78%</text>
+    <text x="0" y="120" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Crossover distortion</text>
+    <text x="0" y="133" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Push-pull audio</text>
+  </g>
+
+  <!-- Class C: 120° arc -->
+  <g transform="translate(640,210)">
+    <circle cx="0" cy="0" r="80" fill="#0d1a2a" stroke="#232840" stroke-width="1" stroke-dasharray="4,4"/>
+    <path d="M 40,69.28 A 80,80 0 0,1 -40,69.28 L 0,0 Z" fill="#ff6b6b60" stroke="#ff6b6b" stroke-width="2"/>
+    <text x="0" y="-90" fill="#ff6b6b" font-size="11" text-anchor="middle" font-family="monospace">Class C</text>
+    <text x="0" y="0" fill="#ff6b6b" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">120°</text>
+    <text x="0" y="16" fill="#4a5470" font-size="10" text-anchor="middle" font-family="monospace">Less than half</text>
+    <text x="0" y="105" fill="#ff6b6b" font-size="11" text-anchor="middle" font-family="monospace">η &gt; 78%</text>
+    <text x="0" y="120" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">Very nonlinear</text>
+    <text x="0" y="133" fill="#4a5470" font-size="9" text-anchor="middle" font-family="monospace">CW/FM only</text>
+  </g>
+
+  <!-- Doherty label -->
+  <text x="400" y="390" fill="#c8b800" font-size="11" text-anchor="middle" font-family="monospace">Doherty = Carrier amp (Class AB) + Peaking amp (Class C) combined → η ~60% at 6dB backoff</text>
+</svg>

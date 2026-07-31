@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:12px">
+  <rect width="800" height="120" fill="#0d0f14" rx="8"/>
+  <text x="400" y="18" fill="#c8c8d8" font-size="11" font-weight="bold" text-anchor="middle" font-family="monospace">Company Focus Areas — Tailor Your Preparation</text>
+  <rect x="8"   y="28" width="185" height="82" fill="#0d1a2a" stroke="#5bc4ef" stroke-width="2" rx="4"/>
+  <text x="100" y="48" fill="#5bc4ef" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Ericsson / Nokia / PW</text>
+  <text x="18"  y="65" fill="#8892b0" font-size="8" font-family="monospace">O-RAN interoperability</text>
+  <text x="18"  y="79" fill="#8892b0" font-size="8" font-family="monospace">Energy efficiency (OPEX focus)</text>
+  <text x="18"  y="93" fill="#8892b0" font-size="8" font-family="monospace">Carrier-grade reliability</text>
+  <text x="18"  y="107" fill="#f5a623" font-size="7" font-family="monospace">RCT, conformance, field ops</text>
+  <rect x="203" y="28" width="185" height="82" fill="#1a0d1a" stroke="#9b8cf8" stroke-width="2" rx="4"/>
+  <text x="295" y="48" fill="#9b8cf8" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Apple / Google</text>
+  <text x="213" y="65" fill="#8892b0" font-size="8" font-family="monospace">OTA (Over The Air)</text>
+  <text x="213" y="79" fill="#8892b0" font-size="8" font-family="monospace">Device antenna performance</text>
+  <text x="213" y="93" fill="#8892b0" font-size="8" font-family="monospace">SAR, co-existence, UX</text>
+  <text x="213" y="107" fill="#f5a623" font-size="7" font-family="monospace">CTIA OTA, FCC, CE cert</text>
+  <rect x="398" y="28" width="185" height="82" fill="#1a1a0d" stroke="#c8b800" stroke-width="2" rx="4"/>
+  <text x="490" y="48" fill="#c8b800" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Qualcomm / Samsung</text>
+  <text x="408" y="65" fill="#8892b0" font-size="8" font-family="monospace">Modem RF integration</text>
+  <text x="408" y="79" fill="#8892b0" font-size="8" font-family="monospace">RFIC characterisation</text>
+  <text x="408" y="93" fill="#8892b0" font-size="8" font-family="monospace">PHY conformance, carrier cert</text>
+  <text x="408" y="107" fill="#f5a623" font-size="7" font-family="monospace">PTCRB, GCF, operator labs</text>
+  <rect x="593" y="28" width="199" height="82" fill="#0d1a0d" stroke="#00d4a0" stroke-width="2" rx="4"/>
+  <text x="692" y="48" fill="#00d4a0" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">What They All Want</text>
+  <text x="603" y="65" fill="#8892b0" font-size="8" font-family="monospace">Systematic troubleshooting</text>
+  <text x="603" y="79" fill="#8892b0" font-size="8" font-family="monospace">Hands-on instrument fluency</text>
+  <text x="603" y="93" fill="#8892b0" font-size="8" font-family="monospace">Automation (Python/SCPI)</text>
+  <text x="603" y="107" fill="#f5a623" font-size="7" font-family="monospace">Clear communication of results</text>
+</svg>

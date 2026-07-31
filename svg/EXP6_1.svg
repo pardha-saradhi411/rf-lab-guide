@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:8px">
+  <rect width="800" height="200" fill="#0d0f14" rx="8"/>
+  <text x="400" y="20" fill="#c8c8d8" font-size="12" font-weight="bold" text-anchor="middle" font-family="monospace">dBFS ↔ dBm Conversion — The Complete Guide with Your RU Numbers</text>
+  <!-- Left: dBFS scale -->
+  <rect x="20" y="35" width="40" height="145" fill="#141720" stroke="#4a5470" stroke-width="1" rx="3"/>
+  <rect x="20" y="35"  width="40" height="20"  fill="#2a0d0d" rx="2"/>
+  <rect x="20" y="75"  width="40" height="65"  fill="#0d1a0d" rx="2"/>
+  <rect x="20" y="140" width="40" height="40"  fill="#0d0d2a" rx="2"/>
+  <text x="10" y="49"  fill="#ff6b6b" font-size="8" text-anchor="end" font-family="monospace">0 dBFS</text>
+  <text x="10" y="80"  fill="#c8b800" font-size="8" text-anchor="end" font-family="monospace">-6</text>
+  <text x="10" y="107" fill="#00d4a0" font-size="8" text-anchor="end" font-family="monospace">-12</text>
+  <text x="10" y="144" fill="#9b8cf8" font-size="8" text-anchor="end" font-family="monospace">-72</text>
+  <text x="10" y="178" fill="#4a5470" font-size="8" text-anchor="end" font-family="monospace">-∞</text>
+  <!-- Annotations -->
+  <text x="65" y="49"  fill="#ff6b6b" font-size="8" font-family="monospace">← ADC clips (overrange → bad RSSI reading)</text>
+  <text x="65" y="80"  fill="#c8b800" font-size="8" font-family="monospace">← 6dB headroom (typical operating point)</text>
+  <text x="65" y="107" fill="#00d4a0" font-size="8" font-family="monospace">← Typical signal level in your RU</text>
+  <text x="65" y="144" fill="#9b8cf8" font-size="8" font-family="monospace">← 12-bit SQNR floor (74 dB range)</text>
+  <text x="65" y="178" fill="#4a5470" font-size="8" font-family="monospace">← No signal</text>
+  <!-- Formula box -->
+  <rect x="20" y="192" width="760" height="1" fill="#4a5470"/>
+  <!-- Conversion -->
+  <rect x="430" y="35" width="360" height="150" fill="#0d1a0d" stroke="#00d4a0" stroke-width="1.5" rx="4"/>
+  <text x="610" y="55" fill="#00d4a0" font-size="10" font-weight="bold" text-anchor="middle" font-family="monospace">Conversion Formula:</text>
+  <text x="440" y="75"  fill="#c8c8d8" font-size="10" font-family="monospace">dBm = dBFS + ADC_fullscale_dBm</text>
+  <text x="440" y="92"  fill="#4a5470" font-size="8" font-family="monospace">ADC_fullscale_dBm = calibration constant in hardware.json</text>
+  <line x1="440" y1="100" x2="780" y2="100" stroke="#4a5470" stroke-width="0.5"/>
+  <text x="610" y="116" fill="#f5a623" font-size="9" font-weight="bold" text-anchor="middle" font-family="monospace">Your B1 ADC example:</text>
+  <text x="440" y="132" fill="#8892b0" font-size="9" font-family="monospace">get_rssi output:  -12 dBFS</text>
+  <text x="440" y="146" fill="#8892b0" font-size="9" font-family="monospace">ADC_fullscale:    -83 dBm (from hw.json)</text>
+  <text x="440" y="160" fill="#00d4a0" font-size="9" font-family="monospace">dBm = -12 + (-83) = -95 dBm ← matches EXM</text>
+  <text x="440" y="175" fill="#ff6b6b" font-size="8" font-family="monospace">If off by &gt;2dB → wrong ADC_ADJUST → recalibrate</text>
+</svg>
