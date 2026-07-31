@@ -1,4 +1,4 @@
-const CACHE='rf-guide-v1';
+const CACHE='rf-guide-v2';
 const FILES=[
   '/rf-lab-guide/index.html',
   '/rf-lab-guide/foundation.html',
@@ -15,7 +15,11 @@ const FILES=[
   '/rf-lab-guide/search-index.json',
   '/rf-lab-guide/manifest.json',
   '/rf-lab-guide/icon-192.png',
-  '/rf-lab-guide/icon-512.png'
+  '/rf-lab-guide/icon-512.png',
+  '/rf-lab-guide/images/exm_acp_b28_low_power_screenshot.png',
+  '/rf-lab-guide/images/rct_test_setup_hand_drawn_diagram_du_to_aau_b1b3_t.png',
+  '/rf-lab-guide/images/trx1_acp_aclr_full_power_b28_screenshot.png',
+  '/rf-lab-guide/images/trx1_modulation_analysis_evm_constellation_screens.png'
 ];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES).catch(()=>{}))); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k))))); self.clients.claim(); });
