@@ -8,7 +8,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="stylesheet" href="shared.css">
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/rf-lab-guide/sw.js').catch(()=>{});}</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
 <script src="shared.js" defer></script>
 </head>
 <body>
