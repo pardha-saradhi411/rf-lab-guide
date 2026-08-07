@@ -26,17 +26,17 @@
     <a class="nav-chip nc-star" href="instruments.html">Instruments</a>
     <a class="nav-chip" href="docs.html">Docs</a>
     <span class="tb-div"></span><span style="color:#5a6480;font-size:10px;font-weight:700;letter-spacing:1.5px;margin:0 6px 0 2px;align-self:center;text-transform:uppercase">Filter</span>
-    <button class="tag-btn active" onclick="tagFilter('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;font-weight:600;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">All</button>
-    <button class="tag-btn" onclick="tagFilter('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
-    <button class="tag-btn" onclick="tagFilter('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
-    <button class="tag-btn" onclick="tagFilter('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
-    <button class="tag-btn" onclick="tagFilter('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
-    <button class="tag-btn" onclick="tagFilter('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
-    <button class="tag-btn" onclick="tagFilter('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
-    <button class="tag-btn" onclick="tagFilter('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
-    <button class="tag-btn" onclick="tagFilter('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab</button>
-    <button class="tag-btn" onclick="tagFilter('framework')" data-tag="framework" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Framework</button>
-    <button class="tag-btn" onclick="tagFilter('handover')" data-tag="handover" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Handover</button>
+    <button class="tag-btn active" onclick="filterByTag('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;font-weight:600;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">All</button>
+    <button class="tag-btn" onclick="filterByTag('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
+    <button class="tag-btn" onclick="filterByTag('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
+    <button class="tag-btn" onclick="filterByTag('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
+    <button class="tag-btn" onclick="filterByTag('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
+    <button class="tag-btn" onclick="filterByTag('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
+    <button class="tag-btn" onclick="filterByTag('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
+    <button class="tag-btn" onclick="filterByTag('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
+    <button class="tag-btn" onclick="filterByTag('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab</button>
+    <button class="tag-btn" onclick="filterByTag('framework')" data-tag="framework" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Framework</button>
+    <button class="tag-btn" onclick="filterByTag('handover')" data-tag="handover" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Handover</button>
     <span id="tag-count" style="color:#4a5470;font-size:11px;margin-left:4px"></span>
   </div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">

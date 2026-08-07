@@ -378,3 +378,63 @@ document.addEventListener('DOMContentLoaded',function(){
     }
   });
 });
+
+// Expand + scroll to a card when the hash changes (same-page result-link clicks)
+window.addEventListener('hashchange', function(){
+  if(!location.hash) return;
+  var el=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if(el && el.classList && el.classList.contains('module-card')){
+    var b=el.querySelector('.module-body'); if(b) b.style.display='block';
+    el.scrollIntoView({block:'start'});
+  }
+});
+
+/* ===== Unified GLOBAL tag filter — identical behavior on every page =====
+   A chip lists EVERY card carrying that tag across the whole guide (from
+   search-index.json), grouped by section. Fixes the old split where index.html
+   chips searched and section-page chips filtered only the current page. */
+var TAG_SYNONYMS = {
+  troubleshooting:['troubleshooting','debug','rca'],
+  noise:['noise','nf'],
+  lab:['lab','instruments','bench','hands-on'],
+  handover:['handover','mobility'],
+  'call-flow':['call-flow'],
+  fundamentals:['fundamentals'],
+  framework:['framework']
+};
+var SECTION_TITLES = {foundation:'Foundation',beginner:'Beginner',intermediate:'Intermediate',expert:'Expert',protocol:'Protocol',protocol_debug:'Protocol Debug',features:'RCT Features',instruments:'Instruments',docs:'Docs',index:'Home'};
+function filterByTag(tag){
+  document.querySelectorAll('.tag-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tag===tag); });
+  var panel=document.getElementById('tag-results');
+  if(!panel){
+    panel=document.createElement('div');
+    panel.id='tag-results'; panel.className='tag-results';
+    var nav=document.querySelector('nav#topbar')||document.querySelector('nav');
+    if(nav && nav.parentNode) nav.parentNode.insertBefore(panel, nav.nextSibling);
+    else document.body.insertBefore(panel, document.body.firstChild);
+  }
+  if(tag==='all'){ panel.style.display='none'; panel.innerHTML=''; return; }
+  var chip=document.querySelector('.tag-btn[data-tag="'+tag+'"]');
+  var label=(chip?chip.textContent:tag).trim();
+  fetch('search-index.json').then(function(r){return r.json();}).then(function(idx){
+    var toks=TAG_SYNONYMS[tag]||[tag];
+    var hits=idx.filter(function(c){
+      var tg=' '+String(c.tags||'').toLowerCase()+' ';
+      return toks.some(function(x){ return tg.indexOf(' '+x+' ')>=0; });
+    });
+    var html='<div class="tr-hd"><span class="tr-title">🔖 '+label+'</span><span class="tr-count">'+hits.length+' card'+(hits.length===1?'':'s')+' across the guide</span><button class="tr-clear" onclick="filterByTag(\'all\')">✕ clear filter</button></div>';
+    if(!hits.length){
+      html+='<div class="tr-empty">No cards tagged &ldquo;'+label+'&rdquo;.</div>';
+    } else {
+      var byFile={}; hits.forEach(function(h){ (byFile[h.file]=byFile[h.file]||[]).push(h); });
+      Object.keys(byFile).forEach(function(f){
+        var key=f.replace('.html','');
+        html+='<div class="tr-sec">'+(SECTION_TITLES[key]||key)+' <span class="tr-n">'+byFile[f].length+'</span></div><div class="tr-grid">';
+        html+=byFile[f].map(function(h){ return '<a class="tr-hit" href="'+h.file+'#'+h.id+'"><span class="tr-id">'+h.id+'</span><span class="tr-ht">'+h.title+'</span></a>'; }).join('');
+        html+='</div>';
+      });
+    }
+    panel.innerHTML=html; panel.style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(){ panel.style.display='block'; panel.innerHTML='<div class="tr-empty">Could not load the card index.</div>'; });
+}
