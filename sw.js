@@ -1,4 +1,4 @@
-const CACHE='rf-guide-v3';
+const CACHE='rf-guide-v4';
 const FILES=[
   '/rf-lab-guide/index.html',
   '/rf-lab-guide/foundation.html',
@@ -87,4 +87,28 @@ const FILES=[
 ];
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES).catch(()=>{}))); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k))))); self.clients.claim(); });
-self.addEventListener('fetch', e => { e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))); });
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const accept = req.headers.get('accept') || '';
+  const isPage = req.mode === 'navigate' || accept.includes('text/html');
+  if (isPage) {
+    // network-first for HTML pages so content updates show immediately when online
+    e.respondWith(
+      fetch(req).then(res => {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
+        return res;
+      }).catch(() => caches.match(req).then(r => r || caches.match('/rf-lab-guide/index.html')))
+    );
+  } else {
+    // cache-first for static assets (css/js/svg/png/json) — fast + offline
+    e.respondWith(
+      caches.match(req).then(r => r || fetch(req).then(res => {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
+        return res;
+      }))
+    );
+  }
+});
