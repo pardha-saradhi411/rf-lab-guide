@@ -394,6 +394,7 @@ window.addEventListener('hashchange', function(){
    search-index.json), grouped by section. Fixes the old split where index.html
    chips searched and section-page chips filtered only the current page. */
 var TAG_SYNONYMS = {
+  '5g':['5g','nr'],
   troubleshooting:['troubleshooting','debug','rca'],
   noise:['noise','nf'],
   lab:['lab','instruments','bench','hands-on'],
