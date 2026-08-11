@@ -232,7 +232,7 @@ T-gNB     : PathSwitch (as normal) ; other prepared candidates
 <div class="module-card" id="CA01" data-tags="ca lte 5g feature-testing">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CA01</span>
-  <span class="mod-title">CA Setup — PCell + SCell addition (RRC Reconfiguration)</span>
+  <span class="mod-title">CA — Setup: PCell + SCell addition (RRC Reconfiguration)</span>
   <span class="mod-tag advanced">Carrier Aggregation</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -262,7 +262,7 @@ UE   → gNB :  CQI/PMI/RI on SCell -> gNB schedules across CCs</pre></div></div
 <div class="module-card" id="CA02" data-tags="ca lte 5g feature-testing">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CA02</span>
-  <span class="mod-title">SCell Activation / Deactivation — MAC Control Element</span>
+  <span class="mod-title">CA — SCell Activation / Deactivation (MAC CE)</span>
   <span class="mod-tag advanced">Carrier Aggregation</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -287,7 +287,7 @@ UE       :  stop SReporting/monitoring on that SCell</pre></div></div>
 <div class="module-card" id="CA03" data-tags="ca lte 5g feature-testing measurements">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CA03</span>
-  <span class="mod-title">Inter-band CA Measurement — A4 event trigger</span>
+  <span class="mod-title">CA — Inter-band measurement (A4 event trigger)</span>
   <span class="mod-tag advanced">Carrier Aggregation</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -311,7 +311,7 @@ gNB      :  pick SCell -> RRCReconfiguration sCellToAddModList (CA01)</pre></div
 <div class="module-card" id="CA04" data-tags="ca aclr tx rct feature-testing measurements">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CA04</span>
-  <span class="mod-title">CA ACLR — why the second-carrier run limit is 52 dBc</span>
+  <span class="mod-title">CA — ACLR (why the 2nd-carrier run limit is 52 dBc)</span>
   <span class="mod-tag advanced">Carrier Aggregation</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -334,7 +334,7 @@ aclr_pass_limit = min_limit - tolerance
 <div class="module-card" id="PD01" data-tags="protocol debug lte 5g pdcp">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PD01</span>
-  <span class="mod-title">PDCP Debug — ciphering mismatch, ROHC context, SN wrap</span>
+  <span class="mod-title">Debug — PDCP (ciphering mismatch, ROHC context, SN wrap)</span>
   <span class="mod-tag advanced">Protocol Debug</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -359,7 +359,7 @@ SN/HFN desync   : after long gap or lost PDUs -> COUNT diverges</pre></div></div
 <div class="module-card" id="PD02" data-tags="protocol debug lte 5g rlc">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PD02</span>
-  <span class="mod-title">RLC Debug — AM stall, STATUS PDU, window stuck</span>
+  <span class="mod-title">Debug — RLC (AM stall, STATUS PDU, window stuck)</span>
   <span class="mod-tag advanced">Protocol Debug</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -384,7 +384,7 @@ RX side: t-Reassembly expiry -> declare missing, send STATUS</pre></div></div>
 <div class="module-card" id="PD03" data-tags="protocol debug lte 5g mac">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PD03</span>
-  <span class="mod-title">MAC Debug — HARQ mismatch, NDI errors, BSR/SR flow</span>
+  <span class="mod-title">Debug — MAC (HARQ mismatch, NDI errors, BSR/SR)</span>
   <span class="mod-tag advanced">Protocol Debug</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -410,7 +410,7 @@ HARQ:  NDI toggled = new TB ; NDI same = retransmission (combine)</pre></div></d
 <div class="module-card" id="PD04" data-tags="protocol debug lte 5g rrc">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PD04</span>
-  <span class="mod-title">RRC Debug — connection failures, T300 / T310 / T311</span>
+  <span class="mod-title">Debug — RRC (connection failures, T300/T310/T311)</span>
   <span class="mod-tag advanced">Protocol Debug</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -439,7 +439,7 @@ RLF -> start T311, search a suitable cell
 <div class="module-card" id="PD05" data-tags="protocol debug lte 5g nas">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">PD05</span>
-  <span class="mod-title">NAS Debug — EMM cause codes, attach reject, TAU failure</span>
+  <span class="mod-title">Debug — NAS (EMM cause codes, attach reject, TAU failure)</span>
   <span class="mod-tag advanced">Protocol Debug</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -463,7 +463,7 @@ TAU/Reg-Update: on TA change -> Request -> Accept/Reject(cause)</pre></div></div
 <div class="module-card" id="CSI01" data-tags="csi measurements lte 5g cqi">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CSI01</span>
-  <span class="mod-title">CQI — Channel Quality Indicator: meaning, MCS mapping, logs</span>
+  <span class="mod-title">CSI — CQI (Channel Quality Indicator): MCS mapping, logs</span>
   <span class="mod-tag advanced">CSI Reporting</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -488,7 +488,7 @@ gNB: CQI -> MCS index -> TBS ; targets ~10% BLER, then
 <div class="module-card" id="CSI02" data-tags="csi measurements lte 5g pmi mimo">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CSI02</span>
-  <span class="mod-title">PMI — Precoding Matrix Indicator: codebook &amp; how gNB uses it</span>
+  <span class="mod-title">CSI — PMI (Precoding Matrix Indicator): codebook &amp; use</span>
   <span class="mod-tag advanced">CSI Reporting</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -514,7 +514,7 @@ NR : Type I codebook (single-user), Type II (higher
 <div class="module-card" id="CSI03" data-tags="csi measurements lte 5g ri mimo">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CSI03</span>
-  <span class="mod-title">RI — Rank Indicator: layer selection, when it drops to 1</span>
+  <span class="mod-title">CSI — RI (Rank Indicator): layer selection, drop to 1</span>
   <span class="mod-tag advanced">CSI Reporting</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -540,7 +540,7 @@ MU-MIMO: gNB may force lower per-UE rank to pair users
 <div class="module-card" id="CSI04" data-tags="csi measurements lte 5g rsrp rsrq sinr">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">CSI04</span>
-  <span class="mod-title">RSRP / RSRQ / SINR — formulas, meas gaps, A3 trigger</span>
+  <span class="mod-title">CSI — RSRP / RSRQ / SINR (formulas, meas gaps, A3 trigger)</span>
   <span class="mod-tag advanced">CSI Reporting</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -742,7 +742,7 @@ I_TBS 21, 100 RB -> TBS = 51024 bits
 <div class="module-card" id="EPC01" data-tags="lte protocol architecture">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EPC01</span>
-  <span class="mod-title">MME — Mobility Management Entity (EPC control plane)</span>
+  <span class="mod-title">EPC — MME (Mobility Management Entity, control plane)</span>
   <span class="mod-tag advanced">EPC</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -756,7 +756,7 @@ I_TBS 21, 100 RB -> TBS = 51024 bits
 <div class="module-card" id="EPC02" data-tags="lte protocol architecture">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EPC02</span>
-  <span class="mod-title">S-GW + P-GW — the EPC user plane</span>
+  <span class="mod-title">EPC — S-GW + P-GW (user plane)</span>
   <span class="mod-tag advanced">EPC</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
@@ -771,7 +771,7 @@ S5 = SGW-PGW same operator ;  S8 = roaming (visited SGW <-> home PGW)</code>In s
 <div class="module-card" id="EPC03" data-tags="lte protocol architecture">
 <div class="module-hdr" onclick="toggleModule(this)">
   <span class="mod-num">EPC03</span>
-  <span class="mod-title">HSS — Home Subscriber Server</span>
+  <span class="mod-title">EPC — HSS (Home Subscriber Server)</span>
   <span class="mod-tag advanced">EPC</span>
   <span class="mod-expand">click to expand</span>
   <span class="mod-arrow">+</span>
