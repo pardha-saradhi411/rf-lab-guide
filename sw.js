@@ -1,4 +1,4 @@
-const CACHE='rf-guide-v28';
+const CACHE='rf-guide-v29';
 const FILES=[
   '/rf-lab-guide/index.html',
   '/rf-lab-guide/foundation.html',
