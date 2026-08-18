@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5bc4ef">
+<title>Resume Topics — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <span class="tb-div"></span><span style="color:#5a6480;font-size:10px;font-weight:700;letter-spacing:1.5px;margin:0 6px 0 2px;align-self:center;text-transform:uppercase">Filter</span>
+    <button class="tag-btn active" onclick="filterByTag('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;font-weight:600;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">All</button>
+    <button class="tag-btn" onclick="filterByTag('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
+    <button class="tag-btn" onclick="filterByTag('tx')" data-tag="tx" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">TX</button>
+    <button class="tag-btn" onclick="filterByTag('rx')" data-tag="rx" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">RX</button>
+    <button class="tag-btn" onclick="filterByTag('lte')" data-tag="lte" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">LTE</button>
+    <button class="tag-btn" onclick="filterByTag('5g')" data-tag="5g" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">5G</button>
+    <button class="tag-btn" onclick="filterByTag('protocol')" data-tag="protocol" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Protocol</button>
+    <button class="tag-btn" onclick="filterByTag('security')" data-tag="security" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Security</button>
+    <button class="tag-btn" onclick="filterByTag('ue')" data-tag="ue" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">UE</button>
+    <button class="tag-btn" onclick="filterByTag('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
+    <button class="tag-btn" onclick="filterByTag('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
+    <button class="tag-btn" onclick="filterByTag('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
+    <button class="tag-btn" onclick="filterByTag('noise')" data-tag="noise" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Noise/NF</button>
+    <button class="tag-btn" onclick="filterByTag('lab')" data-tag="lab" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Lab</button>
+    <button class="tag-btn" onclick="filterByTag('framework')" data-tag="framework" style="background:#c8b80011;color:#c8b800;border:1px solid #c8b80033;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Framework</button>
+    <button class="tag-btn" onclick="filterByTag('handover')" data-tag="handover" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Handover</button>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search all 276 cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:200px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+<div class="sec-hdr" id="resume_top" style="background:linear-gradient(90deg,#9b8cf811,transparent);border-left:4px solid #9b8cf8;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">&#128196;</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#9b8cf8">Resume Topics</span><span style="background:#9b8cf822;color:#9b8cf8;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">PARDHA SARADHI CHANDANA</span></div><div style="font-size:12px;color:#4a5470">Senior LTE/5G NR &amp; RF Validation Engineer &middot; O-RAN &middot; every topic from the resume, in one place</div></div></div>
+<div style="max-width:1200px;margin:0 auto;padding:16px 24px 8px">
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a00d;border-left:3px solid #00d4a0;border-radius:8px"><div style="font-weight:700;color:#00d4a0;font-size:14px;margin-bottom:2px">Resume Topic Map</div><div style="font-size:12px;color:#4a5470;margin-bottom:8px">Every topic from the resume &#8594; click to jump straight to its card. Back returns you here. New UE / test-tool cards are below on this page.</div><div class="tr-sec">Wireless Technologies</div><div class="tr-grid"><a class="tr-hit" href="protocol.html#PT19"><span class="tr-ht">LTE / LTE-A</span></a><a class="tr-hit" href="protocol.html#PT16"><span class="tr-ht">5G NR SA</span></a><a class="tr-hit" href="protocol.html#PT12"><span class="tr-ht">5G NR NSA / EN-DC</span></a><a class="tr-hit" href="protocol.html#PT11"><span class="tr-ht">5G Architecture</span></a><a class="tr-hit" href="protocol.html#PT10"><span class="tr-ht">VoLTE</span></a><a class="tr-hit" href="protocol.html#PT09"><span class="tr-ht">Carrier Aggregation</span></a><a class="tr-hit" href="protocol.html#PT19"><span class="tr-ht">Handover (X2/S1/DU/CU)</span></a><a class="tr-hit" href="expert.html#A15"><span class="tr-ht">O-RAN split</span></a><a class="tr-hit" href="expert.html#L7"><span class="tr-ht">O-RAN M/C/U/S-plane</span></a></div><div class="tr-sec">3GPP Protocols</div><div class="tr-grid"><a class="tr-hit" href="protocol.html#PT04"><span class="tr-ht">RRC</span></a><a class="tr-hit" href="protocol.html#PT05"><span class="tr-ht">NAS</span></a><a class="tr-hit" href="protocol.html#PT03"><span class="tr-ht">PDCP</span></a><a class="tr-hit" href="protocol.html#PT02"><span class="tr-ht">RLC</span></a><a class="tr-hit" href="protocol.html#PT01"><span class="tr-ht">MAC</span></a><a class="tr-hit" href="expert.html#A04"><span class="tr-ht">PHY / air interface</span></a><a class="tr-hit" href="protocol.html#IF01"><span class="tr-ht">S1AP / X2AP (interfaces)</span></a><a class="tr-hit" href="protocol.html#IF02"><span class="tr-ht">NG / Xn / F1 (5G)</span></a><a class="tr-hit" href="protocol.html#CH01"><span class="tr-ht">Channels</span></a></div><div class="tr-sec">RF & Conformance</div><div class="tr-grid"><a class="tr-hit" href="features.html#RCT01"><span class="tr-ht">RF Conformance (RCT) map</span></a><a class="tr-hit" href="features.html#FC01"><span class="tr-ht">ACLR</span></a><a class="tr-hit" href="features.html#FC02"><span class="tr-ht">EVM</span></a><a class="tr-hit" href="features.html#FC03"><span class="tr-ht">TX / BS Output Power</span></a><a class="tr-hit" href="features.html#FC06"><span class="tr-ht">TX Dynamic Range</span></a><a class="tr-hit" href="features.html#FC13"><span class="tr-ht">RX Dynamic Range</span></a><a class="tr-hit" href="features.html#DSA1"><span class="tr-ht">Receiver Sensitivity</span></a><a class="tr-hit" href="features.html#DSA1"><span class="tr-ht">BLER</span></a><a class="tr-hit" href="features.html#FC15"><span class="tr-ht">RSSI Accuracy</span></a><a class="tr-hit" href="features.html#FC20"><span class="tr-ht">IQ Playback</span></a><a class="tr-hit" href="expert.html#A03"><span class="tr-ht">S-Parameters</span></a><a class="tr-hit" href="features.html#FC11"><span class="tr-ht">PA Protection</span></a><a class="tr-hit" href="features.html#SPEC01"><span class="tr-ht">Conformance clauses</span></a></div><div class="tr-sec">Automation</div><div class="tr-grid"><a class="tr-hit" href="features.html#CLI01"><span class="tr-ht">Python / pytest (RCT CLI)</span></a><a class="tr-hit" href="features.html#FWK1"><span class="tr-ht">Framework architecture</span></a><a class="tr-hit" href="#UE04"><span class="tr-ht">Robot Framework</span></a><a class="tr-hit" href="#UE03"><span class="tr-ht">Appium / multi-UE</span></a><a class="tr-hit" href="#UE02"><span class="tr-ht">ADB</span></a><a class="tr-hit" href="features.html#FWK7"><span class="tr-ht">CI / Jenkins</span></a><a class="tr-hit" href="features.html#FC16"><span class="tr-ht">Test cadence (nightly)</span></a></div><div class="tr-sec">Test Equipment</div><div class="tr-grid"><a class="tr-hit" href="instruments.html#EXA"><span class="tr-ht">Keysight EXA</span></a><a class="tr-hit" href="instruments.html#EXM"><span class="tr-ht">Keysight EXM</span></a><a class="tr-hit" href="instruments.html#VNA2"><span class="tr-ht">E5071C VNA</span></a><a class="tr-hit" href="#UE06"><span class="tr-ht">Amarisoft</span></a><a class="tr-hit" href="#UE05"><span class="tr-ht">TM500</span></a><a class="tr-hit" href="#UE07"><span class="tr-ht">Dingli / drive test</span></a><a class="tr-hit" href="#UE08"><span class="tr-ht">Commercial UEs</span></a></div><div class="tr-sec">Debugging & Analysis</div><div class="tr-grid"><a class="tr-hit" href="#UE01"><span class="tr-ht">QXDM / QCAT / PCAT</span></a><a class="tr-hit" href="protocol.html#PT18"><span class="tr-ht">XCAL / drive test</span></a><a class="tr-hit" href="expert.html#A10"><span class="tr-ht">RF troubleshooting (RCA)</span></a><a class="tr-hit" href="protocol_debug.html#PD01"><span class="tr-ht">Protocol debug (PDCP/RLC/MAC/RRC/NAS)</span></a></div><div class="tr-sec">Test Methodology</div><div class="tr-grid"><a class="tr-hit" href="#UE09"><span class="tr-ht">Throughput / KPI (iperf)</span></a><a class="tr-hit" href="#UE10"><span class="tr-ht">Endurance / stability / stress</span></a><a class="tr-hit" href="#UE11"><span class="tr-ht">Interoperability (IOT)</span></a><a class="tr-hit" href="protocol.html#PT14"><span class="tr-ht">Cell reselection</span></a><a class="tr-hit" href="features.html#SPLANE01"><span class="tr-ht">S-plane / PTP sync</span></a></div></div>
+<div style="font-weight:700;color:#5bc4ef;font-size:14px;margin:22px 0 4px">UE &amp; Test-Tool cards (new — full detail here)</div>
+<div style="font-size:12px;color:#4a5470;margin-bottom:6px">The UE-side skills from the resume that weren&#39;t elsewhere in the guide. Also reachable via the <b>UE</b> filter chip.</div>
+</div>
+<div class="module-card" id="UE01" data-tags="ue lte 5g debug troubleshooting resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE01</span>
+  <span class="mod-title">QXDM / QCAT / PCAT — Qualcomm UE diagnostic logging</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What they are</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>QXDM</b> (Qualcomm eXtensible Diagnostic Monitor) captures <b>live</b> chipset diagnostic logs from a Qualcomm UE over the USB <b>DIAG</b> port. <b>QCAT</b> analyses the saved logs (<code>.isf/.dlf/.qmdl</code>) <b>offline</b>. <b>PCAT</b> is the packet/performance analysis companion. Together they are the <b>UE-side truth</b> for debugging.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">What you can see</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Decoded <b>OTA messages</b> (RRC, NAS), <b>L1</b> serving-cell measurements (RSRP/RSRQ/SINR, PDSCH/PUSCH), <b>MAC/RLC</b> stats, HARQ/BLER, scheduling, and <b>IP throughput</b> — all from the device&#39;s perspective, complementing network-side Wireshark.</div></div><div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">Workflow</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Enable DIAG on the UE &#8594; start QXDM logging &#8594; reproduce the issue (attach, HO, throughput drop) &#8594; save the ISF &#8594; open in QCAT to walk the call flow / metrics. This is how you root-cause an attach/HO/throughput problem from the UE end.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: When would you reach for QXDM over Wireshark?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Wireshark shows the network side (S1/NG, GTP, core). QXDM shows what the UE actually saw and did — the RRC/NAS it decoded, its L1 measurements, its HARQ/BLER and scheduling. For a UE-specific failure (bad HO, wrong measurement report, chipset quirk) QXDM/QCAT is the definitive view.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE02" data-tags="ue automation debug resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE02</span>
+  <span class="mod-title">ADB — Android Debug Bridge for UE control</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A command-line bridge to control an Android UE over USB or TCP — shell access, logs, app install, input injection, radio/data toggles, reboot. The backbone of scripted UE actions in test automation.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Commands you actually use</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><table style="width:100%;border-collapse:collapse;margin:10px 0;border-radius:6px;overflow:hidden"><thead><tr style="background:#0a0c10"><th style="padding:8px 12px;text-align:left;color:#5bc4ef;font-weight:600;font-size:12px;border-bottom:1px solid #1e2535">Command</th><th style="padding:8px 12px;text-align:left;color:#5bc4ef;font-weight:600;font-size:12px;border-bottom:1px solid #1e2535">Does</th></tr></thead><tbody><tr style="background:#0d0f14"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">adb devices</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">list connected UEs (serials)</td></tr><tr style="background:#111420"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">adb -s &lt;serial&gt; shell</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">shell into a specific UE (multi-UE)</td></tr><tr style="background:#0d0f14"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">adb logcat</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">stream device logs</td></tr><tr style="background:#111420"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">svc data enable/disable</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">toggle mobile data (attach/detach tests)</td></tr><tr style="background:#0d0f14"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">svc wifi disable</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">force cellular</td></tr><tr style="background:#111420"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">am start / input</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">launch apps / tap-type (drive dialer, speedtest)</td></tr><tr style="background:#0d0f14"><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520"><code style="color:#00d4a0;font-size:11px">adb reboot</code></td><td style="padding:8px 12px;font-size:12px;color:#c8c8d8;border-bottom:1px solid #1e253520">reboot the UE (stability loops)</td></tr></tbody></table></div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you drive many UEs at once with ADB?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Each device has a unique serial; address it with adb -s <serial>. A script iterates serials to start data, launch iperf/dialer, read modem state, and reboot in parallel — the basis of multi-UE orchestration (UE03).</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE03" data-tags="ue automation resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE03</span>
+  <span class="mod-title">Appium & Multi-UE Orchestration</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">Appium</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">UI automation for mobile apps via the WebDriver protocol — it drives the UE like a real user (dialer, Settings, speed-test apps). Language-agnostic, works across real devices; pairs with ADB for lower-level control.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Multi-UE orchestration</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Run <b>many UEs in parallel</b> — each an ADB serial / Appium session — to exercise <b>load, aggregate throughput, and mobility</b> at scale. A controller coordinates attach, starts traffic, and triggers handovers across the fleet, then collects per-UE KPIs. Essential for capacity and stability validation.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why orchestrate multiple UEs instead of one?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: A single UE can&#39;t load a cell or expose scheduler fairness, capacity limits, or multi-user interference. Running a fleet in parallel reproduces real cell load, aggregate throughput, and mobility churn — the conditions where most field defects appear.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE04" data-tags="ue automation framework resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE04</span>
+  <span class="mod-title">Robot Framework — keyword-driven test automation</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A Python-based, <b>keyword-driven</b> automation framework with human-readable <code>.robot</code> test cases. Libraries (AppiumLibrary, SSHLibrary, custom Python) let non-coders read/write tests. Used for LTE/5G bring-up, throughput, endurance and regression suites.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Structure &amp; output</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Sections: Settings / Variables / Test Cases / Keywords, with tags for selection. Produces <code>log.html</code> + <code>report.html</code> with pass/fail and step timing.</div></div><div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">vs pytest</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">ruauto/RCT uses <b>pytest</b> (code-first, see CLI01/FWK1); many UE/system teams use <b>Robot</b> (keyword-first, more readable for mixed-skill teams). Same goal — different style; both drive the same UEs and instruments.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Robot Framework vs pytest — when each?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: pytest is code-first and great for engineers writing rich Python logic (the RCT conformance suites). Robot is keyword-driven and reads almost like English, so it suits large mixed-skill test teams and reusable keyword libraries for UE/system regression. Both can call the same device/instrument libraries.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE05" data-tags="ue lte 5g measurements resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE05</span>
+  <span class="mod-title">TM500 — network tester / UE emulator</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The Viavi/Aeroflex <b>TM500</b> is an RF <b>UE emulator</b> that emulates many controlled UEs to <b>load-test an eNB/gNB</b> — capacity, peak throughput, scheduler behaviour, mobility. It is a deterministic test UE, not a commercial chipset.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Why use it</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Scriptable, repeatable, and scales to <b>hundreds of UEs</b> — perfect for maximum-throughput, multi-UE and base-station RF/protocol validation where you need controlled, reproducible load rather than a phone.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: TM500 vs a commercial UE?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: TM500 gives deterministic, scriptable, high-count load for base-station capacity/throughput/mobility testing. A commercial UE gives real chipset behaviour (IMS/VoLTE quirks, band-combo support) for interoperability. You use TM500 for scale/repeatability and real UEs for realism (UE08).</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE06" data-tags="ue lte 5g resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE06</span>
+  <span class="mod-title">Amarisoft — software Callbox (eNB/gNB + core + UE sim)</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">SDR-based <b>software</b> LTE/5G <b>eNB/gNB + EPC/5GC + UE simulator</b> — a full network-in-a-box (Callbox) and UE-sim. Attach a real UE to the Amarisoft cell, or simulate UEs against a real gNB.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Why it&#39;s useful</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Fully scriptable (remote API), rich logging, built-in IMS for VoLTE, and cheap/flexible vs full commercial gear. Great for <b>feature validation, protocol testing, and interoperability</b> in the lab.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Where does Amarisoft fit in a validation lab?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It provides a controllable reference network or reference UE. Point a real UE at the Amarisoft cell to isolate UE behaviour, or run Amarisoft UE-sim against your gNB to isolate the base station — a cheap, scriptable way to bisect where a problem lives.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE07" data-tags="ue lte 5g measurements resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE07</span>
+  <span class="mod-title">Dingli &amp; drive-test tools</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Dingli</b> (Pilot Pioneer / Navigator) is a drive-test &amp; network-optimisation tool: a UE + GPS logging <b>RSRP/RSRQ/SINR, throughput and handovers</b> along a route, with post-processing and coverage heat-maps. Same family as <b>XCAL</b>/TEMS (see PT18).</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Used for</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Field <b>coverage</b>, <b>mobility</b> and <b>KPI</b> validation — confirming that lab RF results (your RCT) hold up in real deployment: dominance, pilot pollution, HO success along a drive route.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What does a drive test add over lab RCT?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Lab RCT proves the radio meets spec in controlled conditions; a drive test proves coverage, mobility and KPIs in the real RF environment — multipath, interference, real UE distribution — which the lab cannot fully reproduce.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE08" data-tags="ue lte 5g resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE08</span>
+  <span class="mod-title">Commercial UEs &amp; modules — OnePlus, Samsung, Telit, COMPAL</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">Why real devices</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Emulators miss chipset-specific behaviour. Real UEs — <b>OnePlus/Samsung</b> (Qualcomm/Exynos), <b>Telit</b> (IoT modules), <b>COMPAL</b> (ODM) — expose real <b>band/CA-combo support, VoLTE/IMS behaviour, UE capability</b> and vendor quirks.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">What you check</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>UECapabilityInformation</b> (supported bands, CA band-combos, category, MIMO layers), VoLTE/IMS registration, real throughput, and how each chipset interprets 3GPP — the essence of interoperability (UE11).</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why validate with commercial UEs if you have a TM500?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Because operators&#39; subscribers use commercial phones. Only real chipsets reveal IMS/VoLTE behaviour, band-combo negotiation, and vendor-specific interpretations of 3GPP that a deterministic emulator will not — which is exactly what breaks in the field.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE09" data-tags="ue lte 5g measurements kpi resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE09</span>
+  <span class="mod-title">Throughput &amp; KPI testing — iperf, TCP/UDP UL/DL</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">How throughput is measured</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>iperf/iperf3</b> generates UL/DL <b>TCP</b> and <b>UDP</b> traffic between a server and the UE; you record peak throughput (e.g. LTE-A CA <b>1.4 Gbps DL / 250 Mbps UL</b>), latency, jitter, packet loss.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">TCP vs UDP</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>UDP</b> pushes a fixed rate — measures raw PHY/MAC capacity (and loss). <b>TCP</b> is window/RTT-limited and reacts to loss — measures realistic user throughput. Report both; a gap points to latency/loss issues.</div></div><div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">The KPI chain</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Throughput is the end of a chain: RF (SINR) &#8594; CQI &#8594; MCS &#8594; scheduled bits &#8594; throughput (see L38). A bad ACLR/EVM upstream shows up here as low DL rate.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why measure both TCP and UDP throughput?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: UDP at a forced rate reveals the true PHY/MAC capacity and packet loss; TCP reveals what a real application achieves after congestion control and RTT. If UDP is high but TCP is low, the radio is fine and the problem is latency/loss/buffering.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE10" data-tags="ue lte 5g debug resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE10</span>
+  <span class="mod-title">Endurance / Stability / Stress testing</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Long-duration and repeated-action tests that surface the defects short runs miss: <b>8&ndash;72 hr</b> attach/detach and mixed-traffic soak, and <b>reboot loops (100+ RU reboots)</b>. Targets memory leaks, resource exhaustion, sync drift, and rare race conditions.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">What you track &amp; deliver</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Success rate, drop rate, recovery time, and resource trends over time; then a developer-ready <b>RCA</b> correlating radio/baseband/management/automation logs. (Related: the self-healing traffic watchdog.)</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why run 72-hour and reboot-loop tests if the feature already passes functionally?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Functional tests catch logic bugs; endurance/stress catch time-and-repetition bugs — memory leaks, handle exhaustion, clock/sync drift, and one-in-hundreds race conditions on reboot. Those are exactly the failures that take down a live network, so they must be found before release.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="UE11" data-tags="ue lte 5g protocol resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">UE11</span>
+  <span class="mod-title">Interoperability (IOT) testing</span>
+  <span class="mod-tag advanced">UE / Test</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">&#9662;</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What it is</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Verifying the RAN/core works correctly with <b>multiple UE vendors/chipsets</b> (and network vendors) — a matrix of <b>UE &#215; band &#215; feature</b>. Catches vendor-specific interpretations of 3GPP that conformance alone misses.</div></div><div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">vs conformance</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Conformance</b> = does the device/BS meet the 3GPP spec (SPEC01-03). <b>Interoperability</b> = do independently-built devices actually work <b>together</b> in the real world. Tier-1 operators (DTAG/VMO2-style acceptance) require both.</div></div><div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Conformance vs interoperability — why both?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Two vendors can each pass conformance yet still fail together because the spec allows options or is read differently. Conformance proves spec compliance in isolation; interoperability proves the RAN, core and real UEs actually interwork — which is what the operator ultimately buys.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="div-line"></div>
+
+</body>
+</html>

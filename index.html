@@ -24,6 +24,7 @@
     <a class="nav-chip" href="features.html">RCT Features</a>
     <a class="nav-chip" href="instruments.html">Instruments</a>
     <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
     <span class="tb-div"></span><span style="color:#5a6480;font-size:10px;font-weight:700;letter-spacing:1.5px;margin:0 6px 0 2px;align-self:center;text-transform:uppercase">Filter</span>
     <button class="tag-btn active" onclick="filterByTag('all')" data-tag="all" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a044;font-weight:600;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">All</button>
     <button class="tag-btn" onclick="filterByTag('fundamentals')" data-tag="fundamentals" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Fundamentals</button>
@@ -33,6 +34,7 @@
     <button class="tag-btn" onclick="filterByTag('5g')" data-tag="5g" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">5G</button>
     <button class="tag-btn" onclick="filterByTag('protocol')" data-tag="protocol" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62333;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Protocol</button>
     <button class="tag-btn" onclick="filterByTag('security')" data-tag="security" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Security</button>
+    <button class="tag-btn" onclick="filterByTag('ue')" data-tag="ue" style="background:#9b8cf811;color:#9b8cf8;border:1px solid #9b8cf833;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">UE</button>
     <button class="tag-btn" onclick="filterByTag('oran')" data-tag="oran" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">O-RAN</button>
     <button class="tag-btn" onclick="filterByTag('call-flow')" data-tag="call-flow" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Call Flow</button>
     <button class="tag-btn" onclick="filterByTag('troubleshooting')" data-tag="troubleshooting" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Debug</button>
@@ -42,7 +44,7 @@
     <button class="tag-btn" onclick="filterByTag('handover')" data-tag="handover" style="background:#ff6b6b11;color:#ff6b6b;border:1px solid #ff6b6b33;border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer">Handover</button>
   </div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
-    <input id="global-search" type="text" placeholder="🔍 Search all 265 cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:200px">
+    <input id="global-search" type="text" placeholder="🔍 Search all 276 cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:200px">
   </div>
 </nav>
 <div id="global-results" class="gs-wrap"></div>

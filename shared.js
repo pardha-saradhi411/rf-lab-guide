@@ -403,7 +403,7 @@ var TAG_SYNONYMS = {
   fundamentals:['fundamentals'],
   framework:['framework']
 };
-var SECTION_TITLES = {foundation:'Foundation',beginner:'Beginner',intermediate:'Intermediate',expert:'Expert',protocol:'Protocol',protocol_debug:'Protocol Debug',features:'RCT Features',instruments:'Instruments',docs:'Docs',index:'Home'};
+var SECTION_TITLES = {foundation:'Foundation',beginner:'Beginner',intermediate:'Intermediate',expert:'Expert',protocol:'Protocol',protocol_debug:'Protocol Debug',features:'RCT Features',instruments:'Instruments',docs:'Docs',resume:'Resume',index:'Home'};
 function filterByTag(tag){
   document.querySelectorAll('.tag-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tag===tag); });
   var panel=document.getElementById('tag-results');
