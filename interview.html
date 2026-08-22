@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5bc4ef">
+<title>Interview Simulator — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+<script src="interview.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:180px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#9b8cf811,transparent);border-left:4px solid #9b8cf8;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🎤</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#9b8cf8">Interview Simulator</span><span style="background:#9b8cf822;color:#9b8cf8;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">SELF-PRACTICE</span></div><div style="font-size:12px;color:#4a5470">A senior RF / RU / RAT / RAN validation lead grills you &middot; <span id="iv-total">…</span> questions &middot; answer, reveal, self-rate</div></div></div>
+
+<div style="max-width:900px;margin:0 auto;padding:18px 24px 40px">
+
+  <!-- controls -->
+  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px">
+    <label style="font-size:12px;color:#8a94b0">Topic
+      <select id="iv-topic" style="background:#141720;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:5px 8px;font-size:12px;margin-left:4px"><option value="all">All topics</option></select>
+    </label>
+    <label style="font-size:12px;color:#8a94b0">Mode
+      <select id="iv-mode" style="background:#141720;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:5px 8px;font-size:12px;margin-left:4px">
+        <option value="random">Random</option>
+        <option value="order">In order</option>
+        <option value="review">Review flagged</option>
+      </select>
+    </label>
+    <button id="iv-start" style="background:#9b8cf822;color:#9b8cf8;border:1px solid #9b8cf855;border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;cursor:pointer">Start / Shuffle</button>
+    <span style="flex:1"></span>
+    <span id="iv-gotit" style="font-size:12px;color:#00d4a0">✓ 0 got it</span>
+    <span id="iv-review" style="font-size:12px;color:#f5a623">↻ 0 to review</span>
+    <button id="iv-reset" style="background:#1e2535;color:#6a7490;border:1px solid #2a3050;border-radius:16px;padding:5px 12px;font-size:11px;cursor:pointer">Reset</button>
+  </div>
+
+  <!-- question panel -->
+  <div style="background:#0d0f14;border:1px solid #1e2535;border-radius:12px;padding:20px 22px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div id="iv-persona" style="font-size:12px"></div>
+      <div id="iv-progress" style="font-size:11px;color:#4a5470;flex-shrink:0;margin-left:12px">0 / 0</div>
+    </div>
+    <div id="iv-q" style="font-size:16px;color:#e8e8f0;line-height:1.6;font-weight:600;min-height:48px">Loading the question bank…</div>
+
+    <textarea id="iv-your" placeholder="Type your answer here (optional) — then reveal the model answer and rate yourself…" style="width:100%;margin-top:14px;min-height:90px;background:#0a0c10;border:1px solid #1e2535;border-radius:8px;color:#c8c8d8;font-size:13px;padding:10px 12px;outline:none;resize:vertical;font-family:inherit;box-sizing:border-box"></textarea>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center">
+      <button id="iv-show" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a055;border-radius:20px;padding:7px 16px;font-size:12px;font-weight:700;cursor:pointer">Show model answer</button>
+      <span style="flex:1"></span>
+      <button id="iv-got" style="background:#00d4a011;color:#00d4a0;border:1px solid #00d4a044;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer">✓ Got it</button>
+      <button id="iv-rev" style="background:#f5a62311;color:#f5a623;border:1px solid #f5a62344;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer">↻ Needs review</button>
+      <button id="iv-next" style="background:#5bc4ef11;color:#5bc4ef;border:1px solid #5bc4ef44;border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer">Next →</button>
+    </div>
+
+    <div id="iv-a" style="display:none;margin-top:16px;padding:14px 16px;background:#00d4a00d;border-left:3px solid #00d4a0;border-radius:8px;font-size:13.5px;color:#c8c8d8;line-height:1.7"></div>
+  </div>
+
+  <div style="font-size:11px;color:#4a5470;margin-top:12px;line-height:1.6">Tip: think (or type) your answer <b>before</b> revealing. Mark <b>Needs review</b> for anything shaky, then switch Mode to <b>Review flagged</b> to drill just those. Progress is saved on this device. ⭐ marks questions actually asked in real interviews.</div>
+
+</div>
+<div class="div-line"></div>
+
+</body>
+</html>
