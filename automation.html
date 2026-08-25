@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5bc4ef">
+<title>Automation — Python &amp; Robot — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:180px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#c8b80011,transparent);border-left:4px solid #c8b800;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🐍</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#c8b800">Automation — Python &amp; Robot Framework</span><span style="background:#c8b80022;color:#c8b800;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">CODE + RECAP</span></div><div style="font-size:12px;color:#4a5470">Interview-ready code you might be asked to write · pytest (ruauto RCT) · Robot Framework · SCPI · log parsing · multi-UE</div></div></div>
+
+<div style="max-width:1000px;margin:0 auto;padding:14px 24px 6px">
+<div style="margin:8px 0 16px;padding:12px 14px;background:#c8b8000d;border:1px solid #1e2535;border-radius:8px;font-size:12.5px;color:#c8c8d8;line-height:1.7">This section is a <b>coding recap</b>: expand a card, read the pattern, then <b>close it and try to write it from memory</b> — that&#39;s how the "write code on the whiteboard" round goes. Two frameworks matter for you: <b>pytest</b> (the <code>ruauto</code> RCT framework at PW) and <b>Robot Framework</b> (keyword-driven, from your Mavenir work). All snippets are runnable-style and grounded in real RCT tasks.</div>
+</div>
+
+<div class="module-card" id="AUTO01" data-tags="automation python rct framework resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO01</span>
+  <span class="mod-title">Python essentials for RF test interviews</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">What they test</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The basics, fast: data structures, string/dict work, list/dict comprehensions, file I/O, regex, and a clean function. If you can read a file, extract numbers with regex, and return a pass/fail, you clear most first-round Python screens.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code># --- the four structures ---
+bands   = ["B1", "B3", "B8", "B28"]        # list  (ordered, mutable)
+rated   = {"B1": 46.0, "B8": 44.8}          # dict  (key -&gt; value)
+seen    = set()                              # set   (unique, fast membership)
+point   = ("B1", 2140)                       # tuple (immutable)
+
+# --- comprehensions (know these cold) ---
+dbm     = [43, 46, 44.8, 40]
+watts   = [round(10**((p-30)/10), 2) for p in dbm]     # list comp
+passing = {b: p for b, p in rated.items() if p &gt;= 45}  # dict comp
+uniq    = {b for b in bands}                            # set comp
+
+# --- a clean function with type hints + docstring ---
+def dbm_to_watt(dbm: float) -&gt; float:
+    """Convert power in dBm to watts."""
+    return 10 ** ((dbm - 30) / 10)
+
+# --- file read + regex extract ---
+import re
+with open("rct.log") as f:                 # 'with' auto-closes the file
+    text = f.read()
+aclr = [float(x) for x in re.findall(r"ACLR[:\s]+([\d.]+)\s*dBc", text)]
+worst = min(aclr) if aclr else None        # ACLR: higher is better -&gt; worst = min
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: list vs tuple vs set vs dict — when do you use each?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: list = ordered, mutable sequence (a sweep of results); tuple = immutable record (a fixed (band, freq) pair, usable as a dict key); set = unique membership with O(1) lookups (which preambles were detected); dict = key→value mapping (per-band limits, per-ADC offsets). Pick by whether you need order, mutability, uniqueness, or lookup.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why use &#39;with open(...)&#39; instead of open()/close()?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The context manager guarantees the file is closed even if an exception is raised mid-parse — no leaked handles. Same reason you wrap instrument/SSH sessions in context managers in test code.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="module-card" id="AUTO02" data-tags="automation python rct measurements kpi resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO02</span>
+  <span class="mod-title">Python — parse a log / result file and decide pass&#47;fail</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">The most common "write code" task for a test engineer</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Given a log/CSV of measurements, extract the numbers, apply the 3GPP limit (with tolerance and direction), and emit a verdict. This is exactly what an RCT measure function does.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code>import re, csv
+
+def evaluate_aclr(log_path, limit_dbc=55.0, tol=0.0):
+    """Extract ACLR values, return (worst, verdict). ACLR: higher is better."""
+    with open(log_path) as f:
+        vals = [float(m) for m in re.findall(r"ACLR[:\s]+(-?[\d.]+)", f.read())]
+    if not vals:
+        return None, "NO DATA"
+    worst = min(vals)                          # worst-case adjacent channel
+    if worst &gt;= limit_dbc:            verdict = "PASS"
+    elif worst &gt;= limit_dbc - tol:   verdict = "PASS (tolerance)"
+    else:                             verdict = "FAIL"
+    return worst, verdict
+
+# CSV of per-band results -&gt; summary
+def summarise(csv_path):
+    rows = list(csv.DictReader(open(csv_path)))
+    for r in rows:
+        p = float(r["power_dbm"])
+        r["verdict"] = "PASS" if abs(p - float(r["rated"])) &lt;= 1.5 else "FAIL"
+    fails = [r for r in rows if r["verdict"] == "FAIL"]
+    print(f"{len(rows)-len(fails)}/{len(rows)} passed")
+    return fails
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">Direction matters</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">ACLR / sensitivity margin: <b>higher is better</b> → worst = <code>min</code>, pass if <code>&gt;= limit</code>. EVM / power-error / spurious: <b>lower is better</b> → worst = <code>max</code>, pass if <code>&lt;= limit</code>. Get the direction wrong and every verdict inverts — a classic interview trap.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Given a log, print the worst ACLR and pass/fail against 55 dBc — how?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Read the file, regex-extract the ACLR numbers, take min() (higher-is-better so the worst is the smallest), compare to 55 with any tolerance, return PASS/FAIL. Guard the empty case. That&#39;s the evaluate_aclr function above.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="module-card" id="AUTO03" data-tags="automation python rct framework resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO03</span>
+  <span class="mod-title">pytest for RCT — fixtures, parametrize, markers, conftest</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">The framework ruauto uses</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>pytest</b> is code-first: test functions named <code>test_*</code>, shared setup via <b>fixtures</b>, matrix runs via <b>@parametrize</b>, selection via <b>markers</b>, and CLI options via <b>conftest.py</b> (<code>pytest_addoption</code>). See CLI01 / FWK1 for the RCT specifics.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code># conftest.py — a shared fixture + a CLI option
+import pytest
+
+def pytest_addoption(parser):
+    parser.addoption("--fhgw-band", action="store", default="b0103")
+
+@pytest.fixture(scope="session")
+def band(request):
+    return request.config.getoption("--fhgw-band")
+
+@pytest.fixture
+def analyzer():                     # setup / teardown around each test
+    sa = connect_exa("10.62.2.135")
+    yield sa                        # test runs here
+    sa.close()                      # teardown always runs
+
+# test_tx.py
+import pytest
+
+@pytest.mark.parametrize("bw,limit", [(5,13.9),(10,16.9),(15,18.7),(20,20.0)])
+def test_tx_dynamic_range(analyzer, band, bw, limit):
+    measured = analyzer.measure_dynamic_range(band, bw)
+    assert measured &gt;= limit, f"{band} {bw}MHz: {measured} &lt; {limit} dB"
+
+@pytest.mark.conformance          # run: pytest -m conformance
+def test_tx_aclr(analyzer, band):
+    assert analyzer.measure_aclr(band) &gt;= 55.0
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is a pytest fixture and why use one?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: A fixture provides reusable setup/teardown injected into tests by name. The code before <code>yield</code> runs before the test (connect the analyzer), the code after runs as teardown (close it) even on failure. Scope (function/session) controls how often it runs — session-scope to connect the instrument once for the whole run.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you run the same test across 4 bandwidths without copy-paste?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: @pytest.mark.parametrize with a list of (bw, limit) tuples — pytest generates one test case per tuple, each reported separately, so one failing BW doesn&#39;t hide the others.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="module-card" id="AUTO04" data-tags="automation ue framework resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO04</span>
+  <span class="mod-title">Robot Framework — keyword-driven tests (with example)</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">Keyword-driven, human-readable</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A <code>.robot</code> file has four sections: <b>Settings</b> (imports), <b>Variables</b>, <b>Test Cases</b>, <b>Keywords</b> (reusable steps). Great for mixed-skill teams; produces <code>log.html</code> + <code>report.html</code>. See UE04.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code>*** Settings ***
+Library    SSHLibrary
+Library    Collections
+Suite Setup       Open Connection And Log In
+Suite Teardown    Close All Connections
+
+*** Variables ***
+${RU_IP}        192.168.1.22
+${MIN_ACLR}     55.0
+
+*** Test Cases ***
+TX ACLR Meets Limit
+    [Tags]    conformance    tx
+    ${aclr}=    Measure ACLR    B1
+    Should Be True    ${aclr} &gt;= ${MIN_ACLR}    ACLR ${aclr} below ${MIN_ACLR}
+
+Attach Detach Endurance
+    [Template]    Run Attach Cycle          # data-driven
+    1
+    2
+    3
+
+*** Keywords ***
+Measure ACLR
+    [Arguments]    ${band}
+    ${out}=    Execute Command    rct measure aclr --band=${band}
+    ${val}=    Get ACLR From Output    ${out}
+    [Return]    ${val}
+
+Run Attach Cycle
+    [Arguments]    ${n}
+    Log    Attach cycle ${n}
+    Attach UE
+    Detach UE
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">Run it</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><code>robot --include conformance --variable RU_IP:192.168.1.22 tx_tests.robot</code> → <code>report.html</code> (pass/fail) + <code>log.html</code> (every keyword step). Tags select subsets; <code>[Template]</code> makes a data-driven test.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Robot Framework vs pytest — when would you pick Robot?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Robot is keyword-driven and reads almost like English, so it suits large mixed-skill teams sharing reusable keyword libraries and gives rich HTML reports out of the box (my Mavenir work). pytest is code-first and better when tests need real Python logic (the ruauto RCT suites). Both can drive the same UEs/instruments via libraries.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you make a data-driven test in Robot?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Use [Template] on the test case pointing at a keyword; each row of arguments below it becomes one iteration — e.g. an attach/detach cycle repeated N times, or the same measurement across bands.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="module-card" id="AUTO05" data-tags="automation python lab instruments measurements resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO05</span>
+  <span class="mod-title">SCPI instrument automation in Python (pyvisa) — EXA/EXM</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">Talk to the analyzer from Python</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>SCPI</b> commands over LAN (VISA/sockets) drive the Keysight EXA/EXM. Set mode → center/span → measurement → trigger → read. See EXP2 for the command set.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code>import pyvisa
+
+def measure_aclr(ip="10.62.2.135", fc_hz=2140e6, bw_mhz=10):
+    rm = pyvisa.ResourceManager("@py")
+    sa = rm.open_resource(f"TCPIP0::{ip}::inst0::INSTR")
+    sa.timeout = 20000                       # ms
+    try:
+        sa.write("*RST"); sa.query("*OPC?")  # reset, wait complete
+        sa.write(":INSTrument:SELect LTE")   # LTE-FDD mode
+        sa.write(f":SENSe:FREQuency:CENTer {fc_hz}")
+        sa.write(":CONFigure:ACP")           # ACLR/ACP measurement
+        # auto-range so a low-power isolated path is not near the noise floor:
+        sa.write(":SENSe:POWer:RF:RANGe:OPTimize IMMediate")
+        sa.query("*OPC?")
+        vals = sa.query(":FETCh:ACP?").strip().split(",")
+        return [float(v) for v in vals]
+    finally:
+        sa.close(); rm.close()               # always release the session
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">The real-world gotcha (from an actual fix)</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">When measuring a <b>per-RFFE isolated</b> (lower-power) signal, the analyzer must <b>auto-range</b> (<code>:SENSe:POWer:RF:RANGe:OPTimize IMMediate</code>) or the reading sits near the noise floor and ACLR reads ~2–3 dB low (51–52 vs 54–55 dBc). Always range before an ACP read. (Real RCT fix in <code>measure_test_Tx_ACLR</code>.)</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What does *OPC? do and why query it?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: *OPC? (operation complete) blocks until the instrument finishes the pending command and returns 1. You query it after RST/CONFig/trigger so you don&#39;t FETCh a result before the sweep/measurement is actually done — otherwise you read stale or partial data.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="module-card" id="AUTO06" data-tags="automation python ue resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO06</span>
+  <span class="mod-title">Multi-UE automation — ADB, subprocess, parallel threads, iperf</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">Drive a fleet of real UEs</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Shell out to <b>ADB</b> with <code>subprocess</code>, address each UE by serial, and run actions <b>in parallel</b> with threads for load/throughput. See UE02/UE03/UE09.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code>import subprocess
+from concurrent.futures import ThreadPoolExecutor
+
+def adb(serial, *args):
+    """Run an adb command on a specific device, return stdout."""
+    cmd = ["adb", "-s", serial, *args]
+    return subprocess.run(cmd, capture_output=True, text=True, timeout=60).stdout
+
+def list_devices():
+    out = subprocess.run(["adb","devices"], capture_output=True, text=True).stdout
+    return [l.split()[0] for l in out.splitlines()[1:] if l.strip().endswith("device")]
+
+def run_iperf(serial, server="10.0.0.1", secs=30):
+    adb(serial, "shell", "svc", "data", "enable")          # ensure attached
+    out = adb(serial, "shell", f"iperf3 -c {server} -t {secs} -R")  # DL
+    return serial, out
+
+# run all UEs in parallel and collect throughput
+ues = list_devices()
+with ThreadPoolExecutor(max_workers=len(ues) or 1) as pool:
+    results = list(pool.map(lambda s: run_iperf(s), ues))
+for serial, out in results:
+    print(serial, "done")
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you run traffic on 10 UEs at once in Python?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Address each UE by its ADB serial (adb -s), then launch the per-UE work concurrently with a ThreadPoolExecutor (threads are fine here because the work is I/O-bound — waiting on adb/iperf, not CPU). Collect per-UE results and aggregate. For CPU-bound work you&#39;d use multiprocessing instead.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="module-card" id="AUTO07" data-tags="automation python rct measurements resume">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO07</span>
+  <span class="mod-title">Interview coding drills — small functions with solutions</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">Try each from memory first, then check</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The kinds of "write a function" they hand an RF/test engineer — short, domain-flavoured, and quick to reason about.</div></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:10px 0"><code># 1) dBm &lt;-&gt; mW
+def dbm_to_mw(dbm): return 10 ** (dbm / 10)
+def mw_to_dbm(mw):  import math; return 10 * math.log10(mw)
+
+# 2) worst-case + margin vs a limit (higher-is-better metric)
+def margin(values, limit):
+    worst = min(values)
+    return worst, worst - limit          # +ve margin = pass
+
+# 3) binary-search a sensitivity threshold (miss-rate &lt;= 1%)
+def find_sensitivity(measure, lo=-120.0, hi=-60.0, res=0.5):
+    while hi - lo &gt; res:
+        mid = (lo + hi) / 2
+        if measure(mid) &lt;= 1.0:  lo = mid   # still detecting -&gt; go lower
+        else:                    hi = mid   # too weak -&gt; go higher
+    return lo
+
+# 4) parse "B1=46.0 B3=44.8" into a dict
+def parse_kv(line):
+    return {k: float(v) for k, v in (p.split("=") for p in line.split())}
+
+# 5) count occurrences without a library
+def counts(items):
+    d = {}
+    for x in items: d[x] = d.get(x, 0) + 1
+    return d
+
+# 6) first duplicate in a stream (set for O(n))
+def first_dup(seq):
+    seen = set()
+    for x in seq:
+        if x in seen: return x
+        seen.add(x)
+    return None
+</code></pre>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Write a function to find the reference sensitivity by binary search.</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Bracket the power [lo, hi]; test the midpoint; if the miss-detection rate is within limit the UE still decodes so search lower, else search higher; stop when the range is under your resolution. That&#39;s find_sensitivity above — O(log range) instead of a linear sweep (and it mirrors the real PRACH/sensitivity search, see PRACHDM01).</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why is a set the right tool for "first duplicate"?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Membership testing in a set is O(1) average, so one pass over the stream is O(n). Using a list and &#39;in&#39; would be O(n) per check → O(n²). Same reasoning behind using a set for detected-preamble bookkeeping.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="div-line"></div>
+
+</body>
+</html>
