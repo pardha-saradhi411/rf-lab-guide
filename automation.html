@@ -344,6 +344,152 @@ def first_dup(seq):
 </div>
 </div>
 
+<div class="module-card" id="AUTO08" data-tags="automation rct features measurements rssi sensitivity resume deepdive">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">AUTO08</span>
+  <span class="mod-title">Deep Dive — RSSI Accuracy: full code call-trace (test &rarr; configure &rarr; RU-CLI + PHY &rarr; report)</span>
+  <span class="mod-tag advanced">Automation</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+
+<div style="margin:14px 0;padding:14px 16px;background:#c8b80011;border-left:3px solid #c8b800;border-radius:6px"><div style="font-weight:700;color:#c8b800;margin-bottom:8px;font-size:13px">How to use this card</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">This is a <b>feature walkthrough</b>, not a snippet — a step-by-step trace of the real <code>ruauto</code> RSSI-accuracy test (GRDEV-8461), following every method call to what it executes and where control goes next. Read it top-to-bottom once; then in the interview you can narrate "the test does X, which calls Y, which SSHes into the RU and runs <code>get-rssi</code>, parses it like this…". This is the <b>template</b> — the same shape (declare &rarr; road-trip iterates &rarr; configure runs the sweep &rarr; two independent readouts &rarr; average &rarr; report) applies to Sensitivity, ACLR, Dynamic Range, PA-protection. Ask me to trace any of those next.</div></div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">1 · What the feature proves (say this first)</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">"RSSI accuracy validates that the <b>RU's own reported received-power</b> agrees with reality across the whole input range, per antenna / band / RU-model. I inject a known LTE UL signal at power P from the signal generator, then read RSSI from <b>two independent places</b> — the RU's <code>get-rssi</code> CLI (dBm + dBFS, the operator-facing number) and the <b>PHY / L1</b> <code>rct_stats</code> (the internal number) — average N samples at each power, and record the <b>difference PHY&minus;CLI</b>. A per-model <b>offset</b> calibrates the CLI readout. As a by-product, sweeping power from saturation down to the noise floor gives me the <b>BLER-vs-power</b> curve, so I also extract the <b>5% BLER sensitivity</b> point. No pass/fail coloring — it's a calibration/characterisation test producing raw averages + diff."</div></div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px;font-size:13px">2 · The call graph (memorise this tree)</div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:11.5px;line-height:1.5;color:#c8c8d8;margin:6px 0"><code>pytest / road-trip driver
+  &rarr; TestConformance.test_Rx_RSSI_Accuracy(xlxfile)      # DECLARE: columns, freqs, sheet
+        returns (supported_freq, supported_rb)             #   ...does NOT run the sweep
+  &rarr; road-trip iterates  antenna x ul_freq  and per antenna:
+        selects antenna (rctEaxc1=rctEaxc2=ant#), restarts L1/L2, then calls:
+  &rarr; configure_test_Rx_RSSI_Accuracy(ulf, bw, rb, ..., baseStation_handle, ant, xlxfile)
+        |- Utils.get_cable_loss(ant, port, freq)          # setup_loss  -> external_gain
+        |- _rssi_acc_model_name(bsh)                       # RU personality -> offset key
+        |- cws['rssi_model_offsets'][model][fhgw_band][band][ant]   # per-ADC offset
+        |- LteUtils.config_te_for_lte_fdd_Rx_Sensitivity(...)       # load ETM1.1 UL waveform
+        |- _measure(sg_pwr):                              # <-- runs at EVERY power step
+        |     |- ant.equiphandler.sg_set_pwr(sg_pwr)      # drive the signal generator
+        |     |- ant.equiphandler.sa_set_atten_for_min_clipping()
+        |     |- _rssi_acc_phy_rct_stats(bsh, cell_idx)   # PHY: docker exec grep rct_stats (ONCE)
+        |     |- for s in range(N):                       # N samples
+        |     |     |- _get_rssi_and_stats(bsh, ant)      #   BLER + SINR from L1
+        |     |     |- rrh.get_rssi_from_rrh()            #   RU CLI: telnet cli-manager, 'get-rssi'
+        |     |     \- rrh.extract_adc_values(lines,ant)  #   regex ADC line -> (rssi dBm, dBFS)
+        |     |- average N -> cli_dbm_a, cli_dbfs_a, bler_a, sinr_a
+        |     |- diff = PHY_avg - CLI_avg  (dBm and dBFS)
+        |     \- xlxfile.write_result([... one row ...])
+        |- sweep controller: phase A (find clean) -> B (find knee) -> C (fine to 100% BLER)
+        \- bsh.keepalive()
+  &rarr; (run end) _rssi_acc_report(results)               # openpyxl xlsx + matplotlib graphs
+        \- _rssi_acc_sens_5pct(rows)                       # interpolate EIRP @ 5% BLER</code></pre>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">3 · Step A — <code>test_Rx_RSSI_Accuracy()</code> only DECLARES (the naming convention)</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">In ruauto every test is split in two by name: <code>test_X</code> <b>declares</b> (defines the report column headers, the supported frequencies via <code>_get_tc_freq</code>, the RB set, and calls <code>xlxfile.prepare_report()</code> to create the sheet), then <b>returns</b> <code>(supported_freq, supported_rb)</code>. The heavy lifting lives in the sibling <code>configure_test_X</code>. The <b>road-trip driver</b> reads what <code>test_X</code> returned, loops over antenna &times; frequency, does per-antenna hardware setup (antenna select <code>rctEaxc1=rctEaxc2=ant#</code> + L1/L2 restart), and calls <code>configure_test_X</code> once per (antenna, freq). Knowing this split is the fastest way to show you understand the framework, not just your one test.</div></div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">4 · Step B — <code>configure_test_Rx_RSSI_Accuracy()</code> sets up the math + waveform</div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:6px 0"><code>setup_loss    = |get_cable_loss(ant, port, ul_freq_hz)|   # cable + splitter loss, dB
+external_gain = -setup_loss                                # EIRP = external_gain + input_rf_power
+# TRP correction by band: low band (B8/B20/B28, 2:1 splitter) = +3 dB; mid band (B1/B3)/B41 (4:1) = +6 dB
+trp_corr      = 3.0 if band in (8,20,28) else 6.0          # TRP = EIRP + trp_corr
+model         = _rssi_acc_model_name(bsh)                  # e.g. Integrity-ME-0-B1B3B8B28n41-01-1
+offset        = cws['rssi_model_offsets'][model][fhgw_band][band][ant]  # per-ADC calib, default 0.0
+n_samples     = cws.get('rssi_acc_samples', 5)             # samples averaged per power step
+mode          = tc_cadence['Test-IDs']['test_Rx_RSSI_Accuracy']['mode'] # sensitivity | accuracy | both
+# load ETM1.1 UL waveform ONCE; the SG is then driven directly at each input power:
+LteUtils.config_te_for_lte_fdd_Rx_Sensitivity(bw, rb_offset, pwr=start_pwr, uplink_freq, Te=ant, num='7.2')</code></pre>
+<div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">Every knob (<code>rssi_acc_samples</code>, step sizes, <code>floor_pwr</code>, the offset table) is config-driven from <code>fdd_test_setup.json</code>/<code>cws[0]</code>, so the <b>same code runs on every band and RU model</b> — nothing is hard-coded per band except the derived splitter correction. The <b>offset is per-ADC</b> (indexed model &rarr; fhgw_band &rarr; band &rarr; antenna) because each antenna's RSSI path calibrates slightly differently.</div>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">5 · Step C — the U-shaped power sweep (the clever bit)</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">BLER-vs-power is <b>U-shaped</b>: ~100% at the <b>saturated top</b> (ADC hits full-scale &rarr; clipping &rarr; decode fails) <i>and</i> ~100% at the <b>sensitivity floor</b> (signal in the noise), with a clean ~0% valley in between. A naïve "step down until BLER rises" would stop at the wrong edge. So the controller runs three phases:</div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:11.5px;line-height:1.5;color:#c8c8d8;margin:8px 0"><code>Phase A  descend from start by COARSE step, skipping the saturated top,
+         until BLER settles &lt;= 1%   -> we are now in the clean valley
+Phase B  keep COARSE-stepping down through the valley
+         until BLER rises above 1%  -> we found the low-power KNEE
+Phase C  back off to last-clean power, step at FINE (0.5 dB);
+         once BLER >= ~1% switch to ULTRA-FINE (0.1 dB) to pin the exact 5%,
+         continue down until BLER >= 99%  (fully into the floor)
+mode='sensitivity' -> coarse 5 dB in the flat + 0.1 dB at knee (fast, just pins 5%)
+mode='accuracy'    -> uniform 0.5 dB everywhere (dense RSSI-vs-power, no ultra-fine)
+mode='both'        -> uniform 0.5 dB + 0.1 dB at knee (default: dense + exact 5%)</code></pre>
+<div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">This gives dense data where it matters (the knee) without wasting time taking 0.1 dB steps across the flat valley — a real speed/coverage trade the interviewer will appreciate you naming.</div>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">6 · Step D — inside <code>_measure(sg_pwr)</code>: two independent readouts</div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:12px;line-height:1.55;color:#c8c8d8;margin:6px 0"><code>eirp = sg_pwr + external_gain ;  trp = eirp + trp_corr
+ant.equiphandler.sg_set_pwr(sg_pwr)          # drive the generator to this power
+time.sleep(1)
+ant.equiphandler.sa_set_atten_for_min_clipping()
+# PHY read ONCE per step (l1_Debug.log only rewrites every few seconds; N samples run in ms):
+phy_dbm, phy_dbfs = _rssi_acc_phy_rct_stats(bsh, cell_idx)
+for s in range(N):                            # N CLI + BLER samples
+    st = _get_rssi_and_stats(bsh, ant)        # -> BLER = st[2], SINR = st[4]  (from L1)
+    data       = bsh.rrh.get_rssi_from_rrh()  # RU CLI 'get-rssi' -> raw lines
+    c_dbm,c_dbfs = bsh.rrh.extract_adc_values(data, ant_idx)   # parse this antenna's ADC line
+    c_dbm,c_dbfs = c_dbm+offset, c_dbfs+offset # apply per-model calibration
+cli_dbm_a, cli_dbfs_a = avg(...)              # average the N samples
+diff_dbm  = phy_dbm  - cli_dbm_a              # the headline number: PHY - CLI
+diff_dbfs = phy_dbfs - cli_dbfs_a
+xlxfile.write_result([tech,'test_Rx_RSSI_Accuracy',model,band,ant,bw,ulf,
+                      sg_pwr,external_gain,eirp,trp,bler_a,sinr_a,
+                      cli_dbm_a,cli_dbfs_a,phy_dbm,phy_dbfs,offset,diff_dbm,diff_dbfs,now])</code></pre>
+<div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">Two subtle design choices worth calling out: (1) <b>PHY is read once per power step, not per sample</b> — the L1 debug file only refreshes every few seconds while the N CLI reads finish in milliseconds, so per-sample PHY reads would return N identical values plus N wasted docker round-trips. (2) The <b>offset is added to the CLI reading</b> (RU-perspective calibration), so <code>diff = PHY &minus; CLI</code> is what you're characterising.</div>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">7 · Step E — the RU-CLI path: <code>get_rssi_from_rrh()</code> + <code>extract_adc_values()</code></div><div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">This is the part that surprises non-RU people — reading RSSI means <b>driving the radio's shell over SSH+telnet</b>:</div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:11.5px;line-height:1.5;color:#c8c8d8;margin:8px 0"><code>get_rssi_from_rrh():
+  if not verify_fh_connection():        # radio dropped off fronthaul?
+      handle_radio_lost(); drop stale ssh session      # recover/power-cycle, then reconnect
+  ssh 'pwd'  -> detect where the shell landed:
+      'localhost' (BBU) or '#' (FHGW shell)  -> not in cli-manager yet:
+          /usr/bin/cli-manager &
+          telnet localhost 8888 ; login root/root  -> prompt becomes '>'
+      already '>'                             -> already in cli-manager
+  send 'get-rssi'  ; wait for '>'  ; return the raw lines
+
+extract_adc_values(lines, antenna_index):
+  data_lines = [l for l in lines if 'ADC_INDEX_' in l]
+  adc_index  = adc_mappings[fhgw_band][band][antenna_index]   # logical ant -> physical ADC
+  line       = data_lines[adc_index]
+  re.search(r'adc_dbfs:([-\d.]+) dBFS,rssi:([-\d.]+) dBm', line) -> (rssi_dBm, dBFS)</code></pre>
+<div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">The <code>adc_mappings</code> table matters: a logical antenna is <b>not</b> ADC N. On the 5-band AAU (<code>b082028</code>), for example, B28 antenna 0 reads physical <b>ADC 4</b>, antenna 1 &rarr; ADC 5. Getting that mapping wrong reads the wrong antenna's power — a real bug class. The session is also <b>self-healing</b>: if the radio fell off the fronthaul the read triggers the same recovery path as the sensitivity test instead of hanging on a dead prompt.</div>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px;font-size:13px">8 · Step F — the PHY path: <code>_rssi_acc_phy_rct_stats()</code></div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:11.5px;line-height:1.5;color:#c8c8d8;margin:6px 0"><code># On FHGW the PHY runs in a docker container and logs to l1_Debug.log INSIDE it:
+docker ps --format '{{.Names}}' | grep -i phynode      # resolve real container name
+docker exec &lt;phynode&gt; sh -c 'grep -i rct_stats /var/log/phylogs/l1_Debug.log | tail -30'
+# parse the block:  lte_bs_phy_stats_print_rct_stats  &lt;cell&gt;  &lt;value&gt;
+#   header 'Cell ... Dbfs' -> mode=dbfs ; header 'Cell ... Rssi' -> mode=rssi
+#   for the matching cell_idx: capture Rssi0 (dBm) and Dbfs0 (dBFS)</code></pre>
+<div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">So CLI and PHY come from <b>genuinely different sources</b> (radio shell vs L1 container log) — that's why comparing them is meaningful. <code>cell_idx</code> comes from <code>band_sec_id0_map</code>; RCT single-Tx populates index 0.</div>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">9 · Step G — the report: <code>_rssi_acc_report()</code></div><div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">At run end, results (keyed by band/antenna/ulf/bw) become an <b>openpyxl</b> workbook: a summary of <b>sensitivity @5% BLER</b> per combo, one big table (per-sample rows + an <b>AVG</b> row), and two <b>matplotlib</b> charts — <b>BLER vs EIRP</b> (with the 5% line) and <b>RSSI dBFS: CLI vs PHY</b>. The 5% point is a linear interpolation between the two samples that straddle 5% on the low-power side:</div>
+<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:12px;overflow-x:auto;font-size:11.5px;line-height:1.5;color:#c8c8d8;margin:8px 0"><code>_rssi_acc_sens_5pct(rows):   # rows sorted by eirp
+  find i where bler[i-1] > 5 >= bler[i]           # straddle the 5% line
+  frac  = (5 - bler[i-1]) / (bler[i] - bler[i-1]) # linear interp fraction
+  return eirp[i-1] + frac * (eirp[i] - eirp[i-1]) # EIRP @ exactly 5% BLER</code></pre>
+<div style="font-size:12.5px;color:#c8c8d8;line-height:1.7">The whole report is <b>best-effort / never raises into the road-trip</b> — a broken matplotlib or a missing lib logs a warning and the test still passes its data through. Defensive by design so a reporting hiccup never fails a validated run.</div>
+</div>
+
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A — how a VP / senior lead will probe this</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Walk me through what happens end-to-end when the RSSI-accuracy test runs.</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: <code>test_Rx_RSSI_Accuracy</code> declares the sheet/columns/frequencies and returns them; the road-trip driver loops antenna&times;freq, selects the antenna and restarts L1/L2, and calls <code>configure_test_Rx_RSSI_Accuracy</code>. That computes setup-loss/EIRP/TRP math, reads the RU model to pick the calibration offset, loads the ETM1.1 UL waveform, then sweeps SG power in a U-aware three-phase controller. At each power <code>_measure</code> reads PHY <code>rct_stats</code> once and N samples of RU-CLI RSSI + BLER, averages them, records PHY&minus;CLI, and writes a row. At the end <code>_rssi_acc_report</code> builds the xlsx + BLER/RSSI graphs and interpolates the 5% BLER sensitivity.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why compare CLI RSSI against PHY RSSI at all — aren't they the same number?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: No — they come from different subsystems. The CLI <code>get-rssi</code> is what the operator/EMS sees (post-calibration, per-ADC), the PHY <code>rct_stats</code> is L1's internal estimate. If they diverge, either the RU's RSSI calibration/offset is wrong or the reporting path is broken. The test characterises that gap across the full power range, so a calibration error shows up as a consistent PHY&minus;CLI diff.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why is BLER high at BOTH the top and bottom of the power sweep?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: At the top the ADC saturates/clips (input above full-scale), so the samples are distorted and decode fails; at the bottom the signal drops into the noise floor and SINR collapses. In between there's a clean ~0% valley. That U-shape is exactly why the sweep first descends to find the clean region before hunting the low-power knee — otherwise you'd mistake the saturated top for the sensitivity edge.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: You read the PHY once per power step but the CLI N times — why the asymmetry?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The PHY value comes from tailing <code>l1_Debug.log</code> inside the phynode container, which only rewrites every few seconds. The N CLI reads complete in milliseconds, so reading the PHY per sample would just return N identical values plus N wasted docker round-trips. One PHY read per step, mirrored across the sample rows, is correct and much faster.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you go from "logical antenna 2" to the right RSSI number in the CLI output?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: <code>get-rssi</code> prints one line per physical ADC. A per-band mapping table (<code>adc_mappings[fhgw_band][band][antenna_index]</code>) translates the logical antenna to the physical ADC index — on the 5-band AAU, B28 antenna 0 is ADC 4, not ADC 0 — then I regex that line for <code>adc_dbfs</code> and <code>rssi</code>. Wrong mapping = you silently report a different antenna's power.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What's EIRP vs TRP here, and where does the +3/+6 dB come from?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: EIRP at the RU input = generator power + external_gain (which is &minus;setup_loss, the cable/path loss). TRP adds the splitter correction: the low bands (B8/B28) feed through a 2:1 splitter (+3 dB) and the mid bands (B1/B3)/B41 through a 4:1 (+6 dB), so TRP = EIRP + that correction. It's derived from the band, with a config override.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How would you extend this test to a new band or RU model?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Almost no code — add the band's ADC layout to <code>adc_mappings</code>, add the frequencies to the cadence, and populate <code>rssi_model_offsets[model][fhgw_band][band][ant]</code> in <code>fdd_test_setup.json</code>. The sweep, averaging, PHY/CLI reads and report are band-agnostic; only the mapping and calibration tables are data.</div></div>
+<div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: If PHY&minus;CLI diff is, say, 3 dB and constant across power, what do you conclude?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: A constant offset points to a <b>calibration/offset error</b> in the RU's RSSI reporting (or a wrong <code>rssi_model_offsets</code> entry) — not a linearity problem. A diff that <b>grows</b> toward the top would suggest compression/clipping; one that grows at the bottom suggests a noise-floor/SINR issue. Constant &rarr; fix the offset table; power-dependent &rarr; investigate the analog/ADC front-end.</div></div>
+</div></div>
+
+</div>
+</div>
+</div>
+
 <div class="div-line"></div>
 
 </body>
