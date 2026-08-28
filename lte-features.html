@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5bc4ef">
+<title>LTE Features — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="lte-features.html">LTE</a>
+    <a class="nav-chip" href="nr-sa-features.html">5G SA</a>
+    <a class="nav-chip" href="nr-nsa-features.html">5G NSA</a>
+    <a class="nav-chip" href="common-features.html">Common</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:180px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#5bc4ef11,transparent);border-left:4px solid #5bc4ef;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📶</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#5bc4ef">LTE Features</span><span style="background:#5bc4ef22;color:#5bc4ef;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">4G / E-UTRA</span></div><div style="font-size:12px;color:#4a5470">Core LTE feature set — CA, MIMO, scheduling, mobility, VoLTE & interworking · plain-English + how-it-works + interview Q&A</div></div></div>
+
+<div style="max-width:1000px;margin:0 auto;padding:14px 24px 6px">
+<div style="margin:8px 0 16px;padding:12px 14px;background:#5bc4ef0d;border:1px solid #1e2535;border-radius:8px;font-size:12.5px;color:#c8c8d8;line-height:1.7">Public-knowledge write-ups of the LTE features an RF/RU/RAN validation engineer meets — concepts and how they work, no internal specifics. Each card feeds the Interview simulator.</div>
+</div>
+
+<div class="module-card" id="LF01" data-tags="lte-feature lte ca carrier aggregation measurements">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF01</span>
+  <span class="mod-title">Carrier Aggregation (up to 5 component carriers)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Bond multiple LTE carriers together so one UE gets the sum of their bandwidths — the core lever for peak throughput. A 5CC UE can aggregate five 20 MHz carriers = 100 MHz.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">One carrier is the <b>PCell</b> (carries RRC signalling, PUCCH, and the security anchor); the others are <b>SCells</b> added/removed by RRC reconfiguration based on the UE's measurements and capability. Scheduling can be per-carrier or <b>cross-carrier</b> (PDCCH on one CC schedules another). Aggregation can be intra-band contiguous, intra-band non-contiguous, or inter-band.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is the difference between the PCell and an SCell in CA?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The PCell is the primary cell — it terminates RRC/NAS signalling, carries PUCCH and the security context, and is never deactivated while connected. SCells are secondary carriers added purely for extra throughput; they can be activated/deactivated quickly (MAC CE) and only the PCell handles mobility.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF02" data-tags="lte-feature lte ca architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF02</span>
+  <span class="mod-title">Multi-Cell / Sector Expansion (up to 6 cells)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Let a single baseband unit host more cells/sectors, increasing site capacity and coverage without new hardware boxes.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The BBU allocates PHY/MAC resources and fronthaul (eCPRI/CPRI) capacity per additional cell; cell IDs (PCI), carriers and antenna mappings are provisioned so each sector runs independently while sharing transport and timing.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why does adding cells strain the fronthaul?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Each cell needs its own IQ sample stream to the radio. More cells and wider bandwidth multiply the eCPRI/CPRI data rate and the timing/sync budget, so fronthaul capacity and latency, not just baseband MIPS, often set the cell-count limit.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF03" data-tags="lte-feature lte mimo tx">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF03</span>
+  <span class="mod-title">Closed-Loop Spatial Multiplexing (TM4)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A MIMO transmission mode that sends two independent data layers on the same time/frequency using UE feedback to pick the best precoder — roughly doubling peak rate in good SNR.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The UE reports <b>RI</b> (rank), <b>PMI</b> (precoding matrix index) and <b>CQI</b>; the eNB applies the recommended precoder for closed-loop spatial multiplexing. Contrast TM3 (open-loop, no PMI, better for high mobility) and TM2 (transmit diversity, robustness over rate).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: TM3 vs TM4 — when do you use each?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: TM4 (closed-loop) uses PMI feedback and gives the best throughput when the channel is stable and SNR is high. TM3 (open-loop spatial multiplexing) drops PMI and cycles precoders, which is more robust at higher UE speed where feedback goes stale.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF04" data-tags="lte-feature lte troubleshooting kpi">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF04</span>
+  <span class="mod-title">Scheduler Optimization (FDD &amp; TDD)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The MAC scheduler decides which UEs get which resource blocks each 1 ms subframe — the single biggest driver of cell throughput and fairness.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">It weighs per-UE <b>CQI</b> (channel quality), <b>buffer status</b>, <b>QoS (QCI/priority)</b> and fairness (e.g. proportional-fair) to allocate RBs and pick MCS. TDD adds the UL/DL subframe split as a constraint.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What inputs does an LTE scheduler use to allocate resources?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Channel quality (CQI/rank), buffer occupancy (BSR for UL), QoS class (QCI/priority/GBR), HARQ state, and a fairness policy. It balances throughput (favour good-channel UEs) against fairness and latency guarantees for GBR bearers.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF05" data-tags="lte-feature lte phy tdd">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF05</span>
+  <span class="mod-title">HARQ — Speculative, and TDD Bundling &amp; Multiplexing</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Hybrid ARQ retransmits only the failed transport blocks and combines them with the original, recovering errors without a full resend. TDD needs special ACK/NACK handling because UL and DL share the band in time.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Receiver stores soft bits and <b>chase/IR combines</b> retransmissions. In TDD, several DL subframes map to one UL ACK opportunity, so feedback is <b>bundled</b> (logical-AND of ACKs) or <b>multiplexed</b> (per-TB bits) depending on the UL/DL config.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is HARQ and why does TDD need ACK bundling?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: HARQ = fast physical-layer retransmission with soft-combining, so a retransmission adds energy rather than replacing the packet. In TDD there are fewer UL subframes than DL, so one UL subframe must acknowledge multiple DL subframes — bundling ANDs those ACK/NACKs (or multiplexes them) to fit the feedback.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF06" data-tags="lte-feature lte phy">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF06</span>
+  <span class="mod-title">Dynamic CFI (control-region sizing)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Right-size the PDCCH control region (1–3 OFDM symbols) each subframe so control overhead matches the number of UEs being scheduled, freeing symbols for data when the cell is lightly loaded.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The <b>CFI</b> carried on PCFICH tells UEs how many symbols the control region spans. Under light load CFI drops to 1 (more PDSCH data symbols); under heavy scheduling it rises to 3 to fit all the DCIs.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What does the CFI control and why make it dynamic?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: CFI sets how many leading OFDM symbols form the PDCCH control region. Fixing it high wastes symbols at low load; fixing it low starves control at high load. Dynamic CFI adapts per subframe so you spend control symbols only when there are DCIs to send.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF07" data-tags="lte-feature lte ue">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF07</span>
+  <span class="mod-title">Connected-Mode DRX &amp; Inactivity</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Let a connected UE micro-sleep between scheduling opportunities to save battery without dropping the connection.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">DRX defines an <b>on-duration</b> when the UE monitors PDCCH, then sleeps for the DRX cycle; an <b>inactivity timer</b> keeps it awake after traffic. Short and long DRX cycles trade latency for power. An RRC <b>inactivity</b> timer eventually releases the idle UE to RRC_IDLE.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What problem does connected-mode DRX solve, and its key timers?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It cuts UE power by letting it stop monitoring PDCCH between bursts. Key parameters: on-duration timer, inactivity timer (extends wake after data), short/long DRX cycle, and the HARQ RTT/retransmission timers. Aggressive DRX saves battery but adds scheduling latency.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF08" data-tags="lte-feature lte handover">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF08</span>
+  <span class="mod-title">Mobility / Idle-Mode Load Balancing (MLB)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Spread UEs across cells and carriers so no single cell is overloaded while a neighbour sits idle.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">For idle UEs, tune reselection priorities/thresholds in system information to bias camping. For connected UEs, MLB triggers load-based handovers or offloads to another carrier when a cell's PRB utilisation crosses a threshold.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you balance load between an overloaded cell and an idle neighbour?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Idle mode: adjust cell-reselection priorities/offsets in SIBs so new camps favour the lightly loaded carrier. Connected mode: use load-based (MLB) handovers/redirection when PRB or connected-user utilisation exceeds a threshold, moving suitable UEs to the neighbour.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF09" data-tags="lte-feature lte protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF09</span>
+  <span class="mod-title">Admission Control by ARP</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">When the cell is congested, decide which new bearers to admit and which to reject or pre-empt — by priority.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Each bearer carries an <b>ARP</b> (Allocation & Retention Priority) with a priority level and pre-emption capability/vulnerability flags. Admission control admits high-ARP bearers and can pre-empt lower-ARP ones to make room (e.g. emergency/VoLTE over best-effort).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is ARP and how does admission control use it?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: ARP = Allocation and Retention Priority: a priority level plus pre-emption capability and vulnerability. Under congestion the eNB admits higher-priority bearers and may drop/pre-empt lower-priority, pre-emptable ones — so emergency and VoLTE survive while best-effort is squeezed.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF10" data-tags="lte-feature lte handover protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF10</span>
+  <span class="mod-title">X2 Handover (+ S1 fallback for blacklisted neighbours)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The fast, direct base-station-to-base-station handover, with a fallback path through the core when no direct link exists.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Over <b>X2</b> the source eNB sends Handover Request straight to the target and forwards data directly — low latency. If there's no X2 (or the neighbour is blacklisted for X2), it falls back to <b>S1</b> handover routed via the MME/S-GW.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: X2 vs S1 handover — what is the difference?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: X2 handover goes directly between eNBs with direct data forwarding, so it is faster and lighter on the core — used when an X2 link exists. S1 handover is routed through the MME (and S-GW relocation may occur); it is the fallback when there is no X2 or across MME/vendor boundaries.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF11" data-tags="lte-feature lte handover kpi troubleshooting">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF11</span>
+  <span class="mod-title">Mobility Robustness — Too-Early / Too-Late / Wrong-Cell HO counters</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Metrics that classify handover failures so you can tune mobility and cut dropped calls (MRO).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Too-late HO</b>: RLF before the HO completes (thresholds too high/late). <b>Too-early HO</b>: HO then immediate RLF/return (fired too soon). <b>Wrong-cell HO</b>: RLF and recovery on a third cell (bad neighbour/target). These counters drive automatic tuning of A3 offset/TTT and neighbour lists.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What do too-early and too-late handover counters tell you?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Too-late = the UE hit radio-link failure before handing over — raise sensitivity / lower thresholds or TTT. Too-early = it handed over then immediately failed or bounced back — the trigger fired too soon, so add hysteresis/offset. Wrong-cell = it recovered on a different cell, pointing at a neighbour-list/target selection problem.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF12" data-tags="lte-feature lte handover protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF12</span>
+  <span class="mod-title">DL Data Forwarding during Handover</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Move the packets already buffered/in-flight at the source over to the target during handover so the user loses as little data as possible.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">At handover the source forwards un-acknowledged/queued <b>PDCP PDUs</b> to the target over the X2-U (or S1 via S-GW) forwarding tunnel; PDCP sequence numbers let the target continue in order and avoid duplicates after the UE re-attaches.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why is data forwarding needed at handover and how are duplicates avoided?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Without it, packets buffered at the source when the UE leaves would be lost. The source forwards outstanding PDCP SDUs/PDUs to the target; PDCP sequence numbering and status reporting let the target resume in order and discard duplicates, giving lossless (or near-lossless) handover.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF13" data-tags="lte-feature lte protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF13</span>
+  <span class="mod-title">Call Re-establishment after Radio-Link Failure</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">When the radio link drops briefly, recover the call fast instead of dropping it and re-attaching from scratch.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On RLF the UE runs <b>RRC Connection Re-establishment</b> toward a prepared cell; if that cell has the UE context (or can fetch it), signalling and bearers resume with minimal interruption rather than a full re-attach.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What happens on radio-link failure — drop or recover?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The UE declares RLF after T310 expiry, then attempts RRC re-establishment on a suitable cell. If the target has (or retrieves) the stored UE context, the connection and bearers are restored quickly; if not, it falls back to a full RRC setup / re-attach.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF14" data-tags="lte-feature lte call-flow protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF14</span>
+  <span class="mod-title">CSFB — Circuit-Switched Fallback (fast redirect via RIM)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">LTE has no native circuit voice, so for a CS call the UE is briefly moved to 2G/3G, then returns to LTE.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On a mobile-originated/terminated CS call the MME triggers <b>CSFB</b>: the UE is redirected or handed to GERAN/UTRAN for the voice call. <b>RIM</b> (RAN Information Management) pre-shares neighbour system info so the redirect is fast (fewer reads on the target).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is CSFB and where does RIM help?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: CSFB moves a UE from LTE to 2G/3G to place a circuit-switched voice call, since EPS is packet-only. RIM lets the eNB pre-fetch the target 2G/3G system information, so the fallback redirection is faster because the UE doesn't have to read all the target SIBs on arrival.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF15" data-tags="lte-feature lte ue protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF15</span>
+  <span class="mod-title">UE Capability Enquiry &amp; Optimization</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The network asks each UE what it supports — bands, CA combos, MIMO layers, modulation, features — and configures it accordingly.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">After connection the eNB sends <b>UECapabilityEnquiry</b>; the UE replies with <b>UE-EUTRA-Capability</b> (band combinations, category, supported features). The eNB caches it (and MME can store it) so it only configures features the UE can actually use.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why does the eNB query UE capability, and what breaks if it's wrong?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It must know the UE's supported bands, CA combinations, category and features to configure SCells/MIMO/modulation legally. If capability is misread or cached stale, the eNB may configure an unsupported combo (RRC failure) or under-configure (lost throughput).</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF16" data-tags="lte-feature lte call-flow protocol kpi">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF16</span>
+  <span class="mod-title">VoLTE — Large-Scale Cell &amp; Voice Enhancements</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Carry voice as VoIP over LTE with the QoS and capacity a real network needs at scale.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Signalling rides a <b>QCI 5</b> default bearer (IMS); voice media rides a dedicated <b>QCI 1</b> GBR bearer. <b>Semi-Persistent Scheduling (SPS)</b>, ROHC header compression and TTI bundling boost voice capacity and cell-edge coverage.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Which QCIs does VoLTE use and why SPS?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: QCI 5 (non-GBR) for IMS/SIP signalling and QCI 1 (GBR, conversational voice) for the RTP media. SPS pre-allocates the small, periodic voice grants so you avoid a PDCCH assignment every 20 ms — cutting control overhead and boosting the number of simultaneous VoLTE users.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF17" data-tags="lte-feature lte handover 5g protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF17</span>
+  <span class="mod-title">4G↔5G Interworking (Handover / Reselection / Redirection)</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Move users between LTE (EPS) and 5G (5GS) smoothly as they roam between coverage.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Idle UEs use <b>reselection</b> by priority; connected UEs use <b>handover</b> (with context/bearer mapping between MME and AMF) or lighter <b>redirection</b> (release with redirect to the other RAT). EPS bearers map to 5G QoS flows/PDU sessions and back.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Handover vs redirection vs reselection between 4G and 5G — differences?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Reselection is idle-mode, UE-driven by SIB priorities. Handover is connected-mode, network-controlled and near-seamless with context/bearer transfer between MME and AMF. Redirection is connected-mode but cheaper — the network releases the UE with a target frequency/RAT and the UE reselects there, trading a short interruption for less signalling.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="LF18" data-tags="lte-feature lte architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">LF18</span>
+  <span class="mod-title">MORAN — Multi-Operator RAN Sharing</span>
+  <span class="mod-tag advanced">LTE</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Two or more operators share the same radio hardware while keeping their own spectrum and core.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">In <b>MORAN</b> operators share the eNB/RU but each runs on its <b>own carrier</b>; each cell broadcasts the relevant PLMN(s) and routes S1 to that operator's core. (Contrast MOCN, where operators also share the same carrier.)</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: MORAN vs MOCN?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Both share the RAN. MORAN gives each operator its own dedicated carrier on the shared radio; MOCN shares the same carrier among operators (multiple PLMNs broadcast on one cell). MORAN is simpler to isolate per-operator; MOCN is more spectrum-efficient.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="div-line"></div>
+
+</body>
+</html>

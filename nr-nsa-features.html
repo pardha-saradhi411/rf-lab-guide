@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5a623">
+<title>5G NR NSA Features — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="lte-features.html">LTE</a>
+    <a class="nav-chip" href="nr-sa-features.html">5G SA</a>
+    <a class="nav-chip" href="nr-nsa-features.html">5G NSA</a>
+    <a class="nav-chip" href="common-features.html">Common</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:180px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#f5a62311,transparent);border-left:4px solid #f5a623;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🔗</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#f5a623">5G NR NSA Features</span><span style="background:#f5a62322;color:#f5a623;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">5G NON-STANDALONE</span></div><div style="font-size:12px;color:#4a5470">5G NR Non-Standalone (EN-DC) — dual connectivity anchored on LTE · plain-English + how-it-works + interview Q&A</div></div></div>
+
+<div style="max-width:1000px;margin:0 auto;padding:14px 24px 6px">
+<div style="margin:8px 0 16px;padding:12px 14px;background:#f5a6230d;border:1px solid #1e2535;border-radius:8px;font-size:12.5px;color:#c8c8d8;line-height:1.7">Public-knowledge write-ups of 5G NSA / EN-DC features (LTE anchor + NR leg on the EPC). Concepts only, no internal specifics. Each card feeds the Interview simulator.</div>
+</div>
+
+<div class="module-card" id="NN01" data-tags="nr-nsa 5g nr lte endc architecture protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN01</span>
+  <span class="mod-title">EN-DC / Non-Standalone Overview</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The fast path to 5G: keep the LTE core and anchor, add a 5G leg for extra throughput. This is what "NSA" means.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">In <b>EN-DC</b> (E-UTRA–NR Dual Connectivity) the LTE eNB is the <b>Master Node (MeNB)</b> anchoring control/signalling to the EPC; the gNB is the <b>Secondary Node (SgNB)</b> adding an NR user-plane leg. The UE is connected to both simultaneously.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is NSA / EN-DC and why did operators start there?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: NSA (EN-DC) attaches a 5G NR secondary node to an existing LTE anchor and EPC, so the LTE cell handles mobility/signalling while NR boosts throughput. It let operators launch 5G data without first deploying a 5G core — faster and cheaper than standalone.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN02" data-tags="nr-nsa 5g nr lte endc call-flow protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN02</span>
+  <span class="mod-title">SgNB Addition Procedure</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The signalling that bolts the 5G leg onto an existing LTE connection.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The LTE UE reports NR measurements (event <b>B1</b>); the MeNB sends <b>SgNB Addition Request</b> over X2-C; the SgNB admits resources and returns its NR RRC config; the MeNB forwards it to the UE in an RRCConnectionReconfiguration; the UE does RACH to the gNB and confirms — now dual-connected.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Walk the SgNB addition in EN-DC.</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The UE sends a B1 measurement report (NR above threshold) to the MeNB. MeNB → SgNB Addition Request (X2AP) with UE capabilities/QoS. SgNB admits, allocates NR resources, replies with its RRC config. MeNB relays it to the UE (RRC reconfiguration). UE performs random access to the gNB and sends reconfiguration complete → the NR leg is active.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN03" data-tags="nr-nsa 5g nr lte endc measurements">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN03</span>
+  <span class="mod-title">Measurement-Based CA &amp; EN-DC</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Add the 5G leg (and extra carriers) only when the UE actually measures good NR — not blindly.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The eNB configures NR/inter-freq measurements; when the reported quality crosses the configured threshold (B1/A4-type events), it triggers SgNB addition or SCell activation, and removes them when quality drops — keeping links only where they help.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why gate EN-DC/SCell addition on measurements?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Adding an NR leg or SCell that the UE can't sustain wastes signalling and can hurt throughput/battery. Triggering on measurement events (e.g. B1 for NR) ensures the extra carrier is added only when the UE genuinely sees usable quality, and dropped when it fades.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN04" data-tags="nr-nsa 5g nr lte endc protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN04</span>
+  <span class="mod-title">NSA Packet Split (Split Bearer)</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Send one data flow down both the LTE and NR legs at once, splitting/recombining at a single anchor point for more throughput.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">In EN-DC the <b>PDCP</b> layer (at the SgNB for a typical SCG-split bearer) splits DL traffic across the LTE and NR RLC legs and reorders on receipt. Bearer types: <b>MCG</b> (LTE only), <b>SCG</b> (NR only), and <b>split</b> (both).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What are the EN-DC bearer types and what does split bearer do?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: MCG bearer uses only the LTE leg, SCG bearer only the NR leg, and split bearer uses both — a single PDCP entity distributes PDUs over the LTE and NR RLC paths and reorders at the receiver. Split bearer aggregates throughput but needs PDCP reordering to handle the two legs' different delays.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN05" data-tags="nr-nsa 5g nr lte endc handover protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN05</span>
+  <span class="mod-title">NSA Data Forwarding</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Don't lose in-flight packets when the 5G secondary node changes or is released.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On SgNB change/release the source forwards buffered <b>PDCP</b> data to the target (or back to the MeNB) over X2-U so the flow continues; PDCP sequence numbers keep ordering and avoid duplicates.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: When is data forwarding needed in NSA?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: On SgNB change or release (and at split-bearer reconfiguration), packets buffered on the NR leg would otherwise be lost. The source forwards outstanding PDCP PDUs to the new node or the master over X2-U, and PDCP sequencing preserves order and removes duplicates.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN06" data-tags="nr-nsa 5g nr lte endc ca">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN06</span>
+  <span class="mod-title">NSA + Carrier Aggregation Simultaneously</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Run LTE carrier aggregation and the NR leg at the same time for maximum aggregate throughput.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The UE aggregates multiple LTE carriers (PCell + SCells) under the MeNB <i>and</i> carries NR SCG carriers under the SgNB concurrently, subject to its band-combination capability and power/processing limits.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What limits how many carriers a UE can run across LTE CA + EN-DC?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The UE's supported band combinations and its baseband/RF and power budget. Each added carrier costs processing and (for UL) transmit power; the UE advertises the legal combinations in its capability, and the network must stay within them.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN07" data-tags="nr-nsa 5g nr lte endc call-flow volte">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN07</span>
+  <span class="mod-title">NSA with VoLTE</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">In NSA, voice stays on LTE (VoLTE) while NR just boosts data — because there's no 5G core for voice.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The LTE anchor keeps the IMS/VoLTE bearers (QCI 1/5); the NR SCG carries best-effort data. If NR power/coverage would harm the voice call, the network can drop the NR leg to protect VoLTE.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How is voice handled in NSA?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: As VoLTE on the LTE anchor — NSA has no 5G core, so voice uses the existing EPC/IMS path (QCI 1). The NR secondary node only adds data throughput; the network may release the NR leg if it threatens the voice bearer's quality or the UE's power budget.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN08" data-tags="nr-nsa 5g nr lte endc handover">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN08</span>
+  <span class="mod-title">5G Cell Change (SgNB Change)</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Move the NR leg from one gNB/cell to another as the UE moves, without disturbing the LTE anchor.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On NR measurement events the MeNB coordinates an <b>SgNB Change</b> (release old + add new SgNB) over X2, with data forwarding; the LTE MCG connection stays put, so mobility of the 5G leg is transparent to the anchor.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How does NR-leg mobility work in NSA without dropping the connection?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The LTE MeNB stays the anchor; only the secondary node changes via SgNB change (add target, release source) triggered by NR measurements, with PDCP data forwarding. Because control/mobility is anchored on LTE, the 5G leg can be swapped underneath without a full handover.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN09" data-tags="nr-nsa 5g nr architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN09</span>
+  <span class="mod-title">NSA &amp; SA on the Same NR Cell</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Let one NR cell serve both NSA (EN-DC) UEs and native SA UEs at the same time.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The gNB cell advertises support for both modes and connects to <b>both the EPC (via the LTE anchor over X2)</b> and the <b>5GC (via NG)</b>, scheduling NSA and SA UEs on shared PHY resources — easing migration from NSA to SA.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why run NSA and SA on the same NR cell?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It lets operators migrate gradually: legacy EN-DC handsets keep working via the LTE anchor while newer SA-capable devices use the 5G core on the same carrier — no separate NR deployment per mode. The gNB must terminate both X2 (to the eNB/EPC) and NG (to the 5GC).</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NN10" data-tags="nr-nsa 5g nr lte endc protocol architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN10</span>
+  <span class="mod-title">4G–5G X2 Interface (EN-DC)</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The interface that ties the LTE anchor and the 5G secondary node together in NSA.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">EN-DC extends <b>X2</b> with EN-DC-specific control (<b>X2-C</b>: SgNB add/modify/release, coordination) and <b>X2-U</b> user-plane forwarding for split/SCG bearers between the eNB and en-gNB.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What role does X2 play in EN-DC?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It connects the MeNB (LTE) and the en-gNB (NR). X2-C carries the SgNB addition/modification/release and coordination signalling; X2-U carries user-plane data forwarding for SCG/split bearers. It's the backbone that makes dual connectivity work.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="div-line"></div>
+
+</body>
+</html>

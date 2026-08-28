@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#9b8cf8">
+<title>Common / Platform Features — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="lte-features.html">LTE</a>
+    <a class="nav-chip" href="nr-sa-features.html">5G SA</a>
+    <a class="nav-chip" href="nr-nsa-features.html">5G NSA</a>
+    <a class="nav-chip" href="common-features.html">Common</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:180px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#9b8cf811,transparent);border-left:4px solid #9b8cf8;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🧩</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#9b8cf8">Common / Platform Features</span><span style="background:#9b8cf822;color:#9b8cf8;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">CROSS-TECH</span></div><div style="font-size:12px;color:#4a5470">Cross-technology & platform — RU/OAM, fronthaul (O-RAN 7.2), transport, timing · plain-English + how-it-works + interview Q&A</div></div></div>
+
+<div style="max-width:1000px;margin:0 auto;padding:14px 24px 6px">
+<div style="margin:8px 0 16px;padding:12px 14px;background:#9b8cf80d;border:1px solid #1e2535;border-radius:8px;font-size:12.5px;color:#c8c8d8;line-height:1.7">Public-knowledge write-ups of features shared across LTE and NR — RU/OAM, O-RAN fronthaul planes, transport and timing. Concepts only, no internal specifics. Each card feeds the Interview simulator.</div>
+</div>
+
+<div class="module-card" id="CM01" data-tags="common-feature rct tx aau rffe measurements">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM01</span>
+  <span class="mod-title">RU Transmit-Power Validation</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Confirm each radio actually transmits the power it's told to, across bands and antennas — a core RU acceptance check.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A spectrum analyser measures the RU output per carrier/antenna; the framework compares measured power to the configured target within tolerance, accounting for cable/setup loss and any splitter correction, and flags branches that are low/high.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you validate an RU's transmit power?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Drive the RU to a known configured power, measure the actual output on a calibrated analyser per antenna/carrier, subtract the measured cable/setup loss, and check it lands within tolerance of target. Deviations point to PA gain, calibration, or a bad TX branch.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM02" data-tags="common-feature aau troubleshooting hardware">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM02</span>
+  <span class="mod-title">RU Recovery &amp; Fault-ID Procedures</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">When a radio hits a fault, recover it automatically and record why — instead of a manual truck roll.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The RU/OAM detects a <b>fault ID</b> (e.g. PLL unlock, thermal, fronthaul loss), runs the matching recovery (reset the affected block, re-init, or controlled reboot), and logs the cause for RCA. Escalation reboots the whole unit only if targeted recovery fails.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How should a radio handle a recoverable fault?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Detect and classify it by fault ID, attempt the least-disruptive recovery first (re-init the affected function), and record the cause and action for root-cause analysis. Only escalate to a full reboot if targeted recovery fails — minimizing outage and giving traceability.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM03" data-tags="common-feature oran aau architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM03</span>
+  <span class="mod-title">M-Plane (Management Plane) Aggregation</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The management channel to the open radio — and a way to funnel many radios' management through one point.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">O-RAN <b>M-plane</b> (NETCONF/YANG) configures and monitors the O-RU. Aggregation proxies multiple O-RUs' M-plane sessions through a manager, simplifying scale and the SMO's connection count. (M-plane is one of the fronthaul planes alongside C/U/S.)</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What are the O-RAN fronthaul planes and what does M-plane do?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: C-plane (scheduling/beamforming commands), U-plane (IQ user data), S-plane (timing/sync), and M-plane (management). M-plane uses NETCONF/YANG to configure, software-manage and monitor the O-RU; aggregation lets a manager front many O-RUs' M-plane to the SMO.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM04" data-tags="common-feature aau hardware">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM04</span>
+  <span class="mod-title">RRH Firmware Upgrade</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Update the radio's firmware safely in the field without bricking it or dropping the site unexpectedly.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The new image is transferred, validated (checksum/signature), staged to a backup bank, then activated with a controlled restart; a <b>fallback</b> to the previous bank triggers if the new image fails to come up — a dual-bank A/B scheme.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How do you make a field firmware upgrade safe?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Verify the image (signature/checksum), write to an inactive bank so the running one is untouched, activate with a controlled reboot, and auto-roll-back to the previous bank if the new image fails health checks. A/B banking means a bad upgrade never bricks the radio.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM05" data-tags="common-feature oran aau troubleshooting">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM05</span>
+  <span class="mod-title">OAM–RRH Heartbeat</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A periodic "are you alive" between the management layer and the radio so failures are caught fast.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The OAM/RRH manager and the radio exchange periodic <b>heartbeats</b>; missing several in a row marks the radio unreachable and triggers alarms/recovery. It also detects silent fronthaul/link failures the data plane might mask.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why have a heartbeat between OAM and the radio?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: To detect loss of management connectivity quickly and deterministically — a few missed heartbeats flag the node down and kick off alarms/recovery, catching silent link or process failures that wouldn't otherwise surface until a user-impacting fault.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM06" data-tags="common-feature protocol kpi">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM06</span>
+  <span class="mod-title">GTP-U Counters</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Measure the user-plane tunnel traffic between RAN and core to spot loss, drops and throughput issues.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>GTP-U</b> carries user data over S1-U/F1-U/N3 (per-bearer TEIDs). Counting packets/bytes, sequence gaps and error indications per tunnel exposes transport loss, path MTU problems and where throughput is bottlenecked.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is GTP-U and why count it?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: GTP-U is the user-plane tunnelling protocol carrying subscriber data across S1-U/F1-U/N3, keyed by TEIDs per bearer/flow. Per-tunnel counters (packets, bytes, dropped, error indications) let you localise packet loss and throughput bottlenecks to the transport rather than the air interface.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM07" data-tags="common-feature oran architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM07</span>
+  <span class="mod-title">Unified E2-Plane</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A common approach to the control interface toward the near-real-time RIC across technologies.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">O-RAN <b>E2</b> connects the RAN (E2 nodes) to the <b>near-RT RIC</b> so xApps can monitor and control RAN functions via E2 service models (KPM for metrics, RC for control). A unified E2-plane presents 4G/5G nodes consistently to the RIC.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is the E2 interface and the near-RT RIC for?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: E2 links RAN nodes to the near-real-time RIC, letting xApps subscribe to metrics (KPM service model) and issue control (RC service model) on a ~10 ms–1 s loop — e.g. traffic steering or interference control. A unified E2-plane exposes different RAT nodes to the RIC the same way.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM08" data-tags="common-feature oran aau hardware">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM08</span>
+  <span class="mod-title">AISG v2 &amp; Fronthaul Split Option 7.2</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">AISG controls antenna-line devices (like remote electrical tilt); Split 7.2x defines where the PHY is divided between DU and radio in O-RAN.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>AISG</b> is the standard control bus to RET/TMA antenna-line devices. <b>Split 7.2x</b> is the O-RAN low-PHY split: the O-DU does high-PHY, the O-RU does low-PHY (iFFT/CP, beamforming), connected by eCPRI carrying frequency-domain IQ — balancing fronthaul rate vs radio complexity.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is fronthaul split 7.2x and why was it chosen?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It splits the PHY so the O-RU handles low-PHY (iFFT/CP add, digital beamforming) and the O-DU handles high-PHY and above, exchanging frequency-domain IQ over eCPRI. Compared with a full-PHY-in-radio (option 8/CPRI) it cuts fronthaul bandwidth while keeping the radio relatively simple — the O-RAN mainstream choice.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM09" data-tags="common-feature architecture lte 5g">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM09</span>
+  <span class="mod-title">4G + 5G on the Same BBU</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Host both LTE and NR on one baseband platform to save hardware, power and site space.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The shared BBU partitions compute, fronthaul and timing between the LTE and NR stacks; they share transport and sync while running independent cells, which also simplifies EN-DC anchoring on the same box.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What are the benefits and challenges of 4G+5G on one BBU?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Benefits: less hardware/power/space, shared transport and timing, and easy EN-DC anchoring. Challenges: partitioning CPU/accelerator and fronthaul capacity so neither RAT starves the other, and keeping timing/sync and software lifecycles for both stacks isolated yet coordinated.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM10" data-tags="common-feature aau troubleshooting hardware">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM10</span>
+  <span class="mod-title">External Alarm &amp; Environmental Monitoring</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Bring site/cabinet alarms (door, temperature, power) into the same management view as the radio.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">An external alarm box maps dry-contact/environmental inputs to OAM alarms; thresholds (e.g. over-temperature) raise faults that operators see alongside RF alarms, enabling proactive action before a hardware trip.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why integrate external/environmental alarms with RAN OAM?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: So site conditions (power loss, high temperature, intrusion) surface in the same fault management as radio alarms, letting operators correlate and act before an environmental problem forces a thermal shutdown or outage — rather than discovering it only after service drops.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="CM11" data-tags="common-feature timing sync architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">CM11</span>
+  <span class="mod-title">Timing &amp; SFN Synchronization</span>
+  <span class="mod-tag advanced">Common</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Keep every cell aligned in time and frame number — essential for TDD, handovers and features like CA/MIMO.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Sites lock to a common reference via <b>GNSS</b> and/or <b>PTP (IEEE 1588)</b> + SyncE over the transport; the <b>S-plane</b> delivers timing to the O-RU. TDD needs tight phase alignment so neighbouring cells don't transmit into each other's receive windows.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why is timing/phase sync so critical in TDD, and how is it delivered?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: In TDD all cells must switch between UL and DL at the same instant; a phase error means one cell transmits while a neighbour is receiving, causing cross-link interference. Sync is delivered by GNSS and/or PTP (1588) with SyncE over the fronthaul (the O-RAN S-plane), holding phase within tens of nanoseconds.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="div-line"></div>
+
+</body>
+</html>

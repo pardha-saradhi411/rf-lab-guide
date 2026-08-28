@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#00d4a0">
+<title>5G NR SA Features — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <span class="nav-brand">⬡ RF LAB GUIDE</span>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="lte-features.html">LTE</a>
+    <a class="nav-chip" href="nr-sa-features.html">5G SA</a>
+    <a class="nav-chip" href="nr-nsa-features.html">5G NSA</a>
+    <a class="nav-chip" href="common-features.html">Common</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:180px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🛰️</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">5G NR SA Features</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">5G STANDALONE</span></div><div style="font-size:12px;color:#4a5470">5G NR Standalone — access, mobility, beamforming, scheduling, QoS, voice & O1 · plain-English + how-it-works + interview Q&A</div></div></div>
+
+<div style="max-width:1000px;margin:0 auto;padding:14px 24px 6px">
+<div style="margin:8px 0 16px;padding:12px 14px;background:#00d4a00d;border:1px solid #1e2535;border-radius:8px;font-size:12.5px;color:#c8c8d8;line-height:1.7">Public-knowledge write-ups of 5G NR Standalone features (native 5GC). Concepts only, no internal specifics. Each card feeds the Interview simulator.</div>
+</div>
+
+<div class="module-card" id="NS01" data-tags="nr-sa 5g nr protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS01</span>
+  <span class="mod-title">Cell Startup &amp; Bring-up</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Everything that has to happen for an NR cell to go on air and start serving UEs.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The DU/CU configure PHY (SSB, numerology, TDD pattern), bring up the fronthaul (7.2x), start broadcasting <b>SSB</b> and <b>SIB1</b>, and open F1 (CU↔DU) and NG (to the 5GC). Once sync, power and cell config are validated the cell is operational.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What must come up before an NR cell can serve a UE?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Timing/sync and fronthaul, then PHY (SSB burst, numerology, TDD pattern), the F1 setup between CU and DU, and NG setup to the AMF. The UE then finds the cell via SSB, reads MIB/SIB1, and can start random access.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS02" data-tags="nr-sa 5g nr protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS02</span>
+  <span class="mod-title">SIB Management (NR system information)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">How NR broadcasts the system information a UE needs to camp, access and reselect — restructured from LTE.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>MIB</b> (on PBCH) points to <b>SIB1</b> (cell access + scheduling of other SIBs). In NR, <b>SIB2</b> carries cell-reselection common info, <b>SIB3</b> intra-frequency and <b>SIB4</b> inter-frequency neighbours — a different numbering from LTE (where reselection is SIB3/4/5). Some SIBs are broadcast, others sent on-demand.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Where are the reselection parameters in NR vs LTE?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: NR: SIB2 (reselection common), SIB3 (intra-frequency), SIB4 (inter-frequency). LTE: SIB3 (serving/intra), SIB4 (intra neighbours), SIB5 (inter-frequency). Mixing the two numbering schemes is a classic interview trap.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS03" data-tags="nr-sa 5g nr handover protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS03</span>
+  <span class="mod-title">Neighbour Relation Table (NRT) Design</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The map that lets a cell translate "the UE reported PCI X" into "hand it to that specific gNB/cell over this interface".</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The NRT holds each neighbour's <b>PCI → CGI</b>, the transport/interface (Xn) to reach it, and per-relation flags (no-HO, no-remove, no-X2/Xn). Measurement reports give a PCI; the NRT resolves it to a target cell and the Xn peer to send the Handover Request to.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How does a cell turn a reported PCI into a handover target?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Via the Neighbour Relation Table: the PCI from the measurement report is looked up to its CGI and the Xn/X2 peer that serves it. PCIs are reused across the network, so the NRT (populated manually or by ANR reading the target's CGI) disambiguates and gives the transport to send the HO request.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS04" data-tags="nr-sa 5g nr handover">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS04</span>
+  <span class="mod-title">ANR — Automatic Neighbour Relations</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Let the network discover and maintain neighbour relations automatically instead of hand-planning every one.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">When a UE reports an unknown PCI, the network asks it to read that cell's <b>CGI</b> (global ID); the new relation is added to the NRT, and stale ones are pruned — reducing dropped handovers from missing neighbours.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What problem does ANR solve?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Manual neighbour planning is error-prone and misses relations, causing too-late/wrong-cell handovers. ANR uses UE CGI reporting to auto-add neighbours it discovers and remove unused ones, keeping the NRT correct as the network changes.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS05" data-tags="nr-sa 5g nr handover protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS05</span>
+  <span class="mod-title">5G Handover (Xn / N2)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Connected-mode mobility in standalone 5G — over the direct gNB link where possible, else through the core.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Xn handover</b> goes gNB-to-gNB with direct data forwarding (fast). <b>N2 (NG) handover</b> routes via the AMF when there's no Xn or when AMF/UPF relocation is needed. The target prepares resources and returns an RRCReconfiguration with the new cell config and RACH resources.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Xn vs N2 handover in 5G?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Xn is the direct gNB-to-gNB path with direct forwarding, analogous to LTE X2 — low latency. N2/NG handover is via the AMF (with possible UPF relocation), used when there is no Xn or across AMF boundaries — analogous to LTE S1 handover.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS06" data-tags="nr-sa 5g nr protocol architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS06</span>
+  <span class="mod-title">Xn Interface</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The direct interface between two gNBs — the 5G equivalent of LTE's X2.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Xn carries <b>Xn-C</b> (control: handover prep, context transfer, status) and <b>Xn-U</b> (user: data forwarding during mobility). Xn Setup exchanges each gNB's served-cell info (PCI, NCGI, TAC, frequencies) so neighbours know how to reach each other.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How is Xn different from X2?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Functionally similar (direct RAN-node link for mobility and data forwarding) but Xn connects gNBs in 5GS and carries 5G constructs — NG-RAN node IDs, NR cell identities, PDU-session/QoS-flow info — whereas X2 connects eNBs in EPS with E-RAB/bearer semantics.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS07" data-tags="nr-sa 5g nr prach protocol phy">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS07</span>
+  <span class="mod-title">PRACH &amp; Multi-RAR Configuration</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">How a UE first grabs the network's attention (random access) and how the network answers many UEs at once.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The UE picks a <b>preamble</b> and sends it on PRACH; the gNB replies with a <b>RAR</b> (Msg2) granting a UL resource + timing advance; then Msg3 (RRC request) and Msg4 (contention resolution). <b>Multi-RAR</b> lets one response window carry several UEs' RARs efficiently under load.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Walk the 4-step RACH procedure.</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Msg1: UE sends a random-access preamble on PRACH. Msg2: gNB sends the Random Access Response with a timing-advance and UL grant. Msg3: UE sends its RRC connection/setup request on the granted resource. Msg4: gNB sends contention resolution confirming the UE. (2-step RACH collapses Msg1+3 and Msg2+4.)</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS08" data-tags="nr-sa 5g nr phy protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS08</span>
+  <span class="mod-title">PUCCH &amp; PUSCH Formats</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The uplink channels: PUSCH carries data, PUCCH carries control (ACK/NACK, CQI, scheduling requests) in several sized formats.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>PUCCH F0/F2</b> are short (1–2 symbols) for a few UCI bits; <b>F1/F3/F4</b> are long (up to 14 symbols) for more bits or coverage. The gNB picks the format by payload size and coverage need; PUSCH carries the actual data (and can piggyback UCI).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why are there multiple PUCCH formats?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: They trade payload vs coverage vs latency. Short formats (F0/F2) give low-latency feedback for small UCI; long formats (F1/F3/F4) spread over more symbols for more bits or better cell-edge coverage. The scheduler chooses per the UCI size and the UE's link budget.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS09" data-tags="nr-sa 5g nr phy protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS09</span>
+  <span class="mod-title">DCI Formats &amp; Size Alignment</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Downlink Control Information is the scheduling grant on PDCCH; NR aligns DCI sizes so UEs can blind-decode them efficiently.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>DCI 0_0/0_1</b> schedule UL (PUSCH), <b>1_0/1_1</b> schedule DL (PDSCH); 0_1/1_1 are the richer non-fallback formats. NR limits the number of distinct DCI sizes a UE must monitor (<b>size alignment</b>) to bound blind-decoding attempts.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is DCI and why does size alignment matter?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: DCI is the PDCCH scheduling grant telling the UE where/how its data is (RB allocation, MCS, HARQ, etc.). The UE blind-decodes candidates, so 3GPP caps the number of different DCI sizes it must try — size alignment pads/aligns formats to stay within that budget and keep decoding feasible.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS10" data-tags="nr-sa 5g nr mimo phy">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS10</span>
+  <span class="mod-title">MU-MIMO Scheduling (UL/DL) &amp; UE Grouping</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Serve multiple UEs on the same time/frequency by separating them in space with beamforming — multiplying cell capacity.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The scheduler <b>groups</b> UEs whose channels are spatially separable (low cross-correlation), builds precoders/beams per user, and transmits them simultaneously. Good grouping and accurate CSI keep inter-user interference low; bad pairing wastes the gain.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: MU-MIMO vs SU-MIMO?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: SU-MIMO sends multiple layers to one UE. MU-MIMO sends layers to different UEs on the same resources, separated spatially by beamforming. MU multiplies capacity when UEs are spatially separable and CSI is good, but needs careful user grouping to limit inter-user interference.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS11" data-tags="nr-sa 5g nr mimo phy aau">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS11</span>
+  <span class="mod-title">Massive MIMO — Beamforming + DL Link Adaptation</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Use a large antenna array to form narrow, steerable beams toward each UE for coverage and capacity — the headline 5G feature on mid-band.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The array forms per-UE beams from CSI (SRS/CSI-RS); <b>DLLA</b> then adapts MCS/rank to the beamformed channel. Beamforming gain extends range and, with MU-MIMO, packs many users per cell.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How does massive MIMO improve both coverage and capacity?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Coherently combining many antennas forms a high-gain, narrow beam steered at the UE — that array gain extends coverage. Because beams are spatially separated, the cell can serve many UEs simultaneously (MU-MIMO), multiplying capacity. Both depend on accurate CSI from SRS/CSI-RS.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS12" data-tags="nr-sa 5g nr phy">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS12</span>
+  <span class="mod-title">SSB Beam &amp; Precoder Cycling</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The gNB sweeps its synchronization beams across the sector so UEs anywhere can find the cell, then refines to a best beam.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Multiple <b>SSBs</b> are sent in a burst, each on a different beam; the UE measures them and reports the best <b>SSB index</b>. Precoder/beam cycling during broadcast avoids leaving coverage holes between narrow beams.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why does NR sweep SSB beams?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: On mid/high band the gNB uses narrow beams, so a single fixed broadcast beam would leave gaps. Sweeping several SSB beams across the sector lets a UE at any angle detect the cell, measure per-beam quality, and report the best SSB — the basis for initial access and beam management.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS13" data-tags="nr-sa 5g nr phy measurements">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS13</span>
+  <span class="mod-title">CSI-RS Framework &amp; Measurements</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Reference signals the gNB sends so the UE can measure the downlink channel and report how to transmit to it.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">From <b>CSI-RS</b> the UE derives <b>CQI/PMI/RI/LI</b> and beam (CRI) reports; the gNB uses them for link adaptation, precoding and beam selection. CSI-RS can also be used for mobility/beam measurements and tracking (TRS).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is CSI-RS used for?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It lets the UE measure the DL channel and feed back CSI — CQI (quality → MCS), PMI (precoder), RI (rank), and beam indicators. The gNB uses that to choose modulation, precoding and beams. It also supports beam management and fine time/frequency tracking.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS14" data-tags="nr-sa 5g nr phy measurements rct">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS14</span>
+  <span class="mod-title">Sounding (SRS) &amp; DL CSI Acquisition</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The uplink counterpart: the UE transmits a known signal so the gNB can measure the uplink channel — vital for TDD beamforming by reciprocity.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The UE sends <b>SRS</b>; in TDD the gNB uses channel <b>reciprocity</b> to estimate the DL channel from the UL sounding and compute DL precoders/beams — often more accurate than PMI feedback for massive MIMO.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why is SRS so important in TDD massive MIMO?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: TDD uses the same frequency up and down, so by reciprocity the gNB can infer the DL channel from the UL SRS it measures directly — giving full-dimension CSI for beamforming without relying on limited PMI feedback. Good SRS coverage/scheduling is therefore key to MU-MIMO gains.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS15" data-tags="nr-sa 5g nr phy">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS15</span>
+  <span class="mod-title">DL/UL Link Adaptation</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Continuously match the modulation and coding to the current channel so you send as fast as the link can reliably carry.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">From CQI/HARQ feedback the gNB picks the <b>MCS</b> and rank, targeting a BLER operating point (~10% first-transmission). Good channel → higher-order modulation (up to 256/1024QAM); poor channel → robust low MCS.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How does link adaptation choose MCS?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It maps the reported CQI (and adjusts with an outer loop from HARQ ACK/NACK) to an MCS that hits a target first-transmission BLER (~10%). If retransmissions rise, the outer loop backs off MCS; if the channel improves, it climbs — maximizing throughput at controlled error.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS16" data-tags="nr-sa 5g nr phy">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS16</span>
+  <span class="mod-title">256QAM UL (higher-order modulation)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Pack more bits per symbol on the uplink when the channel is clean, raising UL peak throughput.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">With high SINR the UE can use <b>256QAM</b> (8 bits/symbol) instead of 64QAM; it needs low EVM in the UE PA and good link quality, and the gNB must signal support and pick the higher MCS table.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What conditions are needed to use 256QAM on the uplink?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: High SINR and a clean, linear UE transmit path (low EVM), because dense constellations are error-sensitive. Both UE and gNB must support the 256QAM MCS table, and link adaptation only selects it near-cell where the error target can still be met.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS17" data-tags="nr-sa 5g nr ue">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS17</span>
+  <span class="mod-title">Connected-Mode DRX (NR)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Battery saving for connected 5G UEs — sleep between scheduling like LTE DRX but with NR numerology.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On-duration + inactivity timer + short/long DRX cycles govern when the UE monitors PDCCH; tuned per service to trade latency vs power (tighter for URLLC, relaxed for background).</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How would you tune DRX differently for URLLC vs eMBB background traffic?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: URLLC needs short (or effectively no) DRX cycles and a long inactivity timer so latency stays low, at a power cost. Background/eMBB traffic can use long DRX cycles and short on-durations to maximise sleep, accepting higher scheduling latency.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS18" data-tags="nr-sa 5g nr protocol call-flow">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS18</span>
+  <span class="mod-title">Paging in RRC_IDLE</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">How the network reaches an idle UE when there's incoming data or a call.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The AMF pages the UE across its registration area; each cell sends a paging message at the UE's <b>paging occasion</b> (derived from its ID and DRX). The UE, monitoring only its occasions, wakes and responds with a service request.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How does an idle UE receive a page without draining its battery?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It only wakes at its own paging occasions, computed from its identity and the paging DRX cycle, and monitors PDCCH for the paging RNTI then. The AMF pages the registration area; on a match the UE runs a service request to move to connected.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS19" data-tags="nr-sa 5g nr protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS19</span>
+  <span class="mod-title">QoS Scheduler &amp; Multi-DRB</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">5G maps traffic to QoS flows and radio bearers so different services get the treatment they need on one connection.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The SMF assigns each flow a <b>5QI</b>; SDAP maps <b>QoS flows → DRBs</b>. The scheduler enforces per-DRB priority/GBR. Multi-DRB lets one PDU session carry, say, a GBR voice DRB and a best-effort data DRB simultaneously.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How does 5G QoS differ from LTE bearers?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: LTE is bearer-centric (EPS bearer = QCI). 5G is flow-centric: the SMF marks packets with a 5QI per QoS flow, and SDAP maps flows onto DRBs. This is finer-grained — many flows can share or split across DRBs within one PDU session, with the scheduler honouring each 5QI.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS20" data-tags="nr-sa 5g nr call-flow protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS20</span>
+  <span class="mod-title">EPS Fallback (voice)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">When VoNR isn't available, a 5G voice call is moved to LTE so the call still connects.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">On an IMS voice setup in SA, if the gNB/network can't serve VoNR it triggers <b>EPS fallback</b>: the UE is handed/redirected to LTE, where the voice runs as VoLTE (QCI 1). It's the common early-5G voice solution.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What is EPS fallback and when is it used?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: When a UE in 5G SA tries an IMS voice call but the cell/network doesn't support VoNR (or QoS can't be met), the network moves the UE to LTE (handover or redirection) and the call proceeds as VoLTE. It's the interim voice solution until VoNR is deployed.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS21" data-tags="nr-sa 5g nr call-flow protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS21</span>
+  <span class="mod-title">Voice over NR (VoNR)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Native 5G voice — the call runs directly on NR without falling back to LTE.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Voice is IMS VoIP over a 5G <b>QoS flow (5QI 1)</b> on NR. It needs solid NR coverage and QoS support end-to-end; where that's missing the network uses EPS fallback instead.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: VoNR vs EPS fallback?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: VoNR keeps the voice call natively on 5G NR (IMS over 5QI 1), giving lower latency and no interruption — but it requires mature NR coverage and QoS. EPS fallback punts the call to LTE/VoLTE when VoNR can't be guaranteed. Operators start with fallback and migrate to VoNR as coverage matures.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS22" data-tags="nr-sa 5g nr phy timing">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS22</span>
+  <span class="mod-title">PHY Timing-Advance Manager</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Keep every UE's uplink arriving at the gNB aligned in time despite different distances.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The gNB measures each UE's UL arrival and sends <b>Timing Advance</b> commands so bursts land inside the cyclic prefix; a TA timer forces re-sync if the UE goes quiet. Larger cells need a wider TA range.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why is timing advance needed and what bounds cell size?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: UEs are at different distances, so without TA their uplinks would arrive misaligned and smear across symbols. The gNB commands each UE's TA so signals land within the cyclic prefix. The maximum TA range (and CP length) bounds the achievable cell radius.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS23" data-tags="nr-sa 5g nr oran architecture">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS23</span>
+  <span class="mod-title">NETCONF / YANG for CU &amp; DU (O1)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The standard way to configure and monitor the gNB's CU and DU — the management (O1) interface.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Management uses <b>NETCONF</b> over SSH with <b>YANG</b> data models to push config and stream telemetry/alarms to the SMO/EMS. It's the O-RAN <b>O1</b> interface for FCAPS across CU/DU.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What are NETCONF and YANG, and which O-RAN interface use them?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: YANG is the data-model language describing a node's config/state; NETCONF is the protocol (over SSH) to get/edit that config and receive notifications. In O-RAN they realise the O1 interface between the SMO/EMS and the CU/DU (and the M-plane to the O-RU) for FCAPS.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS24" data-tags="nr-sa 5g nr architecture protocol">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS24</span>
+  <span class="mod-title">NG-Flex — AMF Load Balancing</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Spread signalling load across a pool of core AMFs and survive one failing — the 5G version of LTE S1-Flex.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">A gNB connects to several AMFs (an <b>AMF set/pool</b>) over NG; it selects one per UE by weight/GUAMI and can re-home UEs if an AMF fails, giving load balancing and redundancy.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What does NG-Flex (AMF pooling) give you?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: A many-to-many gNB↔AMF connection so UE signalling is distributed across an AMF pool by weight, and if one AMF fails its UEs can be served by others. It's the 5G analogue of LTE S1-Flex (MME pooling) — load balancing plus geo-redundancy.</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="module-card" id="NS25" data-tags="nr-sa 5g nr positioning">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS25</span>
+  <span class="mod-title">Enhanced Cell-ID (E-CID) Positioning</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">Locate a UE using cell and radio measurements the network already has — no extra positioning reference signals needed.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">How it works</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>E-CID</b> combines the serving cell identity with measurements like <b>timing advance</b> and neighbour <b>RSRP/RSRQ/AoA</b> to estimate location — coarser than OTDOA/multi-RTT but cheap and always available.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: How accurate is E-CID and when would you use it?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: It's coarse (tens to hundreds of metres) because it leans on cell ID, TA and signal-strength/angle measurements rather than dedicated positioning signals. You use it as a low-cost, always-available baseline, escalating to OTDOA/multi-RTT/PRS when you need higher accuracy.</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="div-line"></div>
+
+</body>
+</html>
