@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#00d4a0">
+<title>Ask AI — Interview Coach — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+</head>
+<body>
+<nav id="topbar">
+  <a href="index.html" class="nav-brand" style="text-decoration:none">⬡ RF LAB GUIDE</a>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="lte-features.html">LTE</a>
+    <a class="nav-chip" href="nr-sa-features.html">5G SA</a>
+    <a class="nav-chip" href="nr-nsa-features.html">5G NSA</a>
+    <a class="nav-chip" href="common-features.html">Common</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+    <a class="nav-chip" href="notes.html">Notes</a>
+    <a class="nav-chip" href="ai.html">Ask AI</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:150px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#00d4a011,transparent);border-left:4px solid #00d4a0;padding:20px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">🤖</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#00d4a0">Ask AI — Interview Coach</span><span style="background:#00d4a022;color:#00d4a0;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">LIVE · BRING YOUR OWN KEY</span></div><div style="font-size:12px;color:#4a5470">A live AI tutor/interviewer, grounded in your guide · ask anything, or switch to "Interview me" mode</div></div></div>
+
+<div style="max-width:900px;margin:0 auto;padding:14px 24px 40px">
+
+  <!-- settings -->
+  <details id="ai-settings" style="background:#0d0f14;border:1px solid #1e2535;border-radius:10px;padding:12px 16px;margin-bottom:14px">
+    <summary style="cursor:pointer;color:#00d4a0;font-weight:700;font-size:13px">⚙️ Setup — API key (one-time, stored only in this browser)</summary>
+    <div style="margin-top:12px;font-size:12.5px;color:#c8c8d8;line-height:1.7">
+      <div style="margin-bottom:10px;padding:10px 12px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px">Your key is saved in this browser's <b>localStorage</b> and sent <b>directly from your browser</b> to the AI provider. It never goes to GitHub, to this site's author, or any other server. Anyone else opening this page would need to enter their own key.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px">
+        <label>Provider
+          <select id="ai-provider" style="background:#141720;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:5px 8px;font-size:12px;margin-left:4px">
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="openai">OpenAI</option>
+          </select>
+        </label>
+        <label>Model
+          <input id="ai-model" type="text" style="background:#141720;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:5px 8px;font-size:12px;margin-left:4px;width:200px">
+        </label>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input id="ai-key" type="password" placeholder="Paste API key (sk-ant-… or sk-…)" style="flex:1;min-width:240px;background:#0a0c10;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:8px 10px;font-size:12px;outline:none">
+        <button id="ai-save" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a055;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">Save key</button>
+        <button id="ai-clear" style="background:#1e2535;color:#6a7490;border:1px solid #2a3050;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer">Clear</button>
+        <span id="ai-keystate" style="font-size:11px;color:#4a5470"></span>
+      </div>
+      <div style="margin-top:8px;font-size:11px;color:#4a5470">Get a key: Anthropic → <span style="color:#5bc4ef">console.anthropic.com</span> · OpenAI → <span style="color:#5bc4ef">platform.openai.com</span>. Defaults: Claude <code>claude-sonnet-5</code> (or <code>claude-opus-5</code> / <code>claude-haiku-4-5-20251001</code>); OpenAI <code>gpt-4o</code>.</div>
+    </div>
+  </details>
+
+  <!-- mode + controls -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px">
+    <span style="font-size:12px;color:#8a94b0">Mode:</span>
+    <button class="ai-mode" data-mode="ask" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a055;border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer">💬 Ask / explain</button>
+    <button class="ai-mode" data-mode="interview" style="background:#1e2535;color:#8a94b0;border:1px solid #2a3050;border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer">🎤 Interview me</button>
+    <button class="ai-mode" data-mode="quiz" style="background:#1e2535;color:#8a94b0;border:1px solid #2a3050;border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer">⚡ Rapid-fire quiz</button>
+    <span style="flex:1"></span>
+    <label style="font-size:11px;color:#8a94b0;display:flex;align-items:center;gap:4px"><input type="checkbox" id="ai-ground" checked> ground in guide</label>
+    <button id="ai-reset" style="background:#1e2535;color:#6a7490;border:1px solid #2a3050;border-radius:16px;padding:5px 12px;font-size:11px;cursor:pointer">New chat</button>
+  </div>
+
+  <!-- chat -->
+  <div id="ai-chat" style="background:#0a0c10;border:1px solid #1e2535;border-radius:12px;padding:16px;min-height:280px;max-height:60vh;overflow-y:auto;font-size:13.5px;line-height:1.7;color:#c8c8d8"></div>
+
+  <!-- input -->
+  <div style="display:flex;gap:8px;margin-top:12px;align-items:flex-end">
+    <textarea id="ai-input" placeholder="Ask a 5G/LTE/RF/RCT question… (Enter to send, Shift+Enter for newline)" style="flex:1;min-height:52px;max-height:160px;background:#0d0f14;border:1px solid #2a3050;border-radius:10px;color:#c8c8d8;font-size:13px;padding:10px 12px;outline:none;resize:vertical;font-family:inherit;box-sizing:border-box"></textarea>
+    <button id="ai-send" style="background:#00d4a0;color:#04120d;border:none;border-radius:10px;padding:12px 20px;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap">Send ▸</button>
+  </div>
+  <div style="font-size:11px;color:#4a5470;margin-top:10px;line-height:1.6">Tip: try <i>"Interview me on X2 handover"</i>, <i>"Explain EPS fallback vs VoNR"</i>, or <i>"Quiz me on RACH"</i>. In <b>Interview me</b> mode the AI asks one question at a time and critiques your answer. Calls go straight from your browser to the provider using your own key — usage is billed to your account.</div>
+
+</div>
+<div class="div-line"></div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var LS=window.localStorage;
+  var provider=LS.getItem('ai_provider')||'anthropic';
+  var mode='ask';
+  var history=[];         // {role, content}
+  var indexCache=null;
+
+  var DEFAULT_MODEL={anthropic:'claude-sonnet-5',openai:'gpt-4o'};
+  function curKeyName(){return provider==='anthropic'?'ai_key_anthropic':'ai_key_openai';}
+  function loadModel(){var m=LS.getItem('ai_model_'+provider)||DEFAULT_MODEL[provider];$('ai-model').value=m;}
+  function keyState(){var k=LS.getItem(curKeyName());$('ai-keystate').textContent=k?('✓ key saved ('+k.slice(0,7)+'…)'):'no key yet';$('ai-keystate').style.color=k?'#00d4a0':'#f5a623';}
+
+  $('ai-provider').value=provider;
+  loadModel();keyState();
+  $('ai-provider').onchange=function(){provider=this.value;LS.setItem('ai_provider',provider);loadModel();keyState();var k=LS.getItem(curKeyName());$('ai-key').value='';};
+  $('ai-model').onchange=function(){LS.setItem('ai_model_'+provider,this.value.trim());};
+  $('ai-save').onclick=function(){var k=$('ai-key').value.trim();if(!k){return;}LS.setItem(curKeyName(),k);LS.setItem('ai_model_'+provider,$('ai-model').value.trim());$('ai-key').value='';keyState();$('ai-settings').open=false;addMsg('system','Key saved for this browser. You can start chatting.');};
+  $('ai-clear').onclick=function(){LS.removeItem(curKeyName());keyState();};
+
+  // mode buttons
+  var modeBtns=document.querySelectorAll('.ai-mode');
+  modeBtns.forEach(function(b){b.onclick=function(){mode=b.getAttribute('data-mode');modeBtns.forEach(function(x){x.style.background='#1e2535';x.style.color='#8a94b0';x.style.border='1px solid #2a3050';x.style.fontWeight='400';});b.style.background='#00d4a022';b.style.color='#00d4a0';b.style.border='1px solid #00d4a055';b.style.fontWeight='700';};});
+
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function fmt(s){ // minimal markdown: **bold**, `code`, newlines
+    s=esc(s);
+    s=s.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+    s=s.replace(/`([^`]+)`/g,'<code style="background:#141720;padding:1px 5px;border-radius:4px;color:#5bc4ef;font-size:12px">$1</code>');
+    s=s.replace(/\n/g,'<br>');
+    return s;
+  }
+  function addMsg(role,text){
+    var wrap=document.createElement('div');wrap.style.margin='10px 0';
+    if(role==='user'){wrap.innerHTML='<div style="text-align:right"><span style="display:inline-block;background:#5bc4ef18;border:1px solid #5bc4ef33;border-radius:12px 12px 2px 12px;padding:9px 13px;max-width:85%;text-align:left;color:#dfe6f5">'+fmt(text)+'</span></div>';}
+    else if(role==='assistant'){wrap.innerHTML='<div><span style="display:inline-block;background:#00d4a00d;border:1px solid #00d4a033;border-left:3px solid #00d4a0;border-radius:2px 12px 12px 12px;padding:9px 13px;max-width:92%;color:#c8c8d8">'+fmt(text)+'</span></div>';}
+    else{wrap.innerHTML='<div style="text-align:center;color:#4a5470;font-size:11px;margin:6px 0">'+esc(text)+'</div>';}
+    $('ai-chat').appendChild(wrap);$('ai-chat').scrollTop=$('ai-chat').scrollHeight;
+    return wrap;
+  }
+
+  // retrieval grounding from search-index.json
+  function getIndex(){
+    if(indexCache)return Promise.resolve(indexCache);
+    return fetch('search-index.json').then(function(r){return r.json();}).then(function(j){indexCache=j;return j;}).catch(function(){return [];});
+  }
+  function topMatches(q,idx,n){
+    var terms=q.toLowerCase().split(/[^a-z0-9]+/).filter(function(t){return t.length>2;});
+    var scored=idx.map(function(e){
+      var hay=((e.title||'')+' '+(e.tags||'')+' '+(e.text||'')).toLowerCase();
+      var s=0;terms.forEach(function(t){if(hay.indexOf(t)>=0)s++;});
+      if((e.title||'').toLowerCase().indexOf(q.toLowerCase())>=0)s+=3;
+      return {e:e,s:s};
+    }).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;}).slice(0,n);
+    return scored.map(function(x){return x.e;});
+  }
+
+  var SYS={
+    ask:"You are an expert 5G NR and LTE / RF / RU / RAT / RAN validation engineer and tutor. You are helping Pardha, an LTE/5G RF & RU validation engineer, prepare for interviews and understand topics. Answer accurately and concisely at the depth a senior interviewer expects, using precise 3GPP/O-RAN terminology. If a topic is not covered in the provided guide excerpts, say so briefly and still answer from your own knowledge. Prefer concrete detail (message names, IEs, formulas, typical values) over fluff.",
+    interview:"You are a senior (15-20 yr) RF / RU / RAT / RAN validation interviewer conducting a live interview with Pardha. Ask ONE focused question at a time and then STOP and wait for the answer. After Pardha answers, briefly critique it (what was right, what was missing or wrong), give the ideal concise answer, then ask the next question, escalating difficulty. Cover RF fundamentals, PHY, protocol/call-flows, handovers, RCT test methodology, and automation. Keep your turns short.",
+    quiz:"You are running a rapid-fire technical quiz for an RF/RU/RAN validation interview. Ask ONE short question at a time, wait for the answer, then say Correct/Partly/Incorrect with a one-line ideal answer, and immediately ask the next. Keep it fast and punchy."
+  };
+
+  function callAPI(sys,msgs){
+    var key=LS.getItem(curKeyName());
+    var model=($('ai-model').value||DEFAULT_MODEL[provider]).trim();
+    if(!key)return Promise.reject({friendly:'No API key saved. Open ⚙️ Setup above and paste your '+(provider==='anthropic'?'Anthropic':'OpenAI')+' key.'});
+    if(provider==='anthropic'){
+      return fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'content-type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:model,max_tokens:1500,system:sys,messages:msgs})
+      }).then(handle('anthropic'));
+    }else{
+      var m2=[{role:'system',content:sys}].concat(msgs);
+      return fetch('https://api.openai.com/v1/chat/completions',{
+        method:'POST',
+        headers:{'content-type':'application/json','authorization':'Bearer '+key},
+        body:JSON.stringify({model:model,max_tokens:1500,messages:m2})
+      }).then(handle('openai'));
+    }
+  }
+  function handle(kind){
+    return function(res){
+      return res.json().then(function(d){
+        if(!res.ok){
+          var em=(d&&d.error&&(d.error.message||d.error.type))||('HTTP '+res.status);
+          if(res.status===401)em='Invalid API key (401). Check the key in ⚙️ Setup.';
+          if(res.status===429)em='Rate limit / quota (429). '+em;
+          throw {friendly:em};
+        }
+        if(kind==='anthropic'){return (d.content&&d.content[0]&&d.content[0].text)||'(empty response)';}
+        return (d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'(empty response)';
+      });
+    };
+  }
+
+  function send(){
+    var q=$('ai-input').value.trim();if(!q)return;
+    $('ai-input').value='';
+    addMsg('user',q);
+    history.push({role:'user',content:q});
+    var thinking=addMsg('assistant','…thinking…');
+    var groundP=$('ai-ground').checked?getIndex().then(function(idx){return topMatches(q,idx,4);}):Promise.resolve([]);
+    groundP.then(function(matches){
+      var sys=SYS[mode];
+      if(matches&&matches.length){
+        sys+="\n\nRelevant excerpts from Pardha's RF Lab Guide (use if helpful; cite the card id):\n"+matches.map(function(m){return "["+m.id+" · "+m.title+"]: "+(m.text||'').slice(0,500);}).join("\n");
+      }
+      // send last ~10 turns
+      var msgs=history.slice(-10);
+      return callAPI(sys,msgs);
+    }).then(function(ans){
+      thinking.remove();
+      addMsg('assistant',ans);
+      history.push({role:'assistant',content:ans});
+    }).catch(function(e){
+      thinking.remove();
+      addMsg('system','⚠ '+((e&&e.friendly)||e&&e.message||'Request failed. If this is a network/CORS error, check your key and that the provider allows browser access.'));
+    });
+  }
+  $('ai-send').onclick=send;
+  $('ai-input').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}});
+  $('ai-reset').onclick=function(){history=[];$('ai-chat').innerHTML='';greet();};
+
+  function greet(){
+    var k=LS.getItem(curKeyName());
+    if(!k){addMsg('system','Welcome! To start, open ⚙️ Setup above and paste your own API key (stored only in this browser). Then pick a mode and ask anything.');}
+    else{addMsg('assistant',"Hi Pardha — I'm your live interview coach, grounded in your RF Lab Guide. Ask me anything (5G/LTE/RF/RCT/automation), or hit **🎤 Interview me** and I'll grill you one question at a time. What shall we work on?");}
+  }
+  greet();
+})();
+</script>
+</body>
+</html>
