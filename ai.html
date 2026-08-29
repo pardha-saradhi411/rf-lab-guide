@@ -52,6 +52,7 @@
       <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px">
         <label>Provider
           <select id="ai-provider" style="background:#141720;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:5px 8px;font-size:12px;margin-left:4px">
+            <option value="google">Google Gemini (FREE tier)</option>
             <option value="anthropic">Anthropic (Claude)</option>
             <option value="openai">OpenAI</option>
           </select>
@@ -61,12 +62,12 @@
         </label>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <input id="ai-key" type="password" placeholder="Paste API key (sk-ant-… or sk-…)" style="flex:1;min-width:240px;background:#0a0c10;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:8px 10px;font-size:12px;outline:none">
+        <input id="ai-key" type="password" placeholder="Paste API key (Gemini AIza… / Claude sk-ant-… / OpenAI sk-…)" style="flex:1;min-width:240px;background:#0a0c10;color:#c8c8d8;border:1px solid #2a3050;border-radius:6px;padding:8px 10px;font-size:12px;outline:none">
         <button id="ai-save" style="background:#00d4a022;color:#00d4a0;border:1px solid #00d4a055;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">Save key</button>
         <button id="ai-clear" style="background:#1e2535;color:#6a7490;border:1px solid #2a3050;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer">Clear</button>
         <span id="ai-keystate" style="font-size:11px;color:#4a5470"></span>
       </div>
-      <div style="margin-top:8px;font-size:11px;color:#4a5470">Get a key: Anthropic → <span style="color:#5bc4ef">console.anthropic.com</span> · OpenAI → <span style="color:#5bc4ef">platform.openai.com</span>. Defaults: Claude <code>claude-sonnet-5</code> (or <code>claude-opus-5</code> / <code>claude-haiku-4-5-20251001</code>); OpenAI <code>gpt-4o</code>.</div>
+      <div style="margin-top:8px;font-size:11px;color:#4a5470">Get a key: <b style="color:#00d4a0">Google Gemini (FREE)</b> → <span style="color:#5bc4ef">aistudio.google.com/apikey</span> (no card needed, rate-limited) · Anthropic → <span style="color:#5bc4ef">console.anthropic.com</span> (paid) · OpenAI → <span style="color:#5bc4ef">platform.openai.com</span> (paid). Defaults: Gemini <code>gemini-2.0-flash</code>; Claude <code>claude-sonnet-5</code>; OpenAI <code>gpt-4o</code>.</div>
     </div>
   </details>
 
@@ -98,13 +99,14 @@
 (function(){
   var $=function(id){return document.getElementById(id);};
   var LS=window.localStorage;
-  var provider=LS.getItem('ai_provider')||'anthropic';
+  var provider=LS.getItem('ai_provider')||'google';
   var mode='ask';
   var history=[];         // {role, content}
   var indexCache=null;
 
-  var DEFAULT_MODEL={anthropic:'claude-sonnet-5',openai:'gpt-4o'};
-  function curKeyName(){return provider==='anthropic'?'ai_key_anthropic':'ai_key_openai';}
+  var DEFAULT_MODEL={anthropic:'claude-sonnet-5',openai:'gpt-4o',google:'gemini-2.0-flash'};
+  function curKeyName(){return provider==='anthropic'?'ai_key_anthropic':provider==='openai'?'ai_key_openai':'ai_key_google';}
+  function provName(){return provider==='anthropic'?'Anthropic':provider==='openai'?'OpenAI':'Google Gemini';}
   function loadModel(){var m=LS.getItem('ai_model_'+provider)||DEFAULT_MODEL[provider];$('ai-model').value=m;}
   function keyState(){var k=LS.getItem(curKeyName());$('ai-keystate').textContent=k?('✓ key saved ('+k.slice(0,7)+'…)'):'no key yet';$('ai-keystate').style.color=k?'#00d4a0':'#f5a623';}
 
@@ -161,7 +163,14 @@
   function callAPI(sys,msgs){
     var key=LS.getItem(curKeyName());
     var model=($('ai-model').value||DEFAULT_MODEL[provider]).trim();
-    if(!key)return Promise.reject({friendly:'No API key saved. Open ⚙️ Setup above and paste your '+(provider==='anthropic'?'Anthropic':'OpenAI')+' key.'});
+    if(!key)return Promise.reject({friendly:'No API key saved. Open ⚙️ Setup above and paste your '+provName()+' key.'});
+    if(provider==='google'){
+      var contents=msgs.map(function(m){return {role:(m.role==='assistant'?'model':'user'),parts:[{text:m.content}]};});
+      return fetch('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent?key='+encodeURIComponent(key),{
+        method:'POST',headers:{'content-type':'application/json'},
+        body:JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:contents})
+      }).then(handle('google'));
+    }
     if(provider==='anthropic'){
       return fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
@@ -186,6 +195,7 @@
           if(res.status===429)em='Rate limit / quota (429). '+em;
           throw {friendly:em};
         }
+        if(kind==='google'){var c=d.candidates&&d.candidates[0];if(c&&c.content&&c.content.parts&&c.content.parts[0])return c.content.parts.map(function(p){return p.text||'';}).join('');if(d.promptFeedback&&d.promptFeedback.blockReason)throw {friendly:'Gemini blocked the request ('+d.promptFeedback.blockReason+'). Rephrase and retry.'};return '(empty response)';}
         if(kind==='anthropic'){return (d.content&&d.content[0]&&d.content[0].text)||'(empty response)';}
         return (d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'(empty response)';
       });
