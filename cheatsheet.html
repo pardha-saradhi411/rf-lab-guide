@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5a623">
+<title>Cheat Sheet — Quick Revision — RF Lab Guide</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="shared.css">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(){console.log('SW registered');}).catch(function(e){console.log('SW failed:',e);});}</script>
+<script src="shared.js" defer></script>
+<style>
+.cs-grid{max-width:1100px;margin:0 auto;padding:14px 20px 40px;column-gap:16px}
+.cs{background:#0d0f14;border:1px solid #1e2535;border-radius:10px;padding:12px 14px;margin:0 0 14px;break-inside:avoid}
+.cs h3{margin:0 0 8px;font-size:13px;font-weight:800;letter-spacing:.3px}
+.cs ul{margin:0;padding-left:16px}
+.cs li{font-size:12px;line-height:1.6;color:#c8c8d8;margin:3px 0}
+.cs b{color:#e8e8f0}
+.cs code{background:#141720;color:#5bc4ef;padding:0 4px;border-radius:3px;font-size:11px}
+.cs table{width:100%;border-collapse:collapse;margin:6px 0;font-size:11px}
+.cs th{color:#5bc4ef;text-align:left;padding:3px 6px;border-bottom:1px solid #1e2535}
+.cs td{color:#c8c8d8;padding:3px 6px;border-bottom:1px solid #1e253520}
+.gap{color:#ff6b6b}
+@media(min-width:820px){.cs-grid{column-count:2}}
+</style>
+</head>
+<body>
+<nav id="topbar">
+  <a href="index.html" class="nav-brand" style="text-decoration:none">⬡ RF LAB GUIDE</a>
+  <div class="tb-bar">
+    <a class="nav-chip" href="foundation.html">Foundation</a>
+    <a class="nav-chip" href="beginner.html">Beginner</a>
+    <a class="nav-chip" href="intermediate.html">Intermediate</a>
+    <a class="nav-chip" href="expert.html">Expert</a>
+    <a class="nav-chip" href="protocol.html">Protocol</a>
+    <a class="nav-chip" href="protocol_debug.html">Protocol Debug</a>
+    <a class="nav-chip" href="features.html">RCT Features</a>
+    <a class="nav-chip" href="lte-features.html">LTE</a>
+    <a class="nav-chip" href="nr-sa-features.html">5G SA</a>
+    <a class="nav-chip" href="nr-nsa-features.html">5G NSA</a>
+    <a class="nav-chip" href="common-features.html">Common</a>
+    <a class="nav-chip" href="instruments.html">Instruments</a>
+    <a class="nav-chip" href="docs.html">Docs</a>
+    <a class="nav-chip" href="resume.html">Resume</a>
+    <a class="nav-chip" href="interview.html">Interview</a>
+    <a class="nav-chip" href="automation.html">Automation</a>
+    <a class="nav-chip" href="notes.html">Notes</a>
+    <a class="nav-chip" href="cheatsheet.html">Cheat Sheet</a>
+    <a class="nav-chip" href="ai.html">Ask AI</a>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <input id="global-search" type="text" placeholder="🔍 Search cards…" oninput="indexSearch(this.value)" style="background:#141720;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;color:#c8c8d8;font-size:11px;outline:none;width:150px">
+  </div>
+</nav>
+<div id="global-results" class="gs-wrap"></div>
+
+<div class="sec-hdr" style="background:linear-gradient(90deg,#f5a62311,transparent);border-left:4px solid #f5a623;padding:18px 24px;display:flex;align-items:center;gap:16px"><span style="font-size:26px">📄</span><div style="flex:1"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><span style="font-size:19px;font-weight:700;color:#f5a623">Cheat Sheet — Quick Revision</span><span style="background:#f5a62322;color:#f5a623;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px">NIGHT-BEFORE</span></div><div style="font-size:12px;color:#4a5470">Everything condensed to one scannable page · formulas · tables · flows · <span class="gap">interview traps</span> · debug · works offline</div></div></div>
+
+<div class="cs-grid">
+
+<div class="cs"><h3 style="color:#5bc4ef">RF Power &amp; dB</h3><ul>
+<li><b>dBm↔mW:</b> <code>P(dBm)=10·log10(P/1mW)</code>; +3dB=×2, +10dB=×10, −3dB=½</li>
+<li><b>dBm→W:</b> <code>10^((dBm−30)/10)</code>. 0dBm=1mW, 30dBm=1W, 43dBm≈20W, 46dBm≈40W</li>
+<li><b>Cascade:</b> gains/losses add in dB. <b>Friis NF:</b> first stage (LNA) dominates system NF</li>
+<li><b>50Ω</b> world; VSWR from return loss; ACLR/EVM are TX quality</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#00d4a0">Sensitivity &amp; Noise</h3><ul>
+<li><b>P<sub>REFSENS</sub> = −174 + 10log10(BW) + NF + IM + SNR</b> (dBm)</li>
+<li>kTB=−174 dBm/Hz · NF: <b>5</b>(WideArea)/10(Medium)/13(Local) · IM=<b>2 dB</b> · SNR@95% throughput</li>
+<li>3GPP RefSens (f≤3GHz): 5/10/15/20MHz (A1-3) = <b>−101.5</b> (36.104) / −100.8 (36.141)</li>
+<li><b>RX combining gain:</b> mid-band 4-RX ≈ +6 dB · low-band (B28) 2-RX ≈ +3 dB</li>
+<li>Lower dBm = more sensitive = better. Pass = throughput ≥95% at ref level</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#5bc4ef">Signal-Quality Metrics</h3><table>
+<tr><th>Metric</th><th>Meas</th><th>Range</th><th>Good</th></tr>
+<tr><td>RSRP</td><td>power/RE</td><td>−140…−44 dBm</td><td>≥−80</td></tr>
+<tr><td>RSRQ</td><td>N·RSRP/RSSI</td><td>−19.5…−3 dB</td><td>≥−10</td></tr>
+<tr><td>SINR</td><td>sig/(int+noise)</td><td>−10…+30 dB</td><td>≥20</td></tr>
+<tr><td>RSSI</td><td>total wideband</td><td>−120…−30 dBm</td><td>—</td></tr>
+<tr><td>CQI</td><td>→MCS</td><td>0…15</td><td>high</td></tr></table></div>
+
+<div class="cs"><h3 style="color:#9b8cf8">5G Numerology</h3><table>
+<tr><th>μ</th><th>SCS</th><th>slot</th><th>slots/sf</th></tr>
+<tr><td>0</td><td>15</td><td>1ms</td><td>1</td></tr>
+<tr><td>1</td><td>30</td><td>0.5</td><td>2</td></tr>
+<tr><td>2</td><td>60</td><td>0.25</td><td>4</td></tr>
+<tr><td>3</td><td>120</td><td>0.125</td><td>8</td></tr></table>
+<ul><li>RB=12 subcarriers · frame=10ms=10 sf · 14 OFDM sym/slot (NCP)</li>
+<li>FR1 410M–7.125G (max 100MHz) · FR2 24.25–52.6G (max 400MHz)</li>
+<li>QPSK2 / 16QAM4 / 64QAM6 / 256QAM8 bits/sym</li></ul></div>
+
+<div class="cs"><h3 style="color:#5bc4ef">Cell Search (5G)</h3><ul>
+<li><b>SSB</b> = PSS+SSS+PBCH(+DMRS), 4 symbols; beam-swept; SS+PBCH every 20ms</li>
+<li><b>PSS</b> N<sub>ID</sub>(2) 0–2 (symbol sync) · <b>SSS</b> N<sub>ID</sub>(1) 0–335 (frame/PCI)</li>
+<li><b>PCI = 3·N<sub>ID</sub>(1) + N<sub>ID</sub>(2)</b> → <b>1008</b> PCIs (LTE=504)</li>
+<li><b>MIB</b>(PBCH,80ms)→ points to <b>SIB1</b>(160ms): CORESET#0, SearchSpace#0</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#5bc4ef">Identifiers</h3><ul>
+<li><b>IMSI 15</b> (MCC3+MNC2/3+MSIN) · <b>IMEI 15</b> · <b>IMEISV 16</b> (+2 SVN)</li>
+<li>Temp: GUTI/S-TMSI (4G), 5G-GUTI/GUAMI+TMSI (5G), SUPI→<b>SUCI</b> (encrypted)</li>
+<li>ue-identity range: LTE 0–2³²−1 · 5G 0–2³⁹−1</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#00d4a0">Auth (EPS-AKA / 5G)</h3><ul>
+<li>MME←HSS vectors: <b>RAND, AUTN, XRES, K<sub>ASME</sub></b>; MME→UE RAND+AUTN</li>
+<li>USIM verifies AUTN, computes <b>RES</b>; MME checks <b>RES == XRES</b></li>
+<li>5G map: MME→<b>AMF</b>, HSS→<b>AUSF+UDM</b>; RES*/XRES*, K<sub>AUSF</sub>/K<sub>SEAF</sub></li>
+<li>NEA/NIA: 0=null, 1=SNOW3G, 2=AES, 3=ZUC</li>
+</ul></div>
+
+<div class="cs"><h3 class="gap">⚠ Interview Traps</h3><ul>
+<li><b>SIB reselection:</b> LTE <b>3/4/5</b> · NR <b>2/3/4</b> (SIB2=radio cfg in LTE!)</li>
+<li><b>IMSI 15 / IMEISV 16</b>; auth compare = <b>RES vs XRES</b>; AUSF is 5G</li>
+<li><b>PA</b> = last TX stage · <b>LNA</b> = first RX stage (sets NF)</li>
+<li><b>ACLR:</b> higher=better (worst=min) · <b>EVM:</b> lower=better (worst=max)</li>
+<li>B28 combining +3dB (2-RX) vs mid +6dB (4-RX) → B28 marginal first</li>
+<li>X2/Xn must <b>pre-exist</b> before HO; target from A3 <b>PCI</b>→NRT/ANR</li>
+<li>HO transparent containers: src→tgt = old RRC ctx; tgt→src = new RRCReconfig (dedicated RACH preamble, new C-RNTI)</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#9b8cf8">Call Flows (1-liners)</h3><ul>
+<li><b>RACH 4-step:</b> Msg1 preamble → Msg2 RAR(TA+grant) → Msg3 RRC req → Msg4 contention res</li>
+<li><b>Attach/Reg:</b> RRC setup → Attach/Reg req → Auth → NAS security → ESM/PDU → Accept → Complete</li>
+<li><b>PDU (5G):</b> AMF→SMF→UPF (GTP-U tunnel), 5QI/QoS rules</li>
+<li><b>Paging:</b> AMF pages reg area; UE wakes at paging occasion (DRX)</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#5bc4ef">Handovers</h3><ul>
+<li><b>X2/Xn</b> = direct RAN-RAN + data forwarding (fast, intra-AMF)</li>
+<li><b>S1/NGAP(N2)</b> = via core (no X2/Xn, or AMF/UPF reloc)</li>
+<li>Flow: MeasReport(A3) → HO Req/Ack → RRCReconfig → RACH tgt → Complete → Path Switch</li>
+<li>KPIs: too-late (RLF before HO) · too-early (HO then RLF/return) · wrong-cell</li>
+<li>EN-DC: MeNB(LTE anchor)+SgNB(NR); SgNB Addition on B1 report; split bearer at PDCP</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#00d4a0">Voice</h3><ul>
+<li><b>VoLTE:</b> QCI5 (IMS sig) + QCI1 GBR (RTP voice); SPS for capacity</li>
+<li><b>VoNR:</b> native 5G voice (5QI1) · <b>EPS Fallback:</b> move to LTE when VoNR unavailable</li>
+<li><b>CSFB:</b> LTE→2G/3G for CS voice (RIM speeds redirect) · <b>SRVCC:</b> HO voice to 2G/3G</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#9b8cf8">QoS — 5QI/QCI</h3><table>
+<tr><th>QCI/5QI</th><th>Type</th><th>Use</th></tr>
+<tr><td>1</td><td>GBR</td><td>voice (conv)</td></tr>
+<tr><td>2</td><td>GBR</td><td>video</td></tr>
+<tr><td>3</td><td>GBR</td><td>real-time gaming</td></tr>
+<tr><td>5</td><td>non-GBR</td><td>IMS signalling</td></tr>
+<tr><td>9</td><td>non-GBR</td><td>default/internet</td></tr></table>
+<ul><li>LTE = bearer-centric (QCI) · 5G = flow-centric (5QI→QoS flow→DRB via SDAP)</li></ul></div>
+
+<div class="cs"><h3 style="color:#5bc4ef">Scheduling / L2</h3><ul>
+<li><b>SR</b> (MAC, PUCCH) = ask UL grant · <b>Service Req</b> (NAS) = resume session</li>
+<li><b>BSR</b> = UL buffer per LCG (short/trunc/long) · <b>PHR</b> = P<sub>max</sub>−P<sub>used</sub></li>
+<li><b>HARQ</b> (PHY, fast, IR combining, 8 proc) vs <b>ARQ</b> (RLC AM, missing PDUs)</li>
+<li>Scheduling: Dynamic (DCI/TTI) · SPS (VoLTE) · Persistent (rare)</li>
+<li>DCI: 0_0/0_1 UL, 1_0/1_1 DL; on PDCCH, CCE=6 REG, blind decode</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#ff6b6b">Debug Quick-Ref</h3><ul>
+<li><b>Low throughput:</b> RSRP/SINR/CQI → MCS/rank → BLER/HARQ → RB/scheduler → CA CCs → transport → UE cat/TCP → interference</li>
+<li><b>Sensitivity short:</b> normalise combining gain → pin FW → <b>+5dB ADC atten</b> (degrades=RX-gain issue; same=DU/demod) → change freq (interference)</li>
+<li><b>HO failure:</b> late/early trigger (A3/TTT/hysteresis) · target admit · RACH at tgt · path switch</li>
+<li><b>VoLTE drop:</b> RLF · SIP BYE/408 · QCI1 missing · DRX too aggressive · SRVCC late</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#c8b800">Automation</h3><ul>
+<li><b>pytest</b> (ruauto): fixtures (setup/yield/teardown), @parametrize, markers, conftest addoption</li>
+<li><b>Robot</b>: keyword-driven, [Template] data-driven, tags</li>
+<li><b>SCPI/pyvisa</b>: *RST→INST:SEL→CONF:ACP→<b>RANGe:OPTimize</b>→*OPC?→FETCh</li>
+<li>Coding: dBm↔mW, binary-search sensitivity, regex parse, set for O(1) dedup</li>
+</ul></div>
+
+<div class="cs"><h3 style="color:#5bc4ef">RCT / RU essentials</h3><ul>
+<li>TX: ACLR (≥ limit, worst=min) · EVM · channel power · spectrum mask · DPD/CFR · PA efficiency</li>
+<li>RX: RefSens · RSSI accuracy (CLI dBm/dBFS vs PHY) · dynamic range · PRACH detection (miss≤1%)</li>
+<li>DSA/ADC_ADJUST, get-rssi (cli-manager telnet 8888), rct_stats (l1_Debug.log), gain budget</li>
+<li>O-RAN 7.2x split; planes C/U/S/M; eCPRI; PTP/GNSS timing (S-plane)</li>
+</ul></div>
+
+</div>
+<div class="div-line"></div>
+</body>
+</html>
