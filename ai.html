@@ -145,12 +145,18 @@
     if(indexCache)return Promise.resolve(indexCache);
     return fetch('search-index.json').then(function(r){return r.json();}).then(function(j){indexCache=j;return j;}).catch(function(){return [];});
   }
+  var STOP={what:1,is:1,are:1,the:1,an:1,in:1,on:1,of:1,to:1,for:1,and:1,or:1,we:1,have:1,it:1,its:1,which:1,section:1,how:1,does:1,do:1,did:1,me:1,my:1,about:1,explain:1,tell:1,this:1,that:1,with:1,where:1,when:1,why:1,between:1,give:1,show:1,list:1,can:1,you:1,please:1,also:1,some:1,more:1,any:1};
   function topMatches(q,idx,n){
-    var terms=q.toLowerCase().split(/[^a-z0-9]+/).filter(function(t){return t.length>2;});
+    var terms=q.toLowerCase().split(/[^a-z0-9]+/).filter(function(t){return t.length>2&&!STOP[t];});
+    if(!terms.length)return [];
     var scored=idx.map(function(e){
-      var hay=((e.title||'')+' '+(e.tags||'')+' '+(e.text||'')).toLowerCase();
-      var s=0;terms.forEach(function(t){if(hay.indexOf(t)>=0)s++;});
-      if((e.title||'').toLowerCase().indexOf(q.toLowerCase())>=0)s+=3;
+      var title=(e.title||'').toLowerCase(),tags=(e.tags||'').toLowerCase(),text=(e.text||'').toLowerCase();
+      var s=0;terms.forEach(function(t){
+        if(title.indexOf(t)>=0)s+=4;         // title match weighs most
+        if(tags.indexOf(t)>=0)s+=2;
+        if(text.indexOf(t)>=0)s+=1;
+      });
+      for(var i=0;i<terms.length-1;i++){var bg=terms[i]+' '+terms[i+1];if(title.indexOf(bg)>=0)s+=6;else if(text.indexOf(bg)>=0)s+=2;} // phrase bonus
       return {e:e,s:s};
     }).filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s;}).slice(0,n);
     return scored.map(function(x){return x.e;});
@@ -210,11 +216,14 @@
     addMsg('user',q);
     history.push({role:'user',content:q});
     var thinking=addMsg('assistant','…thinking…');
-    var groundP=$('ai-ground').checked?getIndex().then(function(idx){return topMatches(q,idx,4);}):Promise.resolve([]);
+    // retrieval context = last 2 user turns (so follow-ups like "which section?" inherit topic)
+    var recentUser=history.filter(function(m){return m.role==='user';}).slice(-2).map(function(m){return m.content;}).join(' ');
+    var groundP=$('ai-ground').checked?getIndex().then(function(idx){return topMatches(recentUser||q,idx,6);}):Promise.resolve([]);
     groundP.then(function(matches){
       var sys=SYS[mode];
+      sys+="\n\nThe RF Lab Guide is extensive (tabs: Foundation, Beginner, Intermediate, Expert, Protocol, Protocol Debug, RCT Features incl. Reference Sensitivity & a Sensitivity Debug Playbook, LTE / 5G-SA / 5G-NSA / Common feature pages, Instruments, Automation incl. a full RSSI-accuracy code call-trace card AUTO08, a 174-page Notes notebook, and an Interview simulator). Only cite card IDs that actually appear in the excerpts below. If a topic is not in these excerpts, say it is not in THESE excerpts (do NOT claim it is absent from the guide) and point to the most likely tab.";
       if(matches&&matches.length){
-        sys+="\n\nRelevant excerpts from Pardha's RF Lab Guide (use if helpful; cite the card id):\n"+matches.map(function(m){return "["+m.id+" · "+m.title+"]: "+(m.text||'').slice(0,500);}).join("\n");
+        sys+="\n\nRelevant excerpts from Pardha's RF Lab Guide (use if helpful; cite the card id and file):\n"+matches.map(function(m){return "["+m.id+" · "+m.title+" · "+m.file+"]: "+(m.text||'').slice(0,500);}).join("\n");
       }
       // send last ~10 turns
       var msgs=history.slice(-10);
