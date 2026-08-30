@@ -67,7 +67,7 @@
         <button id="ai-clear" style="background:#1e2535;color:#6a7490;border:1px solid #2a3050;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer">Clear</button>
         <span id="ai-keystate" style="font-size:11px;color:#4a5470"></span>
       </div>
-      <div style="margin-top:8px;font-size:11px;color:#4a5470">Get a key: <b style="color:#00d4a0">Google Gemini (FREE)</b> → <span style="color:#5bc4ef">aistudio.google.com/apikey</span> (no card needed, rate-limited) · Anthropic → <span style="color:#5bc4ef">console.anthropic.com</span> (paid) · OpenAI → <span style="color:#5bc4ef">platform.openai.com</span> (paid). Defaults: Gemini <code>gemini-2.0-flash</code>; Claude <code>claude-sonnet-5</code>; OpenAI <code>gpt-4o</code>.</div>
+      <div style="margin-top:8px;font-size:11px;color:#4a5470">Get a key: <b style="color:#00d4a0">Google Gemini (FREE)</b> → <span style="color:#5bc4ef">aistudio.google.com/apikey</span> (no card needed, rate-limited) · Anthropic → <span style="color:#5bc4ef">console.anthropic.com</span> (paid) · OpenAI → <span style="color:#5bc4ef">platform.openai.com</span> (paid). Defaults: Gemini <code>gemini-3.6-flash</code>; Claude <code>claude-sonnet-5</code>; OpenAI <code>gpt-4o</code>. (If a model is ever retired, just type a current one in the Model box.)</div>
     </div>
   </details>
 
@@ -104,7 +104,9 @@
   var history=[];         // {role, content}
   var indexCache=null;
 
-  var DEFAULT_MODEL={anthropic:'claude-sonnet-5',openai:'gpt-4o',google:'gemini-2.0-flash'};
+  var DEFAULT_MODEL={anthropic:'claude-sonnet-5',openai:'gpt-4o',google:'gemini-3.6-flash'};
+  // auto-migrate retired Gemini model names saved from earlier versions
+  (function(){var stale=['gemini-2.0-flash','gemini-2.0-flash-exp','gemini-1.5-flash','gemini-1.5-pro','gemini-pro'];var gm=LS.getItem('ai_model_google');if(gm&&stale.indexOf(gm)>=0)LS.removeItem('ai_model_google');})();
   function curKeyName(){return provider==='anthropic'?'ai_key_anthropic':provider==='openai'?'ai_key_openai':'ai_key_google';}
   function provName(){return provider==='anthropic'?'Anthropic':provider==='openai'?'OpenAI':'Google Gemini';}
   function loadModel(){var m=LS.getItem('ai_model_'+provider)||DEFAULT_MODEL[provider];$('ai-model').value=m;}
