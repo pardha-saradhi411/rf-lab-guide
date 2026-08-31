@@ -181,6 +181,14 @@
 <li>O-RAN 7.2x split; planes C/U/S/M; eCPRI; PTP/GNSS timing (S-plane)</li>
 </ul></div>
 
+<div class="cs"><h3 style="color:#9b8cf8">Band Plan &amp; RF Filters</h3><ul>
+<li><b>Band ≠ carrier:</b> a 3GPP band is a wide range; operator licenses a sub-block</li>
+<li>RU front-end <b>filters/duplexer are cut in HW</b> for a fixed passband — <b>no software retune</b></li>
+<li>Carrier outside the designed passband → rejected / heavy roll-off → needs a <b>HW filter variant</b></li>
+<li>Band edge = higher insertion loss → less TX power, worse RX sensitivity (test low/mid/high)</li>
+<li>e.g. <b>B28:</b> UL 703–748 / DL 758–803 MHz; variants (A/B) cover different sub-ranges</li>
+</ul></div>
+
 </div>
 <div class="div-line"></div>
 </body>
