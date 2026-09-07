@@ -239,6 +239,73 @@
 </div>
 </div>
 
+<div class="module-card" id="NN11" data-tags="nr-nsa 5g nr lte endc architecture protocol call-flow">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NN11</span>
+  <span class="mod-title">SA vs NSA — architecture at a glance (animated)</span>
+  <span class="mod-tag advanced">5G NSA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">The one-picture difference: in <b>NSA (EN-DC, Option 3)</b> the <b>LTE eNB is the master</b> anchored to the <b>4G core (EPC)</b>, with the NR gNB bolted on as a secondary leg. In <b>SA (Option 2)</b> the <b>gNB stands alone</b> on the <b>5G core (5GC)</b> — no LTE anchor. The moving dots below trace the active control/user paths.</div></div>
+<div style="margin:14px 0;padding:12px 14px;background:#0a0c10;border:1px solid #1e2535;border-radius:8px">
+<svg viewBox="0 0 760 460" style="width:100%;max-width:760px" xmlns="http://www.w3.org/2000/svg" font-family="monospace">
+<defs><marker id="mh" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#4a5470"/></marker></defs>
+<!-- ===== NSA ===== -->
+<text x="30" y="26" fill="#9b8cf8" font-size="13" font-weight="bold">NSA · LTE + NR + EPC</text><text x="255" y="26" fill="#4a5470" font-size="10">EN-DC · Option 3 · LTE is the control anchor</text>
+<!-- links -->
+<g stroke="#4a5470" stroke-width="1.4">
+<line x1="122" y1="105" x2="248" y2="76" marker-end="url(#mh)"/><line x1="248" y1="76" x2="122" y2="105" marker-end="url(#mh)"/>
+<line x1="122" y1="128" x2="248" y2="160" marker-end="url(#mh)"/>
+<line x1="382" y1="74" x2="598" y2="108" marker-end="url(#mh)"/>
+<line x1="382" y1="162" x2="598" y2="126" marker-end="url(#mh)"/>
+<line x1="317" y1="98" x2="317" y2="138" marker-end="url(#mh)"/>
+</g>
+<g font-size="10" fill="#8a94b0"><text x="175" y="83">LTE</text><text x="172" y="152">NR</text><text x="490" y="82">S1</text><text x="486" y="158">S1-U*</text><text x="325" y="122">X2</text></g>
+<!-- nodes -->
+<g font-size="11" text-anchor="middle">
+<rect x="32" y="94" width="90" height="42" rx="7" fill="#e05be022" stroke="#e05be0"/><text x="77" y="112" fill="#e05be0">UE</text><text x="77" y="126" fill="#8a94b0" font-size="9">phone</text>
+<rect x="252" y="52" width="130" height="42" rx="7" fill="#9b8cf822" stroke="#9b8cf8"/><text x="317" y="70" fill="#9b8cf8">LTE eNB</text><text x="317" y="84" fill="#8a94b0" font-size="9">master node</text>
+<rect x="252" y="140" width="130" height="42" rx="7" fill="#5bc4ef22" stroke="#5bc4ef"/><text x="317" y="158" fill="#5bc4ef">NR en-gNB</text><text x="317" y="172" fill="#8a94b0" font-size="9">secondary</text>
+<rect x="600" y="94" width="110" height="42" rx="7" fill="#4a547033" stroke="#8a94b0"/><text x="655" y="112" fill="#c8c8d8">EPC</text><text x="655" y="126" fill="#8a94b0" font-size="9">4G core</text>
+</g>
+<!-- animated flow dots -->
+<circle r="4" fill="#f5a623"><animateMotion dur="3.2s" repeatCount="indefinite" path="M77,105 L317,74 L655,108"/></circle>
+<circle r="4" fill="#00d4a0"><animateMotion dur="2.6s" repeatCount="indefinite" path="M77,126 L317,161 L655,126"/></circle>
+<!-- divider -->
+<line x1="30" y1="212" x2="730" y2="212" stroke="#1e2535" stroke-width="1"/>
+<!-- ===== SA ===== -->
+<text x="30" y="248" fill="#00d4a0" font-size="13" font-weight="bold">SA · NR + 5GC</text><text x="170" y="248" fill="#4a5470" font-size="10">Option 2 · gNB stands alone, no LTE anchor</text>
+<g stroke="#4a5470" stroke-width="1.4">
+<line x1="122" y1="342" x2="228" y2="342" marker-end="url(#mh)"/><line x1="228" y1="342" x2="122" y2="342" marker-end="url(#mh)"/>
+<line x1="322" y1="334" x2="428" y2="312" marker-end="url(#mh)"/>
+<line x1="322" y1="350" x2="428" y2="382" marker-end="url(#mh)"/>
+<line x1="542" y1="311" x2="598" y2="311" marker-end="url(#mh)"/>
+<line x1="632" y1="332" x2="540" y2="366" marker-end="url(#mh)"/>
+<line x1="542" y1="382" x2="598" y2="382" marker-end="url(#mh)"/>
+</g>
+<g font-size="10" fill="#8a94b0"><text x="150" y="335">NR radio</text><text x="372" y="316">N2</text><text x="360" y="372">N3</text><text x="562" y="305">N11</text><text x="600" y="352">N4</text><text x="562" y="376">N6</text></g>
+<g font-size="11" text-anchor="middle">
+<rect x="32" y="321" width="90" height="42" rx="7" fill="#e05be022" stroke="#e05be0"/><text x="77" y="339" fill="#e05be0">UE</text><text x="77" y="353" fill="#8a94b0" font-size="9">phone</text>
+<rect x="230" y="321" width="92" height="42" rx="7" fill="#5bc4ef22" stroke="#5bc4ef"/><text x="276" y="339" fill="#5bc4ef">gNB</text><text x="276" y="353" fill="#8a94b0" font-size="9">NR radio</text>
+<rect x="430" y="290" width="112" height="42" rx="7" fill="#00d4a022" stroke="#00d4a0"/><text x="486" y="308" fill="#00d4a0">AMF</text><text x="486" y="322" fill="#8a94b0" font-size="9">access/mobility</text>
+<rect x="600" y="290" width="112" height="42" rx="7" fill="#00d4a022" stroke="#00d4a0"/><text x="656" y="308" fill="#00d4a0">SMF</text><text x="656" y="322" fill="#8a94b0" font-size="9">session</text>
+<rect x="430" y="361" width="112" height="42" rx="7" fill="#5bc4ef22" stroke="#5bc4ef"/><text x="486" y="379" fill="#5bc4ef">UPF</text><text x="486" y="393" fill="#8a94b0" font-size="9">user plane</text>
+<rect x="600" y="361" width="112" height="42" rx="7" fill="#4a547033" stroke="#8a94b0"/><text x="656" y="379" fill="#c8c8d8">DN</text><text x="656" y="393" fill="#8a94b0" font-size="9">internet</text>
+</g>
+<circle r="4" fill="#00d4a0"><animateMotion dur="3.4s" repeatCount="indefinite" path="M77,342 L276,342 L486,382 L656,382"/></circle>
+<circle r="4" fill="#f5a623"><animateMotion dur="2.4s" repeatCount="indefinite" path="M276,342 L486,311"/></circle>
+<text x="380" y="440" fill="#4a5470" font-size="10" text-anchor="middle">● control-plane flow · ● user-plane flow — dots trace the active path (original diagram, standard 3GPP topology)</text>
+</svg>
+</div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">The one-line difference</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>NSA:</b> LTE eNB (master) + NR en-gNB (secondary) → EPC (4G core); interfaces S1, X2, S1-U. LTE remains the control anchor. <b>SA:</b> gNB alone → 5GC; interfaces N2 (gNB↔AMF), N3 (gNB↔UPF), N11 (AMF↔SMF), N4 (SMF↔UPF), N6 (UPF↔DN). No LTE anchor. It's a <b>core-network difference</b>, not a speed ranking.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: In one sentence, what changes between NSA and SA?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The core: NSA keeps the LTE eNB as the master anchored to the EPC (4G core) with NR as a secondary leg (EN-DC), while SA runs the gNB standalone on the 5G core (5GC) with no LTE anchor — so it's a core/anchoring difference, not a raw-speed difference.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Which interfaces connect the gNB to the 5G core in SA?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: N2 carries control (gNB↔AMF) and N3 carries user data (gNB↔UPF). Inside the core, N11 links AMF↔SMF, N4 links SMF↔UPF, and N6 connects UPF↔the data network. In NSA the equivalents are S1/X2/S1-U to the EPC.</div></div></div></div>
+</div>
+</div>
+</div>
+
 <div class="div-line"></div>
 
 </body>
