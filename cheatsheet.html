@@ -180,6 +180,7 @@
 <li>DSA/ADC_ADJUST, get-rssi (cli-manager telnet 8888), rct_stats (l1_Debug.log), gain budget</li>
 <li>O-RAN 7.2x split; planes C/U/S/M; eCPRI; PTP/GNSS timing (S-plane)</li>
 <li><b>Spectrum sensing:</b> RU FFTs wideband IQ → PSD/spectrogram (RBW=Fs/N), waterfall over time; ship to SMO via M-plane (NETCONF/YANG), int16 deci-dBm to shrink size; for interference/incumbent/DSS</li>
+<li><b>Power monitoring:</b> RU self-reports power = DC input × PSU-efficiency correction; efficiency is load-dependent → use factory-measured LUT not datasheet; validate vs lab power analyzer; residual gap also = telemetry accuracy + −48V cable loss</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#f5a623">Conformance Limits (3GPP)</h3><ul>
