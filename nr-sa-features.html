@@ -448,6 +448,52 @@
 </div>
 </div>
 
+<div class="module-card" id="NS26" data-tags="nr-sa 5g nr protocol call-flow security">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">NS26</span>
+  <span class="mod-title">SA Registration + PDU Session — call flow (diagram)</span>
+  <span class="mod-tag advanced">5G SA</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">How a UE goes from &quot;just powered on&quot; to &quot;sending data&quot; on 5G Standalone: <b>RRC setup → Registration (with authentication &amp; NAS security) → PDU session</b>. Control via the AMF; the SMF+UPF build the user-plane path.</div></div>
+<div style="margin:14px 0;padding:12px 14px;background:#0a0c10;border:1px solid #1e2535;border-radius:8px"><div style="font-size:12px;color:#8a94b0;margin-bottom:4px;font-weight:700">Call flow — SA registration &amp; PDU session (message sequence)</div>
+<svg viewBox="0 0 760 388" style="width:100%;max-width:760px" xmlns="http://www.w3.org/2000/svg" font-family="monospace">
+<defs>
+<marker id="rb" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#5bc4ef"/></marker>
+<marker id="rg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#00d4a0"/></marker>
+<marker id="ra" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#f5a623"/></marker>
+</defs>
+<g font-size="11" text-anchor="middle">
+<rect x="34" y="46" width="72" height="26" rx="5" fill="#e05be022" stroke="#e05be0"/><text x="70" y="63" fill="#e05be0">UE</text>
+<rect x="188" y="46" width="74" height="26" rx="5" fill="#5bc4ef22" stroke="#5bc4ef"/><text x="225" y="63" fill="#5bc4ef">gNB</text>
+<rect x="362" y="46" width="76" height="26" rx="5" fill="#00d4a022" stroke="#00d4a0"/><text x="400" y="63" fill="#00d4a0">AMF</text>
+<rect x="520" y="46" width="90" height="26" rx="5" fill="#9b8cf822" stroke="#9b8cf8"/><text x="565" y="60" fill="#9b8cf8" font-size="10">AUSF/UDM</text>
+<rect x="655" y="46" width="86" height="26" rx="5" fill="#4a547033" stroke="#8a94b0"/><text x="698" y="60" fill="#c8c8d8" font-size="10">SMF/UPF</text>
+</g>
+<g stroke="#2a3050" stroke-width="1" stroke-dasharray="4 4"><line x1="70" y1="72" x2="70" y2="360"/><line x1="225" y1="72" x2="225" y2="360"/><line x1="400" y1="72" x2="400" y2="360"/><line x1="565" y1="72" x2="565" y2="360"/><line x1="698" y1="72" x2="698" y2="360"/></g>
+<g font-size="9" text-anchor="middle">
+<text x="147" y="95" fill="#5bc4ef">1. RRC Setup (post-RACH)</text><line x1="70" y1="100" x2="221" y2="100" stroke="#5bc4ef" stroke-width="1.4" marker-end="url(#rb)"/>
+<text x="235" y="125" fill="#5bc4ef">2. Registration Request (Initial UE Msg · NAS)</text><line x1="70" y1="130" x2="396" y2="130" stroke="#5bc4ef" stroke-width="1.4" marker-end="url(#rb)"/>
+<text x="482" y="155" fill="#5bc4ef">3. Authentication (5G-AKA)</text><line x1="400" y1="160" x2="561" y2="160" stroke="#5bc4ef" stroke-width="1.4" marker-end="url(#rb)"/>
+<text x="482" y="185" fill="#00d4a0">4. auth vectors / result</text><line x1="565" y1="190" x2="404" y2="190" stroke="#00d4a0" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#rg)"/>
+<text x="235" y="215" fill="#00d4a0">5. Auth Req + NAS Security Mode Command</text><line x1="400" y1="220" x2="74" y2="220" stroke="#00d4a0" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#rg)"/>
+<text x="235" y="245" fill="#5bc4ef">6. Security Complete → Reg Accept / Init Context Setup</text><line x1="70" y1="250" x2="396" y2="250" stroke="#5bc4ef" stroke-width="1.4" marker-end="url(#rb)"/>
+<text x="235" y="275" fill="#f5a623">7. Registration Complete + PDU Session Est. Request</text><line x1="70" y1="280" x2="396" y2="280" stroke="#f5a623" stroke-width="1.4" marker-end="url(#ra)"/>
+<text x="548" y="305" fill="#5bc4ef">8. N11 → SMF, N4 → UPF (create session)</text><line x1="400" y1="310" x2="694" y2="310" stroke="#5bc4ef" stroke-width="1.4" marker-end="url(#rb)"/>
+<text x="384" y="335" fill="#00d4a0">9. PDU Session Accept</text><line x1="698" y1="340" x2="74" y2="340" stroke="#00d4a0" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#rg)"/>
+</g>
+<text x="360" y="378" fill="#00d4a0" font-size="10" text-anchor="middle">▸ user-plane active — data flows UE ↔ gNB ↔ UPF (N3) ↔ DN (N6)</text>
+</svg>
+<div style="font-size:10.5px;color:#4a5470;margin-top:2px"><span style="color:#5bc4ef">■</span> request/uplink · <span style="color:#00d4a0">■</span> response/downlink · <span style="color:#f5a623">■</span> PDU session trigger</div>
+</div>
+<div style="margin:14px 0;padding:14px 16px;background:#ff6b6b11;border-left:3px solid #ff6b6b;border-radius:6px"><div style="font-weight:700;color:#ff6b6b;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Walk the SA registration + PDU session at a high level.</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: After RACH the UE does RRC setup, then sends a Registration Request (NAS) carried in the gNB&#39;s Initial UE Message to the AMF. The AMF authenticates via AUSF/UDM (5G-AKA), runs NAS security (SMC), sends Registration Accept inside Initial Context Setup, and the UE confirms with Registration Complete. Then the UE requests a PDU session; the AMF selects an SMF (N11) which programs the UPF (N4); on accept, user data flows UE↔gNB↔UPF (N3) to the data network (N6).</div></div></div></div>
+</div>
+</div>
+</div>
+
 <div class="div-line"></div>
 
 </body>
