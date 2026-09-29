@@ -373,7 +373,6 @@ body.light-mode .nav-chip{background:#dfe3f2;color:#3a4260;border-color:#c0c8e0}
 body.light-mode .tr-hit{background:#f2f4fb;border-color:#d5dbe8}
 body.light-mode .tr-ht{color:#2a3550}
 /* topic filter chips (injected by shared.js) + grouped results */
-.flt-break{flex-basis:100%;height:0}
 .flt-lbl{color:#5a6480;font-size:10px;font-weight:700;letter-spacing:1.5px;margin:0 6px 0 2px;align-self:center;text-transform:uppercase}
 .tag-btn{background:transparent;color:var(--c);border:1px solid var(--c);border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;white-space:nowrap}
 .tag-btn.active{background:var(--c);color:#0b0e17;font-weight:700}
@@ -386,3 +385,19 @@ body.light-mode .tr-ht{color:#2a3550}
 .sub-sec-t{color:#5bc4ef;font-size:13px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
 .tile-group{max-width:1200px;margin:22px auto 6px;padding:0 24px;color:#5a6480;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
 body.light-mode .tr-jump button{background:#f2f4fb;border-color:#d5dbe8;color:#2a3550}
+/* page menu replaces the row of grey page chips */
+#topbar .tb-bar .nav-chip,#topbar .tb-bar .tb-div{display:none}
+.pg-menu{position:relative;flex-shrink:0;margin-right:8px}
+.pg-btn{background:#151a26;color:#c8c8d8;border:1px solid #2a3050;border-radius:20px;padding:4px 12px;font-size:12px;cursor:pointer;white-space:nowrap}
+.pg-btn:hover{border-color:#5bc4ef}
+.pg-now{color:#5bc4ef;font-weight:700;margin-left:4px}
+.pg-panel{display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:1000;background:#0f1220;border:1px solid #2a3050;border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.5);min-width:520px;grid-template-columns:repeat(2,1fr);gap:10px 22px}
+.pg-menu.open .pg-panel{display:grid}
+.pg-home{grid-column:1/-1;color:#00d4a0;font-weight:700;font-size:12px;text-decoration:none}
+.pg-gt{color:#5a6480;font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;margin-bottom:4px}
+.pg-grp a{display:block;color:#c8c8d8;font-size:12.5px;text-decoration:none;padding:3px 6px;border-radius:5px}
+.pg-grp a:hover{background:#1e2535;color:#fff}
+.pg-grp a.pg-cur{color:#5bc4ef;font-weight:700;background:#5bc4ef14}
+@media (max-width:640px){.pg-panel{min-width:0;width:86vw;grid-template-columns:1fr}}
+body.light-mode .pg-btn,body.light-mode .pg-panel{background:#f2f4fb;border-color:#d5dbe8;color:#2a3550}
+body.light-mode .pg-grp a{color:#2a3550}

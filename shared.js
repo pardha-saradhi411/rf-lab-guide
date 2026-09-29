@@ -481,15 +481,40 @@ function classifyCard(c){
   });
   return out;
 }
+var PAGE_MENU=[
+  ['Learn RF',[['foundation','Foundation'],['beginner','Beginner'],['intermediate','Intermediate'],['expert','Expert']]],
+  ['RCT, RU & O-RAN',[['features','RCT Features'],['common-features','Common (RU / BBU)'],['instruments','Instruments']]],
+  ['LTE, 5G & Protocol',[['protocol','Protocol'],['lte-features','LTE Features'],['nr-sa-features','5G SA'],['nr-nsa-features','5G NSA'],['protocol_debug','Protocol Debug'],['notes','Notes']]],
+  ['Lab & Career',[['automation','Automation'],['docs','Docs'],['resume','Resume'],['interview','Interview'],['cheatsheet','Cheat Sheet'],['ai','Ask AI']]]
+];
+function buildPageMenu(){
+  var nav=document.querySelector('nav#topbar'); if(!nav || document.getElementById('pg-menu')) return;
+  var cur=(location.pathname.split('/').pop()||'index.html').replace('.html','');
+  var curName='Home';
+  var h='<div class="pg-panel" id="pg-panel"><a class="pg-home" href="index.html">⌂ Home</a>';
+  PAGE_MENU.forEach(function(g){
+    h+='<div class="pg-grp"><div class="pg-gt">'+g[0]+'</div>';
+    g[1].forEach(function(p){ if(p[0]===cur) curName=p[1]; h+='<a href="'+p[0]+'.html"'+(p[0]===cur?' class="pg-cur"':'')+'>'+p[1]+'</a>'; });
+    h+='</div>';
+  });
+  h+='</div>';
+  var wrap=document.createElement('div'); wrap.id='pg-menu'; wrap.className='pg-menu';
+  wrap.innerHTML='<button class="pg-btn" onclick="togglePageMenu(event)">☰ Pages <span class="pg-now">'+curName+'</span> ▾</button>'+h;
+  var brand=nav.querySelector('.nav-brand');
+  if(brand) brand.insertAdjacentElement('afterend',wrap); else nav.insertBefore(wrap,nav.firstChild);
+  document.addEventListener('click',function(e){ if(!wrap.contains(e.target)) wrap.classList.remove('open'); });
+}
+function togglePageMenu(e){ e.stopPropagation(); document.getElementById('pg-menu').classList.toggle('open'); }
 function buildFilterBar(){
   if(document.querySelector('.tag-btn')) return;
   var bar=document.querySelector('nav#topbar .tb-bar')||document.querySelector('nav#topbar'); if(!bar) return;
-  var h='<span class="flt-break"></span><span class="flt-lbl" title="Lists matching cards from every page, grouped by sub-topic">Filter by topic:</span>'+
+  var h='<span class="flt-lbl" title="Lists matching cards from every page, grouped by sub-topic">Topics:</span>'+
     '<button class="tag-btn active" data-tag="all" onclick="filterByTag(\'all\')" style="--c:#00d4a0">All</button>';
   FILTERS.forEach(function(f){ h+='<button class="tag-btn" data-tag="'+f.key+'" onclick="filterByTag(\''+f.key+'\')" style="--c:'+f.color+'">'+f.label+'</button>'; });
   bar.insertAdjacentHTML('beforeend',h);
 }
 if(typeof document!=='undefined') document.addEventListener('DOMContentLoaded',function(){
+  buildPageMenu();
   buildFilterBar();
   var p=new URLSearchParams(location.search).get('topic'); if(p) filterByTag(p);
 });
