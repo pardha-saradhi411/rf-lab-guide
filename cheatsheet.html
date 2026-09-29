@@ -135,6 +135,7 @@
 <li>Flow: MeasReport(A3) → HO Req/Ack → RRCReconfig → RACH tgt → Complete → Path Switch</li>
 <li>KPIs: too-late (RLF before HO) · too-early (HO then RLF/return) · wrong-cell</li>
 <li>EN-DC: MeNB(LTE anchor)+SgNB(NR); SgNB Addition on B1 report; split bearer at PDCP</li>
+<li><b>X2 HO in pcap:</b> on S1 only PathSwitchRequest/Ack (from target) = success; prep (HO Req/Ack, SN Status, UE Ctx Release) is on X2 (PPID 27). No Path Switch ⇒ HO not completed. Filters: s1ap.procedureCode==3, x2ap.procedureCode==0, gtp.message==254</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#00d4a0">Voice</h3><ul>
@@ -158,6 +159,7 @@
 <li><b>HARQ</b> (PHY, fast, IR combining, 8 proc) vs <b>ARQ</b> (RLC AM, missing PDUs)</li>
 <li>Scheduling: Dynamic (DCI/TTI) · SPS (VoLTE) · Persistent (rare)</li>
 <li>DCI: 0_0/0_1 UL, 1_0/1_1 DL; on PDCCH, CCE=6 REG, blind decode</li>
+<li><b>2CC test:</b> each cell −3 dB (PA shared, sum = rated); per-UE vs 1CC KPI, total vs 2×1CC. 20 MHz: 1CC DL 270.4 / UL 44.1 Mbps; measured 588 / 130 total; CA +21%. Watch margins (CA 5 MHz UL +2%), cumulative NACK/DTX, UL RSSI rise</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#ff6b6b">Debug Quick-Ref</h3><ul>
@@ -165,6 +167,8 @@
 <li><b>Sensitivity short:</b> normalise combining gain → pin FW → <b>+5dB ADC atten</b> (degrades=RX-gain issue; same=DU/demod) → change freq (interference)</li>
 <li><b>HO failure:</b> late/early trigger (A3/TTT/hysteresis) · target admit · RACH at tgt · path switch</li>
 <li><b>VoLTE drop:</b> RLF · SIP BYE/408 · QCI1 missing · DRX too aggressive · SRVCC late</li>
+<li><b>Carrier activation:</b> connect → In-Sync → SET_FREQ/freqConfigd → L1-Done/RRH-Ready → SET_TX_POWER → UPlaneConfig → ModifyPA → READY/ACTIVE. Breaks: PTP, per-band PE collision, not_synced drop, energy-saving TX-power, ModifyPA. Signature also in healthy hours ⇒ noise. Green cell? check RU carrier state → FH RX → KPI</li>
+<li><b>Layer debug:</b> nothing works ⇒ bottom-up (RU→PHY→PRACH→RRC→NAS→bearer/GTP-U); works poorly ⇒ compare the same metric across layers (eGTP/MAC/PDCP). NACK = decoded grant, bad data; DTX = no feedback (PDCCH/PUCCH). Rule out the harness</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#c8b800">Automation</h3><ul>
@@ -172,6 +176,8 @@
 <li><b>Robot</b>: keyword-driven, [Template] data-driven, tags</li>
 <li><b>SCPI/pyvisa</b>: *RST→INST:SEL→CONF:ACP→<b>RANGe:OPTimize</b>→*OPC?→FETCh</li>
 <li>Coding: dBm↔mW, binary-search sensitivity, regex parse, set for O(1) dedup</li>
+<li><b>Feature test method:</b> trigger/layer/messages/counters → baseline → matrix (+/−/boundary/stability/regression) → automate → judge per-layer KPIs. Throughput layer matters: eGTP (offered) > MAC > PDCP (delivered, dashboard). Band-switch: poll 30 s ≤ 5 min × 15 iterations</li>
+<li><b>Traffic watchdog:</b> UL iPerf client on phone dies after a blip (DL server survives). Poll 20 s, restart only UE+dir after 3 zero reads, cap 10, ramp-grace, seen-alive; re-resolve IP; report every heal. Lesson: read-failure (None) ≠ zero; corroborate (UL MCS floor)</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#5bc4ef">RCT / RU essentials</h3><ul>
@@ -182,6 +188,15 @@
 <li><b>Spectrum sensing:</b> RU FFTs wideband IQ → PSD/spectrogram (RBW=Fs/N), waterfall over time; ship to SMO via M-plane (NETCONF/YANG), int16 deci-dBm to shrink size; for interference/incumbent/DSS</li>
 <li><b>Power monitoring:</b> RU self-reports power = DC input × PSU-efficiency correction; efficiency is load-dependent → use factory-measured LUT not datasheet; validate vs lab power analyzer; residual gap also = telemetry accuracy + −48V cable loss</li>
 <li><b>DSA vs dBFS-adj:</b> DSA = real atten before ADC (raises headroom/clip ceiling, noise floor &amp; sensitivity unchanged); adc_dbfs_adj = reporting-only dBFS→dBm offset, must track DSA 1:1, calibrate on linear plateau (RSSI ≈ ±2 dB). Control test: DSA change moves RSSI but not sensitivity ⟹ fix the report, not the radio</li>
+<li><b>uSleep test:</b> saving comes from all-zero <i>symbols</i> (time), not "% RBs" (freq-domain 10% ⇒ ~0 W, correct). AAU power = Σ3 flavours × (PA rail + 12 V), get-PSU 1 s→1 min avg; PM CSV/5 min; ΔP=P<sub>off</sub>−P<sub>on</sub> at thermal steady state, same source, drop zero samples</li>
+<li><b>Variable load:</b> DPD must hold ACLR/EVM at every occupancy (100→0%); wait ~60 s re-convergence after any step. RX: keep max ≈ −15 dBFS; AGC 10 dB step ~−54 dBm; any atten change shifts dBFS 1:1 ⇒ RSSI offset must track (sensitivity unchanged)</li>
+<li><b>DPD:</b> IM3 grows 3 dB/dB ⇒ ACLR degrades 2 dB/dB; DPD buys ~15–20 dB. Memory polynomial Σa<sub>km</sub>x(n−m)|x(n−m)|<sup>k−1</sup>; ORX needs 3–5× BW + tight delay align; CFR before DPD; hard clip is unfixable; always compare DPD off vs on</li>
+<li><b>ADC/DAC:</b> 0 dBFS ≈ +2 dBm (this ADC); dBm@ant = dBFS + 2 − RX gain; keep ≤ −15 dBFS for PAPR. SNR=6.02N+1.76; NF<sub>ADC</sub>=NSD+FS+174 ≈ 27 dB but ~33 dB gain ahead ⇒ +0.7 dB. Jitter SNR = −20log(2πf·t<sub>j</sub>). DAC: images k·Fs±f, sinc −3.9 dB @Fs/2</li>
+<li><b>Line-up (B1 path):</b> DAC −5 dBm → ~−50 dB cables/splitter/pads, +gain stages → PA +40.5 dB ⇒ 40.1 dBm → −1.7 dB coupler/circ/filter ⇒ 38.4 dBm. RX: −106 dBm → LNA (NF 0.55) → +32.8 dB total ⇒ −73 dBm at ADC; cascade NF 2.44 dB</li>
+<li><b>PRACH placement:</b> 6 RB = 1.08 MHz; FHGW reg in 625 Hz units (1 RB = 288): Reg = (prach_RB − N<sub>RB</sub>/2)·288 + 852 (5/10/15/20 MHz ⇒ 1284/3732/7044/10356). Move PRACH −10 RB ⇒ reg −2880 (5 MHz: −1596). Msg3 = PRACH+6</li>
+<li><b>BBU↔RU lifecycle:</b> POST+identity → DHCP → NETCONF call-home → caps (module-cap) → supervision → PTP LOCKED → config (PE/endpoints/array-carriers) → active ⇒ DAC/PA on → C-plane then U-plane per symbol → FM/PM/heartbeat. RU = low-PHY only; stall anywhere ⇒ carriers DISABLED</li>
+<li><b>BW change:</b> edit <code>bw_mhz</code> (Hz) in on_the_fly_configs.json → reboot (startup.xml is regenerated, never edit it) → verify startup.xml, sysrepo running, OBW. Caps: 5–20 MHz/carrier, 2 carriers, 40 MHz total</li>
+<li><b>J-Link flash:</b> unit powered & booted; 5-pin RESET/SWDIO/GND/SWCLK/VTref → J-Link 15/7/4/9/1; JFlashLite: select MCU, .bin at 0x00000000, Program → "Done." → power-cycle, verify version. VTref = voltage sense, not supply</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#f5a623">Conformance Limits (3GPP)</h3><ul>
@@ -191,6 +206,7 @@
 <li><b>RefSens</b> = −174+10log₁₀(BW)+NF+IM+SNR; pass if UL_input &lt; KPI(=base+DSA)</li>
 <li><b>RX dyn range</b> C/N = −69.9 − noise(BW) + 10log₁₀(BW_cfg/4.5)</li>
 <li><b>PRACH miss%</b> = (window−detected)/window×100, pass ≤1% · <b>RRH gain</b> = RSSI−UL_rx+10log₁₀(12·N_RB)</li>
+<li><b>ACLR vs EVM:</b> ACLR bad + EVM bad ⇒ compression/DPD; ACLR OK + EVM bad ⇒ CFR/phase noise/IQ/floor. EVM≈1/√SNR (8%≈22 dB, 3.5%≈29 dB). LTE ACLR = 45 dBc <i>or</i> −13 dBm/MHz (Cat A), whichever less stringent ⇒ ~40 dBc at 20 MHz</li>
 </ul></div>
 
 <div class="cs"><h3 style="color:#9b8cf8">Band Plan &amp; RF Filters</h3><ul>
