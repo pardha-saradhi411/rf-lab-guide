@@ -5,6 +5,14 @@
 
 ---
 
+## 🗂️ Site structure & maintenance
+
+- `index.html` links to one page per topic (RCT Features, LTE, 5G SA/NSA, Common, Protocol, Protocol Debug, Notes, Automation, …). New content goes into the matching page, never a new filter.
+- **Filters** (top bar, injected by `shared.js`): RF Basics · RCT Features · LTE · 5G · Protocol & Call Flows · Debug · O-RAN / RU-BBU · Lab & Automation. Each groups its cards into sub-sections (e.g. LTE → Features / Debug / Call Flows / Learning) using the card's page and `data-tags`.
+- After adding or editing cards run `python tools/build_index.py` (rebuilds `search-index.json` and the home-page tiles) and bump `CACHE` in `sw.js`.
+
+---
+
 ## 🚀 Quick Access
 
 | File | Description |

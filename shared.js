@@ -389,21 +389,114 @@ window.addEventListener('hashchange', function(){
   }
 });
 
-/* ===== Unified GLOBAL tag filter — identical behavior on every page =====
-   A chip lists EVERY card carrying that tag across the whole guide (from
-   search-index.json), grouped by section. Fixes the old split where index.html
-   chips searched and section-page chips filtered only the current page. */
-var TAG_SYNONYMS = {
-  '5g':['5g','nr'],
-  troubleshooting:['troubleshooting','debug','rca'],
-  noise:['noise','nf'],
-  lab:['lab','instruments','bench','hands-on'],
-  handover:['handover','mobility'],
-  'call-flow':['call-flow'],
-  fundamentals:['fundamentals'],
-  framework:['framework']
+/* ===== Topic filters: chips injected into the top bar; each lists matching cards
+   from search-index.json grouped into sub-sections (e.g. LTE -> Learning / Call Flows / Features / Debug). */
+function _has(c){ var t=' '+String(c.tags||'').toLowerCase()+' ';
+  return Array.prototype.slice.call(arguments,1).some(function(x){ return t.indexOf(' '+x+' ')>=0; }); }
+function _in(c){ return Array.prototype.slice.call(arguments,1).indexOf(c.file.replace('.html',''))>=0; }
+var FILTERS = [
+  {key:'rf', label:'RF Basics', color:'#9b8cf8',
+   when:function(c){ return _in(c,'foundation','beginner','intermediate','expert') || (_has(c,'fundamentals') && _in(c,'features','common-features','instruments')); },
+   groups:[
+    ['Foundations & theory', function(c){ return _has(c,'fundamentals','noise','nf','propagation','modulation','electronics','digital-comms','link-budget','air-interface','ofdm','s-params','filters'); }],
+    ['TX chain — PA, DPD, ACLR, EVM', function(c){ return _has(c,'tx','pa','dpd','aclr','evm','cfr'); }],
+    ['RX chain — LNA, ADC, sensitivity, PRACH', function(c){ return _has(c,'rx','adc','rssi','sensitivity','lna','prach','ul'); }],
+    ['Hardware, architecture & O-RAN', function(c){ return _has(c,'architecture','hardware','rffe','aau','signal-chain','oran','fhgw','beamforming','mimo'); }],
+    ['Lab practice, standards & career', function(){ return true; }]]},
+  {key:'rct', label:'RCT Features', color:'#ff6b6b',
+   when:function(c){ return _in(c,'features') || (_has(c,'rct') && _in(c,'intermediate','expert','docs','instruments','common-features')); },
+   groups:[
+    ['RU features — uSleep, PA, calibration, power', function(c){ return /^(USLEEP|PAE|PAWARM|THERM|RBTCAUSE|RUPLAT|DACG|CAL0|RFFE|RSSI0|GAIN_CAL|FCDSA|FC11|FC20|NBIOT|SPLANE|PHYT|FHGW)/.test(c.id) || _has(c,'efficiency','calibration'); }],
+    ['Automation traces & framework', function(c){ return _has(c,'automation','framework','cicd','cadence','prechecks'); }],
+    ['Specs, limits & references', function(c){ return _has(c,'reference','standards','glossary','video'); }],
+    ['RF deep dives & noise theory', function(c){ return _has(c,'fundamentals','noise'); }],
+    ['TX conformance tests', function(c){ return _has(c,'tx'); }],
+    ['RX conformance tests', function(c){ return _has(c,'rx','prach','rssi','sensitivity'); }],
+    ['Bench setup & docs', function(){ return true; }]]},
+  {key:'lte', label:'LTE', color:'#5bc4ef',
+   when:function(c){ return _has(c,'lte','lte-feature','volte','csfb','ca') && _in(c,'protocol','protocol_debug','lte-features','notes','expert','interview') && !(_in(c,'expert') && _has(c,'fundamentals')); },
+   groups:[
+    ['LTE Features', function(c){ return _in(c,'lte-features'); }],
+    ['LTE Debug', function(c){ return _in(c,'protocol_debug') || _has(c,'debug','troubleshooting'); }],
+    ['LTE Call Flows', function(c){ return _has(c,'call-flow','handover','mobility'); }],
+    ['LTE Learning', function(){ return true; }]]},
+  {key:'5g', label:'5G', color:'#9b8cf8',
+   when:function(c){ return _has(c,'5g','nr','nr-sa','nr-nsa','endc','en-dc') && _in(c,'protocol','protocol_debug','nr-sa-features','nr-nsa-features','notes','expert','interview') && !(_in(c,'expert') && _has(c,'fundamentals')); },
+   groups:[
+    ['5G SA Features', function(c){ return _in(c,'nr-sa-features'); }],
+    ['5G NSA / EN-DC Features', function(c){ return _in(c,'nr-nsa-features'); }],
+    ['5G Debug', function(c){ return _in(c,'protocol_debug') || _has(c,'debug','troubleshooting'); }],
+    ['5G Call Flows', function(c){ return _has(c,'call-flow','handover','mobility'); }],
+    ['5G Learning', function(){ return true; }]]},
+  {key:'protocol', label:'Protocol & Call Flows', color:'#f5a623',
+   when:function(c){ return _in(c,'protocol','notes','interview') || (_has(c,'call-flow') && !_in(c,'features','protocol_debug')); },
+   groups:[
+    ['Study notes (chapter by chapter)', function(c){ return _in(c,'notes'); }],
+    ['Layers — MAC · RLC · PDCP · RRC · NAS', function(c){ return _has(c,'mac','rlc','pdcp','rrc','nas','harq'); }],
+    ['Call flows & procedures', function(c){ return _has(c,'call-flow','handover','mobility','idle-mode'); }],
+    ['Channels, PHY & reference signals', function(c){ return _has(c,'phy','channel','numerology','csi','mimo'); }],
+    ['Architecture & interfaces', function(c){ return _has(c,'architecture','s1ap','x2ap','ngap','transport'); }],
+    ['More protocol topics', function(){ return true; }]]},
+  {key:'debug', label:'Debug', color:'#ff6b6b',
+   when:function(c){ return _in(c,'protocol_debug') || _has(c,'troubleshooting','debug','rca'); },
+   groups:[
+    ['Protocol / call debug', function(c){ return _in(c,'protocol_debug','protocol','notes','lte-features','nr-sa-features','nr-nsa-features'); }],
+    ['RF & RCT test debug', function(c){ return _has(c,'rct','tx','rx','measurements','sensitivity'); }],
+    ['RU / hardware debug', function(c){ return _has(c,'hardware','aau','oran','fault-management'); }],
+    ['Automation & UE debug', function(){ return true; }]]},
+  {key:'oran', label:'O-RAN / RU-BBU', color:'#00d4a0',
+   when:function(c){ return _in(c,'common-features') || (_has(c,'oran','fronthaul','fhgw','ecpri','netconf','sync','splane','mplane') && !_in(c,'protocol_debug')); },
+   groups:[
+    ['RU / BBU common features', function(c){ return _in(c,'common-features'); }],
+    ['Architecture & fronthaul', function(c){ return _has(c,'architecture','fronthaul','fhgw','ecpri','transport'); }],
+    ['Management, timing & sync', function(c){ return _has(c,'netconf','sync','splane','mplane','management','timing'); }],
+    ['More O-RAN topics', function(){ return true; }]]},
+  {key:'lab', label:'Lab & Automation', color:'#c8b800',
+   when:function(c){ if(_in(c,'features')) return _has(c,'lab');
+     return _in(c,'instruments','automation','resume','docs') || _has(c,'lab','instruments','bench','hands-on','scpi','python','linux','scripting'); },
+   groups:[
+    ['Instruments & bench', function(c){ return _in(c,'instruments') || _has(c,'lab','instruments','vna','bench','hands-on'); }],
+    ['Automation — Python, pytest, Robot, SCPI', function(c){ return _in(c,'automation') || _has(c,'automation','python','scpi','framework','scripting','linux'); }],
+    ['UE tools & field testing', function(c){ return _in(c,'resume') || _has(c,'ue'); }],
+    ['Docs, videos & resources', function(){ return true; }]]}
+];
+// Old links to cards that changed page (page.html#ID) are forwarded to the new page.
+var MOVED = {
+  protocol_debug:{HO04:'lte-features',CA01:'lte-features',CA02:'lte-features',CA03:'lte-features',CA04:'lte-features',EB01:'lte-features',EB02:'lte-features',
+    HO01:'nr-sa-features',HO02:'nr-sa-features',HO03:'nr-sa-features',HO05:'nr-sa-features',HO06:'nr-sa-features',
+    CSI01:'protocol',CSI02:'protocol',CSI03:'protocol',CSI04:'protocol',LAT01:'protocol',ROHC01:'protocol',QOS01:'protocol',SCFDMA01:'protocol',
+    TPUT01:'protocol',EPC01:'protocol',EPC02:'protocol',EPC03:'protocol',TM01:'protocol',PAG01:'protocol',TAU01:'protocol'}
 };
-var SECTION_TITLES = {foundation:'Foundation',beginner:'Beginner',intermediate:'Intermediate',expert:'Expert',protocol:'Protocol',protocol_debug:'Protocol Debug',features:'RCT Features',instruments:'Instruments',docs:'Docs',resume:'Resume',index:'Home'};
+(function(){
+  if(typeof location==='undefined') return;
+  var page=(location.pathname.split('/').pop()||'index.html').replace('.html','');
+  var id=decodeURIComponent(location.hash.slice(1));
+  if(id && MOVED[page] && MOVED[page][id]) location.replace(MOVED[page][id]+'.html#'+id);
+})();
+function classifyCard(c){
+  var out=[];
+  FILTERS.forEach(function(f){
+    if(!f.when(c)) return;
+    for(var i=0;i<f.groups.length;i++){ if(f.groups[i][1](c)){ out.push([f.key,f.groups[i][0]]); break; } }
+  });
+  return out;
+}
+function buildFilterBar(){
+  if(document.querySelector('.tag-btn')) return;
+  var bar=document.querySelector('nav#topbar .tb-bar')||document.querySelector('nav#topbar'); if(!bar) return;
+  var h='<span class="tb-div"></span><span class="flt-lbl">Filter</span>'+
+    '<button class="tag-btn active" data-tag="all" onclick="filterByTag(\'all\')" style="--c:#00d4a0">All</button>';
+  FILTERS.forEach(function(f){ h+='<button class="tag-btn" data-tag="'+f.key+'" onclick="filterByTag(\''+f.key+'\')" style="--c:'+f.color+'">'+f.label+'</button>'; });
+  bar.insertAdjacentHTML('beforeend',h);
+}
+if(typeof document!=='undefined') document.addEventListener('DOMContentLoaded',function(){
+  buildFilterBar();
+  var p=new URLSearchParams(location.search).get('topic'); if(p) filterByTag(p);
+});
+var PAGE_NAMES={'foundation.html':'Foundation','beginner.html':'Beginner','intermediate.html':'Intermediate','expert.html':'Expert','protocol.html':'Protocol',
+  'protocol_debug.html':'Protocol Debug','features.html':'RCT Features','lte-features.html':'LTE Features','nr-sa-features.html':'5G SA','nr-nsa-features.html':'5G NSA',
+  'common-features.html':'Common','instruments.html':'Instruments','docs.html':'Docs','resume.html':'Resume','interview.html':'Interview','automation.html':'Automation',
+  'notes.html':'Notes','cheatsheet.html':'Cheat Sheet','ai.html':'Ask AI'};
 function filterByTag(tag){
   document.querySelectorAll('.tag-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tag===tag); });
   var panel=document.getElementById('tag-results');
@@ -414,28 +507,24 @@ function filterByTag(tag){
     if(nav && nav.parentNode) nav.parentNode.insertBefore(panel, nav.nextSibling);
     else document.body.insertBefore(panel, document.body.firstChild);
   }
-  if(tag==='all'){ panel.style.display='none'; panel.innerHTML=''; return; }
-  var chip=document.querySelector('.tag-btn[data-tag="'+tag+'"]');
-  var label=(chip?chip.textContent:tag).trim();
+  var f=FILTERS.filter(function(x){ return x.key===tag; })[0];
+  if(!f){ panel.style.display='none'; panel.innerHTML=''; return; }
   fetch('search-index.json').then(function(r){return r.json();}).then(function(idx){
-    var toks=TAG_SYNONYMS[tag]||[tag];
-    var hits=idx.filter(function(c){
-      var tg=' '+String(c.tags||'').toLowerCase()+' ';
-      return toks.some(function(x){ return tg.indexOf(' '+x+' ')>=0; });
+    var groups={}, n=0;
+    idx.forEach(function(c){ classifyCard(c).forEach(function(k){ if(k[0]===tag){ (groups[k[1]]=groups[k[1]]||[]).push(c); n++; } }); });
+    var present=f.groups.filter(function(g){ return groups[g[0]]; });
+    var html='<div class="tr-hd"><span class="tr-title">🔖 '+f.label+'</span><span class="tr-count">'+n+' card'+(n===1?'':'s')+' across the guide</span>'+
+      '<button class="tr-clear" onclick="filterByTag(\'all\')">✕ clear filter</button></div>'+
+      '<div class="tr-jump">'+present.map(function(g,i){ return '<button onclick="document.getElementById(\'tr-g'+i+'\').scrollIntoView({behavior:\'smooth\'})">'+g[0]+' <b>'+groups[g[0]].length+'</b></button>'; }).join('')+'</div>';
+    present.forEach(function(g,i){
+      var hits=groups[g[0]];
+      html+='<div class="tr-sec" id="tr-g'+i+'">'+g[0]+' <span class="tr-n">'+hits.length+'</span></div><div class="tr-grid">';
+      html+=hits.map(function(h){ return '<a class="tr-hit" href="'+h.file+'#'+h.id+'"><span class="tr-id">'+h.id+'</span><span class="tr-ht">'+h.title+'</span><span class="tr-pg">'+(PAGE_NAMES[h.file]||h.file.replace('.html',''))+'</span></a>'; }).join('');
+      html+='</div>';
     });
-    var html='<div class="tr-hd"><span class="tr-title">🔖 '+label+'</span><span class="tr-count">'+hits.length+' card'+(hits.length===1?'':'s')+' across the guide</span><button class="tr-clear" onclick="filterByTag(\'all\')">✕ clear filter</button></div>';
-    if(!hits.length){
-      html+='<div class="tr-empty">No cards tagged &ldquo;'+label+'&rdquo;.</div>';
-    } else {
-      var byFile={}; hits.forEach(function(h){ (byFile[h.file]=byFile[h.file]||[]).push(h); });
-      Object.keys(byFile).forEach(function(f){
-        var key=f.replace('.html','');
-        html+='<div class="tr-sec">'+(SECTION_TITLES[key]||key)+' <span class="tr-n">'+byFile[f].length+'</span></div><div class="tr-grid">';
-        html+=byFile[f].map(function(h){ return '<a class="tr-hit" href="'+h.file+'#'+h.id+'"><span class="tr-id">'+h.id+'</span><span class="tr-ht">'+h.title+'</span></a>'; }).join('');
-        html+='</div>';
-      });
-    }
+    if(!n) html+='<div class="tr-empty">No cards in this topic yet.</div>';
     panel.innerHTML=html; panel.style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
   }).catch(function(){ panel.style.display='block'; panel.innerHTML='<div class="tr-empty">Could not load the card index.</div>'; });
 }
+if(typeof module!=='undefined') module.exports={FILTERS:FILTERS,classifyCard:classifyCard};
