@@ -484,7 +484,7 @@ function classifyCard(c){
 function buildFilterBar(){
   if(document.querySelector('.tag-btn')) return;
   var bar=document.querySelector('nav#topbar .tb-bar')||document.querySelector('nav#topbar'); if(!bar) return;
-  var h='<span class="tb-div"></span><span class="flt-lbl">Filter</span>'+
+  var h='<span class="flt-break"></span><span class="flt-lbl" title="Lists matching cards from every page, grouped by sub-topic">Filter by topic:</span>'+
     '<button class="tag-btn active" data-tag="all" onclick="filterByTag(\'all\')" style="--c:#00d4a0">All</button>';
   FILTERS.forEach(function(f){ h+='<button class="tag-btn" data-tag="'+f.key+'" onclick="filterByTag(\''+f.key+'\')" style="--c:'+f.color+'">'+f.label+'</button>'; });
   bar.insertAdjacentHTML('beforeend',h);

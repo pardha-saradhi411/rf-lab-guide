@@ -373,6 +373,7 @@ body.light-mode .nav-chip{background:#dfe3f2;color:#3a4260;border-color:#c0c8e0}
 body.light-mode .tr-hit{background:#f2f4fb;border-color:#d5dbe8}
 body.light-mode .tr-ht{color:#2a3550}
 /* topic filter chips (injected by shared.js) + grouped results */
+.flt-break{flex-basis:100%;height:0}
 .flt-lbl{color:#5a6480;font-size:10px;font-weight:700;letter-spacing:1.5px;margin:0 6px 0 2px;align-self:center;text-transform:uppercase}
 .tag-btn{background:transparent;color:var(--c);border:1px solid var(--c);border-radius:20px;padding:3px 12px;font-size:11px;cursor:pointer;white-space:nowrap}
 .tag-btn.active{background:var(--c);color:#0b0e17;font-weight:700}
