@@ -3,6 +3,7 @@
 usage: python tools/insert_cards.py <cards_dir> <headings.json> [--dry]
   <cards_dir>/<page>/NN_ID.html     new card, appended under a sub-section heading
   <cards_dir>/<page>/append_ID.html block added at the end of an existing card's body
+  <cards_dir>/<page>/prepend_ID.html block added at the top of an existing card body
   <cards_dir>/<page>/replace_ID.html full replacement of an existing card
 headings.json: {"page": [["Heading", ["ID", ...]], ...]}
 """
@@ -63,6 +64,13 @@ for pdir in sorted(p for p in cards_dir.iterdir() if p.is_dir()):
             a, b = span(s, cid)
             s = s[:a] + frag + s[b:]
             touched.append((cid, frag))
+        elif f.name.startswith('prepend_'):
+            cid = f.stem[8:]
+            a, b = span(s, cid)
+            c = s[a:b]
+            k = c.index('>', c.index('<div class="module-body"')) + 1
+            s = s[:a] + c[:k] + '\n' + frag + c[k:] + s[b:]
+            touched.append((cid, frag))
         elif f.name.startswith('append_'):
             cid = f.stem[7:]
             a, b = span(s, cid)
@@ -70,7 +78,7 @@ for pdir in sorted(p for p in cards_dir.iterdir() if p.is_dir()):
             k = c.rfind('</div>', 0, c.rfind('</div>'))
             s = s[:a] + c[:k] + frag + '\n' + c[k:] + s[b:]
             touched.append((cid, frag))
-    new = [f for f in files if not f.name.startswith(('replace_', 'append_'))]
+    new = [f for f in files if not f.name.startswith(('replace_', 'append_', 'prepend_'))]
     if new:
         by_id, order = {}, []
         for f in new:
