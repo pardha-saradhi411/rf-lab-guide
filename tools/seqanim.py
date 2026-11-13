@@ -1,10 +1,10 @@
 """Animated sequence-diagram SVG (SMIL): messages appear one by one, a dot travels each arrow, then the flow loops.
 
 seq_svg(entities, messages) — entities: list of names; messages: (src, dst, label, kind)
-kind: rrc | nas | ap (S1AP/X2AP/NGAP/XnAP) | core (Diameter/GTP-C/SBI/PFCP) | data (user plane)
+kind: rrc | nas | ap (S1AP/X2AP/NGAP/XnAP) | core (Diameter/GTP-C/SBI/PFCP) | sip | data (user plane)
 """
-KIND = {'rrc': '#5bc4ef', 'nas': '#9b8cf8', 'ap': '#f5a623', 'core': '#8a94b0', 'data': '#00d4a0'}
-LEGEND = [('rrc', 'RRC / radio'), ('nas', 'NAS'), ('ap', 'S1AP · X2AP · NGAP'), ('core', 'core (Diameter · GTP-C · SBI · PFCP)'), ('data', 'user plane / data')]
+KIND = {'rrc': '#5bc4ef', 'nas': '#9b8cf8', 'ap': '#f5a623', 'core': '#8a94b0', 'sip': '#ff8fab', 'data': '#00d4a0'}
+LEGEND = [('rrc', 'RRC / radio'), ('nas', 'NAS'), ('ap', 'S1AP · X2AP · NGAP'), ('core', 'core (Diameter · GTP-C · SBI · PFCP)'), ('sip', 'SIP (IMS)'), ('data', 'user plane / data')]
 STEP, TRAVEL, HOLD = 0.9, 0.6, 3.0
 
 
@@ -19,7 +19,8 @@ def seq_svg(entities, messages, width=780, uid='sq'):
     out = ['<defs>'] + [f'<marker id="{uid}-{k}" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">'
                         f'<path d="M0,0 L8,4 L0,8 z" fill="{c}"/></marker>' for k, c in KIND.items()] + ['</defs>']
     lx = 10
-    for k, name in LEGEND:
+    used = {m[3] for m in messages}
+    for k, name in [l for l in LEGEND if l[0] in used]:
         out.append(f'<line x1="{lx}" y1="12" x2="{lx + 18}" y2="12" stroke="{KIND[k]}" stroke-width="2"'
                    f'{" stroke-dasharray=\"4,3\"" if k == "data" else ""}/><text x="{lx + 22}" y="15" fill="{KIND[k]}" font-size="9.5">{name}</text>')
         lx += 40 + len(name) * 5.6
