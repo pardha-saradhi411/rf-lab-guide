@@ -2643,6 +2643,81 @@ curl -s <a1-endpoint>/a1-p/policytypes/<type>/policies/<id>/status
 </div>
 </div>
 </div>
+<div class="sub-sec"><span class="sub-sec-t">ASN.1 codecs</span></div>
+<div class="module-card" id="ASN1GEN01" data-tags="protocol 5g lte reference standards">
+<div class="module-hdr" onclick="toggleModule(this)">
+  <span class="mod-num">ASN1GEN01</span>
+  <span class="mod-title">Regenerating 3GPP ASN.1 Codecs &mdash; F1AP/NGAP/E1AP/XnAP/X2AP/RRC release upgrades and what the decoder version means for interop</span>
+  <span class="mod-tag advanced">Protocol</span>
+  <span class="mod-expand">click to expand</span>
+  <span class="chevron">▾</span>
+</div>
+<div class="module-body" style="display:none">
+<div style="padding:20px 24px;max-width:1200px;margin:0 auto">
+<div style="margin:14px 0;padding:14px 16px;background:#5bc4ef11;border-left:3px solid #5bc4ef;border-radius:6px"><div style="font-weight:700;color:#5bc4ef;margin-bottom:8px;font-size:13px">In plain English</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7">
+Every 3GPP control-plane protocol the RAN speaks &mdash; RRC towards the UE, F1AP between CU and DU, E1AP between CU-CP and CU-UP, NGAP to the 5G core, XnAP/X2AP between base stations &mdash; is defined in <b>ASN.1</b>, an abstract notation for message structures. The specs carry the ASN.1 text inline, fenced by <code>-- ASN1START</code> / <code>-- ASN1STOP</code> comments. On the wire the messages are packed with <b>PER</b> (Packed Encoding Rules; aligned PER for the APs, unaligned for RRC), which is so compact that you cannot read or write it by hand. So the stack does not hand-code parsers: an <b>ASN.1 compiler</b> turns the spec text into C structures plus encode/decode functions.<br><br>
+When the product moves to a newer 3GPP release, those codecs have to be regenerated. The procedure is mechanical, but the consequence matters for testing: <b>the stack can only understand the IEs that exist in the ASN.1 version it was generated from</b>. A newer peer sending an IE from a later version is handled through the protocol's extension mechanism &mdash; typically skipped, "ignored" or rejected depending on its criticality. If an interop log says an IE "is ignored", the first question is which ASN.1 release each side decodes.<br><br>
+For decoding a message byte by byte see <b>S1AP01</b>; this card is about where the decoder comes from.
+</div></div>
+<div style="margin:12px 0;padding:12px 14px;background:#0a0c10;border:1px solid #1e2535;border-radius:8px"><div style="font-size:12px;color:#8a94b0;margin-bottom:6px;font-weight:700">Figure &mdash; from spec text to stack codec (own drawing)</div><svg viewBox="0 0 760 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px">
+<rect width="760" height="150" fill="#0a0c10"/>
+<g font-family="sans-serif" font-size="10.5" fill="#c8c8d8">
+<rect x="10" y="40" width="120" height="50" rx="5" fill="#5bc4ef22" stroke="#5bc4ef"/><text x="70" y="61" text-anchor="middle">3GPP spec text</text><text x="70" y="77" text-anchor="middle" font-size="9">e.g. TS 38.473 F1AP</text>
+<rect x="160" y="40" width="120" height="50" rx="5" fill="#5bc4ef22" stroke="#5bc4ef"/><text x="220" y="61" text-anchor="middle">extract</text><text x="220" y="77" text-anchor="middle" font-size="9">ASN1START..STOP</text>
+<rect x="310" y="40" width="130" height="50" rx="5" fill="#9b8cf822" stroke="#9b8cf8"/><text x="375" y="61" text-anchor="middle">ASN.1 compiler</text><text x="375" y="77" text-anchor="middle" font-size="9">PER + cfg prefixes</text>
+<rect x="470" y="40" width="120" height="50" rx="5" fill="#00d4a022" stroke="#00d4a0"/><text x="530" y="61" text-anchor="middle">.c / .h codecs</text><text x="530" y="77" text-anchor="middle" font-size="9">+ runtime libs</text>
+<rect x="620" y="40" width="130" height="50" rx="5" fill="#f5a62322" stroke="#f5a623"/><text x="685" y="61" text-anchor="middle">stack shared</text><text x="685" y="77" text-anchor="middle" font-size="9">asn library</text>
+<line x1="130" y1="65" x2="160" y2="65" stroke="#5bc4ef" stroke-width="1.5"/><line x1="280" y1="65" x2="310" y2="65" stroke="#9b8cf8" stroke-width="1.5"/><line x1="440" y1="65" x2="470" y2="65" stroke="#00d4a0" stroke-width="1.5"/><line x1="590" y1="65" x2="620" y2="65" stroke="#f5a623" stroke-width="1.5"/>
+<text x="380" y="125" text-anchor="middle" font-size="9.5" fill="#8a94b0">The release you extract from decides which IEs the stack can encode and decode.</text>
+</g></svg><div style="font-size:10.5px;color:#4a5470;margin-top:4px">One pass per protocol: RRC, F1AP, E1AP, NGAP, XnAP, X2AP.</div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#00d4a011;border-left:3px solid #00d4a0;border-radius:6px"><div style="font-weight:700;color:#00d4a0;margin-bottom:8px;font-size:13px">Level 1 &mdash; what is generated and why</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><ul style="margin:0;padding-left:18px">
+<li>3GPP publishes the ASN.1 of each protocol inside the spec: RRC in TS 36.331 / 38.331, F1AP in TS 38.473, E1AP in TS 38.463, NGAP in TS 38.413, XnAP in TS 38.423, X2AP in TS 36.423. Only the text between <code>-- ASN1START</code> and <code>-- ASN1STOP</code> is grammar; the rest is prose.</li>
+<li>The compiler produces C types for every message and IE, PER encode/decode functions, free functions for decoded structures and print-to-string / print-to-stream helpers (very useful for logs).</li>
+<li><b>Information-object tables and open types.</b> The APs (F1AP, NGAP ...) use a protocol-IE container whose value type depends on the IE id. Generating "table unions" turns those into a typed union, so code can access <code>value.choice</code> directly instead of re-decoding an open type by hand.</li>
+<li><b>Symbol prefixes.</b> Several protocols define types with the same names (Cause, PLMN-Identity, ...). A per-protocol compiler configuration file adds a prefix to generated names so F1AP, NGAP and E1AP can live in one library without clashes.</li>
+<li><b>Extensibility.</b> ASN.1 types marked with <code>...</code> can grow in later releases; PER encodes an extension bit so an older decoder can skip unknown additions. Protocol-IE containers carry a <i>criticality</i> (reject / ignore / ignore-and-notify) that tells the receiver what to do with an IE id it does not know.</li>
+</ul></div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">Level 2 &mdash; regenerating a codec and testing the upgrade</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Regeneration procedure</b> (per protocol, illustrated for F1AP Rel-16.12):<pre style="background:#0a0c10;border:1px solid #1e2535;border-radius:6px;padding:10px 12px;font-size:11.5px;color:#c8c8d8;overflow-x:auto;white-space:pre"># 1. copy the ASN.1 section of the spec into a text file, named by protocol + release
+#    e.g. f1ap_rel16_12.txt ; convert to unix line endings (vi:  :se fileformat=unix)
+
+# 2. keep only the grammar blocks
+sed -n '/-- ASN1START/,/-- ASN1STOP/p' &lt; f1ap_rel16_12.txt &gt; f1ap_rel16_12.asn
+
+# 3. generate PER C codecs (option names vary by compiler; the intent is):
+asn1c f1ap_rel16_12.asn -c -per -config f1ap.cfg -table-unions \
+      -o f1ap/output_16_12 -genFree -print -prtToStr -prtToStrm \
+      -hfile f1ap_asn_enc_dec_3gpp.h -cfile f1ap_asn_enc_dec_3gpp.c
+#    NGAP needed one extra option (-noContaining) to handle CONTAINING constraints
+
+# 4. copy generated .c into the stack's common asn src/ and .h into inc/
+# 5. if the compiler version changed: also copy its runtime sources and
+#    runtime libraries, rebuild the shared asn library once, then revert
+#    the temporary makefile change</pre><b>What to test after a codec upgrade</b>
+<ul style="margin:4px 0 0;padding-left:18px">
+<li><b>Round trip</b> every message type in your captures: decode an old capture with the new library, re-encode, compare bytes. Differences point at changed optionality or extension handling.</li>
+<li><b>Interop matrix:</b> new stack against the old peer (CU vs DU, gNB vs core, eNB vs neighbour) and old against new. Watch for <i>ErrorIndication</i>, <i>F1 Setup Failure</i> or "unknown IE ignored" logs.</li>
+<li><b>Criticality behaviour:</b> inject an IE id the stack does not know with criticality reject, ignore, and ignore-and-notify; the reaction must follow the spec (failure message, silent skip, or skip with a criticality-diagnostics report).</li>
+<li><b>Wireshark version:</b> make sure the dissector decodes the same release, otherwise new IEs show as undecoded bytes and look like a stack bug.</li>
+</ul></div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#9b8cf811;border-left:3px solid #9b8cf8;border-radius:6px"><div style="font-weight:700;color:#9b8cf8;margin-bottom:8px;font-size:13px">Level 3 &mdash; version gaps and pitfalls</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><b>Snapshot of a real version gap.</b> At one point the stack's codecs were generated from these releases while the latest Rel-16 versions were already newer:<div style="overflow-x:auto;margin:10px 0"><table style="width:100%;border-collapse:collapse;font-size:11.5px;min-width:560px"><thead><tr style="background:#0a0c10"><th style="padding:6px 8px;text-align:left;color:#9b8cf8;border-bottom:1px solid #1e2535">protocol</th><th style="padding:6px 8px;text-align:left;color:#9b8cf8;border-bottom:1px solid #1e2535">generated from</th><th style="padding:6px 8px;text-align:left;color:#9b8cf8;border-bottom:1px solid #1e2535">latest Rel-16 at the time</th><th style="padding:6px 8px;text-align:left;color:#9b8cf8;border-bottom:1px solid #1e2535">gap</th></tr></thead><tbody><tr style="background:#0d0f14"><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">F1AP</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.4</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.12</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">8 versions</td></tr>
+<tr style="background:#111420"><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">NGAP</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.4</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.11</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">7 versions</td></tr>
+<tr style="background:#0d0f14"><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">X2AP</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.4</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.10</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">6 versions</td></tr>
+<tr style="background:#111420"><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">XnAP</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.4</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.12</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">8 versions</td></tr>
+<tr style="background:#0d0f14"><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">RRC</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.3</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.11</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">8 versions</td></tr>
+<tr style="background:#111420"><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">E1AP</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.12</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">16.12</td><td style="padding:6px 8px;color:#c8c8d8;vertical-align:top">up to date</td></tr>
+</tbody></table></div>Mismatches like this are normal &mdash; codecs are upgraded in batches &mdash; but they explain a whole class of interop findings: a UE or core sending an IE added in 16.6 will be skipped by a 16.4 decoder, and a feature "configured but not applied" may simply have no field to land in.<br><br>
+<b>Pitfalls</b>
+<ul style="margin:4px 0 0;padding-left:18px">
+<li><b>Windows line endings</b> in the copied spec text break the sed extraction or the compiler parse with confusing errors.</li>
+<li><b>Name clashes</b> appear only when two protocols are linked into one library; always generate with the per-protocol prefix configuration.</li>
+<li><b>Mixed runtime:</b> generated code from a new compiler version linked against the old runtime library compiles but can mis-encode; upgrade code and runtime together.</li>
+<li><b>Hand edits to generated files</b> are lost at the next regeneration; workarounds belong in the compiler configuration or wrapper code.</li>
+<li><b>RRC is different:</b> it uses unaligned PER and a very large grammar; regenerating it touches UE-capability parsing, so re-run capability-heavy tests (CA combinations, feature sets).</li>
+</ul></div></div>
+<div style="margin:14px 0;padding:14px 16px;background:#f5a62311;border-left:3px solid #f5a623;border-radius:6px"><div style="font-weight:700;color:#f5a623;margin-bottom:8px;font-size:13px">Interview Q&amp;A</div><div style="font-size:13px;color:#c8c8d8;line-height:1.7"><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Where does a RAN stack get its F1AP or NGAP encoder/decoder from?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: An ASN.1 compiler generates C types and PER encode/decode functions from the ASN.1 text published between ASN1START and ASN1STOP in the 3GPP spec.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: An interop log says a peer IE "is ignored". What do you check first?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Which ASN.1 release each side was generated from, and the IE criticality. An older decoder skips unknown extension IEs marked ignore.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: Why do generated codecs use a per-protocol prefix?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Different protocols define types with the same names; prefixes avoid symbol clashes when they are linked into one shared library.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: What are "table unions" in generated AP code?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: The protocol-IE container value depends on the IE id through an information-object table; table unions generate a typed union per id instead of an opaque open type.</div></div><div style="margin:8px 0;padding:10px 14px;background:#1e253522;border-radius:6px"><div style="color:#f5a623;font-size:12px;font-weight:700;margin-bottom:4px">Q: After a codec upgrade, what regression would you run?</div><div style="color:#c8c8d8;font-size:12px;line-height:1.6">A: Decode/re-encode round trips on existing captures, an old/new interop matrix, criticality injection tests, and a check that Wireshark decodes the same release.</div></div></div></div>
+</div>
+</div>
+</div>
 <div class="div-line"></div>
 
 </body>
